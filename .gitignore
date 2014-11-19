@@ -1,0 +1,13 @@
+# Directories containing builds and binaries
+build/
+bin/
+target/
+
+## OS files
+# Mac OS X
+**/.DS_Store
+**/._*
+# Windows
+**/Thumbs.db
+**/Desktop.ini
+
