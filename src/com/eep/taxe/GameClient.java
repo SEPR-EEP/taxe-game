@@ -2,11 +2,17 @@ package com.eep.taxe;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Date;
 
+import javax.print.attribute.standard.DateTimeAtCompleted;
+
+import org.apache.commons.lang3.SerializationUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.eep.taxe.GameClient.StatusResponse;
+import com.github.nkzawa.emitter.Emitter.Listener;
 import com.github.nkzawa.socketio.client.Ack;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
@@ -20,24 +26,23 @@ public class GameClient {
 	/**
 	 * The Game Server URL (must be available at all times!)
 	 */
-	final static String SERVER_URL = "http://taxe.alacriter-dev.uk:8080";
+	final static String SERVER_URL = "http://localhost:8042";
 
 	/**
 	 * This holds the connection to the server (see http://socket.io)
 	 */
-	private Socket socket;
-	
-	
-	/**
-	 * This holds the GameID of the current Game, if any, null otherwise.
-	 */
-	private String gameID = null;
+	public Socket socket;
 	
 	/**
-	 * This holds my name in the current Game, if any, null otherwise.
+	 * The event to trigger on move
 	 */
-	private String myName = null;
-	private String myName = null;
+	private MoveEvent onMove = null;
+	
+
+	public enum Role {
+		MASTER, SLAVE;
+	};
+	private Role role;
 	
 
 	/**
@@ -53,6 +58,20 @@ public class GameClient {
 			System.exit(1);
 		}
 		this.socket.connect();
+		Listener moveData = new Listener() {
+			@Override
+			public void call(Object... arg0) {
+				byte b[] = new byte[arg0.length];
+				for ( int i = 0; i <= arg0.length; i++ ) {
+					b[i] = (byte) arg0[i];
+				}
+				GameData g = GameData.deserialise(b);
+				if ( getOnMove() != null )
+					getOnMove().receive(g);
+			}
+		};
+		this.socket.on("M", 	moveData);
+		this.socket.on("ET", 	moveData);
 	}
 	
 	/**
@@ -72,15 +91,7 @@ public class GameClient {
 		return this.socket != null && this.socket.connected();
 	}
 	
-	
-	/**
-	 * Checks whether there is connection and a game is in progress.
-	 * @return TRUE if connected and in game, FALSE otherwise.
-	 */
-	public Boolean isConnectedAndPlaying() {
-		return this.isConnected() && this.gameID != null;
-	}
-	
+
 	/*
 	 * ==================================
 	 * ========   LIST GAMES   ==========
@@ -103,7 +114,9 @@ public class GameClient {
 			return false;
 		}
 		this.socket.emit("LG", null, new ResponseHandler() {
-			public void call(JSONArray response) {
+			@Override
+			public void call(Object... args0) {
+				JSONArray response = (JSONArray) args0[0];
 				ArrayList<GameListItem> gameList = new ArrayList<GameListItem>();
 				for ( int i = 0; i <= response.length(); i++ ) {
 					try {
@@ -120,14 +133,7 @@ public class GameClient {
 	 * This represents an abstract response callback.
 	 * The response({response}) method must be defined.
 	 */
-	abstract class ResponseHandler implements Ack {
-		@Override
-		public void call(Object... arg0) {
-			System.out.println("Fatal Error: Unexpected response format.\n"
-					+ "The Server is talking gibberish to me, terminating.");
-			System.exit(1);
-		}
-	}
+	abstract class ResponseHandler implements Ack {	}
 	
 	/**
 	 * Represents an item in the Game List (a Game that can be joined).
@@ -135,10 +141,12 @@ public class GameClient {
 	static class GameListItem {
 		public String 	id, name;
 		public int 		difficulty;
+		public Date		created;
 		public GameListItem(JSONObject item) throws JSONException {
 			this.id 		= item.getString("id");
 			this.name 		= item.getString("name");
-			this.difficulty = item.getInt("difficulty");
+			this.difficulty = item.getInt("difficulty");	
+			this.created 	= GameClient.getDateFromISOString(item.getString("created"));
 		}
 	}
 	
@@ -150,8 +158,156 @@ public class GameClient {
 		abstract void response(ArrayList<GameListItem> gameList);
 	}
 
+	/**
+	 * Represents a status response item
+	 */
+	static class StatusItem {
+		public Boolean 	ok;
+		public String 	error = "";
+		public StatusItem(JSONObject item) throws JSONException {
+			this.ok 		= item.getBoolean("ok");
+			if ( !this.ok ) {
+				this.error  = item.getString("error");
+			}
+		}
+	}
+	
+	/**
+	 * Represents the an abstract Callback for a status response (ok=bool, error=string).
+	 * Implement response(StatusItem response) to get the data.
+	 */
+	interface StatusResponse {
+		public void response(StatusItem item);
+	}
+	
+	/**
+	 * Represents the an abstract Callback for a response containing a single game information.
+	 * Implement response(GameListItem response) to get the data.
+	 */
+	interface GameInfoResponse {
+		public void response(GameListItem item);
+	}
+	
+	/**
+	 * Represents the abstract Callback for a Game Data response
+	 * Implement receive(GameData data) to get the updated game data.
+	 */
+	interface MoveEvent {
+		public void receive(GameData data);
+	}
+	
+	/**
+	 * Async operation. Create a game if possible.
+	 * @param playerName	The name of the player
+	 * @param difficulty	The difficulty level
+	 * @param gameData		The initial game data
+	 * @param callback		Response callback
+	 * @return				TRUE if connected and request succeeds, FALSE otherwise.
+	 */
+	public Boolean createGame( String playerName, int difficulty, GameData gameData, final GameInfoResponse callback ) {
+		if ( !this.isConnected() ) {
+			return false;
+		}
+		Object[] params = {playerName, difficulty, gameData.serialise()};
+		this.socket.emit("CG", params, new ResponseHandler() {
+			
+			public void call(Object... args0) {
+				JSONObject response = (JSONObject) args0[0];
+				GameListItem item = null;
+				try {
+					item = new GameListItem(response);
+				} catch (JSONException e) { 
+					e.printStackTrace();
+				}
+				setRole(GameClient.Role.MASTER);
+				callback.response(item);
+			}
+		});
+		return true;
+	}
+
+
+	/**
+	 * Async operation. Try to join a game.
+	 * @param gameID		The ID of the Game to join
+	 * @param playerName	The name of the player to use to join
+	 * @param callback		Response callback
+	 * @return				TRUE if connected and request succeeds, FALSE otherwise.
+	 */
+	public Boolean joinGame( String gameID, String playerName, final StatusResponse callback ) {
+		if ( !this.isConnected() ) {
+			return false;
+		}
+		Object[] params = {gameID, playerName};
+		this.socket.emit("JG", params, new ResponseHandler() {
+			
+			public void call(Object... args0) {
+				JSONObject response = (JSONObject) args0[0];
+				StatusItem item = null;
+				try {
+					item = new StatusItem(response);
+				} catch (JSONException e) { 
+					e.printStackTrace();
+				}
+				if ( item.ok )
+					setRole(GameClient.Role.SLAVE);
+				callback.response(item);
+			}
+		});
+		return true;
+	}
+	
+	/**
+	 * Send move data to the opponent
+	 * If I'm a master client, send a "ET" event, "M" otherwise
+	 * @param gameData
+	 * @param statusResponse
+	 */
+	public void sendMove(GameData gameData, final StatusResponse callback) {
+		String event;
+		if ( this.getRole() == GameClient.Role.MASTER ) {
+			event = "ET";
+		} else {
+			event = "M";
+		}
+		this.socket.emit(event, gameData.serialise(), new ResponseHandler() {
+			
+			public void call(Object... args0) {
+				JSONObject response = (JSONObject) args0[0];
+				StatusItem item = null;
+				try {
+					item = new StatusItem(response);
+				} catch (JSONException e) { 
+					e.printStackTrace();
+				}
+				callback.response(item);
+			}
+		});
+		
+	}
 
 	
+	public static Date getDateFromISOString(String ISOString) {
+		return javax.xml.bind.DatatypeConverter.parseDateTime(ISOString).getTime();
+	}
+
+	public MoveEvent getOnMove() {
+		return onMove;
+	}
+
+	public void setOnMove(MoveEvent onMove) {
+		this.onMove = onMove;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+
 	/*
 	 * TODO ACTIONS
 	 */
