@@ -4,14 +4,10 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.print.attribute.standard.DateTimeAtCompleted;
-
-import org.apache.commons.lang3.SerializationUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.eep.taxe.GameClient.StatusResponse;
 import com.github.nkzawa.emitter.Emitter.Listener;
 import com.github.nkzawa.socketio.client.Ack;
 import com.github.nkzawa.socketio.client.IO;
@@ -50,8 +46,15 @@ public class GameClient {
 	 * After calling this method, you should use isConnected() to check for a connection.
 	 */
 	public void connect() {
+		
+		// Add an option to force new connections to be always created 
+		// (by default, socket.io will try and use only one connection per host,
+		//  but here we want to simulate two different clients with two different sockets)
+		IO.Options opts = new IO.Options();
+		opts.forceNew = true;
+
 		try {
-			this.socket = IO.socket(GameClient.SERVER_URL);
+			this.socket = IO.socket(GameClient.SERVER_URL, opts);
 		} catch (URISyntaxException e) {
 			System.out.println("Fatal Error: Malformed Server URI\n" 
 					+ "Please check SERVER_URL in the GameClient Class, terminating.");

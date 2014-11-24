@@ -13,7 +13,8 @@ public class GameData implements Serializable {
 
 	private static final long serialVersionUID = -8678570713750881431L;
 	
-
+	
+	
 	public String someRandomParameter = "Default value";
 	
 	/** TO FILL */
