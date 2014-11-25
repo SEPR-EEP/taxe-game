@@ -22,7 +22,7 @@ public class GameClient {
 	/**
 	 * The Game Server URL (must be available at all times!)
 	 */
-	final static String SERVER_URL = "http://localhost:8042";
+	final static String SERVER_URL = "http://taxe-server.alacriter.co.uk:8042";
 
 	/**
 	 * This holds the connection to the server (see http://socket.io)
