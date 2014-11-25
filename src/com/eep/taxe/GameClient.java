@@ -64,17 +64,16 @@ public class GameClient {
 		Listener moveData = new Listener() {
 			@Override
 			public void call(Object... arg0) {
-				byte b[] = new byte[arg0.length];
-				for ( int i = 0; i <= arg0.length; i++ ) {
-					b[i] = (byte) arg0[i];
+				if ( arg0.length != 1 ) {
+					return;
 				}
-				GameData g = GameData.deserialise(b);
+				GameData g = GameData.deserialise((byte[]) arg0[0]);
 				if ( getOnMove() != null )
 					getOnMove().receive(g);
 			}
 		};
-		this.socket.on("M", 	moveData);
-		this.socket.on("ET", 	moveData);
+		this.socket.on("PP", 	moveData);
+		this.socket.on("GS", 	moveData);
 	}
 	
 	/**
@@ -212,6 +211,7 @@ public class GameClient {
 			return false;
 		}
 		Object[] params = {playerName, difficulty, gameData.serialise()};
+		System.out.println("TYPE: " + params[2].getClass().getName());
 		this.socket.emit("CG", params, new ResponseHandler() {
 			
 			public void call(Object... args0) {
