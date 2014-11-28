@@ -4,14 +4,9 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import org.json.*;
 import com.github.nkzawa.emitter.Emitter.Listener;
-import com.github.nkzawa.socketio.client.Ack;
-import com.github.nkzawa.socketio.client.IO;
-import com.github.nkzawa.socketio.client.Socket;
+import com.github.nkzawa.socketio.client.*;
 
 /**
  * The GameClient Class represents a Network Client to the Game Server.
@@ -94,18 +89,6 @@ public class GameClient {
 	}
 	
 
-	/*
-	 * ==================================
-	 * ========   LIST GAMES   ==========
-	 * ==================================
-	 * Request...: "LG", null
-	 * Response..: [
-	 * 	{ "name":       "Jack's Game",
-	 *    "difficulty": 10 },
-	 *    ...
-	 * ]
-	 */
-	
 	/**
 	 * Async operation. Ask for a Game List.
 	 * @param Class with definition of what to do with the game list.

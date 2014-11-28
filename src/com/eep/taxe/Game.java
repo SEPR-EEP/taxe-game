@@ -52,7 +52,7 @@ public class Game {
 		
 		// Prepares some random Game Data
 		gameData = new GameData();
-		gameData.setSomeRandomParameter("J");
+		//gameData.setSomeRandomParameter("J");
 		
         String  choice;
         
@@ -65,7 +65,7 @@ public class Game {
         	// Execute appropriate function
         	switch ( choice ) {
         	case "connect":
-        		game.connect();
+        	//	game.connect();
         		break;
         	case "create":
         		game.createGame();
@@ -116,29 +116,6 @@ public class Game {
     	System.out.println("quit			Exit application");
     	System.out.println(" Please choose an option.");
     	return Game.input();
-	}
-	
-	/**
-	 * Connects the clients to the server
-	 */
-	private void connect() {
-		getClient1().connect();
-		getClient2().connect();
-		
-		getClient1().setOnMove(new MoveEvent() {
-			@Override
-			public void receive(GameData data) {
-				System.out.println("< Client 1 received data: " + data.getSomeRandomParameter());
-			}
-		});
-		
-		getClient2().setOnMove(new MoveEvent() {
-			@Override
-			public void receive(GameData data) {
-				System.out.println("< Client 2 received data: " + data.getSomeRandomParameter());
-			}
-		});
-		
 	}
 	
 	/**
@@ -239,7 +216,7 @@ public class Game {
 	private void sendData(GameClient from) {
 		String randomString = RandomStringUtils.random(5);
 		System.out.println("> Sending random string as Game Data: " + randomString);
-		gameData.setSomeRandomParameter(randomString);
+		//gameData.setSomeRandomParameter(randomString);
 		from.sendMove(gameData, new StatusResponse() {
 			@Override
 			public void response(StatusItem item) {
