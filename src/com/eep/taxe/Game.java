@@ -5,17 +5,15 @@ import java.util.concurrent.TimeUnit;
 
 import com.eep.taxe.mvc.game.*;
 import com.eep.taxe.mvc.menu.*;
-import com.eep.taxe.mvc.menu.MenuController.StartGameEvent;
-
 import com.jayway.awaitility.Awaitility;
 
 
 
-public class Game {
+public class Game extends Awaitility {
 
 	private static GameClient client 	= null;
 	
-	public final static int TIMEOUT = 15;
+	public final static int TIMEOUT = 5;
 	
 	public static void main(String[] args) {
 
@@ -25,7 +23,7 @@ public class Game {
 		client.connect();
 		
 		// Wait for connection, at most TIMEOUT seconds
-		Awaitility.await().atMost(TIMEOUT, TimeUnit.SECONDS).until(new Callable<Boolean>() {@Override
+		await().atMost(TIMEOUT, TimeUnit.SECONDS).until(new Callable<Boolean>() {@Override
 			public Boolean call() {
 				return client.isConnected();
 			}
@@ -36,6 +34,8 @@ public class Game {
 			System.out.println("Timeout, connection failed. Terminating.");
 			System.exit(1);
 		}
+		
+		System.out.println("Conected, starting GUI...");
 		
 		// Start Menu MVC
 		MenuView 		menuView 		= new MenuView();
