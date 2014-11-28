@@ -2,7 +2,7 @@ package com.eep.taxe.models;
 
 import java.io.Serializable;
 
-public interface TrainSpeedModifierInterface extends Serializable {
+public interface TrainSpeedModifierInterface extends UsableInterface, Serializable {
 
 	public float		getSpeedFactor();					// Get the Speed Factor of the Modifier
 	public void			setSpeedFactor(float newFactore);	// Set the Speed Factor of the Modifier

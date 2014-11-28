@@ -1,5 +1,7 @@
 package com.eep.taxe.models;
 
-public class Resource implements ResourceInterface {
+import java.sql.Date;
+
+public abstract class Resource implements ResourceInterface {
 
 }
