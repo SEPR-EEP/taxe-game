@@ -7,7 +7,9 @@ public class Age implements AgeInterface {
 	static enum Ages {
 		FIRST, SECOND, THIRD, FOURTH;
 	}
-
+	
+	Ages age;
+	
 	@Override
 	public int compareTo(Age o) {
 		// TODO Auto-generated method stub

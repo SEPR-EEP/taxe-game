@@ -14,7 +14,7 @@ public interface PlayerInterface extends Comparable<Player>, Serializable {
 	
 	public int 				getGoalsCompleted();						// Get the number of completed goals in the game
 	public int 				setGoalsCompleted(int newGoalsCompleted);	// Set the number of completed goals in the game
-	public int 				addGoalsCompleted(int delta);				// Increment the number of completed goals
+	public int 				incrementGoalsCompleted(int delta);			// Increment the number of completed goals
 	public Age 				getCurrentAge();							// Get the current age for the player
 	
 	public Vector<Resource> getInventory();								// Get the list of the player resources

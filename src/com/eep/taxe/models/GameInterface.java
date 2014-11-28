@@ -20,7 +20,7 @@ public interface GameInterface extends AgeRelatedInterface, Serializable {
 	public int 				currentTurn(); 					// Get the counter for the current turn 
 	public GameClient.Role 	currentRole();					// Get the current half of the turn, in order:
 															// GameClient.Role.SLAVE or GameClient.Role.MASTER
-	public void 			progress();						// Compute turn data and increment current role/turn
+	public void 			endTurn();						// Compute turn data and increment current role/turn
 	
 	public Boolean 			hasFinished();					// Compute if the current game has finished
 	
