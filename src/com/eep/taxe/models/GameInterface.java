@@ -24,7 +24,7 @@ public interface GameInterface extends AgeRelatedInterface, Serializable {
 	
 	public Boolean 			hasFinished();					// Compute if the current game has finished
 	
-	
+	public Vector<Vetex>	getVertices();					// Get the list of Vertices of the Game
 	
 	
 }
