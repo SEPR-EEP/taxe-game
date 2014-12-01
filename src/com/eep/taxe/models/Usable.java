@@ -1,11 +1,12 @@
 package com.eep.taxe.models;
+import com.eep.taxe.models.Age.Ages;
 
 public abstract class Usable extends Resource implements UsableInterface{
 	
 	private int costInGold;
 	private int costInMetal;
-	private Age age;
-
+	private Ages age;
+	
 	/**
 	 * Instantiates a Usable Resource
 	 * @param name Name of Resource
@@ -14,7 +15,7 @@ public abstract class Usable extends Resource implements UsableInterface{
 	 * @param costInMetal Cost in Metal for the Resource
 	 * @param age Associated Age for the Resource
 	 */
-	public Usable(String name, String image, int costInGold, int costInMetal, Age age) {
+	public Usable(String name, String image, int costInGold, int costInMetal, Ages age) {
 		super(name, image);
 		this.costInGold = costInGold;
 		this.costInMetal = costInMetal;
@@ -48,13 +49,12 @@ public abstract class Usable extends Resource implements UsableInterface{
 	/** Get the associated Age for the Resource */
 	@Override
 	public Age getAge() {
-		return age;
+		return new Age(this.age);
 	}
 
 	/** Set the associated Age for the Resource */
 	@Override
-	public void setAge(Age age) {
+	public void setAge(Ages age) {
 		this.age = age;
 	}
-	
 }
