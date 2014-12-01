@@ -10,8 +10,15 @@ public abstract class Vertex implements VertexInterface {
 	private int				x, y;
 	private Vector<Route>	list;
 	
-	public Vertex() {
+	/**
+	 * Creates a Vertex, given the coordinates
+	 * @param cx	The X-Coordinate of the Vertex
+	 * @param xy	The Y-Coordinate of the Vertex
+	 */
+	public Vertex(int cx, int cy) {
 		this.list = new Vector<Route>();
+		this.setX(cx);
+		this.setY(cy);
 	}
 	
 	/**
