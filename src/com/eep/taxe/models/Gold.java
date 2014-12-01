@@ -2,13 +2,15 @@ package com.eep.taxe.models;
 
 public class Gold extends Spendable {
 
+	private static final long serialVersionUID = 5922318445995842094L;
+	
+	private final static String GOLD_IMG = "images/gold.png";
+	
 	/**
 	 * Instantiates a Gold Spendable Resource
-	 * @param name Name of Resource
-	 * @param image Image URI for the Resource
 	 */
-	public Gold(String name, String image) {
-		super(name, image);
+	public Gold() {
+		super("Gold", GOLD_IMG);
 	}
 
 }

@@ -2,8 +2,6 @@ package com.eep.taxe.models;
 
 public abstract class Usable extends Resource implements UsableInterface{
 	
-	private static final long serialVersionUID = -5440240946879025214L;
-	
 	private int costInGold;
 	private int costInMetal;
 	private Age age;

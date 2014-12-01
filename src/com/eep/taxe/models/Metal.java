@@ -2,13 +2,15 @@ package com.eep.taxe.models;
 
 public class Metal extends Spendable {
 
+	private static final long serialVersionUID = -304393010412479724L;
+	
+	private final static String METAL_IMG = "images/metal.png";
+
 	/**
 	 * Instantiates a Metal Spendable Resource
-	 * @param name Name of Resource
-	 * @param image Image URI for the Resource
 	 */
-	public Metal(String name, String image) {
-		super(name, image);
+	public Metal() {
+		super("Metal", METAL_IMG);
 	}
 
 }

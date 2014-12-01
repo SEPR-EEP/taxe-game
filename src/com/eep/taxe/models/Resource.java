@@ -2,8 +2,6 @@ package com.eep.taxe.models;
 
 public abstract class Resource implements ResourceInterface {
 	
-	private static final long serialVersionUID = -347324730007983264L;
-	
 	private String name;
 	private String image;
 	
