@@ -5,8 +5,8 @@ import java.util.Vector;
 
 public interface AgeInterface extends Comparable<Age>, Serializable {
 
-	public Age 				Age(int obstaclesCompleted);		// Create Age object from number of obstacles completed
-	public Age 				Age(Age.Ages age);					// Create Age object from Age enum
+	//public Age 				Age(int goalsCompleted);		    // Create Age object from number of goals completed
+	//public Age 				Age(Age.Ages age);					// Create Age object from Age enum
 
 	public String 			getName();							// Get the name of the Age
 	public String 			getDescription();					// Get a description of the Age

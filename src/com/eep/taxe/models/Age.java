@@ -16,28 +16,74 @@ public class Age implements AgeInterface {
 		return 0;
 	}
 
-	@Override
-	public Age(int obstaclesCompleted) {
-		// TODO Auto-generated method stub
-		return null;
+	public Age(int goalsCompleted) {
+		
+		if (goalsCompleted < 5) {
+			this.age = Ages.FIRST;
+		}
+		else if (goalsCompleted >= 5 && goalsCompleted < 10) {
+			this.age = Ages.SECOND;
+		}
+		else if (goalsCompleted >= 10 && goalsCompleted < 15) {
+			this.age = Ages.THIRD;
+		}
+		else {
+			this.age = Ages.FOURTH;
+		}
 	}
 
-	@Override
 	public Age(Ages age) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		switch (age) {
+			case FIRST:
+				this.age = Ages.FIRST;
+			case SECOND:
+				this.age = Ages.SECOND;
+			case THIRD:
+				this.age = Ages.THIRD;
+			case FOURTH:
+				this.age = Ages.FOURTH;
+			default:
+				break;
+		}
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String name = "";
+		switch (age) {
+			case FIRST:
+				name = "Steam Age";
+			case SECOND:
+				name = "Combustion Engine Age";
+			case THIRD:
+				name = "Electrical Age";
+			case FOURTH:
+				name = "Futuristic Age";
+			default:
+				break;
+		}
+		return name;
 	}
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String description = "";
+		switch (age) {
+			case FIRST:
+				description = ""; // Needs to be written
+			case SECOND:
+				description = ""; // Needs to be written
+			case THIRD:
+				description = ""; // Needs to be written
+			case FOURTH:
+				description = ""; // Needs to be written
+			default:
+				break;
+			}
+		return description;
 	}
 
 	@Override
