@@ -8,4 +8,6 @@ public interface UsableInterface extends ResourceInterface {
 	public int 				getCostInMetal();				// Get the cost in Metal for the Resource
 	public void				setCostInMetal(int newCost);	// Set the cost in Metal for the Resource
 	
+	public Age				getAge();						// Get the associated Age for the Resource
+	public void				setAge(Age age);				// Set the associated Age for the Resource
 }
