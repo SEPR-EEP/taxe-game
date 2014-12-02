@@ -9,21 +9,12 @@ public class Train implements TrainInterface {
 	
 	@Override
 	public Age getAge() {
-		// TODO Auto-generated method stub
 		return new Age(this.trainAge);
 	}
 
 	@Override
 	public void setAge(Ages age) {
-		// TODO Auto-generated method stub
 		trainAge = age;
-	}
-
-	@Override
-	public void setAge(Age age) {
-		// TODO Auto-generated method stub
-		trainAge = age.age;
-		
 	}
 
 	@Override
@@ -40,13 +31,11 @@ public class Train implements TrainInterface {
 
 	@Override
 	public float getSpeed() {
-		// TODO Auto-generated method stub
 		return this.speed;
 	}
 
 	@Override
 	public void setSpeed(float newSpeed) {
-		// TODO Auto-generated method stub
 		this.speed = newSpeed;
 	}
 
