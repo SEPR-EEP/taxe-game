@@ -5,6 +5,7 @@ import com.eep.taxe.models.Age.Ages;
 public class Train implements TrainInterface {
 
 	private Ages trainAge;
+	private float speed;
 	
 	@Override
 	public Age getAge() {
@@ -23,6 +24,30 @@ public class Train implements TrainInterface {
 		// TODO Auto-generated method stub
 		trainAge = age.age;
 		
+	}
+
+	@Override
+	public int calculateSpeed() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int moveForward() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public float getSpeed() {
+		// TODO Auto-generated method stub
+		return this.speed;
+	}
+
+	@Override
+	public void setSpeed(float newSpeed) {
+		// TODO Auto-generated method stub
+		this.speed = newSpeed;
 	}
 
 	
