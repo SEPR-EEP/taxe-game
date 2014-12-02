@@ -77,11 +77,12 @@ public abstract class Vertex implements VertexInterface {
 	}
 	
 	/**
-	 * 
+	 * Calculate and return the shortest path to 
 	 */
-	public Vector<Edge>		shortestPathTo(Vertex d) {
-		return edges;
-		
+	public Path 	shortestPathTo(Vertex d) {
+		Path p = new Path();
+		// TODO Dijkstra's Algorithm
+		return p;
 	}
 
 }

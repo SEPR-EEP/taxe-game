@@ -13,6 +13,6 @@ public interface VertexInterface extends Serializable {
 	public Boolean 			addEdge(Edge edge);			// Add an edge
 	public Vector<Edge>		getEdges();					// Get the list of edges
 	
-	public Vector<Edge>		shortestPathTo(Vertex d);	// Get the shortest path to another Vertex
+	public Path				shortestPathTo(Vertex d);	// Get the shortest path to another Vertex
 		
 }
