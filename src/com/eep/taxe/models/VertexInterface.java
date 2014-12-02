@@ -10,8 +10,9 @@ public interface VertexInterface extends Serializable {
 	public void 			setX(int newX);				// Set the X-coordinate for the Vertex
 	public void 			setY(int newY);				// Set the Y-coordinate for the Vertex
 	
-	public Boolean 			addRoute(Route route);		// Add a route
-	public Vector<Route>	getRoutes();				// Get the list of routes
+	public Boolean 			addEdge(Edge edge);			// Add an edge
+	public Vector<Edge>		getEdges();					// Get the list of edges
 	
-	
+	public Vector<Edge>		shortestPathTo(Vertex d);	// Get the shortest path to another Vertex
+		
 }

@@ -3,7 +3,7 @@ package com.eep.taxe.models;
 import java.io.Serializable;
 import java.util.Vector;
 
-public interface RouteInterface extends Comparable<Route>, Serializable {
+public interface EdgeInterface extends Comparable<Edge>, Serializable {
 	
 	public Vector<Vertex>		getVertices();					// Get the list of 2 vertices of the route
 	public Boolean				setVertices(Vector<Vertex> v);	// Set the list of 2 vertices of the route

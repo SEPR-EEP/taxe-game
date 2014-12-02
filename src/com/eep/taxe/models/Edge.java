@@ -2,7 +2,7 @@ package com.eep.taxe.models;
 
 import java.util.Vector;
 
-public class Route implements RouteInterface {
+public class Edge implements EdgeInterface {
 
 	private static final long serialVersionUID = 4282570702049403650L;
 	
@@ -19,7 +19,7 @@ public class Route implements RouteInterface {
 	/**
 	 * Instantiate a new Route
 	 */
-	public Route() {
+	public Edge() {
 		this.vertices = new Vector<Vertex>();
 	}
 	
@@ -29,7 +29,7 @@ public class Route implements RouteInterface {
 	 * @param	to		Second Vertex
 	 * @param 	length	Length of the Vertex
 	 */
-	public Route(Vertex from, Vertex to, int length) {
+	public Edge(Vertex from, Vertex to, int length) {
 		this.vertices = new Vector<Vertex>();
 		this.addVertex(from);
 		this.addVertex(to);
@@ -41,7 +41,7 @@ public class Route implements RouteInterface {
 	 * @param o 	A second route to compare this to
 	 */
 	@Override
-	public int compareTo(Route o) {
+	public int compareTo(Edge o) {
 		return 
 				Integer.valueOf(this.getLength()).compareTo(
 					Integer.valueOf(o.getLength())
@@ -94,7 +94,7 @@ public class Route implements RouteInterface {
 			return false;
 		}
 		return ( 
-				v.addRoute(this) 
+				v.addEdge(this) 
 				&& this.vertices.add(v) 
 		);
 	}
