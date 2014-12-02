@@ -2,13 +2,17 @@ package com.eep.taxe.models;
 
 import java.util.Vector;
 
+/**
+ * Represents an abstract Vertex on the map graph.
+ * Concrete implementations of a Vertex are Stations and Junctions.
+ */
 public abstract class Vertex implements VertexInterface {
 	
 
 	private static final long serialVersionUID = -8107239853009459192L;
 	
 	private int				x, y;
-	private Vector<Route>	list;
+	private Vector<Edge>	edges;
 	
 	/**
 	 * Creates a Vertex, given the coordinates
@@ -16,7 +20,7 @@ public abstract class Vertex implements VertexInterface {
 	 * @param xy	The Y-Coordinate of the Vertex
 	 */
 	public Vertex(int cx, int cy) {
-		this.list = new Vector<Route>();
+		this.edges = new Vector<Edge>();
 		this.setX(cx);
 		this.setY(cy);
 	}
@@ -54,23 +58,31 @@ public abstract class Vertex implements VertexInterface {
 	}
 	
 	/**
-	 * Add a Route to the adjacency list of the Vertex
-	 * @param	A route containing this Vertex
-	 * @return 	TRUE if the Route is valid and could be inserted
+	 * Add an Edge to the adjacency list of the Vertex
+	 * @param	An Edge containing this Vertex
+	 * @return 	TRUE if the Edge is valid and could be inserted
 	 */
-	public Boolean addRoute(Route route) {
-		if ( !route.hasVertex(this) ) {
+	public Boolean addEdge(Edge edge) {
+		if ( !edge.hasVertex(this) ) {
 			return false;
 		}
-		return this.list.add(route);
+		return this.edges.add(edge);
 	}
 	
 	/**
-	 * Gets the adjacency list of the vertex (the list of Routes)
+	 * Gets the adjacency list of the vertex (the list of Edges)
 	 */
-	public Vector<Route> getRoutes() {
-		return this.list;
+	public Vector<Edge> getEdges() {
+		return this.edges;
 	}
 	
-	
+	/**
+	 * Calculate and return the shortest path to 
+	 */
+	public Path 	shortestPathTo(Vertex d) {
+		Path p = new Path();
+		// TODO Dijkstra's Algorithm
+		return p;
+	}
+
 }
