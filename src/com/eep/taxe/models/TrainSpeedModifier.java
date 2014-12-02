@@ -1,4 +1,5 @@
 package com.eep.taxe.models;
+import com.eep.taxe.models.Age.Ages;
 
 public class TrainSpeedModifier extends Usable implements TrainSpeedModifierInterface {
 
@@ -19,7 +20,7 @@ public class TrainSpeedModifier extends Usable implements TrainSpeedModifierInte
 	 * @param speedFactor Speed factor for the Modifier
 	 */
 	public TrainSpeedModifier(String name, String image, int costInGold,
-			int costInMetal, Age age, float speedFactor) {
+			int costInMetal, Ages age, float speedFactor) {
 		super(name, image, costInGold, costInMetal, age);
 		this.speedFactor = speedFactor;
 		this.inUse = false;

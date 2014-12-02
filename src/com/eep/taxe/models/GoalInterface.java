@@ -10,10 +10,10 @@ public interface GoalInterface extends AgeRelatedInterface, Serializable {
 	public String 			getLongDescription();				// Get the long description of the goal
 	public void 			setLongDescription(String s);		// Set the long description of the goal
 	
-	public Vertex 			getStartingPoint();					// Get the starting Vertex for the Goal
-	public Vertex 			getEndingPoint();					// Get the ending Vertex for the Goal
-	public void				setStartingPoint(Vertex v);			// Set the starting Vertex for the Goal
-	public void 			setEndingPoint(Vertex v);			// Set the ending Vertex for the Goal
+	public Station 			getStartingStation();				// Get the starting Station for the Goal
+	public Station 			getEndingStation();					// Get the ending Station for the Goal
+	public void				setStartingStation(Station s);		// Set the starting Vertex for the Goal
+	public void 			setEndingStation(Station s);		// Set the ending Vertex for the Goal
 	
 	public int 				calculateReward();					// Calculate the Score Reward for the Goal
 	public Boolean			canBeAccomplishedBy(Player p);		// Check if Player can accomplish the Goal
