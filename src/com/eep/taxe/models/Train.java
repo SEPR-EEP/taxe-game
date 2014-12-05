@@ -4,8 +4,29 @@ import com.eep.taxe.models.Age.Ages;
 
 public class Train implements TrainInterface {
 
+	private String trainModel;
 	private Ages trainAge;
-	private float speed;
+	private final float baseSpeed;
+	private float actualSpeed;
+	private Journey trainJourney;
+	
+	public Train(String model, Ages trainAge, float baseSpeed){
+		this.trainModel = model;
+		this.trainAge = trainAge;
+		this.baseSpeed = baseSpeed;
+		this.actualSpeed = baseSpeed;
+		this.trainJourney = null;
+	}
+	
+	@Override
+	public String getModel() {
+		return trainModel;
+	}
+
+	@Override
+	public void setModel(String model) {
+		this.trainModel = model;
+	}
 	
 	@Override
 	public Age getAge() {
@@ -18,26 +39,35 @@ public class Train implements TrainInterface {
 	}
 
 	@Override
-	public int calculateSpeed() {
-		// TODO Auto-generated method stub
-		return 0;
+	public float getSpeed() {
+		return this.actualSpeed;
 	}
 
+	@Override
+	public float getBaseSpeed() {
+		return this.baseSpeed;
+	}
+
+	@Override
+	public void applyModifierToSpeed(float speedFactor) {
+		this.actualSpeed = this.baseSpeed * speedFactor;
+	}
+	
+	@Override
+	public void removeAllModifiersToSpeed() {
+		this.actualSpeed = this.baseSpeed;
+	}
+	
+	@Override
+	public void startAGoal(Goal goal) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	@Override
 	public int moveForward() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
-	public float getSpeed() {
-		return this.speed;
-	}
-
-	@Override
-	public void setSpeed(float newSpeed) {
-		this.speed = newSpeed;
-	}
-
-	
 }
