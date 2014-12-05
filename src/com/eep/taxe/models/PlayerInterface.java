@@ -18,10 +18,10 @@ public interface PlayerInterface extends Comparable<Player>, Serializable {
 	public Age 				getCurrentAge();							// Get the current age for the player
 	
 	public Vector<Resource> getInventory();								// Get the list of the player resources
-	public Boolean 			hasResource(Resource resource);				// Check if a player has a given resource
+	public boolean 			hasResource(Resource resource);				// Check if a player has a given resource
 	public int 				countResource(Resource resource);			// Counts occurrences of a given resource type
 	
-	public Boolean 			canBuy(Usable resource);					// Check if the player has enough resources to buy
+	public boolean 			canBuy(Usable resource);					// Check if the player has enough resources to buy
 	public void 			buy(Usable resource);						// Add element to the inventory and decrement resources
 	
 	public int 				getGold();									// Get the amount of gold
@@ -32,13 +32,13 @@ public interface PlayerInterface extends Comparable<Player>, Serializable {
 	public int				reduceMetal(int delta);						// Reduce metal of the player 
 	
 	public Vector<Train> 	getTrains();								// Get the list of trains of the player
-	public Boolean			canBuyTrain(Train train);					// Check if the player has enough resources to buy
+	public boolean			canBuyTrain(Train train);					// Check if the player has enough resources to buy
 	public void 			buyTrain(Train train);						// Add a train and decrement metal and gold
 	public void 			sellTrain(Train train);						// Sell the train and increment metal and gold
 		
 	public int 				currentGoalsNo();							// Get the number of current goals for the player
 	public Vector<Goal> 	getCurrentGoals();							// Get the list of the current goals of the player
 	public void 			generateGoal();								// Generate a Random Goal and add it to the Current Goals
-	public Boolean			canAccomplish(Goal goal);					// Check if a player can accomplish a given goal
+	public boolean			canAccomplish(Goal goal);					// Check if a player can accomplish a given goal
 	
 }
