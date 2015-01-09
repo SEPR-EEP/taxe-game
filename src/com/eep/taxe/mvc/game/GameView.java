@@ -1,32 +1,19 @@
 package com.eep.taxe.mvc.game;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
-import net.miginfocom.swing.MigLayout;
-
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-
-import com.eep.taxe.mvc.menu.MenuView2;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
-import java.awt.Color;
-import java.awt.GridBagLayout;
+import java.awt.Font;
 
-import javax.swing.border.LineBorder;
-import javax.swing.plaf.DimensionUIResource;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class GameView extends javax.swing.JFrame {
 
@@ -80,18 +67,37 @@ public class GameView extends javax.swing.JFrame {
 				miniMapPanel.setBackground(Color.MAGENTA);
 		
 			JPanel topPanel = new JPanel();
-			topPanel.setPreferredSize(new Dimension(WIDTH, WIDTH/16));
+			topPanel.setPreferredSize(new Dimension(WIDTH, WIDTH/32));
 			topPanel.setBackground(Color.PINK);
+			topPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 //			topPanel.setOpaque(false);
-
+				
+				Font topPanelFont = new Font(Font.SANS_SERIF, Font.BOLD, 16);
+				
+				JTextField timer = new JTextField();
+				timer.setText("00:00");
+				timer.setPreferredSize(new Dimension(WIDTH*1/20, WIDTH*1/48));
+				timer.setFont(topPanelFont);
+				timer.setEditable(false);
+				timer.setHorizontalAlignment(JTextField.CENTER);
+				timer.setLayout(new FlowLayout(FlowLayout.CENTER));
+				
+				JButton menu = new JButton();
+				menu.setText("MENU");
+				menu.setFont(topPanelFont);
+				menu.setPreferredSize(new Dimension(WIDTH*1/16, WIDTH*1/48));
 		
 			JPanel leftPanel = new JPanel();
 			leftPanel.setPreferredSize(new Dimension(WIDTH/8, HEIGHT));
 			leftPanel.setBackground(Color.GREEN);
-//			topPanel.setOpaque(false);
+//			leftPanel.setOpaque(false);
+				
+				
 
 		
 			gameMenuPanel.add(leftPanel, BorderLayout.WEST);
+				topPanel.add(timer);
+				topPanel.add(menu);
 			gameMenuPanel.add(topPanel, BorderLayout.NORTH);
 			gameMenuPanel.add(infoPanel, BorderLayout.EAST);
 				inventoryContainer.add(inventoryPanel, BorderLayout.SOUTH);
@@ -101,28 +107,10 @@ public class GameView extends javax.swing.JFrame {
 		mainMapPanel.add(gameMenuPanel);
 		getContentPane().add(mainMapPanel);
 		
-		JLabel background = new JLabel("New label");
-		background.setIcon(new ImageIcon(getClass().getResource("resources/Railroad Tacks.jpg")));
-		background.setSize(784, 562);
-		background.setLocation(0, 0);
-		getContentPane().add(background);
-		
 
 		this.setVisible(true);
 
 	}
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GameView frame = new GameView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		
-	}
+
 }
