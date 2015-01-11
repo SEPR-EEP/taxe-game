@@ -188,7 +188,7 @@ public class Player implements PlayerInterface {
 
 	@Override
 	public Vector<Goal> getCurrentGoals() {
-		return this.currentGoals();
+		return this.currentGoals;
 	}
 
 	@Override
