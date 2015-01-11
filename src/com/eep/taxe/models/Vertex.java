@@ -64,7 +64,7 @@ public abstract class Vertex implements VertexInterface {
 	 * @param	An Edge containing this Vertex
 	 * @return 	TRUE if the Edge is valid and could be inserted
 	 */
-	public Boolean addEdge(Edge edge) {
+	public boolean addEdge(Edge edge) {
 		if ( !edge.hasVertex(this) ) {
 			return false;
 		}

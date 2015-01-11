@@ -12,19 +12,19 @@ public class Edge implements EdgeInterface {
 	private Vector<Vertex> vertices; 
 	
 	/**
-	 * The length of the Route
+	 * The length of the edge
 	 */
 	private int length = 0;
 	
 	/**
-	 * Instantiate a new Route
+	 * Instantiate a new edge
 	 */
 	public Edge() {
 		this.vertices = new Vector<Vertex>();
 	}
 	
 	/**
-	 * Instantiate a new Route, with Vertices and Length
+	 * Instantiate a new edge, with Vertices and Length
 	 * @param 	from 	First Vertex
 	 * @param	to		Second Vertex
 	 * @param 	length	Length of the Vertex
@@ -37,8 +37,8 @@ public class Edge implements EdgeInterface {
 	}
 	
 	/**
-	 * Compare with a second Route by length
-	 * @param o 	A second route to compare this to
+	 * Compare with a second edge by length
+	 * @param o 	A second edge to compare this to
 	 */
 	@Override
 	public int compareTo(Edge o) {
@@ -58,12 +58,12 @@ public class Edge implements EdgeInterface {
 	}
 
 	/**
-	 * Set the list of vertices of the route
+	 * Set the list of vertices of the edge
 	 * @param v 	A Vector of exactly 2 vertices
 	 * @return 		TRUE if the vector is valid, FALSE otherwise
 	 */
 	@Override
-	public Boolean setVertices(Vector<Vertex> v) {
+	public boolean setVertices(Vector<Vertex> v) {
 		if (v.size() != 2) {
 			return false;
 		}
@@ -74,43 +74,40 @@ public class Edge implements EdgeInterface {
 	}
 
 	/**
-	 * Check if the route touches a given vertex
-	 * @param o 	The Vertex to check for existence in the Route
-	 * @return		TRUE if the Vertex is part of the Route, FALSE otherwise
+	 * Check if the edge touches a given vertex
+	 * @param o 	The Vertex to check for existence in the edge
+	 * @return		TRUE if the Vertex is part of the edge, FALSE otherwise
 	 */
 	@Override
-	public Boolean hasVertex(Vertex o) {
+	public boolean hasVertex(Vertex o) {
 		return this.vertices.contains(o);
 	}
 
 	/**
-	 * Adds a Vertex to the route
+	 * Adds a Vertex to the edge
 	 * @param 	v	The Vertex to add
 	 * @return 		TRUE if insertion successful, FALSE otherwise
 	 */
 	@Override
-	public Boolean addVertex(Vertex v) {
+	public boolean addVertex(Vertex v) {
 		if ( this.vertices.size() > 2 ) {
 			return false;
 		}
-		return ( 
-				v.addEdge(this) 
-				&& this.vertices.add(v) 
-		);
+		return this.vertices.add(v) && v.addEdge(this);
 	}
 	
 	/**
-	 * Given a Vertex in the route, return the other vertex
-	 * @param	o	A Vertex of this Route
-	 * @return 		The other Vertex, NULL if none or if the input Vertex does not belong to this route
+	 * Given a Vertex in the edge, return the other vertex
+	 * @param	o	A Vertex of this Edge
+	 * @return 		The other Vertex, NULL if none or if the input Vertex does not belong to this edge
 	 */
 	@Override
 	public Vertex other(Vertex o) {
-		// If the vertex is not in the route, return NULL
+		// If the vertex is not in the edge, return NULL
 		if ( !this.hasVertex(o) ) {
 			return null;
 		}
-		// If the Route does not have 2 vertices, return NULL
+		// If the edge does not have 2 vertices, return NULL
 		if ( this.vertices.size() != 2 ) {
 			return null;
 		}
@@ -121,7 +118,7 @@ public class Edge implements EdgeInterface {
 	}
 
 	/**
-	 * Returns the length of the Route
+	 * Returns the length of the edge
 	 */
 	@Override
 	public int getLength() {
@@ -129,13 +126,22 @@ public class Edge implements EdgeInterface {
 	}
 
 	/**
-	 * Sets the length of the route
+	 * Sets the length of the edge
 	 */
 	@Override
 	public void setLength(int newLength) {
 		this.length = newLength;
 	}
 
+	/**
+	 * Pritns the name of the stations aroud 
+	 */
+	public void printStationNames() {
+		for (Vertex x: this.getVertices()) {
+			Station s = (Station) x;
+			System.out.println("  - " + s.getName());
+		}
+	}
 
 
 }

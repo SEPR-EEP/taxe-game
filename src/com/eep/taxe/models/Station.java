@@ -37,5 +37,22 @@ public class Station extends Vertex implements StationInterface {
 		this.name = newName;
 	}
 	
-	
+	/**
+	 * Prints adjacent stations (and routes)
+	 */
+	public void printAdjacentStations() {
+		
+		for ( Edge e: this.getEdges() ) {
+			Station s1 = null, s2 = null;
+			if ( e.getVertices().size() >= 1 ) {
+				s1 = (Station) e.getVertices().get(0);
+			}
+			if ( e.getVertices().size() >= 2 ) {
+				s2 = (Station) e.getVertices().get(1);
+			}
+			System.out.println("- " + e.getLength() + " km path from " +
+					(s2 == null ? "NOTHING" : s1.getName() ) + " to " + (s2 == null ? "NOTHING" : s2.getName()));
+		
+		}
+	}
 }
