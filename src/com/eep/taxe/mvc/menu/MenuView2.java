@@ -105,7 +105,7 @@ public class MenuView2 extends JFrame {
 		
 		//BACKGOUND 
 		JLabel background = new JLabel("New label");
-		background.setIcon(new ImageIcon(getClass().getResource("Railroad Tacks.jpg")));
+		background.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
 		background.setSize(784, 562);
 		background.setLocation(0, 0);
 		contentPane.add(background);
