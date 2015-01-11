@@ -26,46 +26,50 @@ public class TrainSpeedModifier extends Usable implements TrainSpeedModifierInte
 		this.inUse = false;
 	}
 	
-	/** Get the Speed Factor of the Modifier */
+	/** Get the Speed Factor of the Modifier
+	 * @return Speed factor of the Modifier */
 	@Override
 	public float getSpeedFactor() {
 		return this.speedFactor;
 	}
 
-	/** Set the Speed Factor of the Modifier */
+	/** Set the Speed Factor of the Modifier
+	 * @param	newFactor	The new speed factor of the modifier */
 	@Override
 	public void setSpeedFactor(float newFactor) {
 		this.speedFactor = newFactor;
 		
 	}
 
-	/** Use the Resource on a train */
+	/** Use the Modifier on a train
+	 * @param 	train		The train to use the Modifier on  */
 	@Override
 	public void useOnTrain(Train train) {
 		this.train = train;
 		this.inUse = true;
 		
-		// TODO Will use a method from Train to modify its speed
-				
+		train.applyModifierToSpeed(speedFactor);
 	}
 	
 	/** Stop the Resource being used on a train */
 	@Override
 	public void stopUseOnTrain(){
 		if (this.isInUse()){
-			this.inUse = false;
-			// TODO Will use a method from Train to modify its speed
 			
+			this.inUse = false;
+			train.removeModifierToSpeed(speedFactor);
 		}
 	}
 
-	/** Check if the Resource is in use */
+	/** Check if the Resource is in use
+	 * @return True if the Resource is in use */
 	@Override
 	public Boolean isInUse() {
 		return this.inUse;
 	}
 
-	/** Return the Train the resource is used on, NULL if not in use */
+	/** Get the train that the resource is used on
+	 * @return	The train the resource is used on, NULL if not in use */
 	@Override
 	public Train usedOnTrain() {
 		if (! this.isInUse()){
