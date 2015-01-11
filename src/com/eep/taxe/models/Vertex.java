@@ -79,16 +79,6 @@ public abstract class Vertex implements VertexInterface {
 	}
 	
 	/**
-	 * Calculate and return the shortest path to 
-	 */
-	public Path shortestPathTo(Vertex d) {
-		Path p = new Path();
-		
-		// TODO Dijkstra's Algorithm
-		return p;
-	}
-	
-	/**
 	 * Gets the Edge to a given Vertex (or null if none)
 	 * @param 	The target Vertex
 	 */
