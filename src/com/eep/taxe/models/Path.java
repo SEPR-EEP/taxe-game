@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.Vector;
 
 public class Path extends Vector<Edge> implements Serializable {
-
+	
 	private static final long serialVersionUID = 7893406019421382154L;
-
+	
 	/**
 	 * Calculate the total length of the Path
 	 * @return	The total length of the path

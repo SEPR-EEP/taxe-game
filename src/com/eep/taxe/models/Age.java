@@ -12,8 +12,66 @@ public class Age implements AgeInterface {
 	
 	@Override
 	public int compareTo(Age o) {
-		// TODO Auto-generated method stub
-		return 0;
+		/* Compares age of this object to age of parameter object.
+		 * Returns 0 if they are equal
+		 *         1 if age of this object is greater than the age of the parameter object
+		 *         -1 if age of this object is less than the age of the parameter object */
+		switch (age) {
+			case FIRST:
+				switch (o.age) {
+					case FIRST:
+						return 0;
+					case SECOND:
+						return -1;
+					case THIRD:
+						return -1;
+					case FOURTH:
+						return -1;
+					default:
+						break;
+				}
+			case SECOND:
+				switch (o.age) {
+					case FIRST:
+						return 1;
+					case SECOND:
+						return 0;
+					case THIRD:
+						return -1;
+					case FOURTH:
+						return -1;
+					default:
+						break;
+				}
+			case THIRD:
+				switch (o.age) {
+					case FIRST:
+						return 1;
+					case SECOND:
+						return 1;
+					case THIRD:
+						return 0;
+					case FOURTH:
+						return -1;
+					default:
+						break;
+				}
+			case FOURTH:
+				switch (o.age) {
+					case FIRST:
+						return 1;
+					case SECOND:
+						return 1;
+					case THIRD:
+						return 1;
+					case FOURTH:
+						return 0;
+					default:
+						break;
+				}
+			default:
+				return 0;
+			}
 	}
 
 	public Age(int goalsCompleted) {
