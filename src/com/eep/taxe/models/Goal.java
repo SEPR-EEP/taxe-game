@@ -103,8 +103,9 @@ public class Goal implements GoalInterface {
 	/** Calculate duration of the Goal */
 	@Override
 	public int estimateDuration() {
-		// TODO Auto-generated method stub
-		return this.getStartingStation().shortestPathTo(this.getEndingStation());
+		// TODO Method should estimate duration using Dijkstra's algorithm on the graph of vertices
+		//return this.getStartingStation().shortestPathTo(this.getEndingStation());
+		return 0;
 	}
 
 }
