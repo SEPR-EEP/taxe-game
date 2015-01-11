@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import com.eep.taxe.models.Edge;
 import com.eep.taxe.models.Path;
+import com.eep.taxe.models.Station;
 import com.eep.taxe.models.Vertex;
 
 public class Dijkstra {
@@ -37,39 +38,42 @@ public class Dijkstra {
 
 		DijkstraComparator c = new DijkstraComparator();
 		c.setPriorityMap(priority);
-		
 		q = new PriorityQueue<Vertex>(graph.size(), c);
 		
-		distance.put(source, (float) 0.0);
 		
 		for ( Vertex v : graph ) {
-			if ( v != source ) {
+			if ( v == source ) {
+				distance.put(v, (float) 0.0);
+				priority.put(v, (float) 0.0);
+				previous.put(v,  null);
+			} else {
 				distance.put(v, INFINITY);
+				priority.put(v, (float) 0.0);
 				previous.put(v, null);
 			}
 			q.add(v);
-			priority.put(v, distance.get(v));
 		}
 		
 		float alt;
 		
 		while (!q.isEmpty()) {
 			Vertex u = q.poll();
-			scanned.put(u, true);
 			for ( Edge e : u.getEdges() ) {
 				Vertex v = (Vertex) e.other(u);
-				if ( !scanned.containsKey(v) ) {
-					alt = distance.get(u) + e.getLength();
-					if ( alt < distance.get(v) ) {
-						distance.put(v, alt);
-						previous.put(v, u);
-						priority.put(v, alt);
-					}
+				alt = distance.get(u) + e.getLength();
+				if ( alt <  distance.get(v) ) {
+					distance.put(v, alt);
+					previous.put(v, u);
+					priority.put(v, alt);
+					
+					// The following is needed to recalculate
+					// the priorities (Java's PriorityQueues suck)
+					q.remove(v); q.add(v);
 				}
 			}
 		}
 	}
-	
+
 	public class DijkstraComparator implements Comparator<Vertex> {
 		
 		Map<Vertex, Float> priorityMap;
@@ -79,15 +83,10 @@ public class Dijkstra {
 		
 		@Override
 		public int compare(Vertex o1, Vertex o2) {
-			if (priorityMap.get(o1) == null) {
-				return -1;
-			}
-			if (priorityMap.get(o2) == null) {
-				return 1;
-			}
-			return priorityMap.get(o1).compareTo(
-					priorityMap.get(o2)	
-			);
+			Float p1, p2;
+			p1 = (float) (priorityMap.get(o1) == null ? 0.0 : priorityMap.get(o1));
+			p2 = (float) (priorityMap.get(o2) == null ? 0.0 : priorityMap.get(o2));
+			return p1.compareTo(p2);
 		}
 	}
 	
