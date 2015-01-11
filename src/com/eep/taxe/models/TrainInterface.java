@@ -17,5 +17,5 @@ public interface TrainInterface extends AgeRelatedInterface, Serializable {
 	public void			removeAllModifiersToSpeed();				//Remove all modifiers from the actual speed to revert back to base speed
 	
 	public void			startAGoal(Goal goal);						//Start a goal by creating a new journey for train
-	public int			moveForward();								//Move the train forward by a turn
+	public void			moveForward();								//Move the train forward by a turn
 }

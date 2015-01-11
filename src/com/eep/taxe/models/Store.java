@@ -28,6 +28,8 @@ public class Store implements Serializable {
 				items.addAll(thirdItems);
 			case FOURTH:
 				items.addAll(fourthItems);
+			default:
+				break;
 		}
 		return items;
 	}

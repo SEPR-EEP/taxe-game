@@ -11,7 +11,8 @@ public class Train implements TrainInterface {
 	private int costInMetal, costInGold;
 	private final float baseSpeed;	//Speed of the train without modifiers
 	private float actualSpeed;		//Speed of the train with modifiers applied, if non applied then baseSpeed == actualSpeed
-	
+	private Goal goal;
+	private Journey journey;
 	/**
 	 * Instantiates a Train
 	 * @param	model		Model name of the train
@@ -119,14 +120,14 @@ public class Train implements TrainInterface {
 	
 	@Override
 	public void startAGoal(Goal goal) {
-		// TODO Method to assign a goal to a train
-		
+		//  Method to assign a goal to a train
+		this.goal = goal;
 	}
 	
 	@Override
-	public int moveForward() {
-		// TODO Move train forward at each turn
-		return 0;
+	public void moveForward() {
+		// Move train forward at each turn
+		journey.incrementProgressOnEdge();
 	}
 
 }
