@@ -96,13 +96,13 @@ public class GameView extends javax.swing.JFrame {
 					
 				JPanel missionDetailsPanel = new JPanel();
 //				missionDetailsPanel.setPreferredSize(new Dimension(WIDTH/4, WIDTH/32));
-				missionDetailsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+				missionDetailsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, WIDTH/512));
 				missionDetailsPanel.setOpaque(false);
 				
 					JTextField missionTextField = new JTextField();
 					missionTextField.setText("Current Mission");
 					missionTextField.setFont(topPanelFont);
-					missionTextField.setPreferredSize(new Dimension(WIDTH/6, WIDTH/56));
+					missionTextField.setPreferredSize(new Dimension(WIDTH/6, WIDTH/48));
 					missionTextField.setEditable(false);
 					missionTextField.setHorizontalAlignment(JTextField.CENTER);
 					missionTextField.setLayout(new FlowLayout(FlowLayout.CENTER));
