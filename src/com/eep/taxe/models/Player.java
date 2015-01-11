@@ -198,8 +198,7 @@ public class Player implements PlayerInterface {
 
 	@Override
 	public boolean canAccomplish(Goal goal) {
-		// TODO Auto-generated method stub
-		return false;
+		return goal.canBeAccomplishedBy(this);
 	}
 
 
