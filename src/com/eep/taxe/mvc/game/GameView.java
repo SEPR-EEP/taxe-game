@@ -71,7 +71,7 @@ public class GameView extends javax.swing.JFrame {
 			topPanel.setPreferredSize(new Dimension(WIDTH, WIDTH/32));
 			topPanel.setBackground(Color.PINK);
 			topPanel.setLayout(new GridLayout(0, 3));
-//			topPanel.setOpaque(false);
+			topPanel.setOpaque(false);
 				
 				Font topPanelFont = new Font(Font.SANS_SERIF, Font.PLAIN, 14);
 				
@@ -132,17 +132,33 @@ public class GameView extends javax.swing.JFrame {
 				JLabel metalLabel = new JLabel();
 				metalLabel.setFont(topPanelFont);
 				metalLabel.setText("170000000");
-				metalLabel.setPreferredSize(new Dimension(WIDTH/24, WIDTH/48));
+				metalLabel.setPreferredSize(new Dimension(WIDTH/24, WIDTH/32));
 				
 		
 			JPanel leftPanel = new JPanel();
 			leftPanel.setPreferredSize(new Dimension(WIDTH/8, HEIGHT));
 			leftPanel.setBackground(Color.GREEN);
+			leftPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 //			leftPanel.setOpaque(false);
+			
+				JPanel agePanel = new JPanel();
+				agePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, WIDTH/512));
+				agePanel.setPreferredSize(new Dimension(WIDTH/9, WIDTH/48));
+				agePanel.setBackground(new Color(213, 134, 145, 123));
+					
+					JLabel staticAgeLabel = new JLabel();
+					staticAgeLabel.setFont(topPanelFont);
+					staticAgeLabel.setText("Age:");
+					
+					JLabel ageLabel = new JLabel();
+					ageLabel.setFont(topPanelFont);
+					ageLabel.setText("Stone Age");
 				
 				
-
-		
+				
+					agePanel.add(staticAgeLabel);
+					agePanel.add(ageLabel);
+				leftPanel.add(agePanel);
 			gameMenuPanel.add(leftPanel, BorderLayout.WEST);
 						goldMetalPanel.add(goldImageLabel);
 						goldMetalPanel.add(goldLabel);

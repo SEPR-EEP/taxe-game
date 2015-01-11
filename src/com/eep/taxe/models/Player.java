@@ -1,10 +1,11 @@
 package com.eep.taxe.models;
 
-import java.io.Serializable;
 import java.util.Vector;
 
 public class Player implements PlayerInterface {
 
+	private static final long serialVersionUID = 3534438349877377215L;
+	
 	private int 				score;
 	private String				nickname;
 	private int					goalsCompleted;
@@ -188,7 +189,7 @@ public class Player implements PlayerInterface {
 
 	@Override
 	public Vector<Goal> getCurrentGoals() {
-		return this.currentGoals();
+		return this.currentGoals;
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package com.eep.taxe.models;
 import com.eep.taxe.models.Age.Ages;
 
+@SuppressWarnings("serial")
 public abstract class Usable extends Resource implements UsableInterface{
 	
 	private int costInGold;

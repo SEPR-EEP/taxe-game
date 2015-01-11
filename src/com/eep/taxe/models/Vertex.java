@@ -2,8 +2,6 @@ package com.eep.taxe.models;
 
 import java.util.Vector;
 
-import com.eep.taxe.utils.Dijkstra;
-
 /**
  * Represents an abstract Vertex on the map graph.
  * Concrete implementations of a Vertex are Stations and Junctions.
