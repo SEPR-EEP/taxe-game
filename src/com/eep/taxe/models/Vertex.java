@@ -2,6 +2,8 @@ package com.eep.taxe.models;
 
 import java.util.Vector;
 
+import com.eep.taxe.utils.Dijkstra;
+
 /**
  * Represents an abstract Vertex on the map graph.
  * Concrete implementations of a Vertex are Stations and Junctions.
@@ -81,8 +83,25 @@ public abstract class Vertex implements VertexInterface {
 	 */
 	public Path shortestPathTo(Vertex d) {
 		Path p = new Path();
+		
 		// TODO Dijkstra's Algorithm
 		return p;
+	}
+	
+	/**
+	 * Gets the Edge to a given Vertex (or null if none)
+	 * @param 	The target Vertex
+	 */
+	public Edge getEdge(Vertex target) {
+		if ( target == this ) {
+			return null;
+		}
+		for ( Edge e : this.getEdges() ) {
+			if (e.hasVertex(target)) {
+				return e;
+			}
+		}
+		return null;
 	}
 
 }

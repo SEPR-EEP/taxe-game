@@ -81,8 +81,17 @@ public class Dijkstra {
 		Vector<Edge> path = new Vector<Edge>();
 		Vertex v = target;
 		
-		// TODO Magic goes here :)
+	    // First, check if there is a path
+		if (previous.get(v) == null) {
+	      return null;
+	    }
 		
+	    path.add(target.getEdge(v));
+	    while (previous.get(v) != null) {
+	      path.add(v.getEdge(previous.get(v)));
+	      v = previous.get(v);
+	    }
+	    
 		Collections.reverse(path);
 		return path;
 	}
