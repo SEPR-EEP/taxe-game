@@ -43,10 +43,10 @@ public class Game extends Awaitility {
 		new Edge(KingsX,		Victoria,		5);
 		new Edge(Victoria, 		Paris,	 		15);
 		new Edge(Victoria, 		Rome,			50);
-		new Edge(Paris, 		Rome,			30);
+		new Edge(Paris, 		Rome,			10);
 		
-		Station source = York;
-		Station target = Victoria;
+		Station source = Paris;
+		Station target = Rome;
 				
 		// 3. Finally, add all the stations to the graph
 		Vector<Vertex> graph = new Vector<Vertex>();

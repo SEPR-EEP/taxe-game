@@ -46,8 +46,6 @@ public class Dijkstra {
 			if ( v != source ) {
 				distance.put(v, INFINITY);
 				previous.put(v, null);
-			} else {
-				previous.put(v, source);
 			}
 			q.add(v);
 			priority.put(v, distance.get(v));
