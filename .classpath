@@ -3,7 +3,6 @@
 	<classpathentry excluding="com/eep/taxe/mvc/menu/Menu Resources/|com/eep/taxe/mvc/menu/Menu Resources/|resources/|resources/" kind="src" path="src"/>
 	<classpathentry kind="src" path="lib"/>
 	<classpathentry kind="src" path="tests"/>
-	<classpathentry kind="src" path="src/com/eep/taxe/mvc/menu/Menu Resources"/>
 	<classpathentry exported="true" kind="lib" path="lib/engine.io-client-0.3.1-javadoc.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/engine.io-client-0.3.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-lang3-3.3.2-javadoc.jar"/>

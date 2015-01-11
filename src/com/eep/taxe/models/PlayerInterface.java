@@ -10,22 +10,23 @@ public interface PlayerInterface extends Comparable<Player>, Serializable {
 	
 	public int 				getScore();									// Get the current score for the player
 	public void 			setScore(int newScore);						// Set the current score for the player
-	public void 			incrementScore(int delta);					// Increment the current score for the player
+	public int	 			incrementScore(int delta);					// Increment the current score for the player
 	
 	public int 				getGoalsCompleted();						// Get the number of completed goals in the game
-	public int 				setGoalsCompleted(int newGoalsCompleted);	// Set the number of completed goals in the game
-	public int 				incrementGoalsCompleted(int delta);			// Increment the number of completed goals
+	public void 			setGoalsCompleted(int newGoalsCompleted);	// Set the number of completed goals in the game
+	public int				incrementGoalsCompleted(int delta);			// Increment the number of completed goals
 	public Age 				getCurrentAge();							// Get the current age for the player
 	
-	public Vector<Resource> getInventory();								// Get the list of the player resources
-	public boolean 			hasResource(Resource resource);				// Check if a player has a given resource
-	public int 				countResource(Resource resource);			// Counts occurrences of a given resource type
+	public Vector<Usable>  	getInventory();								// Get the list of the player resources
+	public boolean 			hasResource(Usable resource);				// Check if a player has a given resource
 	
 	public boolean 			canBuy(Usable resource);					// Check if the player has enough resources to buy
 	public void 			buy(Usable resource);						// Add element to the inventory and decrement resources
 	
-	public int 				getGold();									// Get the amount of gold
-	public int 				getMetal();									// Get the amount of metal
+	public Gold 			getGold();									// Get the gold
+	public Metal 			getMetal();									// Get the metal
+	public int 				getGoldQuantity();							// Get the quantity of gold
+	public int 				getMetalQuantity();							// Get the quantity of metal
 	public int 				addGold(int delta);							// Add the amount of gold
 	public int 				addMetal(int delta);						// Add the amount of metal
 	public int 				reduceGold(int delta);						// Reduce gold of the player
