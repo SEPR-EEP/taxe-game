@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -69,23 +70,70 @@ public class GameView extends javax.swing.JFrame {
 			JPanel topPanel = new JPanel();
 			topPanel.setPreferredSize(new Dimension(WIDTH, WIDTH/32));
 			topPanel.setBackground(Color.PINK);
-			topPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+			topPanel.setLayout(new GridLayout(0, 3));
 //			topPanel.setOpaque(false);
 				
-				Font topPanelFont = new Font(Font.SANS_SERIF, Font.BOLD, 16);
+				Font topPanelFont = new Font(Font.SANS_SERIF, Font.PLAIN, 14);
 				
-				JTextField timer = new JTextField();
-				timer.setText("00:00");
-				timer.setPreferredSize(new Dimension(WIDTH*1/20, WIDTH*1/48));
-				timer.setFont(topPanelFont);
-				timer.setEditable(false);
-				timer.setHorizontalAlignment(JTextField.CENTER);
-				timer.setLayout(new FlowLayout(FlowLayout.CENTER));
+				JPanel timerMenuPanel = new JPanel();
+//				timerMenuPanel.setPreferredSize(new Dimension(WIDTH/8, WIDTH/32));
+				timerMenuPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+				timerMenuPanel.setOpaque(false);
 				
-				JButton menu = new JButton();
-				menu.setText("MENU");
-				menu.setFont(topPanelFont);
-				menu.setPreferredSize(new Dimension(WIDTH*1/16, WIDTH*1/48));
+				
+					JTextField timerTextField = new JTextField();
+					timerTextField.setText("00:00");
+					timerTextField.setPreferredSize(new Dimension(WIDTH*1/20, WIDTH*1/48));
+					timerTextField.setFont(topPanelFont);
+					timerTextField.setEditable(false);
+					timerTextField.setHorizontalAlignment(JTextField.CENTER);
+					timerTextField.setLayout(new FlowLayout(FlowLayout.CENTER));
+					
+					JButton menuButton = new JButton();
+					menuButton.setText("MENU");
+					menuButton.setFont(topPanelFont);
+					menuButton.setPreferredSize(new Dimension(WIDTH*1/16, WIDTH*1/48));
+					
+				JPanel missionDetailsPanel = new JPanel();
+//				missionDetailsPanel.setPreferredSize(new Dimension(WIDTH/4, WIDTH/32));
+				missionDetailsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+				missionDetailsPanel.setOpaque(false);
+				
+					JTextField missionTextField = new JTextField();
+					missionTextField.setText("Current Mission");
+					missionTextField.setFont(topPanelFont);
+					missionTextField.setPreferredSize(new Dimension(WIDTH/6, WIDTH/56));
+					missionTextField.setEditable(false);
+					missionTextField.setHorizontalAlignment(JTextField.CENTER);
+					missionTextField.setLayout(new FlowLayout(FlowLayout.CENTER));
+					
+					JButton detailsButton = new JButton();
+					detailsButton.setText("Details");
+					detailsButton.setFont(topPanelFont);
+					detailsButton.setPreferredSize(new Dimension(WIDTH/16, WIDTH/40));
+					
+			JPanel goldMetalPanel = new JPanel();
+			goldMetalPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			goldMetalPanel.setOpaque(false);
+			
+				JLabel goldImageLabel = new JLabel();
+//				goldImageLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
+				goldImageLabel.setPreferredSize(new Dimension(WIDTH/48, WIDTH/48));
+				
+				JLabel goldLabel = new JLabel();
+				goldLabel.setFont(topPanelFont);
+				goldLabel.setText("1350000000000000000000000000000000000000000000000");
+				goldLabel.setPreferredSize(new Dimension(WIDTH/24, WIDTH/48));
+				
+				JLabel metalImageLabel = new JLabel();
+//				metalImageLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
+				metalImageLabel.setPreferredSize(new Dimension(WIDTH/48, WIDTH/48));
+				
+				JLabel metalLabel = new JLabel();
+				metalLabel.setFont(topPanelFont);
+				metalLabel.setText("170000000");
+				metalLabel.setPreferredSize(new Dimension(WIDTH/24, WIDTH/48));
+				
 		
 			JPanel leftPanel = new JPanel();
 			leftPanel.setPreferredSize(new Dimension(WIDTH/8, HEIGHT));
@@ -96,8 +144,17 @@ public class GameView extends javax.swing.JFrame {
 
 		
 			gameMenuPanel.add(leftPanel, BorderLayout.WEST);
-				topPanel.add(timer);
-				topPanel.add(menu);
+						goldMetalPanel.add(goldImageLabel);
+						goldMetalPanel.add(goldLabel);
+						goldMetalPanel.add(metalImageLabel);
+						goldMetalPanel.add(metalLabel);
+						missionDetailsPanel.add(missionTextField);
+						missionDetailsPanel.add(detailsButton);
+						timerMenuPanel.add(timerTextField);
+						timerMenuPanel.add(menuButton);
+					topPanel.add(timerMenuPanel);
+					topPanel.add(missionDetailsPanel);
+					topPanel.add(goldMetalPanel);
 			gameMenuPanel.add(topPanel, BorderLayout.NORTH);
 			gameMenuPanel.add(infoPanel, BorderLayout.EAST);
 				inventoryContainer.add(inventoryPanel, BorderLayout.SOUTH);
@@ -110,6 +167,10 @@ public class GameView extends javax.swing.JFrame {
 
 		this.setVisible(true);
 
+	}
+	
+	public void setTimer(String time){
+		
 	}
 	
 
