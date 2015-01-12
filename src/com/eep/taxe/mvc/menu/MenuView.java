@@ -83,7 +83,14 @@ public class MenuView extends javax.swing.JFrame {
 		JPanel j = new JPanel(new GridLayout(2,2));
 		j.add(new JLabel("This is the Lobby View"));
 		
-		DefaultTableModel model = new DefaultTableModel();
+		DefaultTableModel model = new DefaultTableModel(){
+			private static final long serialVersionUID = -6816770724270875081L;
+			// This is to make the table non-editable
+			@Override
+			public boolean isCellEditable(int row, int column) {
+		       return false;
+			}
+		};
 		model.addColumn("ID");
 		model.addColumn("Game Name");
 		model.addColumn("Difficulty");
