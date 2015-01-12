@@ -8,6 +8,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -67,116 +68,24 @@ public class GameView extends javax.swing.JFrame {
 				miniMapPanel.setPreferredSize(new Dimension(WIDTH/6, WIDTH/8));
 				miniMapPanel.setBackground(Color.MAGENTA);
 		
-			JPanel topPanel = new JPanel();
-			topPanel.setPreferredSize(new Dimension(WIDTH, WIDTH/32));
-			topPanel.setBackground(Color.PINK);
-			topPanel.setLayout(new GridLayout(0, 3));
-			topPanel.setOpaque(false);
-				
-				Font topPanelFont = new Font(Font.SANS_SERIF, Font.PLAIN, 14);
-				
-				JPanel timerMenuPanel = new JPanel();
-//				timerMenuPanel.setPreferredSize(new Dimension(WIDTH/8, WIDTH/32));
-				timerMenuPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-				timerMenuPanel.setOpaque(false);
-				
-				
-					JTextField timerTextField = new JTextField();
-					timerTextField.setText("00:00");
-					timerTextField.setPreferredSize(new Dimension(WIDTH*1/20, WIDTH*1/48));
-					timerTextField.setFont(topPanelFont);
-					timerTextField.setEditable(false);
-					timerTextField.setHorizontalAlignment(JTextField.CENTER);
-					timerTextField.setLayout(new FlowLayout(FlowLayout.CENTER));
-					
-					JButton menuButton = new JButton();
-					menuButton.setText("MENU");
-					menuButton.setFont(topPanelFont);
-					menuButton.setPreferredSize(new Dimension(WIDTH*1/16, WIDTH*1/48));
-					
-				JPanel missionDetailsPanel = new JPanel();
-//				missionDetailsPanel.setPreferredSize(new Dimension(WIDTH/4, WIDTH/32));
-				missionDetailsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, WIDTH/512));
-				missionDetailsPanel.setOpaque(false);
-				
-					JTextField missionTextField = new JTextField();
-					missionTextField.setText("Current Mission");
-					missionTextField.setFont(topPanelFont);
-					missionTextField.setPreferredSize(new Dimension(WIDTH/6, WIDTH/48));
-					missionTextField.setEditable(false);
-					missionTextField.setHorizontalAlignment(JTextField.CENTER);
-					missionTextField.setLayout(new FlowLayout(FlowLayout.CENTER));
-					
-					JButton detailsButton = new JButton();
-					detailsButton.setText("Details");
-					detailsButton.setFont(topPanelFont);
-					detailsButton.setPreferredSize(new Dimension(WIDTH/16, WIDTH/40));
-					
-			JPanel goldMetalPanel = new JPanel();
-			goldMetalPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			goldMetalPanel.setOpaque(false);
 			
-				JLabel goldImageLabel = new JLabel();
-//				goldImageLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
-				goldImageLabel.setPreferredSize(new Dimension(WIDTH/48, WIDTH/48));
-				
-				JLabel goldLabel = new JLabel();
-				goldLabel.setFont(topPanelFont);
-				goldLabel.setText("1350000000000000000000000000000000000000000000000");
-				goldLabel.setPreferredSize(new Dimension(WIDTH/24, WIDTH/48));
-				
-				JLabel metalImageLabel = new JLabel();
-//				metalImageLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
-				metalImageLabel.setPreferredSize(new Dimension(WIDTH/48, WIDTH/48));
-				
-				JLabel metalLabel = new JLabel();
-				metalLabel.setFont(topPanelFont);
-				metalLabel.setText("170000000");
-				metalLabel.setPreferredSize(new Dimension(WIDTH/24, WIDTH/32));
-				
-		
-			JPanel leftPanel = new JPanel();
-			leftPanel.setPreferredSize(new Dimension(WIDTH/8, HEIGHT));
-			leftPanel.setBackground(Color.GREEN);
-			leftPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-//			leftPanel.setOpaque(false);
+					
+						
+				TopPanel topPanel = new TopPanel(WIDTH, HEIGHT);
+				gameMenuPanel.add(topPanel, BorderLayout.NORTH);
+						
+				LeftPanel leftPanel = new LeftPanel(WIDTH, HEIGHT);
+				gameMenuPanel.add(leftPanel, BorderLayout.WEST);
 			
-				JPanel agePanel = new JPanel();
-				agePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, WIDTH/512));
-				agePanel.setPreferredSize(new Dimension(WIDTH/9, WIDTH/48));
-				agePanel.setBackground(new Color(213, 134, 145, 123));
-					
-					JLabel staticAgeLabel = new JLabel();
-					staticAgeLabel.setFont(topPanelFont);
-					staticAgeLabel.setText("Age:");
-					
-					JLabel ageLabel = new JLabel();
-					ageLabel.setFont(topPanelFont);
-					ageLabel.setText("Stone Age");
-				
-				
-				
-					agePanel.add(staticAgeLabel);
-					agePanel.add(ageLabel);
-				leftPanel.add(agePanel);
-			gameMenuPanel.add(leftPanel, BorderLayout.WEST);
-						goldMetalPanel.add(goldImageLabel);
-						goldMetalPanel.add(goldLabel);
-						goldMetalPanel.add(metalImageLabel);
-						goldMetalPanel.add(metalLabel);
-						missionDetailsPanel.add(missionTextField);
-						missionDetailsPanel.add(detailsButton);
-						timerMenuPanel.add(timerTextField);
-						timerMenuPanel.add(menuButton);
-					topPanel.add(timerMenuPanel);
-					topPanel.add(missionDetailsPanel);
-					topPanel.add(goldMetalPanel);
-			gameMenuPanel.add(topPanel, BorderLayout.NORTH);
+
+
+			
 			gameMenuPanel.add(infoPanel, BorderLayout.EAST);
 				inventoryContainer.add(inventoryPanel, BorderLayout.SOUTH);
 				inventoryAndMapPanel.add(inventoryContainer);
 				inventoryAndMapPanel.add(miniMapPanel);
 			gameMenuPanel.add(inventoryAndMapPanel, BorderLayout.SOUTH);
+			
 		mainMapPanel.add(gameMenuPanel);
 		getContentPane().add(mainMapPanel);
 		
