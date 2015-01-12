@@ -45,10 +45,11 @@ public class TrainSpeedModifier extends Usable implements TrainSpeedModifierInte
 	 * @param 	train		The train to use the Modifier on  */
 	@Override
 	public void useOnTrain(Train train) {
-		this.train = train;
-		this.inUse = true;
-		
-		train.applyModifierToSpeed(speedFactor);
+		if (! this.isInUse()){
+			this.train = train;
+			this.inUse = true;
+			train.applyModifierToSpeed(speedFactor);
+		}
 	}
 	
 	/** Stop the Resource being used on a train */
