@@ -3,6 +3,7 @@ package com.eep.taxe.models;
 import java.util.Vector;
 
 import com.eep.taxe.GameClient.Role;
+import com.eep.taxe.res.Map;
 
 
 public class Game extends com.eep.taxe.GameData implements GameInterface {
@@ -20,6 +21,16 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 	
 	private int		currentTurn	= 0;
 	private Role	currentRole;
+	
+	public Game(String name, Difficulty d) {
+		this.setName(name);
+		this.setDifficulty(d);
+		
+		this.master = new Player();
+		this.slave  = new Player();
+		
+		this.setVertices(Map.generateMap());
+	}
 	
 	/**
 	 * Gets the "Master" Player for the Game
@@ -152,6 +163,14 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 	@Override
 	public Vector<Vertex> getVertices() {
 		return this.vertices;
+	}
+	
+	/**
+	 * Set the vertices of the map
+	 * @param		The list of vertices
+	 */
+	public void setVertices(Vector<Vertex> v) {
+		this.vertices = v;
 	}
 
 	/**

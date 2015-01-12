@@ -12,7 +12,7 @@ import com.eep.taxe.models.Vertex;
  */
 public class Map {
 
-	static Vector<Vertex> generateMap() {
+	public static Vector<Vertex> generateMap() {
 		Vector<Vertex> r = new Vector<Vertex>();
 		
 		Station Rome 		= new Station(30, 40, "Rome Fiumicino");

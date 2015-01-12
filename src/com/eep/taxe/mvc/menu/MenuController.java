@@ -17,6 +17,9 @@ import com.eep.taxe.GameClient.GameListItem;
 import com.eep.taxe.GameClient.GameListResponse;
 import com.eep.taxe.GameData;
 import com.eep.taxe.models.Game;
+import com.eep.taxe.models.Game.Difficulty;
+import com.eep.taxe.models.Player;
+import com.eep.taxe.res.Map;
 import com.eep.taxe.utils.RunnableArgs;
 
 public class MenuController {
@@ -147,7 +150,26 @@ public class MenuController {
 	}
 	
 	private GameData generateGameData(String name, int i) {
-		return new GameData();
+		Difficulty d = null;
+		switch (i) {
+			case 1:
+				d = Difficulty.EASY;
+				break;
+			case 2:
+				d = Difficulty.MEDIUM;
+				break;
+			case 3:
+				d = Difficulty.HARD;
+				break;
+		}
+		
+		// Create game
+		Game g = new Game(name, d);
+		
+		g.getMasterPlayer() .setNickname(name);
+		g.getSlavePlayer()  .setNickname("Waiting for Player 2 to Join");
+		
+		return g;
 	}
 	
 	private void startGameListRefresher() {
