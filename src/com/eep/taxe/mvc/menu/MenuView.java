@@ -175,6 +175,13 @@ public class MenuView extends javax.swing.JFrame {
 			    message,
 			    "Game error",
 			    JOptionPane.ERROR_MESSAGE);
+	}	
+	
+	public void showMessage(String message) {
+		JOptionPane.showMessageDialog(this,
+			    message,
+			    "Game Info",
+			    JOptionPane.PLAIN_MESSAGE);
 	}
 	
 }

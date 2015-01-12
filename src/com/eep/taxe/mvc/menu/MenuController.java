@@ -111,7 +111,7 @@ public class MenuController {
 							@Override
 							public void response(GameListItem item) {
 								
-								view.showErrorMessage("Game created");
+								view.showMessage("Game created");
 								
 							}
 						});						
