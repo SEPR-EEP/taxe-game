@@ -147,7 +147,7 @@ public class GameClient {
 	/**
 	 * Represents a status response item
 	 */
-	static class StatusItem {
+	public class StatusItem {
 		public Boolean 	ok;
 		public String 	error = "";
 		public StatusItem(JSONObject item) throws JSONException {
