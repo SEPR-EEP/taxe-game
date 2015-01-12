@@ -156,6 +156,20 @@ public class MenuView extends javax.swing.JFrame {
 		runnable.run(s);
 	}
 	
+	public void askForDifficulty(RunnableArgs runnable) {
+		Object[] possibleValues = { "1", "2", "3" };
+		String s = (String)JOptionPane.showInputDialog(
+				this,
+        	"Select difficulty?",
+        	"Difficulty",
+        	JOptionPane.PLAIN_MESSAGE,
+        	null,
+        	possibleValues,
+			possibleValues[0]
+        );
+		runnable.run(s);
+	}
+	
 	public void showErrorMessage(String message) {
 		JOptionPane.showMessageDialog(this,
 			    message,

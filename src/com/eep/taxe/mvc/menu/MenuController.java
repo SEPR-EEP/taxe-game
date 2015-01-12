@@ -86,21 +86,41 @@ public class MenuController {
 		view.askForName(new RunnableArgs(){
 			@Override
 			public void run() {
-				String name = (String) this.getArgs()[0];
 				
-				if ( name == null ) 
+				final String name = (String) this.getArgs()[0];
+				
+				if ( name == null ) {
 					view.showErrorMessage("Aborted.");
+					return;
+				}
 				
-				GameData data = generateGameData(name, 1);
-				
-				model.getClient().createGame(name, 1, data, new GameInfoResponse() {
+				view.askForDifficulty(new RunnableArgs() {
+
 					@Override
-					public void response(GameListItem item) {
+					public void run() {
 						
-						view.showErrorMessage("Game created");
+						if ( this.getArgs()[0] == null ) {
+							view.showErrorMessage("Aborted.");
+							return;
+						}
 						
+						Integer d = Integer.valueOf((String) this.getArgs()[0]);
+						GameData data = generateGameData(name, d);
+						
+						model.getClient().createGame(name, d, data, new GameInfoResponse() {
+							@Override
+							public void response(GameListItem item) {
+								
+								view.showErrorMessage("Game created");
+								
+							}
+						});						
 					}
+					
+				
+				
 				});
+
 				
 			}
 
