@@ -12,9 +12,9 @@ import com.eep.taxe.models.TrainSpeedModifier;
 
 public class SpeedModifierTest {
 	//Age 	steamAge					= new Age(0); //HOW DOES THIS WORK?????????
-	float				baseSpeed, boostSpeedFactor, slowSpeedFactor;
-	Train			 	steamTrain, futureTrain;
-	TrainSpeedModifier	steamBoost, steamSlowdown;
+	private float				baseSpeed, boostSpeedFactor, slowSpeedFactor;
+	private Train			 	steamTrain, futureTrain;
+	private TrainSpeedModifier	steamBoost, steamSlowdown;
 	
 	
 	@Before

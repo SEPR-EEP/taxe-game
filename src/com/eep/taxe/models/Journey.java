@@ -10,13 +10,20 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 	private Edge currentEdge;
 	private float progressOnEdge;
 	private float distanceTravelledOnEdge;
-	private Boolean journeyComplete;
+	private float distanceTravelledOnJourney;
+	private Boolean journeyStarted, journeyComplete;
 	
+	/**
+	 * Instantiates a Journey
+	 * @param train The train that will be travelling on this journey
+	 */
 	public Journey(Train train){
 		this.train = train;
-		this.currentEdge = this.firstElement();
+		this.currentEdge = null;
 		this.progressOnEdge = 0;
 		this.distanceTravelledOnEdge = 0;
+		this.distanceTravelledOnJourney = 0;
+		this.journeyStarted = false;
 		this.journeyComplete = false;
 	}
 	
@@ -35,10 +42,14 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 	 */
 	@Override
 	public Boolean isJourneyComplete(){
-		if (currentEdge == this.lastElement()){
+		if (getDistanceTravelledOnJourney() >= getTotalLength() ){
 			this.journeyComplete = true;
 		}
 		return this.journeyComplete;
+	}
+	
+	public Boolean isJourneyStarted(){
+		return this.journeyStarted;
 	}
 
 	/**
@@ -51,15 +62,42 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 	}
 
 	/**
+	 * Get the edge that comes after the edge the train is travelling on
+	 * @return	Next edge that the train will travel on
+	 */
+	@Override
+	public Edge getNextEdge(){
+		
+		if (! this.isEmpty() && currentEdge != this.lastElement()){
+		
+			int nextEdgeIndex = this.indexOf(currentEdge) + 1; //Get vector position of next edge
+			return (this.get(nextEdgeIndex) );
+		}
+		
+		return null;
+	}
+	
+	
+	/**
 	 * Set the current edge the train is travelling on
 	 * @param	edge				Edge to make current edge in journey
 	 * @param	initialProgress		Distance already travelled on edge
 	 */
 	@Override
 	public void setCurrentEdge(Edge edge, float initialProgress) {
-		this.currentEdge = edge;
-		this.distanceTravelledOnEdge = initialProgress;
+		
+		if (edge != null){
+			this.currentEdge = edge;
+			this.distanceTravelledOnEdge = initialProgress;
+			
+			//If the current edge's distance is less than or equal to initial progress set current edge to next
+			while (this.currentEdge.getLength() <= initialProgress){
+				setCurrentEdge(getNextEdge(), initialProgress - this.currentEdge.getLength() );
+			}
+		}
 	}
+
+	
 
 	/**
 	 * Get the progress of the train's distance on the edge
@@ -69,29 +107,68 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 	public float getProgressOnEdge() {
 		return progressOnEdge;
 	}
-
+	
 	/**
-	 * Increment a train's progress on an edge.
+	 * Get the distance travelled by the train on the current edge
+	 * @return	Distance travelled on current edge
+	 */
+	@Override
+	public float getDistanceTravelledOnEdge(){
+		return distanceTravelledOnEdge;
+	}
+	
+	/**
+	 * Get the distance travelled by the train on the journey so far
+	 * @return	Distance travelled on journey
+	 */
+	@Override
+	public float getDistanceTravelledOnJourney(){
+		return distanceTravelledOnJourney;
+	}
+
+	
+	/**
+	 * Start the train's journey and increment its progress for the first turn
+	 */
+	@Override
+	public void startJourney(){
+		if ( ! isJourneyStarted() && ! this.isEmpty()){
+			this.journeyStarted = true;
+			this.currentEdge = this.firstElement();
+			incrementProgressOnEdge();
+		}
+	}
+	
+	
+	/**
+	 * Increment a train's progress on an edge for a turn.
+	 * The train's journey must be started first
 	 * If the train's distance travelled exceeds the length of the current edge, move on to the next edge in the path
 	 * */
 	@Override
 	public void incrementProgressOnEdge() {
 		int lengthOfEdge = this.getCurrentEdge().getLength();
 		this.distanceTravelledOnEdge += train.getSpeed();	//Speed is distance travelled per turn
+		this.distanceTravelledOnJourney += train.getSpeed();
 		
-		if (! isJourneyComplete()){
+		if (! isJourneyComplete() && isJourneyStarted()){
 			
-			if (distanceTravelledOnEdge > lengthOfEdge){
+			if (distanceTravelledOnEdge >= lengthOfEdge){
 				
-				int nextEdgeIndex = this.indexOf(currentEdge) + 1; //Get vector position of next edge
-				float initialProgress = distanceTravelledOnEdge - lengthOfEdge; //Progress to pass through to next edge
-				setCurrentEdge(this.get(nextEdgeIndex), initialProgress);
+				float initialProgress = distanceTravelledOnEdge - lengthOfEdge; //Progress is carried through to next edge
+				
+				setCurrentEdge(this.getNextEdge(), initialProgress);
+				lengthOfEdge = this.getCurrentEdge().getLength(); //Update to be length of next edge
 			}
 			
 			this.progressOnEdge = this.distanceTravelledOnEdge / lengthOfEdge;
-			
 		}
 		
 	}
+	
+	
+	
+	
+	
 
 }
