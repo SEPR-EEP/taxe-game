@@ -126,9 +126,11 @@ public class MenuView extends javax.swing.JFrame {
 	}
 
 	public void emptyGameList() {
-		gameTable.removeAll();
-
-		
+		DefaultTableModel model = (DefaultTableModel) gameTable.getModel();
+		int n = model.getRowCount();
+		for (int i = n - 1; i >= 0; i--) {
+			model.removeRow(i);
+		}
 	}
 
 	public void addGameToList(String id, String name, int difficulty, Date created) {
