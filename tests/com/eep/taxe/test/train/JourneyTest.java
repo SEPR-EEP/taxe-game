@@ -76,8 +76,9 @@ public class JourneyTest {
 	
 	@Test
 	public void testTravellingOnEmptyJourney(){
+		//Checks for error
 		Journey emptyTrainJourney = new Journey(steamTrain);
-		emptyTrainJourney.startJourney();
+		emptyTrainJourney.incrementProgressByTurn();
 	}
 	
 	@Test
@@ -86,7 +87,7 @@ public class JourneyTest {
 		//Distance between the start station (Edinburgh) and KingsX is 20km
 		//Thus after first turn the train should be 5km along the York to KingsX edge
 		
-		trainJourney.startJourney(); //First turn
+		trainJourney.incrementProgressByTurn(); //First turn
 		
 		if (trainJourney.getDistanceTravelledOnJourney() != 25){
 			fail("Train is not travelling 25km on journey");
@@ -103,25 +104,25 @@ public class JourneyTest {
 		//Distance between the start station (Edinburgh) and Paris is 100km
 		//Thus after fourth turn the train should be 0km along the Paris to Rome edge
 		
-		trainJourney.startJourney(); //First turn
+		trainJourney.incrementProgressByTurn(); //First turn
 		
 		if (trainJourney.getDistanceTravelledOnJourney() != 25){
 			fail("Train has not travelled 25km on journey");
 		}
 		
-		trainJourney.incrementProgressOnEdge(); //Second turn
+		trainJourney.incrementProgressByTurn(); //Second turn
 		
 		if (trainJourney.getDistanceTravelledOnJourney() != 50){
 			fail("Train has not travelled 50km on journey");
 		}
 		
-		trainJourney.incrementProgressOnEdge(); //Third turn
+		trainJourney.incrementProgressByTurn(); //Third turn
 		
 		if (trainJourney.getDistanceTravelledOnJourney() != 75){
 			fail("Train has not travelled 75km on journey");
 		}
 		
-		trainJourney.incrementProgressOnEdge(); //Fourth turn
+		trainJourney.incrementProgressByTurn(); //Fourth turn
 		
 		if (trainJourney.getDistanceTravelledOnJourney() != 100){
 			fail("Train has not travelled 100km on journey");
@@ -144,25 +145,25 @@ public class JourneyTest {
 		//Train travels at 25km per turn
 		//Journey should be complete by turn turn #6 and no earlier
 		
-		trainJourney.startJourney(); //First turn
-		trainJourney.incrementProgressOnEdge(); //Second turn
-		trainJourney.incrementProgressOnEdge(); //Third turn
-		trainJourney.incrementProgressOnEdge(); //Fourth turn
-		trainJourney.incrementProgressOnEdge(); //Fifth turn
+		trainJourney.incrementProgressByTurn(); //First turn
+		trainJourney.incrementProgressByTurn(); //Second turn
+		trainJourney.incrementProgressByTurn(); //Third turn
+		trainJourney.incrementProgressByTurn(); //Fourth turn
+		trainJourney.incrementProgressByTurn(); //Fifth turn
 		
 		if (trainJourney.isJourneyComplete() ){
 			fail("Train journey should not have completed yet");
 		}
 		
-		trainJourney.incrementProgressOnEdge(); //Sixth turn
-		
-		System.out.println(trainJourney.getDistanceTravelledOnJourney());
+		trainJourney.incrementProgressByTurn(); //Sixth turn
 		
 		if (! trainJourney.isJourneyComplete() ){
 			fail("Train journey should have completed");
 		}
 		
-		trainJourney.incrementProgressOnEdge(); //Seventh turn
+		
+		
+		trainJourney.incrementProgressByTurn(); //Seventh turn
 		
 		if (! trainJourney.isJourneyComplete() ){
 			fail("Train journey should have completed");

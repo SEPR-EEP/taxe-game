@@ -58,7 +58,7 @@ public class GoalTest {
 		
 		//4. Create edges
 		e1 = new Edge(Edinburgh, 		York,		 	20);
-		
+		e2 = new Edge(York, 				KingsX,			60);
 		e3 = new Edge(KingsX,			Victoria,		5);
 		e4 = new Edge(Victoria, 			Paris,	 		15);
 		e5 = new Edge(Paris, 			Rome,			30);
@@ -73,16 +73,14 @@ public class GoalTest {
 		graph.add(Victoria);	
 		graph.add(Nowhere);	
 		
-		
-		
-
 	}
 	
 	@Test
-	public void testYorkToKingsX(){
+	public void testYorkToKingsXInOptimalTurns(){
 		
 		int numOfTurns = 0;
 		int optimalTurns;
+		int score;
 		
 		//Player is given goal of travelling from York to KingsX
 		goal = new Goal(null, "Travel from York to KingsX", "Descriptive story", York, KingsX);
@@ -93,22 +91,23 @@ public class GoalTest {
 		float shortestDistance = d.getDistanceTo(KingsX);
 				
 		//Compute optimal number of turns for train travelling at its base speed
-		optimalTurns = goal.optimalDuration(shortestDistance, steamTrain.getBaseSpeed());
+		optimalTurns = goal.optimalNumberOfTurns(shortestDistance, steamTrain.getBaseSpeed());
 		
 		//Player adds edge to their planned journey
-		trainJourney.add(new Edge(York, 				KingsX,			60) );
+		trainJourney.add(e2);
 		
-		//Start journey
-		trainJourney.startJourney();
-		
-		//Keep going until KingsX is reached
+		//Keep journey going until KingsX is reached
 		while (! trainJourney.isJourneyComplete()){
+			trainJourney.incrementProgressByTurn();
 			numOfTurns++;
 		}
 		
+		//Calculate reward for player
+		score = goal.calculateReward(numOfTurns, optimalTurns);
 		
-			
-		
+		if (score != 100){
+			fail("Score must be 100 if goal is completed in optimal number of turns");
+		}
 		
 	}
 

@@ -15,8 +15,8 @@ public interface GoalInterface extends AgeRelatedInterface, Serializable {
 	public void				setStartingStation(Station s);		// Set the starting Vertex for the Goal
 	public void 			setEndingStation(Station s);		// Set the ending Vertex for the Goal
 	
-	public int 				calculateReward();					// Calculate the Score Reward for the Goal
+	public int 				calculateReward(int actualNumberOfTurns, int optimalNumberOfTurns);					// Calculate the Score Reward for the Goal
 	public Boolean			canBeAccomplishedBy(Player p);		// Check if Player can accomplish the Goal
-	public int 				optimalDuration(float shortestPathLength, float baseSpeed);					// Calculate duration of the Goal
+	public int 				optimalNumberOfTurns(float shortestPathLength, float baseSpeed);					// Calculate duration of the Goal
 	
 }

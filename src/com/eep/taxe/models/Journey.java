@@ -44,10 +44,16 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 	public Boolean isJourneyComplete(){
 		if (getDistanceTravelledOnJourney() >= getTotalLength() ){
 			this.journeyComplete = true;
+			this.distanceTravelledOnJourney = getTotalLength();	//So distance travelled does not exceed length of journey
 		}
 		return this.journeyComplete;
 	}
 	
+	/**
+	 * Check if the train's journey along the path has started yet
+	 * @return	True if the journey has started
+	 */
+	@Override
 	public Boolean isJourneyStarted(){
 		return this.journeyStarted;
 	}
@@ -97,8 +103,6 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 		}
 	}
 
-	
-
 	/**
 	 * Get the progress of the train's distance on the edge
 	 * @return	A value between 0 and 1
@@ -125,45 +129,40 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 	public float getDistanceTravelledOnJourney(){
 		return distanceTravelledOnJourney;
 	}
-
-	
-	/**
-	 * Start the train's journey and increment its progress for the first turn
-	 */
-	@Override
-	public void startJourney(){
-		if ( ! isJourneyStarted() && ! this.isEmpty()){
-			this.journeyStarted = true;
-			this.currentEdge = this.firstElement();
-			incrementProgressOnEdge();
-		}
-	}
 	
 	
 	/**
 	 * Increment a train's progress on an edge for a turn.
-	 * The train's journey must be started first
 	 * If the train's distance travelled exceeds the length of the current edge, move on to the next edge in the path
 	 * */
 	@Override
-	public void incrementProgressOnEdge() {
+	public void incrementProgressByTurn() {
+		
+		//If progress cannot be incremented
+		if (this.isEmpty() || this.isJourneyComplete() ){
+			return;
+		}
+		
+		//Set current edge to first edge of journey if it has not started yet
+		if (! isJourneyStarted() ) {
+			this.currentEdge = this.firstElement();
+			this.journeyStarted = true;
+		}
+		
 		int lengthOfEdge = this.getCurrentEdge().getLength();
 		this.distanceTravelledOnEdge += train.getSpeed();	//Speed is distance travelled per turn
 		this.distanceTravelledOnJourney += train.getSpeed();
 		
-		if (! isJourneyComplete() && isJourneyStarted()){
-			
-			if (distanceTravelledOnEdge >= lengthOfEdge){
+		//If the train has travelled beyond the current edge
+		if (this.distanceTravelledOnEdge >= lengthOfEdge){
 				
-				float initialProgress = distanceTravelledOnEdge - lengthOfEdge; //Progress is carried through to next edge
-				
-				setCurrentEdge(this.getNextEdge(), initialProgress);
-				lengthOfEdge = this.getCurrentEdge().getLength(); //Update to be length of next edge
-			}
-			
-			this.progressOnEdge = this.distanceTravelledOnEdge / lengthOfEdge;
+			float remainingProgress = this.distanceTravelledOnEdge - lengthOfEdge; //Remaining progress is carried through to next edge
+			setCurrentEdge(this.getNextEdge(), remainingProgress);
+			lengthOfEdge = this.getCurrentEdge().getLength(); //Update to be length of next edge
 		}
-		
+			
+		this.progressOnEdge = this.distanceTravelledOnEdge / lengthOfEdge;
+		this.isJourneyComplete();
 	}
 	
 	

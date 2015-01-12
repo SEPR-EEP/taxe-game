@@ -83,10 +83,13 @@ public class Goal implements GoalInterface {
 		
 	}
 
-	/** Calculate the Score Reward for the Goal */
+	/** Calculate the Score Reward for the Goal
+	 * @param actualNumberOfTurns	The number of turns it actually took the train to travel from start station to end
+	 * @param optimalNumberOfTurns	Calculated shortest number of turns it would take the train travelling at its base speed
+	 * @return Points to be added to a player's score */
 	@Override
-	public int calculateReward() {
-		return 0;
+	public int calculateReward(int actualNumberOfTurns, int optimalNumberOfTurns) {
+		return (optimalNumberOfTurns * 100) / actualNumberOfTurns;
 	}
 
 	/** Check if Player can accomplish the Goal */
@@ -100,7 +103,7 @@ public class Goal implements GoalInterface {
 	 * @param shortestPathLength Should first be calculated using Dijkstra's algorithm
 	 * @param baseSpeed	The unmodified speed of a train */
 	@Override
-	public int optimalDuration(float shortestPathLength, float baseSpeed) {
+	public int optimalNumberOfTurns(float shortestPathLength, float baseSpeed) {
 		float shortestTurns = shortestPathLength / baseSpeed; 
 		return (int) Math.ceil(shortestTurns); //If not int round up to next int
 	}

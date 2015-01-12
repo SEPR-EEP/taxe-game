@@ -127,7 +127,7 @@ public class Train implements TrainInterface {
 	@Override
 	public void moveForward() {
 		// Move train forward at each turn
-		journey.incrementProgressOnEdge();
+		journey.incrementProgressByTurn();
 	}
 
 }

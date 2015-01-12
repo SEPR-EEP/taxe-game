@@ -6,6 +6,7 @@ public interface JourneyInterface extends Serializable {
 
 	public Boolean 			isMoving();													// Is the train moving or stationary
 	public Boolean			isJourneyComplete();										// Is the journey along the path complete
+	public Boolean			isJourneyStarted();											// Has the journey started yet
 	
 	public Edge				getCurrentEdge();											// Get Edge the train is currently travelling on
 	public void				setCurrentEdge(Edge currentEdge, float initialProgress);	// Set Edge the train is currently travelling on
@@ -16,7 +17,6 @@ public interface JourneyInterface extends Serializable {
 	public float			getDistanceTravelledOnEdge();								// Get the distance travelled on the current edge
 	public float			getDistanceTravelledOnJourney();							// Get the distance travelled on the journey
 	
-	public void				startJourney();												// Start the first turn of the train's journey
-	public void				incrementProgressOnEdge();									// Increment progress based upon train speed
+	public void				incrementProgressByTurn();									// Increment progress based upon train speed
 	
 }
