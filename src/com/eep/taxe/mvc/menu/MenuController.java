@@ -15,6 +15,8 @@ import javax.swing.JTable;
 import com.eep.taxe.GameClient.GameInfoResponse;
 import com.eep.taxe.GameClient.GameListItem;
 import com.eep.taxe.GameClient.GameListResponse;
+import com.eep.taxe.GameClient.StatusItem;
+import com.eep.taxe.GameClient.StatusResponse;
 import com.eep.taxe.GameData;
 import com.eep.taxe.models.Game;
 import com.eep.taxe.models.Game.Difficulty;
@@ -145,8 +147,37 @@ public class MenuController {
 		});
 	}
 	
-	private void joinGame(String gameID) {
-		System.out.println("Joining game " + gameID + "...");
+	private void joinGame(final String gameID) {
+		
+		this.view.askForName(new RunnableArgs(){
+			@Override
+			public void run() {
+				
+				final String name = (String) this.getArgs()[0];
+
+				if ( name == null ) {
+					view.showErrorMessage("Aborted.");
+					return;
+				}
+				
+				model.getClient().joinGame(gameID, name, new StatusResponse() {
+					@Override
+					public void response(StatusItem item) {
+						
+						if ( !item.ok ) {
+							view.showErrorMessage("Can't join: " + item.error);
+							return;
+						}
+						
+						view.showMessage("Yay, game " + gameID + " joined!");
+						
+					}
+				});
+
+				
+			}
+		});
+
 	}
 	
 	private GameData generateGameData(String name, int i) {
@@ -168,7 +199,7 @@ public class MenuController {
 		
 		g.getMasterPlayer() .setNickname(name);
 		g.getSlavePlayer()  .setNickname("Waiting for Player 2 to Join");
-		
+
 		return g;
 	}
 	
