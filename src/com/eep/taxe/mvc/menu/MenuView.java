@@ -2,6 +2,7 @@ package com.eep.taxe.mvc.menu;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.util.Date;
 
 import javax.swing.JButton;
@@ -62,6 +63,10 @@ public class MenuView extends javax.swing.JFrame {
 	
 	public void addCreateButtonListener(ActionListener buttonListener) {
 		createButton.addActionListener(buttonListener);
+	}
+	
+	public void addTableMouseListener(MouseAdapter mouseListener) {
+		gameTable.addMouseListener(mouseListener);
 	}
 	
 	
@@ -182,6 +187,10 @@ public class MenuView extends javax.swing.JFrame {
 			    message,
 			    "Game Info",
 			    JOptionPane.PLAIN_MESSAGE);
+	}
+
+	public String getGameAtRow(int row) {
+		return (String) gameTable.getValueAt(row, 0);
 	}
 	
 }

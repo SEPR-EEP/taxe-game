@@ -1,11 +1,16 @@
 package com.eep.taxe.mvc.menu;
 
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Callable;
+
+import javax.swing.JTable;
 
 import com.eep.taxe.GameClient.GameInfoResponse;
 import com.eep.taxe.GameClient.GameListItem;
@@ -31,6 +36,7 @@ public class MenuController {
 		this.view.addBackButtonListener(new BackButtonListener());
 		this.view.addCreditsButtonListener(new CreditsButtonListener());
 		this.view.addCreateButtonListener(new CreateButtonListener());
+		this.view.addTableMouseListener(new TableMouseListener());
 		
 		this.startGameListRefresher();
 	}
@@ -64,6 +70,19 @@ public class MenuController {
 			System.out.println("'Create New Game' button pressed.");
 			createNewGame();
 		}		
+	}
+	
+	private class TableMouseListener extends MouseAdapter {
+	    public void mousePressed(MouseEvent me) {
+	        JTable table =(JTable) me.getSource();
+	        Point p = me.getPoint();
+	        int row = table.rowAtPoint(p);
+	        if (me.getClickCount() == 2) {
+	            String gameID = view.getGameAtRow(row);
+	            joinGame(gameID);
+	        }
+	    }
+
 	}
 	
 	private void listGames() {
@@ -121,6 +140,10 @@ public class MenuController {
 				});
 			}
 		});
+	}
+	
+	private void joinGame(String gameID) {
+		System.out.println("Joining game " + gameID + "...");
 	}
 	
 	private GameData generateGameData(String name, int i) {
