@@ -6,7 +6,7 @@ public class Age implements AgeInterface {
 
 	private static final long serialVersionUID = 2712498058645722176L;
 
-	static enum Ages {
+	public static enum Ages {
 		FIRST, SECOND, THIRD, FOURTH;
 	}
 	
