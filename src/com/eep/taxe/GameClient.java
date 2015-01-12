@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.json.*;
+
 import com.github.nkzawa.emitter.Emitter.Listener;
 import com.github.nkzawa.socketio.client.*;
 
@@ -123,7 +124,7 @@ public class GameClient {
 	/**
 	 * Represents an item in the Game List (a Game that can be joined).
 	 */
-	static class GameListItem {
+	public class GameListItem {
 		public String 	id, name;
 		public int 		difficulty;
 		public Date		created;
@@ -139,8 +140,8 @@ public class GameClient {
 	 * Represents the an abstract Callback for the Game List response.
 	 * Implement response(ArrayList<GameListItem> gameList) to get the data.
 	 */
-	interface GameListResponse {
-		abstract void response(ArrayList<GameListItem> gameList);
+	public interface GameListResponse {
+		public void response(ArrayList<GameListItem> gameList);
 	}
 
 	/**
@@ -161,7 +162,7 @@ public class GameClient {
 	 * Represents the an abstract Callback for a status response (ok=bool, error=string).
 	 * Implement response(StatusItem response) to get the data.
 	 */
-	interface StatusResponse {
+	public interface StatusResponse {
 		public void response(StatusItem item);
 	}
 	
@@ -169,7 +170,7 @@ public class GameClient {
 	 * Represents the an abstract Callback for a response containing a single game information.
 	 * Implement response(GameListItem response) to get the data.
 	 */
-	interface GameInfoResponse {
+	public interface GameInfoResponse {
 		public void response(GameListItem item);
 	}
 	
