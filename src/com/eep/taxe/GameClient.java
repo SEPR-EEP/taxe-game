@@ -195,7 +195,6 @@ public class GameClient {
 			return false;
 		}
 		Object[] params = {playerName, difficulty, gameData.serialise()};
-		System.out.println("TYPE: " + params[2].getClass().getName());
 		this.socket.emit("CG", params, new ResponseHandler() {
 			
 			public void call(Object... args0) {

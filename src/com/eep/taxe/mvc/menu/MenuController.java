@@ -83,6 +83,8 @@ public class MenuController {
 	}
 	
 	private void createNewGame() {
+		
+		// Ask for player's name
 		view.askForName(new RunnableArgs(){
 			@Override
 			public void run() {
@@ -94,11 +96,12 @@ public class MenuController {
 					return;
 				}
 				
+				// Ask for difficulty
 				view.askForDifficulty(new RunnableArgs() {
 
 					@Override
 					public void run() {
-						
+					
 						if ( this.getArgs()[0] == null ) {
 							view.showErrorMessage("Aborted.");
 							return;
@@ -107,24 +110,16 @@ public class MenuController {
 						Integer d = Integer.valueOf((String) this.getArgs()[0]);
 						GameData data = generateGameData(name, d);
 						
+						// Create the actual game
 						model.getClient().createGame(name, d, data, new GameInfoResponse() {
 							@Override
 							public void response(GameListItem item) {
-								
 								view.showMessage("Game created");
-								
 							}
 						});						
 					}
-					
-				
-				
 				});
-
-				
 			}
-
-
 		});
 	}
 	
