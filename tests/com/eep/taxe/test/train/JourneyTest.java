@@ -1,4 +1,4 @@
-package com.eep.taxe.test.trainJourney;
+package com.eep.taxe.test.train;
 
 import static org.junit.Assert.*;
 
@@ -15,9 +15,6 @@ import com.eep.taxe.models.Vertex;
 import com.eep.taxe.utils.Dijkstra;
 
 public class JourneyTest {
-	
-	private Station			startingStation, endingStation;
-	private Dijkstra		d;
 	
 	// The stations of the test
 	private Station Rome, Paris, York, Edinburgh, KingsX, Victoria, Nowhere;
@@ -36,37 +33,37 @@ public class JourneyTest {
 	public void setUp() throws Exception {
 		
 		// 1. Create some Railway Station
-				Rome 		= new Station(30, 40, "Rome Fiumicino");
-				Paris 		= new Station(10, 30, "Paris Centràle");
-				York 		= new Station(20, 10, "York Railway Station");
-				Edinburgh	= new Station(20, 00, "Edinburgh Railway Station");
-				KingsX		= new Station(20, 20, "London King's Cross Station");
-				Victoria	= new Station(20, 25, "London Victoria");
-				Nowhere		= new Station(00, 00, "The Phantom Spaceship");
-				
-				
-				// 2. Create a train
-				steamTrain 			= new Train("Steam", 20, 30, null, 25); //Travels 25 km per turn
-				
-				// 3. Create an empty journey
-				trainJourney		= new Journey(steamTrain);
-				
-				//4. Create edges
-				e1 = new Edge(Edinburgh, 		York,		 	20);
-				e2 = new Edge(York, 				KingsX,			60);
-				e3 = new Edge(KingsX,			Victoria,		5);
-				e4 = new Edge(Victoria, 			Paris,	 		15);
-				e5 = new Edge(Paris, 			Rome,			30);
-				
-				//5. Add edges to the journey (in-order)
-				trainJourney.add(e1);
-				trainJourney.add(e2);
-				trainJourney.add(e3);
-				trainJourney.add(e4);
-				trainJourney.add(e5);
-				
-				//6. Sum of length of all edges
-				expectedTrainJourneyLength = 20+60+5+15+30;
+		Rome 		= new Station(30, 40, "Rome Fiumicino");
+		Paris 		= new Station(10, 30, "Paris Centràle");
+		York 		= new Station(20, 10, "York Railway Station");
+		Edinburgh	= new Station(20, 00, "Edinburgh Railway Station");
+		KingsX		= new Station(20, 20, "London King's Cross Station");
+		Victoria	= new Station(20, 25, "London Victoria");
+		Nowhere		= new Station(00, 00, "The Phantom Spaceship");
+		
+		
+		// 2. Create a train
+		steamTrain 			= new Train("Steam", 20, 30, null, 25); //Travels 25 km per turn
+		
+		// 3. Create an empty journey
+		trainJourney		= new Journey(steamTrain);
+		
+		//4. Create edges
+		e1 = new Edge(Edinburgh, 		York,		 	20);
+		e2 = new Edge(York, 				KingsX,			60);
+		e3 = new Edge(KingsX,			Victoria,		5);
+		e4 = new Edge(Victoria, 			Paris,	 		15);
+		e5 = new Edge(Paris, 			Rome,			30);
+		
+		//5. Add edges to the journey (in-order)
+		trainJourney.add(e1);
+		trainJourney.add(e2);
+		trainJourney.add(e3);
+		trainJourney.add(e4);
+		trainJourney.add(e5);
+		
+		//6. Sum of length of all edges
+		expectedTrainJourneyLength = 20+60+5+15+30;
 				
 	}
 

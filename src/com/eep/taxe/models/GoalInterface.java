@@ -17,6 +17,6 @@ public interface GoalInterface extends AgeRelatedInterface, Serializable {
 	
 	public int 				calculateReward();					// Calculate the Score Reward for the Goal
 	public Boolean			canBeAccomplishedBy(Player p);		// Check if Player can accomplish the Goal
-	public int 				estimateDuration();					// Calculate duration of the Goal
+	public int 				optimalDuration(float shortestPathLength, float baseSpeed);					// Calculate duration of the Goal
 	
 }

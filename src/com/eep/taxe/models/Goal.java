@@ -19,10 +19,6 @@ public class Goal implements GoalInterface {
 		this.longDescription = longDescription;
 		this.startingStation = startingStation;
 		this.endingStation = endingStation;
-		
-		// TODO Calculate a difficulty factor
-		int shortestDuration = this.estimateDuration();
-		
 	}
 	
 	
@@ -100,12 +96,13 @@ public class Goal implements GoalInterface {
 		return null;
 	}
 
-	/** Calculate duration of the Goal */
+	/** Calculate shortest number of turns it will take a train to complete, travelling at its base speed
+	 * @param shortestPathLength Should first be calculated using Dijkstra's algorithm
+	 * @param baseSpeed	The unmodified speed of a train */
 	@Override
-	public int estimateDuration() {
-		// TODO Method should estimate duration using Dijkstra's algorithm on the graph of vertices
-		//return this.getStartingStation().shortestPathTo(this.getEndingStation());
-		return 0;
+	public int optimalDuration(float shortestPathLength, float baseSpeed) {
+		float shortestTurns = shortestPathLength / baseSpeed; 
+		return (int) Math.ceil(shortestTurns); //If not int round up to next int
 	}
 
 }
