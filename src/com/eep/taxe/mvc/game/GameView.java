@@ -40,51 +40,18 @@ public class GameView extends javax.swing.JFrame {
 		gameMenuPanel.setPreferredSize(getContentPane().getSize());
 		gameMenuPanel.setLayout(new BorderLayout(0, 0));
 		gameMenuPanel.setOpaque(false);
-		
-			JPanel infoPanel = new JPanel();
-			infoPanel.setPreferredSize(new Dimension(WIDTH/6, HEIGHT));
-			infoPanel.setBackground(Color.RED);
-
-			
-			JPanel inventoryAndMapPanel = new JPanel();
-			inventoryAndMapPanel.setBackground(Color.YELLOW);
-			inventoryAndMapPanel.setLayout(new BoxLayout(inventoryAndMapPanel, BoxLayout.X_AXIS));
-			inventoryAndMapPanel.setPreferredSize(new Dimension(WIDTH, WIDTH/8));
-			inventoryAndMapPanel.setOpaque(false);
-			
-				JPanel inventoryContainer = new JPanel();
-				inventoryContainer.setPreferredSize(new Dimension(WIDTH - WIDTH/6, WIDTH/8));
-				inventoryContainer.setLayout(new BorderLayout(0, 0));
-				inventoryContainer.setOpaque(false);
-			
-				JPanel inventoryPanel = new JPanel();
-				inventoryPanel.setPreferredSize(new Dimension(WIDTH - WIDTH/6, WIDTH/16));
-				inventoryPanel.setAlignmentX(LEFT_ALIGNMENT);
-				inventoryPanel.setAlignmentY(BOTTOM_ALIGNMENT);
-				inventoryPanel.setBackground(Color.CYAN);
-
-			
-				JPanel miniMapPanel = new JPanel();
-				miniMapPanel.setPreferredSize(new Dimension(WIDTH/6, WIDTH/8));
-				miniMapPanel.setBackground(Color.MAGENTA);
-		
-			
-					
 						
-				TopPanel topPanel = new TopPanel(WIDTH, HEIGHT);
-				gameMenuPanel.add(topPanel, BorderLayout.NORTH);
+			TopPanel topPanel = new TopPanel(WIDTH, HEIGHT);
+			gameMenuPanel.add(topPanel, BorderLayout.NORTH);
 						
-				LeftPanel leftPanel = new LeftPanel(WIDTH, HEIGHT);
-				gameMenuPanel.add(leftPanel, BorderLayout.WEST);
+			LeftPanel leftPanel = new LeftPanel(WIDTH, HEIGHT);
+			gameMenuPanel.add(leftPanel, BorderLayout.WEST);
 			
-
-
+			RightPanel rightPanel = new RightPanel(WIDTH, HEIGHT);
+			gameMenuPanel.add(rightPanel, BorderLayout.EAST);
 			
-			gameMenuPanel.add(infoPanel, BorderLayout.EAST);
-				inventoryContainer.add(inventoryPanel, BorderLayout.SOUTH);
-				inventoryAndMapPanel.add(inventoryContainer);
-				inventoryAndMapPanel.add(miniMapPanel);
-			gameMenuPanel.add(inventoryAndMapPanel, BorderLayout.SOUTH);
+			BottomPanel bottomPanel = new BottomPanel(WIDTH, HEIGHT);
+			gameMenuPanel.add(bottomPanel, BorderLayout.SOUTH);
 			
 		mainMapPanel.add(gameMenuPanel);
 		getContentPane().add(mainMapPanel);

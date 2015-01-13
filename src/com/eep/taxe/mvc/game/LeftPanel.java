@@ -17,8 +17,8 @@ public class LeftPanel extends JPanel{
 	public LeftPanel(int width, int height){
 		this.WIDTH = width;
 		this.HEIGHT = height;
-		
-
+//		this.WIDTH = 1300;
+//		this.HEIGHT = 720;
 		this.setPreferredSize(new Dimension(WIDTH/8, HEIGHT));
 		this.setBackground(Color.GREEN);
 		this.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -74,12 +74,12 @@ public class LeftPanel extends JPanel{
 				player2InfoPanel.setOpaque(false);
 				
 					JLabel player2NameLabel = new JLabel();
-					player2NameLabel.setText("Player 1");
+					player2NameLabel.setText("Player 2");
 					player2NameLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
 					player2NameLabel.setPreferredSize(new Dimension(WIDTH/32, WIDTH/64));
 					
 					JLabel player2ScoreLabel = new JLabel();
-					player2ScoreLabel.setText("123423");
+					player2ScoreLabel.setText("43565432");
 					player2ScoreLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
 					player2ScoreLabel.setPreferredSize(new Dimension(WIDTH/32, WIDTH/64));
 					
@@ -99,6 +99,7 @@ public class LeftPanel extends JPanel{
 			this.add(player1Panel);
 			this.add(player2Panel);
 		
+			this.setVisible(true);
 	}
 	
 }
