@@ -27,6 +27,7 @@ public class MenuView extends javax.swing.JFrame {
 
 	private JPanel menu 	= null;
 	private JPanel lobby	= null;
+	private JPanel wait 	= null;
 	
 	private	JButton mainButton;
 	private	JButton creditsButton;
@@ -42,6 +43,7 @@ public class MenuView extends javax.swing.JFrame {
 		
 		this.menu 	= this.createMainMenu();
 		this.lobby	= this.createLobby();
+		this.wait 	= this.createWaitScreen();
 		
 		this.showMainMenu();
 		
@@ -84,6 +86,14 @@ public class MenuView extends javax.swing.JFrame {
 		return j;
 	}
 	
+	private JPanel createWaitScreen() {
+		JPanel j = new JPanel(new GridLayout(3,0));
+		j.add(new JLabel("The Game is about to start."));
+		j.add(new JLabel("Please wait for your opponent..."));
+		j.add(new JLabel("Hopefully it won't take long. Relax."));		
+		return j;
+	}
+	
 	private JPanel createLobby() {
 		JPanel j = new JPanel(new GridLayout(2,2));
 		j.add(new JLabel("This is the Lobby View"));
@@ -118,6 +128,7 @@ public class MenuView extends javax.swing.JFrame {
 	
 	protected void showMainMenu() {
 		this.remove(lobby);
+		this.remove(wait);
 		this.add(menu);
 		this.pack();
 		this.validate();
@@ -125,7 +136,16 @@ public class MenuView extends javax.swing.JFrame {
 	
 	protected void showLobby() {
 		this.remove(menu);
+		this.remove(wait);
 		this.add(lobby);
+		this.pack();
+		this.validate();
+	}	
+	
+	protected void showWaitScreen() {
+		this.remove(menu);
+		this.remove(lobby);
+		this.add(wait);
 		this.pack();
 		this.validate();
 	}

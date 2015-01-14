@@ -138,7 +138,7 @@ public class MenuController {
 							@Override
 							public void response(GameListItem item) {
 								
-								// TODO: Go to WAITING screen
+								view.showWaitScreen();
 								System.out.println("Game #" + item.id + " created.");
 								System.out.println("Ok, waiting for other player");
 								
@@ -172,6 +172,7 @@ public class MenuController {
 							return;
 						}
 						
+						view.showWaitScreen();
 						System.out.println("Game #" + gameID + " joined.");
 						System.out.println("Ok, waiting for other player.");
 						
