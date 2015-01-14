@@ -30,7 +30,7 @@ public class MenuController {
 	private MenuModel	model 	= null;
 	
 	
-	private final int 	refreshEveryMs		= 3000;
+	private final int 	refreshEveryMs		= 1000;
 	private boolean		refreshEnabled 		= false;
 
 	public MenuController(MenuView menuView, MenuModel menuModel) {
@@ -72,7 +72,6 @@ public class MenuController {
 	private class CreateButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("'Create New Game' button pressed.");
 			createNewGame();
 		}		
 	}
@@ -138,7 +137,11 @@ public class MenuController {
 						model.getClient().createGame(name, d, data, new GameInfoResponse() {
 							@Override
 							public void response(GameListItem item) {
-								view.showMessage("Game created");
+								
+								// TODO: Go to WAITING screen
+								System.out.println("Game #" + item.id + " created.");
+								System.out.println("Ok, waiting for other player");
+								
 							}
 						});						
 					}
@@ -169,7 +172,8 @@ public class MenuController {
 							return;
 						}
 						
-						view.showMessage("Yay, game " + gameID + " joined!");
+						System.out.println("Game #" + gameID + " joined.");
+						System.out.println("Ok, waiting for other player.");
 						
 					}
 				});
@@ -212,7 +216,6 @@ public class MenuController {
             	if ( !refreshEnabled )
             		return;
             	
-            	System.out.println("[Lobby] Refreshing Game List...");
             	listGames();
             	
             }

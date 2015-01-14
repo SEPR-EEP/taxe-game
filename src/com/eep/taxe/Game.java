@@ -45,12 +45,14 @@ public class Game extends Awaitility {
 			System.exit(1);
 		}
 		
-		System.out.println("Conected, starting GUI...");
+		System.out.print("Conected, starting GUI...");
 		
 		// Start Menu MVC
 		MenuView 		menuView 		= new MenuView();
 		MenuModel		menuModel		= new MenuModel(client);
 		MenuController	menuController	= new MenuController(menuView, menuModel);
+		
+		System.out.print(" DONE.\n");
 		
 		// On Game Start, load Game MVC
 		menuController.onStartGame(menuController.new StartGameEvent() {

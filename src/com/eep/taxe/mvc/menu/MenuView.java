@@ -46,7 +46,7 @@ public class MenuView extends javax.swing.JFrame {
 		this.showMainMenu();
 		
 		this.setVisible(true);
-
+		
 	}
 
 	public void addMainButtonListener(ActionListener buttonListener) {
@@ -162,7 +162,7 @@ public class MenuView extends javax.swing.JFrame {
 	}
 	
 	public void askForDifficulty(RunnableArgs runnable) {
-		Object[] possibleValues = { "1", "2", "3" };
+		Object[] possibleValues = { "Easy", "Medium", "Hard" };
 		String s = (String)JOptionPane.showInputDialog(
 				this,
         	"Select difficulty?",
@@ -172,6 +172,17 @@ public class MenuView extends javax.swing.JFrame {
         	possibleValues,
 			possibleValues[0]
         );
+		switch (s) {
+			case "Easy":
+				s = "1";
+				break;
+			case "Medium":
+				s = "2";
+				break;
+			case "Hard":
+				s = "3";
+				break;
+		}
 		runnable.run(s);
 	}
 	

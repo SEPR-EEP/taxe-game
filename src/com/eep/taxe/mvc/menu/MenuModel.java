@@ -10,7 +10,6 @@ public class MenuModel {
 	
 	public MenuModel(GameClient client) {
 		this.client = client;
-		this.setData(new Game());
 	}
 
 
