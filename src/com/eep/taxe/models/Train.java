@@ -13,6 +13,9 @@ public class Train implements TrainInterface {
 	private float actualSpeed;		//Speed of the train with modifiers applied, if non applied then baseSpeed == actualSpeed
 	private Goal goal;
 	private Journey journey;
+	private Boolean hasActiveGoal;
+	
+	private Station stationToStartNextGoalAt; // The station the train will start its next goal from
 	/**
 	 * Instantiates a Train
 	 * @param	model		Model name of the train
@@ -21,13 +24,15 @@ public class Train implements TrainInterface {
 	 * @param 	trainAge 	The game age that the train belongs to
 	 * @param 	baseSpeed 	The speed the train travels at, without any modifiers being applied to it
 	 */
-	public Train(String model, int costInGold, int costInMetal, Ages trainAge, float baseSpeed){
+	public Train(String model, int costInGold, int costInMetal, Ages trainAge, float baseSpeed, Station stationToStartNextGoalAt){
 		this.trainModel = model;
 		this.costInGold = costInGold;
 		this.costInMetal = costInMetal;
 		this.trainAge = trainAge;
 		this.baseSpeed = baseSpeed;
 		this.actualSpeed = baseSpeed;
+		this.hasActiveGoal = false;
+		this.stationToStartNextGoalAt = stationToStartNextGoalAt;
 	}
 	
 	/** Get the Model name of the train
@@ -119,15 +124,37 @@ public class Train implements TrainInterface {
 	
 	
 	@Override
-	public void startAGoal(Goal goal) {
-		//  Method to assign a goal to a train
-		this.goal = goal;
+	public void startAGoal(Goal goal, Journey journey) {
+		
+		if (goal.willJourneyAcomplishGoal(journey) ){
+			this.hasActiveGoal = true;
+			this.journey = journey;
+			this.goal = goal;
+			this.stationToStartNextGoalAt = goal.getEndingStation();
+			
+		}
 	}
 	
 	@Override
 	public void moveForward() {
-		// Move train forward at each turn
-		journey.incrementProgressByTurn();
+		
+		if (this.hasActiveGoal){
+			journey.incrementProgressByTurn();
+			
+			if (journey.isJourneyComplete() ) {
+				this.hasActiveGoal = false;
+			}
+		}
+		
+		
 	}
+	
+	public Boolean hasActiveGoal(){
+		return this.hasActiveGoal;
+	}
+	
 
+	public Station getStationToStartNextGoalAt(){
+		return this.stationToStartNextGoalAt;
+	}
 }

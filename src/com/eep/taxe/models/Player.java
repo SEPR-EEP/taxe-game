@@ -194,7 +194,21 @@ public class Player implements PlayerInterface {
 
 	@Override
 	public void generateGoal() {
-		// TODO Generate a new Goal
+		
+		//If max number of goals is reached
+		if (this.currentGoalsNo() >= 3) {
+			return;
+		}
+		
+		for (Train train : trains){
+			if (! train.hasActiveGoal() ){
+				
+				Station startingStation = train.getStationToStartNextGoalAt();
+				
+				
+			}
+		}
+		
 	}
 
 	@Override

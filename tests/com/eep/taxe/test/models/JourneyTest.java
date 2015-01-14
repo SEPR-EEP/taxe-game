@@ -1,4 +1,4 @@
-package com.eep.taxe.test.train;
+package com.eep.taxe.test.models;
 
 import static org.junit.Assert.*;
 

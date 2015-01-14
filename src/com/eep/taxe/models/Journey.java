@@ -12,7 +12,7 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 	private float distanceTravelledOnEdge;
 	private float distanceTravelledOnJourney;
 	private int turnsElapsedSinceStart;
-	private Boolean journeyStarted, journeyComplete;
+	private Boolean journeyStarted, journeyComplete, isMoving;
 	
 	/**
 	 * Instantiates a Journey
@@ -27,6 +27,7 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 		this.turnsElapsedSinceStart = 0;
 		this.journeyStarted = false;
 		this.journeyComplete = false;
+		this.isMoving = false;
 	}
 	
 	/**
@@ -35,7 +36,7 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 	 */
 	@Override
 	public Boolean isMoving() {
-		return (train.getSpeed() == 0);
+		return (this.isMoving);
 	}
 	
 	/**
@@ -46,7 +47,9 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 	public Boolean isJourneyComplete(){
 		if (getDistanceTravelledOnJourney() >= getTotalLength() ){
 			this.journeyComplete = true;
+			this.isMoving = false;
 			this.distanceTravelledOnJourney = getTotalLength();	//So distance travelled does not exceed length of journey
+			
 		}
 		return this.journeyComplete;
 	}
@@ -150,6 +153,7 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 		
 		//If progress cannot be incremented
 		if (this.isEmpty() || this.isJourneyComplete() ){
+			this.isMoving = false;
 			return;
 		}
 		
@@ -159,6 +163,7 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 			this.journeyStarted = true;
 		}
 		
+		this.isMoving = true;
 		this.turnsElapsedSinceStart++;
 		
 		int lengthOfEdge = this.getCurrentEdge().getLength();
