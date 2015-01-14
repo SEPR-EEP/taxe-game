@@ -12,7 +12,6 @@ public class MenuModel {
 		this.client = client;
 	}
 
-
 	public GameClient getClient() {
 		return client;
 	}
@@ -21,11 +20,9 @@ public class MenuModel {
 		this.client = client;
 	}
 
-
 	public Game getData() {
 		return data;
 	}
-
 
 	public void setData(Game data) {
 		this.data = data;

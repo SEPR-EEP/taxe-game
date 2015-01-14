@@ -60,16 +60,15 @@ public class GameClient {
 		Listener moveData = new Listener() {
 			@Override
 			public void call(Object... arg0) {
-				if ( arg0.length != 1 ) {
-					return;
-				}
-				GameData g = GameData.deserialise((byte[]) arg0[0]);
+				GameData g = null;
+				if ( arg0.length != 0 )
+					 g = GameData.deserialise((byte[]) arg0[0]);
 				if ( getOnMove() != null )
 					getOnMove().receive(g);
 			}
 		};
-		this.socket.on("PP", 	moveData);
 		this.socket.on("GS", 	moveData);
+		this.socket.on("PP", 	moveData);
 	}
 	
 	/**
@@ -178,7 +177,7 @@ public class GameClient {
 	 * Represents the abstract Callback for a Game Data response
 	 * Implement receive(GameData data) to get the updated game data.
 	 */
-	interface MoveEvent {
+	public interface MoveEvent {
 		public void receive(GameData data);
 	}
 	
@@ -196,6 +195,7 @@ public class GameClient {
 		}
 		Object[] params = {playerName, difficulty, gameData.serialise()};
 		this.socket.emit("CG", params, new ResponseHandler() {
+			
 			
 			public void call(Object... args0) {
 				JSONObject response = (JSONObject) args0[0];

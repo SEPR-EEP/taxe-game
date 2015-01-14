@@ -1,22 +1,13 @@
 package com.eep.taxe;
 
-import static org.junit.Assert.fail;
-
-import java.util.Vector;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Test;
 
-import com.eep.taxe.models.Edge;
-import com.eep.taxe.models.Path;
-import com.eep.taxe.models.Station;
-import com.eep.taxe.models.Vertex;
 import com.eep.taxe.mvc.game.*;
 import com.eep.taxe.mvc.menu.*;
-import com.eep.taxe.utils.Dijkstra;
+import com.eep.taxe.mvc.menu.MenuController.StartGameListener;
 import com.jayway.awaitility.Awaitility;
-
 
 
 public class Game extends Awaitility {
@@ -45,29 +36,37 @@ public class Game extends Awaitility {
 			System.exit(1);
 		}
 		
-		System.out.print("Conected, starting GUI...");
+		System.out.print("Connected, starting GUI...");
 		
 		// Start Menu MVC
 		MenuView 		menuView 		= new MenuView();
 		MenuModel		menuModel		= new MenuModel(client);
 		MenuController	menuController	= new MenuController(menuView, menuModel);
 		
-		System.out.print(" DONE.\n");
+		System.out.println(" DONE.");
 		
 		// On Game Start, load Game MVC
-		menuController.onStartGame(menuController.new StartGameEvent() {
-			@Override
-			public void run(com.eep.taxe.models.Game data) {
-				GameView 		gameView 		= new GameView();
-				GameModel		gameModel 		= new GameModel(client, data);
-				GameController	gameController	= new GameController(gameView, gameModel);
-			}
-
-		});
-		
-		
-		
+		menuController.addStartGameListener(new StartGameEvent(client, menuModel.getData()));
 	
+	}
+	
+	// Event to catch the Start Game event.
+	// It sets up the whole Game MVC.
+	public static class StartGameEvent implements StartGameListener {
+		GameClient 					gClient;
+		GameData 					gData;
+		StartGameEvent(GameClient client, GameData data) {
+			this.gClient = client;
+			this.gData 	 = data;
+		}
+		public void run(com.eep.taxe.models.Game data) {
+			System.out.print("Game initiated, starting GUI...");
+			data = data == null ? (com.eep.taxe.models.Game) gData : data;
+			GameView 		gameView 		= new GameView();
+			GameModel		gameModel 		= new GameModel(client, data);
+			GameController	gameController	= new GameController(gameView, gameModel);
+			System.out.println(" DONE.");
+		}
 	}
 
 

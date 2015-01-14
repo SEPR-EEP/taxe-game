@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import com.eep.taxe.GameClient.GameInfoResponse;
 import com.eep.taxe.GameClient.GameListItem;
 import com.eep.taxe.GameClient.GameListResponse;
+import com.eep.taxe.GameClient.MoveEvent;
 import com.eep.taxe.GameClient.StatusItem;
 import com.eep.taxe.GameClient.StatusResponse;
 import com.eep.taxe.GameData;
@@ -30,8 +31,10 @@ public class MenuController {
 	private MenuModel	model 	= null;
 	
 	
-	private final int 	refreshEveryMs		= 1000;
+	private final int 	refreshEveryMs		= 5000;
 	private boolean		refreshEnabled 		= false;
+	
+	private StartGameListener startGameListener = null;
 
 	public MenuController(MenuView menuView, MenuModel menuModel) {
 		this.view 	= menuView;
@@ -44,6 +47,20 @@ public class MenuController {
 		this.view.addTableMouseListener(new TableMouseListener());
 		
 		this.startGameListRefresher();
+		
+		this.model.getClient().setOnMove(new StartGame());
+		
+	}
+	
+	private class StartGame implements MoveEvent {
+		@Override
+		public void receive(GameData data) {
+			view.setVisible(false);
+			refreshEnabled = false;
+			if ( data == null )
+				data = model.getData();
+			startGameListener.run((Game) data);
+		}
 	}
 	
 	private class MainButtonListener implements ActionListener {
@@ -131,7 +148,8 @@ public class MenuController {
 						}
 						
 						Integer d = Integer.valueOf((String) this.getArgs()[0]);
-						GameData data = generateGameData(name, d);
+						Game data = generateGameData(name, d);
+						model.setData(data);
 						
 						// Create the actual game
 						model.getClient().createGame(name, d, data, new GameInfoResponse() {
@@ -140,7 +158,7 @@ public class MenuController {
 								
 								view.showWaitScreen();
 								System.out.println("Game #" + item.id + " created.");
-								System.out.println("Ok, waiting for other player");
+								System.out.println("Ok, waiting for other player.");
 								
 							}
 						});						
@@ -185,7 +203,7 @@ public class MenuController {
 
 	}
 	
-	private GameData generateGameData(String name, int i) {
+	private Game generateGameData(String name, int i) {
 		Difficulty d = null;
 		switch (i) {
 			case 1:
@@ -223,9 +241,6 @@ public class MenuController {
         }, 0, refreshEveryMs);
 	}
 
-	public void onStartGame(StartGameEvent e) {
-		//e.run(model.getData());
-	}
 
 	public MenuView getView() {
 		return view;
@@ -243,8 +258,12 @@ public class MenuController {
 		this.model = model;
 	}
 
-	public abstract class StartGameEvent  {
-		public abstract void run(Game data);
+	public void addStartGameListener(StartGameListener e) {
+		this.startGameListener = e;
+	}
+
+	public interface StartGameListener  {
+		public void run(com.eep.taxe.models.Game data);
 	}
 
 }

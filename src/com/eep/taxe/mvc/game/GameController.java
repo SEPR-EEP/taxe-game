@@ -8,6 +8,8 @@ public class GameController {
 	public GameController(GameView gameView, GameModel gameModel) {
 		this.setView(gameView);
 		this.setModel(gameModel);
+		
+		System.out.println("Data received: " + gameModel.getData());
 	}
 
 	public GameView getView() {
