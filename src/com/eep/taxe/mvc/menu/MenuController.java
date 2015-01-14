@@ -31,7 +31,7 @@ public class MenuController {
 	private MenuModel	model 	= null;
 	
 	
-	private final int 	refreshEveryMs		= 5000;
+	private final int 	refreshEveryMs		= 1000;
 	private boolean		refreshEnabled 		= false;
 	
 	private StartGameListener startGameListener = null;
