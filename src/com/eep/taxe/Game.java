@@ -3,7 +3,7 @@ package com.eep.taxe;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
-
+import com.eep.taxe.GameClient.Role;
 import com.eep.taxe.mvc.game.*;
 import com.eep.taxe.mvc.menu.*;
 import com.eep.taxe.mvc.menu.MenuController.StartGameListener;
@@ -46,24 +46,37 @@ public class Game extends Awaitility {
 		System.out.println(" DONE.");
 		
 		// On Game Start, load Game MVC
-		menuController.addStartGameListener(new StartGameEvent(client, menuModel.getData()));
+		menuController.addStartGameListener(
+			new StartGameEvent(
+					client, menuModel.getData()
+			)
+		);
 	
 	}
 	
 	// Event to catch the Start Game event.
 	// It sets up the whole Game MVC.
 	public static class StartGameEvent implements StartGameListener {
-		GameClient 					gClient;
-		GameData 					gData;
+		
+		private GameClient 			gClient;
+		private GameData 			gData;
+		
 		StartGameEvent(GameClient client, GameData data) {
-			this.gClient = client;
-			this.gData 	 = data;
+			this.gClient 	= client;
+			this.gData 	  	= data;
 		}
-		public void run(com.eep.taxe.models.Game data) {
+		
+		public void run(
+				com.eep.taxe.models.Game data,
+				Role role, String nickname
+		) {
 			System.out.print("Game initiated, starting GUI...");
-			data = data == null ? (com.eep.taxe.models.Game) gData : data;
+			
+
 			GameView 		gameView 		= new GameView();
-			GameModel		gameModel 		= new GameModel(client, data);
+			GameModel		gameModel 		= new GameModel(gClient, data);
+							gameModel		  .setMyRole(role);
+							gameModel		  .setMyNickname(nickname);
 			GameController	gameController	= new GameController(gameView, gameModel);
 			System.out.println(" DONE.");
 		}

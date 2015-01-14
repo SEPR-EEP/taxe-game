@@ -16,6 +16,7 @@ import com.eep.taxe.GameClient.GameInfoResponse;
 import com.eep.taxe.GameClient.GameListItem;
 import com.eep.taxe.GameClient.GameListResponse;
 import com.eep.taxe.GameClient.MoveEvent;
+import com.eep.taxe.GameClient.Role;
 import com.eep.taxe.GameClient.StatusItem;
 import com.eep.taxe.GameClient.StatusResponse;
 import com.eep.taxe.GameData;
@@ -57,9 +58,22 @@ public class MenuController {
 		public void receive(GameData data) {
 			view.setVisible(false);
 			refreshEnabled = false;
-			if ( data == null )
-				data = model.getData();
-			startGameListener.run((Game) data);
+			
+			Role myRole;
+			if ( data == null ) {
+				// I did not receive Game Data, as I'm the Master player
+				myRole = Role.MASTER;
+				data = model.getData();	// I get the data I generated myself
+			} else {
+				// I received Game Date generated from the Master, I'm Slave
+				myRole = Role.SLAVE;
+			}
+			
+			startGameListener.run(
+					(Game) data,
+					myRole,
+					model.getNickname()
+			);
 		}
 	}
 	
@@ -150,6 +164,7 @@ public class MenuController {
 						Integer d = Integer.valueOf((String) this.getArgs()[0]);
 						Game data = generateGameData(name, d);
 						model.setData(data);
+						model.setNickname(name);
 						
 						// Create the actual game
 						model.getClient().createGame(name, d, data, new GameInfoResponse() {
@@ -180,6 +195,8 @@ public class MenuController {
 					view.showErrorMessage("Aborted.");
 					return;
 				}
+				
+				model.setNickname(name);
 				
 				model.getClient().joinGame(gameID, name, new StatusResponse() {
 					@Override
@@ -263,7 +280,7 @@ public class MenuController {
 	}
 
 	public interface StartGameListener  {
-		public void run(com.eep.taxe.models.Game data);
+		public void run(com.eep.taxe.models.Game data, Role role, String nickname);
 	}
 
 }

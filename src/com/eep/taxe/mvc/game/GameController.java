@@ -1,5 +1,7 @@
 package com.eep.taxe.mvc.game;
 
+import com.eep.taxe.GameClient.Role;
+
 public class GameController {
 
 	private GameView	view	= null;
@@ -8,8 +10,14 @@ public class GameController {
 	public GameController(GameView gameView, GameModel gameModel) {
 		this.setView(gameView);
 		this.setModel(gameModel);
+
+		// Add to the window title " - Playing as NAME (ROLE)"
+		view.setTitle(
+			view.getTitle() + 
+			" - Playing as: " + model.getMyNickname() + " (" +
+			(model.getMyRole() == Role.MASTER ? "Master" : "Slave") + ")"
+		);
 		
-		System.out.println("Data received: " + gameModel.getData());
 	}
 
 	public GameView getView() {

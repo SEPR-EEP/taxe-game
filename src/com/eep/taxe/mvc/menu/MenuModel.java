@@ -7,6 +7,7 @@ public class MenuModel {
 
 	private GameClient client = null;
 	private Game	   data   = null;
+	private String	   nickname;
 	
 	public MenuModel(GameClient client) {
 		this.client = client;
@@ -26,6 +27,14 @@ public class MenuModel {
 
 	public void setData(Game data) {
 		this.data = data;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 }
