@@ -47,9 +47,7 @@ public class Game extends Awaitility {
 		
 		// On Game Start, load Game MVC
 		menuController.addStartGameListener(
-			new StartGameEvent(
-					client, menuModel.getData()
-			)
+			new StartGameEvent()
 		);
 	
 	}
@@ -57,24 +55,15 @@ public class Game extends Awaitility {
 	// Event to catch the Start Game event.
 	// It sets up the whole Game MVC.
 	public static class StartGameEvent implements StartGameListener {
-		
-		private GameClient 			gClient;
-		private GameData 			gData;
-		
-		StartGameEvent(GameClient client, GameData data) {
-			this.gClient 	= client;
-			this.gData 	  	= data;
-		}
-		
+				
 		public void run(
 				com.eep.taxe.models.Game data,
 				Role role, String nickname
 		) {
 			System.out.print("Game initiated, starting GUI...");
-			
 
 			GameView 		gameView 		= new GameView();
-			GameModel		gameModel 		= new GameModel(gClient, data);
+			GameModel		gameModel 		= new GameModel(client, data);
 							gameModel		  .setMyRole(role);
 							gameModel		  .setMyNickname(nickname);
 			GameController	gameController	= new GameController(gameView, gameModel);
