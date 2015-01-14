@@ -11,6 +11,7 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 	private float progressOnEdge;
 	private float distanceTravelledOnEdge;
 	private float distanceTravelledOnJourney;
+	private int turnsElapsedSinceStart;
 	private Boolean journeyStarted, journeyComplete;
 	
 	/**
@@ -23,6 +24,7 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 		this.progressOnEdge = 0;
 		this.distanceTravelledOnEdge = 0;
 		this.distanceTravelledOnJourney = 0;
+		this.turnsElapsedSinceStart = 0;
 		this.journeyStarted = false;
 		this.journeyComplete = false;
 	}
@@ -130,6 +132,14 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 		return distanceTravelledOnJourney;
 	}
 	
+	/**
+	 * Get the number of turns that the journey has so far taken
+	 * @return	Number of turns
+	 */
+	@Override
+	public int getTurnsElapsedSinceStart(){
+		return this.turnsElapsedSinceStart;
+	}
 	
 	/**
 	 * Increment a train's progress on an edge for a turn.
@@ -149,6 +159,8 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 			this.journeyStarted = true;
 		}
 		
+		this.turnsElapsedSinceStart++;
+		
 		int lengthOfEdge = this.getCurrentEdge().getLength();
 		this.distanceTravelledOnEdge += train.getSpeed();	//Speed is distance travelled per turn
 		this.distanceTravelledOnJourney += train.getSpeed();
@@ -164,10 +176,5 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 		this.progressOnEdge = this.distanceTravelledOnEdge / lengthOfEdge;
 		this.isJourneyComplete();
 	}
-	
-	
-	
-	
-	
 
 }

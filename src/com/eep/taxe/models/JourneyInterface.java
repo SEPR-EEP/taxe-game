@@ -17,6 +17,7 @@ public interface JourneyInterface extends Serializable {
 	public float			getDistanceTravelledOnEdge();								// Get the distance travelled on the current edge
 	public float			getDistanceTravelledOnJourney();							// Get the distance travelled on the journey
 	
+	public int 				getTurnsElapsedSinceStart();								// Get the number of turns that have elapsed since the journey started
 	public void				incrementProgressByTurn();									// Increment progress based upon train speed
 	
 }

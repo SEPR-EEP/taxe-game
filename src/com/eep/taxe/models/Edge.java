@@ -56,6 +56,30 @@ public class Edge implements EdgeInterface {
 	public Vector<Vertex> getVertices() {
 		return this.vertices;
 	}
+	
+	/**
+	 * Gets the starting/source vertex of the edge
+	 * @return Starting vertex
+	 */
+	@Override
+	public Vertex getStartingVertex(){
+		if (! this.vertices.isEmpty()){
+			return this.vertices.firstElement();
+		}
+		return null;
+	}
+	
+	/**
+	 * Gets the ending/destination vertex of the edge
+	 * @return Ending vertex
+	 */
+	@Override
+	public Vertex getEndingVertex(){
+		if (! this.vertices.isEmpty()){
+			return this.vertices.lastElement();
+		}
+		return null;
+	}
 
 	/**
 	 * Set the list of vertices of the edge

@@ -13,6 +13,7 @@ import com.eep.taxe.models.Journey;
 import com.eep.taxe.models.Path;
 import com.eep.taxe.models.Station;
 import com.eep.taxe.models.Train;
+import com.eep.taxe.models.TrainSpeedModifier;
 import com.eep.taxe.models.Vertex;
 import com.eep.taxe.utils.Dijkstra;
 
@@ -62,7 +63,8 @@ public class GoalTest {
 		e3 = new Edge(KingsX,			Victoria,		5);
 		e4 = new Edge(Victoria, 			Paris,	 		15);
 		e5 = new Edge(Paris, 			Rome,			30);
-		
+		e6 = new Edge(Victoria, 			Rome,			50);
+
 		//5. Add vertices to graph
 		graph = new Vector<Vertex>();
 		graph.add(Rome);
@@ -78,10 +80,6 @@ public class GoalTest {
 	@Test
 	public void testYorkToKingsXInOptimalTurns(){
 		
-		int numOfTurns = 0;
-		int optimalTurns;
-		int score;
-		
 		//Player is given goal of travelling from York to KingsX
 		goal = new Goal(null, "Travel from York to KingsX", "Descriptive story", York, KingsX);
 		steamTrain.startAGoal(goal);
@@ -91,7 +89,7 @@ public class GoalTest {
 		float shortestDistance = d.getDistanceTo(KingsX);
 				
 		//Compute optimal number of turns for train travelling at its base speed
-		optimalTurns = goal.optimalNumberOfTurns(shortestDistance, steamTrain.getBaseSpeed());
+		int optimalTurns = goal.optimalNumberOfTurns(shortestDistance, steamTrain.getBaseSpeed());
 		
 		//Player adds edge to their planned journey
 		trainJourney.add(e2);
@@ -99,14 +97,151 @@ public class GoalTest {
 		//Keep journey going until KingsX is reached
 		while (! trainJourney.isJourneyComplete()){
 			trainJourney.incrementProgressByTurn();
-			numOfTurns++;
 		}
 		
 		//Calculate reward for player
-		score = goal.calculateReward(numOfTurns, optimalTurns);
+		int score = goal.calculateReward(trainJourney, optimalTurns);
+	}
+	
+	@Test
+	public void testEdinburghToRomeInSuboptimalTurns(){
 		
-		if (score != 100){
-			fail("Score must be 100 if goal is completed in optimal number of turns");
+		//Player is given goal of travelling from Edinburgh
+		goal = new Goal(null, "Travel from Edinburgh to Rome", "Descriptive story", Edinburgh, Rome);
+		steamTrain.startAGoal(goal);
+		
+		//Compute dijkstra for graph with starting station
+		d 	= new Dijkstra(this.graph, Edinburgh);
+		float shortestDistance = d.getDistanceTo(Rome);
+		
+		//Compute optimal number of turns for train travelling at its base speed
+		int optimalTurns = goal.optimalNumberOfTurns(shortestDistance, steamTrain.getBaseSpeed());
+		
+		//Player adds edges to their planned journey
+		trainJourney.add(e1);
+		trainJourney.add(e2);
+		trainJourney.add(e3);
+		trainJourney.add(e6);
+		
+		//Keep journey going until Rome is reached
+		while (! trainJourney.isJourneyComplete()){
+			trainJourney.incrementProgressByTurn();
+		}
+		
+		//Calculate reward for player
+		int score = goal.calculateReward(trainJourney, optimalTurns);
+	
+	}
+	
+	
+	@Test
+	public void testEdinburghToRomeInOptimalTurns(){
+		
+		//Player is given goal of travelling from Edinburgh
+		goal = new Goal(null, "Travel from Edinburgh to Rome", "Descriptive story", Edinburgh, Rome);
+		steamTrain.startAGoal(goal);
+		
+		//Compute dijkstra for graph with starting station
+		d 	= new Dijkstra(this.graph, Edinburgh);
+		float shortestDistance = d.getDistanceTo(Rome);
+		
+		//Compute optimal number of turns for train travelling at its base speed
+		int optimalTurns = goal.optimalNumberOfTurns(shortestDistance, steamTrain.getBaseSpeed());
+		
+		//Player adds edges to their planned journey
+		trainJourney.add(e1);
+		trainJourney.add(e2);
+		trainJourney.add(e3);
+		trainJourney.add(e4);
+		trainJourney.add(e5);
+		
+		//Keep journey going until Rome is reached
+		while (! trainJourney.isJourneyComplete()){
+			trainJourney.incrementProgressByTurn();
+		}
+		
+		//Calculate reward for player
+		int score = goal.calculateReward(trainJourney, optimalTurns);
+		
+		if (score != trainJourney.getTotalLength()){
+			fail("In optimal number of turns score should equal distance of journey");
+		}
+	}
+	
+	
+	@Test
+	public void testWrongJourney(){
+	
+		//Player is given goal of travelling from Edinburgh
+		goal = new Goal(null, "Travel from Edinburgh to Rome", "Descriptive story", Edinburgh, Rome);
+		steamTrain.startAGoal(goal);
+		
+		//Compute dijkstra for graph with starting station
+		d 	= new Dijkstra(this.graph, Edinburgh);
+		float shortestDistance = d.getDistanceTo(Rome);
+		
+		//Compute optimal number of turns for train travelling at its base speed
+		int optimalTurns = goal.optimalNumberOfTurns(shortestDistance, steamTrain.getBaseSpeed());
+		
+		//Player adds edges to their planned journey
+		trainJourney.add(e4);
+		
+		//Initial check
+		if (goal.willJourneyAcomplishGoal(trainJourney)){
+			fail("Starting station and ending station of journey are not those of goal so it cannot be acomplished");
+		}
+		
+		//Keep journey going until Paris is reached
+		while (! trainJourney.isJourneyComplete()){
+			trainJourney.incrementProgressByTurn();
+		}
+		
+		//Calculate reward for player
+		int score = goal.calculateReward(trainJourney, optimalTurns);
+		
+		if (score != 0){
+			fail("A score of 0 should be given as journey did not acomplish goal");
+		}
+		
+		
+	}
+	
+	
+	@Test
+	public void testJourneyWithSpeedBoostedTrain(){
+		
+		//Player is given goal of travelling from Edinburgh
+		goal = new Goal(null, "Travel from Edinburgh to Rome", "Descriptive story", Edinburgh, Rome);
+		steamTrain.startAGoal(goal);
+		
+		//Compute dijkstra for graph with starting station
+		d 	= new Dijkstra(this.graph, Edinburgh);
+		float shortestDistance = d.getDistanceTo(Rome);
+		
+		//Compute optimal number of turns for train travelling at its base speed
+		int optimalTurns = goal.optimalNumberOfTurns(shortestDistance, steamTrain.getBaseSpeed());
+		
+		//Player adds edges to their planned journey
+		trainJourney.add(e1);
+		trainJourney.add(e2);
+		trainJourney.add(e3);
+		trainJourney.add(e4);
+		trainJourney.add(e5);
+		
+		//Player adds a booster to their train
+		TrainSpeedModifier steamBoost = new TrainSpeedModifier("Booster", "", 5, 0, null, 2);	//Doubles speed
+		steamBoost.useOnTrain(steamTrain);
+		
+		//Keep journey going until Rome is reached
+		while (! trainJourney.isJourneyComplete()){
+			trainJourney.incrementProgressByTurn();
+		}
+		
+		//Calculate reward for player
+		int score = goal.calculateReward(trainJourney, optimalTurns);
+		
+		if (score != 2*  trainJourney.getTotalLength()){
+			fail("If speed is doubled then score should be doubled");
 		}
 		
 	}

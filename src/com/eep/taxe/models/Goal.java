@@ -1,5 +1,7 @@
 package com.eep.taxe.models;
 
+import java.util.Vector;
+
 import com.eep.taxe.models.Age.Ages;
 
 public class Goal implements GoalInterface {
@@ -83,15 +85,41 @@ public class Goal implements GoalInterface {
 		
 	}
 
-	/** Calculate the Score Reward for the Goal
-	 * @param actualNumberOfTurns	The number of turns it actually took the train to travel from start station to end
+	/** Calculate the Score that a given completed journey will be rewarded for accomplishing the goal 
+	 * @param journey	The completed journey that the train travelled
 	 * @param optimalNumberOfTurns	Calculated shortest number of turns it would take the train travelling at its base speed
 	 * @return Points to be added to a player's score */
 	@Override
-	public int calculateReward(int actualNumberOfTurns, int optimalNumberOfTurns) {
-		return (optimalNumberOfTurns * 100) / actualNumberOfTurns;
+	public int calculateReward(Journey journey, int optimalNumberOfTurns) {
+		
+		if ( journey.isJourneyComplete() 
+				&& this.willJourneyAcomplishGoal(journey)
+				&& optimalNumberOfTurns > 0){
+			
+			return journey.getTotalLength() * (optimalNumberOfTurns / journey.getTurnsElapsedSinceStart());
+		} 
+		
+		return 0;
 	}
 
+	/** Check if a given journey's start and end station are the same as the goal's start and end station
+	 * @param journey A non-empty journey
+	 * @return True if the given journey will accomplish the goal upon completion 
+	 */
+	@Override
+	public Boolean willJourneyAcomplishGoal(Journey journey){
+		if (journey.isEmpty()){
+			return false;
+		}
+		
+		else if (journey.firstElement().getStartingVertex() == this.startingStation 
+				&& journey.lastElement().getEndingVertex() == this.endingStation){
+					return true;
+				}
+		return false;
+	}
+	
+	
 	/** Check if Player can accomplish the Goal */
 	@Override
 	public Boolean canBeAccomplishedBy(Player p) {

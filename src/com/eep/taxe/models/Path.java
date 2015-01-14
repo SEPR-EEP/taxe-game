@@ -37,6 +37,4 @@ public class Path extends Vector<Edge> implements Serializable {
 		return this.getDuration(1.0);
 	}
 	
-	
-	
 }
