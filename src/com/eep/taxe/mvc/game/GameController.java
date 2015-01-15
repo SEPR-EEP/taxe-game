@@ -123,7 +123,16 @@ public class GameController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			g.drawImage( img, 0, 0, null );
+			g.drawImage(
+				img,
+				0, 0, 
+				width,
+				height,
+				0, 0,
+				img.getWidth(), 
+				img.getHeight(),
+				null
+			);
 		}
 		
 		private void drawEdges() {
@@ -175,9 +184,9 @@ public class GameController {
 		}	
 		
 		private void drawTextWithShadow(String string, int x, int y, Color textColor ) {
-			g.setColor(new Color(0xFFFFFF));
-			g.drawString(string, x+1, y+1);
 			g.setColor(textColor);
+			g.drawString(string, x+1, y+1);
+			g.setColor(new Color(0xFFFFFF));
 			g.drawString(string, x, y);
 		}
 		
