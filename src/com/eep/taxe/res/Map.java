@@ -1,5 +1,6 @@
 package com.eep.taxe.res;
 
+import java.util.Random;
 import java.util.Vector;
 
 import com.eep.taxe.models.Edge;
@@ -57,6 +58,14 @@ public class Map {
 		}
 		
 		return stations;
+	}
+	
+	public static Station getRandomStationFromMap(){
+		Vector<Station> stations = getStationsFromMap();
+		int numberOfStations = stations.size();
+		Random picker = new Random();
+		int randomStationNumber = picker.nextInt(numberOfStations);
+		return stations.get(randomStationNumber);
 	}
 	
 }
