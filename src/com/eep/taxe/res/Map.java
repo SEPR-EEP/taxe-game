@@ -47,4 +47,17 @@ public class Map {
 		return r;
 	}
 	
+	public static Vector<Station> getStationsFromMap(){
+		Vector<Vertex> map = generateMap();
+		Vector<Station> stations = new Vector<Station>();
+		
+		for (Vertex vertex : map){
+			if (vertex instanceof Station){
+				stations.add( (Station) vertex );
+			}
+		}
+		
+		return stations;
+	}
+	
 }
