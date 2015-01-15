@@ -7,6 +7,7 @@ public class Train implements TrainInterface {
 	private static final long serialVersionUID = 1L;
 	
 	private String trainModel;
+	private String trainImage;
 	private Ages trainAge;
 	private int costInMetal, costInGold;
 	private final float baseSpeed;	//Speed of the train without modifiers
@@ -24,8 +25,9 @@ public class Train implements TrainInterface {
 	 * @param 	trainAge 	The game age that the train belongs to
 	 * @param 	baseSpeed 	The speed the train travels at, without any modifiers being applied to it
 	 */
-	public Train(String model, int costInGold, int costInMetal, Ages trainAge, float baseSpeed, Station stationToStartNextGoalAt){
+	public Train(String model, String trainImage, int costInGold, int costInMetal, Ages trainAge, float baseSpeed, Station stationToStartNextGoalAt){
 		this.trainModel = model;
+		this.trainImage = trainImage;
 		this.costInGold = costInGold;
 		this.costInMetal = costInMetal;
 		this.trainAge = trainAge;

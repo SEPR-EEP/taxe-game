@@ -112,10 +112,12 @@ public class Goal implements GoalInterface {
 			return false;
 		}
 		
-		else if (journey.firstElement().getStartingVertex() == this.startingStation 
-				&& journey.lastElement().getEndingVertex() == this.endingStation){
-					return true;
-				}
+		if (journey.getStartingStation() == this.startingStation 
+				&& journey.getEndingStation() == this.endingStation) {
+			
+			return true;
+		}
+		
 		return false;
 	}
 	

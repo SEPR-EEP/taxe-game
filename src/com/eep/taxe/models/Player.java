@@ -2,6 +2,8 @@ package com.eep.taxe.models;
 
 import java.util.Vector;
 
+import com.eep.taxe.res.Map;
+
 public class Player implements PlayerInterface {
 
 	private static final long serialVersionUID = 3534438349877377215L;
@@ -21,6 +23,9 @@ public class Player implements PlayerInterface {
 	public Player() {
 		this.gold  = new Gold();
 		this.metal = new Metal();
+		
+		Map m = new Map();
+		Vector<Vertex> vertices = m.generateMap();
 	}
 	
 	/**
