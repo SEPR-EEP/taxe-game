@@ -25,32 +25,48 @@ public class GameView extends javax.swing.JFrame {
 	private final int 		HEIGHT 	= 720;
 	private final String	TITLE	= "TAxE Game";
 
+	JPanel mainMapPanel;
+	JPanel gameMenuPanel;
+	
+	public JPanel getGameMenuPanel() {
+		return gameMenuPanel;
+	}
+
+	public void setGameMenuPanel(JPanel gameMenuPanel) {
+		this.gameMenuPanel = gameMenuPanel;
+	}
+
+	TopPanel topPanel;
+	LeftPanel leftPanel;
+	RightPanel rightPanel;
+	BottomPanel bottomPanel;
+	
 	public GameView() {
 		this.setSize(WIDTH, HEIGHT);
 		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
-		JPanel mainMapPanel = new JPanel();
+		mainMapPanel = new JPanel();
 		mainMapPanel.setPreferredSize(getContentPane().getSize());
 		mainMapPanel.setBackground(Color.BLUE);
 		mainMapPanel.setLayout(new BorderLayout(0, 0));
 		
-		JPanel gameMenuPanel = new JPanel();
+		gameMenuPanel = new JPanel();
 		gameMenuPanel.setPreferredSize(getContentPane().getSize());
 		gameMenuPanel.setLayout(new BorderLayout(0, 0));
 		gameMenuPanel.setOpaque(false);
 						
-			TopPanel topPanel = new TopPanel(WIDTH, HEIGHT);
+			topPanel = new TopPanel(WIDTH, HEIGHT);
 			gameMenuPanel.add(topPanel, BorderLayout.NORTH);
 						
-			LeftPanel leftPanel = new LeftPanel(WIDTH, HEIGHT);
+			leftPanel = new LeftPanel(WIDTH, HEIGHT);
 			gameMenuPanel.add(leftPanel, BorderLayout.WEST);
 			
-			RightPanel rightPanel = new RightPanel(WIDTH, HEIGHT);
+			rightPanel = new RightPanel(WIDTH, HEIGHT);
 			gameMenuPanel.add(rightPanel, BorderLayout.EAST);
 			
-			BottomPanel bottomPanel = new BottomPanel(WIDTH, HEIGHT);
+			bottomPanel = new BottomPanel(WIDTH, HEIGHT);
 			gameMenuPanel.add(bottomPanel, BorderLayout.SOUTH);
 			
 		mainMapPanel.add(gameMenuPanel);

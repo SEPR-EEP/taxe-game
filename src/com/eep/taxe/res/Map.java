@@ -41,6 +41,9 @@ public class Map {
 		r.add(KingsX);
 		r.add(Victoria);	
 		
+		r.add(JN1);
+		r.add(JN2);
+		
 		return r;
 	}
 	
