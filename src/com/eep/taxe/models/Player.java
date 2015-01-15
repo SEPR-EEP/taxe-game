@@ -29,7 +29,7 @@ public class Player implements PlayerInterface {
 	}
 	
 	/**
-	 * Commpare two players by their score
+	 * Compare two players by their score
 	 * @param o	The other player
 	 * @return	1, 0, -1
 	 */
@@ -197,6 +197,7 @@ public class Player implements PlayerInterface {
 		return this.currentGoals;
 	}
 
+	
 	@Override
 	public void generateGoal() {
 		
@@ -208,8 +209,25 @@ public class Player implements PlayerInterface {
 		for (Train train : trains){
 			if (! train.hasActiveGoal() ){
 				
+				//Starting station is where train is currently located
 				Station startingStation = train.getStationToStartNextGoalAt();
 				
+				//Station that is randomly chosen must not be the same as the starting station
+				Station endingStation = startingStation;
+				while (endingStation == startingStation){
+					endingStation = Map.getRandomStationFromMap();
+				}
+				
+				//Create goal based upon starting and ending station
+				Goal goal = new Goal(this.getCurrentAge().age, 
+						"Travel from " +startingStation.getName() +"to " +endingStation.getName(),
+						"Long description - maybe random scenario?",
+						startingStation,
+						endingStation);
+				
+				this.currentGoals.add(goal);
+				
+				break; //Exit for loop early
 				
 			}
 		}
