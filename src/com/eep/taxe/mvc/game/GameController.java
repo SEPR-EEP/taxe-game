@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -14,8 +16,13 @@ import java.util.HashSet;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import com.eep.taxe.GameClient.MoveEvent;
 import com.eep.taxe.GameClient.Role;
+import com.eep.taxe.GameClient.StatusItem;
+import com.eep.taxe.GameClient.StatusResponse;
+import com.eep.taxe.GameData;
 import com.eep.taxe.models.Edge;
+import com.eep.taxe.models.Game;
 import com.eep.taxe.models.Station;
 import com.eep.taxe.models.Vertex;
 
@@ -25,11 +32,24 @@ public class GameController {
 	private GameModel	model 		= null;
 	
 	private MapGraphics graphics	= null;
+	
+	private enum GameState {
+		WAITING, 			// Waiting for other player to move,
+		STANDBY, 			// My turn, doing nothing,
+		TRAIN_SELECTED, 	// Selected a train 
+	}
+	
+	private GameState currentState = GameState.STANDBY;
 	 
 	public GameController(GameView gameView, GameModel gameModel) {
 		this.setView(gameView);
 		this.setModel(gameModel);
 
+		// If I'm master player, I start the game waiting for opponent to move
+		if ( model.getMyRole() == Role.MASTER ) {
+			this.currentState = GameState.WAITING;
+		}
+		
 		// Add to the window title " - Playing as NAME (ROLE)"
 		view.setTitle(
 			view.getTitle() + 
@@ -41,9 +61,68 @@ public class GameController {
 				view.getGameMenuPanel(),
 				new MapMouseListener()
 		);
-		this.graphics.drawMap();
+		
+		model.getClient().setOnMove(new MoveListener());
+		this.updateView();
 		
 	}
+	
+	private void updateView() {
+		
+		if ( currentState == GameState.WAITING ) {
+			System.out.println("Chill, you're waiting for the other player.");
+		} else {
+			System.out.println("It's your turn to play.");
+		}
+		
+		// TODO Get and display game data
+		this.graphics.drawMap();
+	}
+	
+	private class MoveListener implements MoveEvent {
+		@Override
+		public void receive(GameData data) {
+			
+			// Receive and update Game data
+			Game g = (Game) data;
+			model.setData(g);
+			
+			// It is my turn
+			currentState = GameState.STANDBY;
+			updateView();
+			
+		}
+	}
+	
+	/**
+	 * End my turn, compute end of turn and send data to
+	 * the server. If something goes wrong, just die.
+	 */
+	public void endTurn() {
+		
+		System.out.print("Computing end of turn... ");
+		model.getData().endTurn();
+		System.out.println("DONE.");
+		
+		System.out.print("Sending data to server... ");
+		model.getClient().sendMove(
+			model.getData(),
+			new StatusResponse() {
+				@Override
+				public void response(StatusItem item) {
+					if ( !item.ok ) {
+						System.out.println("FATAL ERROR:\n " 
+											+ item.error);
+						System.exit(0);
+					}
+					System.out.println("DONE.");
+				}
+			}
+		);
+		this.currentState = GameState.WAITING;
+	}
+	
+
 
 	public GameView getView() {
 		return view;
@@ -107,6 +186,31 @@ public class GameController {
 	        );
 
 	        container.addMouseListener(mouseListener);
+	        container.addComponentListener(new ComponentListener() {
+
+				@Override
+				public void componentResized(ComponentEvent e) {
+					drawMap();
+				}
+
+				@Override
+				public void componentMoved(ComponentEvent e) {
+					drawMap();
+				}
+
+				@Override
+				public void componentShown(ComponentEvent e) {
+					drawMap();
+				}
+
+				@Override
+				public void componentHidden(ComponentEvent e) {
+					
+				}
+
+	        	
+	        });
+
 		}
 		
 		public void drawMap() {

@@ -20,7 +20,7 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 	private Vector<Vertex> vertices;
 	
 	private int		currentTurn	= 0;
-	private Role	currentRole;
+	private Role	currentRole = Role.SLAVE;
 	
 	public Game(String name, Difficulty d) {
 		this.setName(name);
@@ -105,13 +105,19 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 	@Override
 	public void endTurn() {
 		
-		// TODO Game logic
+		if ( this.getCurrentRole() == Role.MASTER ) {
+			this.computeEndOfTurn();
+		}
 		
 		// Finally, increment role and turn
 		this.incrementRoleAndTurn();
 		
 	}
 	
+	private void computeEndOfTurn() {
+		// CALCULATE SCORES
+	}
+
 	/**
 	 * Increment the Role and the Turn
 	 */
