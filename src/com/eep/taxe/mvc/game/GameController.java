@@ -76,11 +76,12 @@ public class GameController {
 		public final double 	OFFSET_X			= 30;
 		public final double 	OFFSET_Y			= 30;
 		
-		public final double CLICK_PRECISION		= 1.2;
+		public final double 	CLICK_PRECISION			= 1.2;
+		public final double 	LABEL_RELATIVE_PADDING	= 1.4;
 		
-		public final double 	VERTEX_SIZE 	= 2;
-		public final Color VERTEX_COLOR 		= new Color(0xFF0000);
-		public final Color VERTEX_TEXT_COLOR 	= new Color(0xAA0000);
+		public final double 	VERTEX_SIZE 		= 2;
+		public final Color 		VERTEX_COLOR 		= new Color(0xFF0000);
+		public final Color 		VERTEX_TEXT_COLOR 	= new Color(0x111111);
 		
 		public final Color EDGE_COLOR		 	= new Color(0x000000);
 		
@@ -93,13 +94,13 @@ public class GameController {
 			width  = (int) container.getSize().getWidth();
 			container.paintComponents(this.g);
 			
-			// Enable text antialiasing
+			// Enable text anti-aliasing
 	        ((Graphics2D) this.g).setRenderingHint(
 	                RenderingHints.KEY_TEXT_ANTIALIASING,
 	                RenderingHints.VALUE_TEXT_ANTIALIAS_ON
 	        );
 	        
-	        // Enable graphics antialiasing
+	        // Enable graphics anti-avaliasing
 	        ((Graphics2D) this.g).setRenderingHint(
 	        		RenderingHints.KEY_ANTIALIASING,
 	                RenderingHints.VALUE_ANTIALIAS_ON
@@ -110,8 +111,8 @@ public class GameController {
 		
 		public void drawMap() {
 			this.drawBackgroudImage();
-			this.drawVertices();
 			this.drawEdges();
+			this.drawVertices();
 		}
 
 		public void drawBackgroudImage() {
@@ -154,7 +155,7 @@ public class GameController {
 				
 				// Draw the vertex
 				g.setColor(VERTEX_COLOR);
-				g.drawOval(
+				g.fillOval(
 						(int) (x(v.getX()) - x(VERTEX_SIZE)/2 + OFFSET_X),
 						(int) (y(v.getY()) - y(VERTEX_SIZE)/2 + OFFSET_Y),
 						(int) x(VERTEX_SIZE),
@@ -162,16 +163,23 @@ public class GameController {
 				);
 				
 				if ( v instanceof Station ) {
-					g.setColor(VERTEX_TEXT_COLOR);
-					g.drawString(
+					drawTextWithShadow(
 							((Station) v).getName(),
-							(int) (x(v.getX()) + OFFSET_X),
-							(int) (y(v.getY()) + OFFSET_Y)
+							(int) (x(v.getX()) + OFFSET_X + VERTEX_SIZE/2 * SCALE_FACTOR_X * LABEL_RELATIVE_PADDING),
+							(int) (y(v.getY()) + OFFSET_Y),
+							VERTEX_TEXT_COLOR
 					);
 				}
 								
 			}		
 		}	
+		
+		private void drawTextWithShadow(String string, int x, int y, Color textColor ) {
+			g.setColor(new Color(0xFFFFFF));
+			g.drawString(string, x+1, y+1);
+			g.setColor(textColor);
+			g.drawString(string, x, y);
+		}
 		
 		private int x(double px) {
 			return (int) (px * SCALE_FACTOR_X);
@@ -224,7 +232,6 @@ public class GameController {
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-		  System.out.println("Click " + e.getX() + ", " + e.getY());
 		  
             Vertex c = graphics.clickOnVertex(e);
 
