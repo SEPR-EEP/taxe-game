@@ -12,5 +12,14 @@ public class Junction extends Vertex {
 	public Junction(int cx, int cy) {
 		super(cx, cy);
 	}
+	
+	public Boolean junctionFailure(){
+		
+		//TODO
+		
+		
+		
+		return false;
+	}
 
 }

@@ -7,6 +7,9 @@ public class Path extends Vector<Edge> implements Serializable {
 	
 	private static final long serialVersionUID = 7893406019421382154L;
 	
+	private Station startingStation;
+	private Station endingStation;
+	
 	/**
 	 * Calculate the total length of the Path
 	 * @return	The total length of the path
@@ -35,6 +38,22 @@ public class Path extends Vector<Edge> implements Serializable {
 	 */
 	public double getDuration() {
 		return this.getDuration(1.0);
+	}
+	
+	public void setStartingStation(Station startingStation){
+		this.startingStation = startingStation;
+	}
+	
+	public void setEndingStation(Station endingStation){
+		this.endingStation = endingStation;
+	}
+	
+	public Station getStartingStation(){
+		return this.startingStation;
+	}
+	
+	public Station getEndingStation(){
+		return this.endingStation;
 	}
 	
 }

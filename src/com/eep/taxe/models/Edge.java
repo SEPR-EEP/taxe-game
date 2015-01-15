@@ -25,14 +25,14 @@ public class Edge implements EdgeInterface {
 	
 	/**
 	 * Instantiate a new edge, with Vertices and Length
-	 * @param 	from 	First Vertex
-	 * @param	to		Second Vertex
+	 * @param 	one 	First Vertex
+	 * @param	two		Second Vertex
 	 * @param 	length	Length of the Vertex
 	 */
-	public Edge(Vertex from, Vertex to, int length) {
+	public Edge(Vertex one, Vertex two, int length) {
 		this.vertices = new Vector<Vertex>();
-		this.addVertex(from);
-		this.addVertex(to);
+		this.addVertex(one);
+		this.addVertex(two);
 		this.setLength(length);
 	}
 	
@@ -57,30 +57,32 @@ public class Edge implements EdgeInterface {
 		return this.vertices;
 	}
 	
+	
 	/**
 	 * Gets the starting/source vertex of the edge
 	 * @return Starting vertex
 	 */
-	@Override
+	/*
 	public Vertex getStartingVertex(){
 		if (! this.vertices.isEmpty()){
 			return this.vertices.firstElement();
 		}
 		return null;
-	}
+	}*/
 	
 	/**
 	 * Gets the ending/destination vertex of the edge
 	 * @return Ending vertex
 	 */
-	@Override
+	/*
 	public Vertex getEndingVertex(){
 		if (! this.vertices.isEmpty()){
 			return this.vertices.lastElement();
 		}
 		return null;
-	}
+	}*/
 
+	
 	/**
 	 * Set the list of vertices of the edge
 	 * @param v 	A Vector of exactly 2 vertices
