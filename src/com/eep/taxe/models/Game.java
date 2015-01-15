@@ -1,5 +1,6 @@
 package com.eep.taxe.models;
 
+import java.util.Random;
 import java.util.Vector;
 
 import com.eep.taxe.GameClient.Role;
@@ -192,4 +193,31 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		return this.vertices.add(v);
 	};
 	
+	/**
+	 * Get the vector of stations displayed on the map
+	 * @return vector of station
+	 */
+	public Vector<Station> getStations(){
+
+		Vector<Station> stations = new Vector<Station>();
+		
+		for (Vertex vertex : this.vertices){
+			if (vertex instanceof Station){
+				stations.add( (Station) vertex );
+			}
+		}
+		return stations;
+	}
+	
+	/**
+	 * Get a randomly selected station from the map
+	 * @return station
+	 */
+	public Station getRandomStation(){
+		Vector<Station> stations = getStations();
+		int numberOfStations = stations.size();
+		Random picker = new Random();
+		int randomStationNumber = picker.nextInt(numberOfStations);
+		return stations.get(randomStationNumber);
+	}
 }

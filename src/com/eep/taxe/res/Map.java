@@ -1,6 +1,5 @@
 package com.eep.taxe.res;
 
-import java.util.Random;
 import java.util.Vector;
 
 import com.eep.taxe.models.Edge;
@@ -45,27 +44,6 @@ public class Map {
 		r.add(JN2);
 		
 		return r;
-	}
-	
-	public static Vector<Station> getStationsFromMap(){
-		Vector<Vertex> map = generateMap();
-		Vector<Station> stations = new Vector<Station>();
-		
-		for (Vertex vertex : map){
-			if (vertex instanceof Station){
-				stations.add( (Station) vertex );
-			}
-		}
-		
-		return stations;
-	}
-	
-	public static Station getRandomStationFromMap(){
-		Vector<Station> stations = getStationsFromMap();
-		int numberOfStations = stations.size();
-		Random picker = new Random();
-		int randomStationNumber = picker.nextInt(numberOfStations);
-		return stations.get(randomStationNumber);
 	}
 	
 }
