@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Vector;
 
@@ -193,6 +194,9 @@ public class GameController {
 		
 		public final String BACKGROUND_IMAGE 	= "src/resources/MainMap.jpg";
 		
+		public final String TRAIN_MINE 			= "src/resources/MyTrain.png";
+		public final String TRAIN_OPPONENT 		= "src/resources/OpponentTrain.png";
+		
 		
 		MapGraphics (JLabel jLabel, MouseListener mouseListener) {
 			this.g = jLabel.getGraphics();
@@ -244,24 +248,42 @@ public class GameController {
 
 		}
 		
+		private boolean drawing = false;
+		
 		public void drawMap() {
+			if ( drawing ) {
+				return;
+			}
+			drawing = true;
 			this.drawBackgroudImage();
 			this.drawEdges();
 			this.drawVertices();
 			this.drawTrains();
-			
+			drawing = false;
 		}
 
 		private void drawTrains() {
 			
 			Role myRole = model.getMyRole();
 			
+
 			Vector<Train> myTrains  = model.getData().getPlayerByRole(myRole).getTrains();
 			Vector<Train> oppTrains = model.getData().getPlayerByRole(myRole == Role.MASTER ? Role.SLAVE : Role.MASTER).getTrains();
+
 			Vector<Train> allTrains = new Vector<Train>(); allTrains.addAll(myTrains); allTrains.addAll(oppTrains);
+
+			BufferedImage myTrainImage;
+			BufferedImage oppTrainImage;
+			try {
+				myTrainImage 	= ImageIO.read(new File(TRAIN_MINE));
+				oppTrainImage 	= ImageIO.read(new File(TRAIN_OPPONENT));
+			} catch (IOException e) {
+				e.printStackTrace();
+				return;
+			}
 			
 			for (Train t: allTrains) {
-				
+								
 				if ( t.getJourney() == null ) {
 					// Train is not on the map, skip
 					continue;
@@ -269,24 +291,37 @@ public class GameController {
 				
 				Edge edge = t.getJourney().getCurrentEdge();
 				if ( edge == null ) {
-					// Journey has no current edge, skip
 					continue;
 				}
-				int x1, y1, x2, y2;
+
+				int 	Ax, Ay, Bx, By;
+				float 	Tx,	Ty;
+
+				boolean mine = myTrains.contains(t);
+
+				Vertex A  = t.getJourney().getStartingVertexOfEdge(edge);
+				Vertex B  = t.getJourney().getEndingVertexOfEdge  (edge);
+
+				Ax = A.getX(); Ay = A.getY();
+				Bx = B.getX(); By = B.getY();
 				
-				Vertex leftMost  = 
-					(edge.getVertices().get(0).getX() < edge.getVertices().get(1).getX())
-					? edge.getVertices().get(0) : edge.getVertices().get(1);
-				Vertex rightMost = 
-					(edge.getVertices().get(0).getX() < edge.getVertices().get(1).getX())
-					? edge.getVertices().get(1) : edge.getVertices().get(0);
-					
-				x1 = leftMost.getX();
-				y1 = leftMost.getY();
-				x2 = rightMost.getX();
-				y2 = rightMost.getY();
-				
-				
+				float Bweight = t.getJourney().getProgressOnEdge();
+				float Aweight = 1 - Bweight;
+
+				Tx = ( Ax * Aweight + Bx * Bweight );
+				Ty = ( Ay * Aweight + By * Bweight );
+			
+				g.drawImage(
+					mine ? myTrainImage : oppTrainImage,
+					(int) (x(Tx) + OFFSET_X - myTrainImage.getWidth()  / 2),
+					(int) (y(Ty) + OFFSET_Y - myTrainImage.getHeight() / 2),
+					(int) (x(Tx) + OFFSET_X + myTrainImage.getWidth()  / 2),
+					(int) (y(Ty) + OFFSET_Y + myTrainImage.getHeight() / 2),
+					0, 0,
+					myTrainImage.getWidth(),
+					myTrainImage.getHeight(),
+					null
+				);
 				
 			}
 			

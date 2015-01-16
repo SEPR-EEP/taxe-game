@@ -62,10 +62,13 @@ public class Game extends Awaitility {
 		) {
 			System.out.print("Game initiated, starting GUI...");
 
+			System.out.print(" V..");
 			GameView 		gameView 		= new GameView();
+			System.out.print("M..");
 			GameModel		gameModel 		= new GameModel(client, data);
 							gameModel		  .setMyRole(role);
 							gameModel		  .setMyNickname(nickname);
+			System.out.print("C..");
 			GameController	gameController	= new GameController(gameView, gameModel);
 			System.out.println(" DONE.");
 		}

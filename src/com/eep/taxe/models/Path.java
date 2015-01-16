@@ -11,6 +11,22 @@ public class Path extends Vector<Edge> implements Serializable {
 	private Station endingStation;
 	private Vertex currentLastVertex = null;
 	
+	
+	public Path() {
+		// Main constructor
+		// ... does nothing.
+	}
+
+	/**
+	 * ALTERNATIVE CONSTRUCTOR
+	 * Create given a shortest path and a starting point
+	 */
+	public Path(Path otherPath, Vertex startingPoint) {
+		for ( Vertex v: otherPath.getVerticesInOrder(startingPoint) ) {
+			this.add(v);
+		}
+	}
+
 	/**
 	 * Calculate the total length of the Path
 	 * @return	The total length of the path
@@ -96,5 +112,90 @@ public class Path extends Vector<Edge> implements Serializable {
 		
 		return false;
 	}
+
+	/**
+	 * Returns the starting Vertex of the Edge with the given index
+	 * @param edge	Edge in the path
+	 * @return		The Starting Vertex of this edge
+	 */
+	public Vertex getStartingVertexOfEdge(Edge edge) {
+
+		if ( !this.contains(edge) ) {
+			return null;
+		}
+		
+		if ( this.size() == 1 ) {
+			return this.startingStation;
+		}
+		
+		// If this is the last edge
+		if ( this.lastElement() == edge ) {
+			// It is the vertex that is not the ending point
+			return	edge.other(this.endingStation);
+		}
+		
+		return edge.vertexNotInCommonWithAdjacentEdge(
+			this.get(indexOf(edge) + 1)
+		);	
+		
+	}
 	
+	/**
+	 * Returns the ending Vertex of the Edge with the given index
+	 * @param edge	The edge in the path
+	 * @return		The Ending Vertex of this edge
+	 */
+	public Vertex getEndingVertexOfEdge(Edge edge) {
+		
+		if ( !this.contains(edge) ) {
+			return null;
+		}
+		
+		if ( this.size() == 1 ) {
+			return this.endingStation;
+		}
+		
+		// If this is the first edge
+		if ( this.get(0) == edge ) {
+			// It is the vertex that is not the ending point
+			return	edge.other(this.startingStation);
+		}
+		
+		return edge.vertexNotInCommonWithAdjacentEdge(
+			this.get(indexOf(edge) - 1)
+		);	
+		
+	}
+	
+	/**
+	 * Get Vertices in order for the path -
+	 * Starting vertex is provided in case the path is only
+	 * one edge long, in that case is used to determine first vertex.
+	 */
+	public Vector<Vertex> getVerticesInOrder(Vertex startingPoint) {
+		Vector<Vertex> r = new Vector<Vertex>();
+		
+		if ( this.size() == 0 ) {
+			return r;
+		}
+		
+		if ( this.size() == 1 ) {
+
+			if ( !this.get(0).hasVertex(startingPoint) ) {
+				return r;
+			}
+			r.add(startingPoint);
+			r.add(this.get(0).other(startingPoint));
+			return r;
+		}
+		
+		r.add(startingPoint);						// Add the starting point of the first edge
+		for ( Edge e: this ) {						// Add the last vertex of each edge
+			r.add(
+					e.other(r.lastElement())
+			);
+		}
+		
+		return r;
+	}
 }
