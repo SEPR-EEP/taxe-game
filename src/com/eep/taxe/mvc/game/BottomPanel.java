@@ -47,9 +47,9 @@ public class BottomPanel extends JPanel{
 				inventoryPanel.add(inventorySlot5);
 				
 			JPanel trainPanel = new JPanel();
-			trianPanel.setLayout
 			
-		this.add(inventoryPanel);
+			
+//		this.add(inventoryPanel);
 			
 	}
 	
