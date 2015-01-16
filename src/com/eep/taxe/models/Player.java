@@ -23,9 +23,7 @@ public class Player implements PlayerInterface {
 	public Player() {
 		this.gold  = new Gold();
 		this.metal = new Metal();
-		
-		Generator m = new Generator();
-		Vector<Vertex> vertices = m.generateMap();
+	
 	}
 	
 	/**
@@ -209,7 +207,7 @@ public class Player implements PlayerInterface {
 		for (Train train : trains){
 			if (! train.hasActiveGoal() ){
 				this.currentGoals.add(Generator.generateGoal(train, map));
-				this.currentGoals.add(goal);
+		this.currentGoals.add(goal);
 				
 				break; //Exit for loop early
 				

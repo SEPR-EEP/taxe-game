@@ -15,13 +15,13 @@ public class LeftPanel extends JPanel{
 	private final int HEIGHT;
 	
 	public LeftPanel(int width, int height){
-		this.WIDTH = width;
-		this.HEIGHT = height;
-//		this.WIDTH = 1300;
-//		this.HEIGHT = 720;
+//		this.WIDTH = width;
+//		this.HEIGHT = height;
+		this.WIDTH = 1300;
+		this.HEIGHT = 720;
 		this.setPreferredSize(new Dimension(WIDTH/8, HEIGHT));
 		this.setBackground(Color.GREEN);
-		this.setLayout(new FlowLayout(FlowLayout.CENTER));
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setOpaque(false);
 		
 			JPanel agePanel = new JPanel();
