@@ -66,9 +66,12 @@ public class InventorySlot extends JPanel{
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		this.selected = false;
 		
+		this.setBackground(Color.RED);                            		//Makes the entire slot red
+		
 		this.itemLabel = new JLabel();
 		itemLabel.setSize(new Dimension(WIDTH/24, WIDTH/24));
-		itemLabel.setBackground(Color.RED);
+		//itemLabel.setBackground(Color.RED);							These make the area
+		//itemLabel.setOpaque(true);									behind the text red (wasn't sure which one you wanted) - Peter
 		itemLabel.setText("sdfdsfg");
 //		itemLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
 		

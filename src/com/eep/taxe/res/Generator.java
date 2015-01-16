@@ -4,12 +4,15 @@ import java.util.Vector;
 
 import com.eep.taxe.models.Age;
 import com.eep.taxe.models.Edge;
+import com.eep.taxe.models.Game;
 import com.eep.taxe.models.Goal;
 import com.eep.taxe.models.Junction;
 import com.eep.taxe.models.Player;
 import com.eep.taxe.models.Station;
 import com.eep.taxe.models.Train;
+import com.eep.taxe.models.Usable;
 import com.eep.taxe.models.Vertex;
+import com.eep.taxe.models.Age.Ages;
 
 /**
  * Class used to generate the map
@@ -53,7 +56,7 @@ public class Generator {
 		return r;
 	}
 
-	public static Goal generateGoal(Train train, Vector<Vertex> map, Player player) {
+	public static Goal generateGoal(Train train, Vector<Vertex> map, Player player, Game game) {
 
 		//Starting station is where train is currently located
 		Station startingStation = train.getStationToStartNextGoalAt();
@@ -61,7 +64,7 @@ public class Generator {
 		//Station that is randomly chosen must not be the same as the starting station
 		Station endingStation = startingStation;
 		while (endingStation == startingStation){
-			endingStation = Generator.getRandomStationFromMap();
+			endingStation = game.getRandomStation();
 		}
 	
 		//Create goal based upon starting and ending station
@@ -72,16 +75,22 @@ public class Generator {
 				endingStation); 
 		return goal;
 	}
-	
-	private static Station getRandomStationFromMap() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	public static Train trainGenerator(Age age) {
-		// TODO
+		/*switch(age) {
+			case FIRST:
+				Train steamTrain = new Train(String model, String trainImage, int costInGold, int costInMetal, Ages trainAge, float baseSpeed, Station stationToStartNextGoalAt);
+				
+		
+		}*/
+		
 		return null;
 	}
+	
+	public static Vector<Usable> trainSpeedModifierGenerator(Usable usable) {
+		return null;
+	}
+	
 	
 }
 
