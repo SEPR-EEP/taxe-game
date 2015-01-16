@@ -24,8 +24,6 @@ public class Player implements PlayerInterface {
 		this.gold  = new Gold();
 		this.metal = new Metal();
 		
-		Map m = new Map();
-		Vector<Vertex> vertices = m.generateMap();
 	}
 	
 	/**
@@ -199,7 +197,7 @@ public class Player implements PlayerInterface {
 
 	
 	@Override
-	public void generateGoal() {
+	public void generateGoal(Game game) {
 		
 		//If max number of goals is reached
 		if (this.currentGoalsNo() >= 3) {
@@ -215,7 +213,7 @@ public class Player implements PlayerInterface {
 				//Station that is randomly chosen must not be the same as the starting station
 				Station endingStation = startingStation;
 				while (endingStation == startingStation){
-					endingStation = Map.getRandomStationFromMap();
+					endingStation = game.getRandomStation();
 				}
 				
 				//Create goal based upon starting and ending station
