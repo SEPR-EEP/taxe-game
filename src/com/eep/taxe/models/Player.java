@@ -206,8 +206,7 @@ public class Player implements PlayerInterface {
 		
 		for (Train train : trains){
 			if (! train.hasActiveGoal() ){
-				this.currentGoals.add(Generator.generateGoal(train, map));
-		this.currentGoals.add(goal);
+				//this.currentGoals.add(Generator.generateGoal(train, map));
 				
 				break; //Exit for loop early
 				

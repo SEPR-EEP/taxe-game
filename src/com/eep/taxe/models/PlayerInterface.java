@@ -39,7 +39,7 @@ public interface PlayerInterface extends Comparable<Player>, Serializable {
 		
 	public int 				currentGoalsNo();							// Get the number of current goals for the player
 	public Vector<Goal> 	getCurrentGoals();							// Get the list of the current goals of the player
-	public void 			generateGoal(Game game);								// Generate a Random Goal and add it to the Current Goals
+	public void 			generateGoal(Vector<Vertex> map);			// Generate a Random Goal and add it to the Current Goals
 	public boolean			canAccomplish(Goal goal);					// Check if a player can accomplish a given goal
 	
 }
