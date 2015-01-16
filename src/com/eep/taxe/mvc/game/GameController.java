@@ -268,6 +268,10 @@ public class GameController {
 				}
 				
 				Edge edge = t.getJourney().getCurrentEdge();
+				if ( edge == null ) {
+					// Journey has no current edge, skip
+					continue;
+				}
 				int x1, y1, x2, y2;
 				
 				Vertex leftMost  = 
