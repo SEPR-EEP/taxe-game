@@ -48,6 +48,7 @@ public class GameView extends javax.swing.JFrame {
 	LeftPanel leftPanel;
 	RightPanel rightPanel;
 	BottomPanel bottomPanel;
+	JLabel mapLabel;
 	
 	public GameView() {
 		this.setSize(WIDTH, HEIGHT);
@@ -60,9 +61,8 @@ public class GameView extends javax.swing.JFrame {
 //		mainMapPanel.setBackground(Color.CYAN);
 		mainMapPanel.setLayout(new BorderLayout(0, 0));
 			
-			JLabel mapLabel = new JLabel();
+			mapLabel = new JLabel();
 			mapLabel.setIcon(new ImageIcon(getClass().getResource("src/resources/MainMap.jpg")));
-			mapLabel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 			mapLabel.setText("BACKGROUND FAILED TO LOAD");
 			
 		
@@ -84,18 +84,26 @@ public class GameView extends javax.swing.JFrame {
 			gameMenuPanel.add(bottomPanel, BorderLayout.SOUTH);
 			
 //		mainMapPanel.add(mapLabel, BorderLayout.CENTER);
-//		gameMenuPanel.add(mapLabel);
+		gameMenuPanel.add(mapLabel);
 //		mainMapPanel.add(gameMenuPanel);
 //		getContentPane().add(mainMapPanel);
-//		getContentPane().add(gameMenuPanel);
+		getContentPane().add(gameMenuPanel);
 		
-		getContentPane().add(mapLabel);
+//		getContentPane().add(mapLabel);
 		
 
 		this.setVisible(true);
 
 	}
 	
+	public JLabel getMapLabel() {
+		return mapLabel;
+	}
+
+	public void setMapLabel(JLabel mapLabel) {
+		this.mapLabel = mapLabel;
+	}
+
 	public void setTimer(String time){
 		
 	}
