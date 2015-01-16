@@ -32,13 +32,13 @@ public class InventorySlot extends JPanel{
 	
 	public void selectItem(){
 		if(!isEmpty()){
-		selectedPanel.setOpaque(true);
+//		selectedPanel.setOpaque(true);
 		selected =true;
 		}
 	}
 	
 	public void deselectItem(){
-		selectedPanel.setOpaque(false);
+//		selectedPanel.setOpaque(false);
 		selected = false;
 	}
 	
@@ -68,14 +68,18 @@ public class InventorySlot extends JPanel{
 		
 		this.itemLabel = new JLabel();
 		itemLabel.setSize(new Dimension(WIDTH/24, WIDTH/24));
+		itemLabel.setBackground(Color.RED);
+		itemLabel.setText("sdfdsfg");
+//		itemLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
 		
 		
-		this.selectedPanel = new JPanel();
-		selectedPanel.setBackground(new Color(122, 207, 109, 128));
-//		selectedLabel.setOpaque(true);
+//		this.selectedPanel = new JPanel();
+//		selectedPanel.setBackground(new Color(122, 207, 109, 128));
+//		selectedPanel.setPreferredSize(new Dimension(WIDTH/24, WIDTH/24));
+//		selectedPanel.setOpaque(false);
 		
 		this.add(itemLabel);
-		this.add(selectedPanel);
+//		this.add(selectedPanel);
 	}
 
 
