@@ -101,6 +101,16 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 	}
 	
 	/**
+	 * Set the current edge to be the first edge and set the train to isMoving
+	 */
+	public void start() {
+		if ( !this.isEmpty() ) {
+			this.currentEdge = this.get(0);
+			this.isMoving    = true;
+		}
+	}
+	
+	/**
 	 * Set the current edge the train is travelling on
 	 * @param	edge				Edge to make current edge in journey
 	 * @param	initialProgress		Distance already travelled on edge
