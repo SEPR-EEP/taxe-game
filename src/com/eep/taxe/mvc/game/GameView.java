@@ -26,6 +26,14 @@ public class GameView extends javax.swing.JFrame {
 	private final String	TITLE	= "TAxE Game";
 
 	JPanel mainMapPanel;
+	public JPanel getMainMapPanel() {
+		return mainMapPanel;
+	}
+
+	public void setMainMapPanel(JPanel mainMapPanel) {
+		this.mainMapPanel = mainMapPanel;
+	}
+
 	JPanel gameMenuPanel;
 	
 	public JPanel getGameMenuPanel() {
@@ -49,8 +57,14 @@ public class GameView extends javax.swing.JFrame {
 		
 		mainMapPanel = new JPanel();
 		mainMapPanel.setPreferredSize(getContentPane().getSize());
-		mainMapPanel.setBackground(Color.BLUE);
+//		mainMapPanel.setBackground(Color.CYAN);
 		mainMapPanel.setLayout(new BorderLayout(0, 0));
+			
+			JLabel mapLabel = new JLabel();
+			mapLabel.setIcon(new ImageIcon(getClass().getResource("src/resources/MainMap.jpg")));
+			mapLabel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+			mapLabel.setText("BACKGROUND FAILED TO LOAD");
+			
 		
 		gameMenuPanel = new JPanel();
 		gameMenuPanel.setPreferredSize(getContentPane().getSize());
@@ -69,8 +83,13 @@ public class GameView extends javax.swing.JFrame {
 			bottomPanel = new BottomPanel(WIDTH, HEIGHT);
 			gameMenuPanel.add(bottomPanel, BorderLayout.SOUTH);
 			
-		mainMapPanel.add(gameMenuPanel);
-		getContentPane().add(mainMapPanel);
+//		mainMapPanel.add(mapLabel, BorderLayout.CENTER);
+//		gameMenuPanel.add(mapLabel);
+//		mainMapPanel.add(gameMenuPanel);
+//		getContentPane().add(mainMapPanel);
+//		getContentPane().add(gameMenuPanel);
+		
+		getContentPane().add(mapLabel);
 		
 
 		this.setVisible(true);

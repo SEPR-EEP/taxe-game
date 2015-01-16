@@ -58,7 +58,7 @@ public class GameController {
 		);
 		
 		this.graphics = new MapGraphics(
-				view.getGameMenuPanel(),
+				view.getMainMapPanel(),
 				new MapMouseListener()
 		);
 		
