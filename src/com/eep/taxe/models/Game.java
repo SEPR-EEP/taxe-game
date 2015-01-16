@@ -4,7 +4,9 @@ import java.util.Random;
 import java.util.Vector;
 
 import com.eep.taxe.GameClient.Role;
-import com.eep.taxe.res.Map;
+import com.eep.taxe.models.Age.Ages;
+import com.eep.taxe.res.Generator;
+import com.eep.taxe.utils.Dijkstra;
 
 
 public class Game extends com.eep.taxe.GameData implements GameInterface {
@@ -30,7 +32,25 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		this.master = new Player();
 		this.slave  = new Player();
 		
-		this.setVertices(Map.generateMap());
+		// Add a train to each the players
+		this.addFirstTrainToPlayer(master);
+		this.addFirstTrainToPlayer(slave);
+		
+		this.setVertices(Generator.generateMap());
+	}
+	
+	private void addFirstTrainToPlayer(Player who) {
+		Train 	a = new Train("Your First Train", null, 0, 0, Ages.FIRST, (float) 1.0, null);
+		Journey j = new Journey(a);
+		
+		Station starting = this.getRandomStation();
+		Station ending;
+		do {
+			ending = this.getRandomStation();
+		} while ( starting == ending );
+		
+		j.addAll(getShortestPath(starting, ending));	
+		j.start();
 	}
 	
 	/**
@@ -161,6 +181,11 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 
 	public void setCurrentRole(Role currentRole) {
 		this.currentRole = currentRole;
+	}
+	
+	public Path getShortestPath(Vertex from, Vertex to) {
+		Dijkstra d = new Dijkstra(this.getVertices(), from);
+		return d.getShortestPathTo(to);
 	}
 
 	/**

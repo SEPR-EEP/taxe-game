@@ -171,7 +171,24 @@ public class Train implements TrainInterface {
 				this.hasActiveGoal = false;
 			}
 		}
+		
+		
 	}
 	
+	public Boolean hasActiveGoal(){
+		return this.hasActiveGoal;
+	}
 	
+
+	public Station getStationToStartNextGoalAt(){
+		return this.stationToStartNextGoalAt;
+	}
+	
+	public Journey getJourney() {
+		return journey;
+	}
+
+	public void setJourney(Journey journey) {
+		this.journey = journey;
+	}
 }

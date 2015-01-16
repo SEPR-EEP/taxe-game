@@ -28,6 +28,7 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 		this.journeyStarted = false;
 		this.journeyComplete = false;
 		this.isMoving = false;
+		train.setJourney(this);
 	}
 	
 	/**
@@ -88,6 +89,16 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 		return null;
 	}
 	
+	
+	/**
+	 * Set the current edge to be the first edge and set the train to isMoving
+	 */
+	public void start() {
+		if ( !this.isEmpty() ) {
+			this.currentEdge = this.get(0);
+			this.isMoving    = true;
+		}
+	}
 	
 	/**
 	 * Set the current edge the train is travelling on

@@ -3,15 +3,20 @@ package com.eep.taxe.res;
 import java.util.Vector;
 
 import com.eep.taxe.models.Edge;
+import com.eep.taxe.models.Goal;
 import com.eep.taxe.models.Junction;
 import com.eep.taxe.models.Station;
+import com.eep.taxe.models.Train;
 import com.eep.taxe.models.Vertex;
 
 /**
  * Class used to generate the map
  */
-public class Map {
-
+public class Generator {
+/* static list of Trains by age
+ * vector of usables trainSpeedModifier
+ * generateGoal
+ */
 	public static Vector<Vertex> generateMap() {
 		Vector<Vertex> r = new Vector<Vertex>();
 		
@@ -45,5 +50,30 @@ public class Map {
 		
 		return r;
 	}
+
+	public static Goal generateGoal(Train train, Vector<Vertex> map) {
+
+	/*	//Starting station is where train is currently located
+		Station startingStation = train.getStationToStartNextGoalAt();
+	
+		//Station that is randomly chosen must not be the same as the starting station
+		Station endingStation = startingStation;
+		while (endingStation == startingStation){
+			endingStation = Generator.getRandomStationFromMap();
+		}
+	
+		//Create goal based upon starting and ending station
+		Goal goal = new Goal(this.getCurrentAge().age, 
+				"Travel from " +startingStation.getName() +"to " +endingStation.getName(),
+				"Long description - maybe random scenario?",
+				startingStation,
+				endingStation); */
+		return null;
+	}
+	
+	/*public static Train trainGenerator(age) {
+		
+	}*/
 	
 }
+
