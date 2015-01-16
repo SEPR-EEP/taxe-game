@@ -31,22 +31,24 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		
 		this.master = new Player();
 		this.slave  = new Player();
-		
+
+		this.setVertices(Generator.generateMap());
+
 		// Add a train to each the players
 		this.addFirstTrainToPlayer(master);
 		this.addFirstTrainToPlayer(slave);
-		
-		this.setVertices(Generator.generateMap());
+
 	}
 	
 	private void addFirstTrainToPlayer(Player who) {
 		Train 	a = new Train("Your First Train", null, 0, 0, Ages.FIRST, (float) 1.0, null);
 		Journey j = new Journey(a);
-		
+	
 		Station starting = this.getRandomStation();
 		Station ending;
 		do {
 			ending = this.getRandomStation();
+			System.out.println(ending);
 		} while ( starting == ending );
 		
 		j.addAll(getShortestPath(starting, ending));	

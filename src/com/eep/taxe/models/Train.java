@@ -137,14 +137,6 @@ public class Train implements TrainInterface {
 		this.actualSpeed = this.baseSpeed;
 	}
 	
-	public Boolean hasActiveGoal(){
-		return this.hasActiveGoal;
-	}
-	
-	public Station getStationToStartNextGoalAt(){
-		return this.stationToStartNextGoalAt;
-	}
-	
 	public void setStationToStartNextGoalAt(Station station){
 		this.stationToStartNextGoalAt = station;
 	}
