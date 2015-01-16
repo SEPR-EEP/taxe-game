@@ -2,9 +2,11 @@ package com.eep.taxe.res;
 
 import java.util.Vector;
 
+import com.eep.taxe.models.Age;
 import com.eep.taxe.models.Edge;
 import com.eep.taxe.models.Goal;
 import com.eep.taxe.models.Junction;
+import com.eep.taxe.models.Player;
 import com.eep.taxe.models.Station;
 import com.eep.taxe.models.Train;
 import com.eep.taxe.models.Vertex;
@@ -51,9 +53,9 @@ public class Generator {
 		return r;
 	}
 
-	public static Goal generateGoal(Train train, Vector<Vertex> map) {
+	public static Goal generateGoal(Train train, Vector<Vertex> map, Player player) {
 
-	/*	//Starting station is where train is currently located
+		//Starting station is where train is currently located
 		Station startingStation = train.getStationToStartNextGoalAt();
 	
 		//Station that is randomly chosen must not be the same as the starting station
@@ -63,17 +65,23 @@ public class Generator {
 		}
 	
 		//Create goal based upon starting and ending station
-		Goal goal = new Goal(this.getCurrentAge().age, 
+		Goal goal = new Goal(player.getCurrentAge().age, 
 				"Travel from " +startingStation.getName() +"to " +endingStation.getName(),
 				"Long description - maybe random scenario?",
 				startingStation,
-				endingStation); */
-		return null;
+				endingStation); 
+		return goal;
 	}
 	
-	/*public static Train trainGenerator(age) {
-		
-	}*/
+	private static Station getRandomStationFromMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static Train trainGenerator(Age age) {
+		// TODO
+		return null;
+	}
 	
 }
 
