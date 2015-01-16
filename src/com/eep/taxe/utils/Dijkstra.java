@@ -22,6 +22,7 @@ public class Dijkstra {
 	private Map<Vertex, Boolean>	scanned;
 	private Map<Vertex, Float>		priority;
 	private PriorityQueue<Vertex>	q;
+	private Vertex 					source;
 	
 	/**
 	 * Create a new instance of the Dijkstra's Algorithm and 
@@ -31,11 +32,12 @@ public class Dijkstra {
 	 */
 	public Dijkstra(Vector<Vertex> graph, Vertex source) {
 		
-		distance 		= new HashMap<Vertex, Float>();
-		previous		= new HashMap<Vertex, Vertex>();
-		scanned 		= new HashMap<Vertex, Boolean>();
-		priority 		= new HashMap<Vertex, Float>();
-
+		this.distance 		= new HashMap<Vertex, Float>();
+		this.previous		= new HashMap<Vertex, Vertex>();
+		this.scanned 		= new HashMap<Vertex, Boolean>();
+		this.priority 		= new HashMap<Vertex, Float>();
+		this.source 		= source;
+		
 		DijkstraComparator c = new DijkstraComparator();
 		c.setPriorityMap(priority);
 		q = new PriorityQueue<Vertex>(graph.size(), c);
@@ -110,7 +112,7 @@ public class Dijkstra {
 	    }
 	    
 		Collections.reverse(path);
-		return path;
+		return new Path(path, this.source);
 	}
 	
 	/**

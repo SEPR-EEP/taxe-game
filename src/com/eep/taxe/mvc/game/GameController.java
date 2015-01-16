@@ -194,8 +194,8 @@ public class GameController {
 		
 		public final String BACKGROUND_IMAGE 	= "src/resources/MainMap.jpg";
 		
-		public final String TRAIN_MINE 			= "src/resources/MyTrain.jpg";
-		public final String TRAIN_OPPONENT 		= "src/resources/OpponentTrain.jpg";
+		public final String TRAIN_MINE 			= "src/resources/MyTrain.png";
+		public final String TRAIN_OPPONENT 		= "src/resources/OpponentTrain.png";
 		
 		
 		MapGraphics (JLabel jLabel, MouseListener mouseListener) {
@@ -266,15 +266,11 @@ public class GameController {
 			
 			Role myRole = model.getMyRole();
 			
-			System.out.println("A1");
 
 			Vector<Train> myTrains  = model.getData().getPlayerByRole(myRole).getTrains();
 			Vector<Train> oppTrains = model.getData().getPlayerByRole(myRole == Role.MASTER ? Role.SLAVE : Role.MASTER).getTrains();
-			System.out.println("A1");
 
 			Vector<Train> allTrains = new Vector<Train>(); allTrains.addAll(myTrains); allTrains.addAll(oppTrains);
-			
-			System.out.println("A2");
 
 			BufferedImage myTrainImage;
 			BufferedImage oppTrainImage;
@@ -287,9 +283,7 @@ public class GameController {
 			}
 			
 			for (Train t: allTrains) {
-					
-				System.out.println("A");
-				
+								
 				if ( t.getJourney() == null ) {
 					// Train is not on the map, skip
 					continue;
@@ -299,48 +293,36 @@ public class GameController {
 				if ( edge == null ) {
 					continue;
 				}
-				
-				System.out.println("B");
 
-				
 				int 	Ax, Ay, Bx, By;
 				float 	Tx,	Ty;
-				
+
 				boolean mine = myTrains.contains(t);
-								
-				System.out.println("B2");
 
 				Vertex A  = t.getJourney().getStartingVertexOfEdge(edge);
 				Vertex B  = t.getJourney().getEndingVertexOfEdge  (edge);
-				
-				System.out.println("C");
 
 				Ax = A.getX(); Ay = A.getY();
 				Bx = B.getX(); By = B.getY();
 				
 				float Bweight = t.getJourney().getProgressOnEdge();
 				float Aweight = 1 - Bweight;
-				System.out.println("D");
 
 				Tx = ( Ax * Aweight + Bx * Bweight );
 				Ty = ( Ay * Aweight + By * Bweight );
-				
-				System.out.println("E");
-
+			
 				g.drawImage(
 					mine ? myTrainImage : oppTrainImage,
-					(int) (x(Tx) + OFFSET_X),
-					(int) (y(Ty) + OFFSET_Y),
-					(int) (x(Tx) + OFFSET_X + myTrainImage.getWidth()),
-					(int) (y(Ty) + OFFSET_Y + myTrainImage.getHeight()),
+					(int) (x(Tx) + OFFSET_X - myTrainImage.getWidth()  / 2),
+					(int) (y(Ty) + OFFSET_Y - myTrainImage.getHeight() / 2),
+					(int) (x(Tx) + OFFSET_X + myTrainImage.getWidth()  / 2),
+					(int) (y(Ty) + OFFSET_Y + myTrainImage.getHeight() / 2),
 					0, 0,
 					myTrainImage.getWidth(),
 					myTrainImage.getHeight(),
 					null
 				);
 				
-				System.out.println("F");
-
 			}
 			
 		}
