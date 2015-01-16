@@ -7,6 +7,7 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -119,7 +120,7 @@ public class GameView extends javax.swing.JFrame {
 		mainMapPanel.setLayout(new BorderLayout(0, 0));
 			
 			mapLabel = new JLabel();
-			mapLabel.setIcon(new ImageIcon(getClass().getResource("src/resources/MainMap.jpg")));
+//			mapLabel.setIcon(new ImageIcon(getClass().getResource("src/resources/MainMap.jpg")));
 			mapLabel.setText("BACKGROUND FAILED TO LOAD");
 			
 		
