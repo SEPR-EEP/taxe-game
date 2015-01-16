@@ -27,7 +27,7 @@ import java.awt.SystemColor;
 import javax.swing.UIManager;
 import javax.swing.SwingConstants;
 
-public class MenuView3 extends JFrame {
+public class MenuView0 extends JFrame {
 	
 	private static final long serialVersionUID = 6149911984550980990L;
 
@@ -40,6 +40,8 @@ public class MenuView3 extends JFrame {
 	
 	private JPanel contentPane;
 	private JTextField usernamebox;
+	
+	private JLabel lblEnter;
 
 	/**
 	 * Launch the application.
@@ -76,7 +78,7 @@ public class MenuView3 extends JFrame {
 		contentPane.setLayout(null);
 		
 		//Enter Button
-		JLabel lblEnter = new JLabel("ENTER", SwingConstants.CENTER);
+		lblEnter = new JLabel("ENTER", SwingConstants.CENTER);
 		lblEnter.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 18));
 		lblEnter.setForeground(Color.WHITE);
 		lblEnter.setBounds(234, 318, 140, 36);
@@ -87,16 +89,6 @@ public class MenuView3 extends JFrame {
 		enterbuttonbg.setIcon(new ImageIcon("H:\\SEPR Pratical\\img\\BLACK.png"));
 		enterbuttonbg.setBounds(224, 274, 140, 36);
 		contentPane.add(enterbuttonbg);
-		
-		lblEnter.addMouseListener(new MouseAdapter() {            // Enables lblEnter to be clicked
-			
-			public void mouseClicked(MouseEvent e) {
-				// Check for BUTTON1 which is left click
-				if (e.getButton() == MouseEvent.BUTTON1) {
-					// TODO
-				}
-			}
-		});
 		
 		///set  button location
 		int bw = enterbuttonbg.getWidth();
@@ -125,5 +117,11 @@ public class MenuView3 extends JFrame {
 		background.setLocation(0, 0);
 		contentPane.add(background);
 	}
+	
+	public void addEnterLabelListener(MouseAdapter mouseListener) {
+		lblEnter.addMouseListener(mouseListener);
+	}
+	
+	
 	
 }

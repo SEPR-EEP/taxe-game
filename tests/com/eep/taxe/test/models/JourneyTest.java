@@ -43,7 +43,7 @@ public class JourneyTest {
 		
 		
 		// 2. Create a train
-		steamTrain 			= new Train("Steam", 20, 30, null, 25); //Travels 25 km per turn
+		steamTrain 			= new Train("Steam", null, 20, 30, null, 25, null); //Travels 25 km per turn
 		
 		// 3. Create an empty journey
 		trainJourney		= new Journey(steamTrain);
@@ -103,7 +103,6 @@ public class JourneyTest {
 		//Train is travelling at 25km per turn
 		//Distance between the start station (Edinburgh) and Paris is 100km
 		//Thus after fourth turn the train should be 0km along the Paris to Rome edge
-		
 		trainJourney.incrementProgressByTurn(); //First turn
 		
 		if (trainJourney.getDistanceTravelledOnJourney() != 25){

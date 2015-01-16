@@ -7,6 +7,9 @@ public interface TrainInterface extends AgeRelatedInterface, Serializable {
 	public String		getModel();									//Get model of the train
 	public void			setModel(String model);						//Set model of the train
 	
+	public String 		getTrainImage();							//Get image URI of train
+	public void 		setTrainImage(String newImage);				//Set image URI of train
+	
 	public int			getCostInGold();							//Get cost of train in gold
 	public int			getCostInMetal();							//Get cost of train in metal
 	

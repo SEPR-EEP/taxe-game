@@ -23,7 +23,7 @@ import com.eep.taxe.GameData;
 import com.eep.taxe.models.Game;
 import com.eep.taxe.models.Game.Difficulty;
 import com.eep.taxe.models.Player;
-import com.eep.taxe.res.Map;
+import com.eep.taxe.res.Generator;
 import com.eep.taxe.utils.RunnableArgs;
 
 /**
