@@ -9,7 +9,7 @@ public class Path extends Vector<Edge> implements Serializable {
 	
 	private Station startingStation;
 	private Station endingStation;
-	private Vertex currentLastVertex;
+	private Vertex currentLastVertex = null;
 	
 	/**
 	 * Calculate the total length of the Path
@@ -72,7 +72,7 @@ public class Path extends Vector<Edge> implements Serializable {
 	}*/
 	
 	public boolean add(Vertex vertex){
-		if (this.isEmpty() && vertex instanceof Station){
+		if (this.getCurrentLastVertex() == null && vertex instanceof Station){
 			this.setStartingStation((Station) vertex);
 			this.setCurrentLastVertex(vertex);
 			return true;
