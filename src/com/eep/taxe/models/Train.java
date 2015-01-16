@@ -159,4 +159,12 @@ public class Train implements TrainInterface {
 	public Station getStationToStartNextGoalAt(){
 		return this.stationToStartNextGoalAt;
 	}
+	
+	public Journey getJourney() {
+		return journey;
+	}
+
+	public void setJourney(Journey journey) {
+		this.journey = journey;
+	}
 }

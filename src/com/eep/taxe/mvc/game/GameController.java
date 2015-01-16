@@ -12,9 +12,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Vector;
 
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
+import javax.swing.JLabel;
 
 import com.eep.taxe.GameClient.MoveEvent;
 import com.eep.taxe.GameClient.Role;
@@ -23,9 +24,17 @@ import com.eep.taxe.GameClient.StatusResponse;
 import com.eep.taxe.GameData;
 import com.eep.taxe.models.Edge;
 import com.eep.taxe.models.Game;
+import com.eep.taxe.models.Path;
 import com.eep.taxe.models.Station;
+import com.eep.taxe.models.Train;
 import com.eep.taxe.models.Vertex;
 
+/**
+ * This is the Controller of the Game. All of the Game Logic related to the
+ * user interaction goes here. This handles the events triggered by the interaction
+ * of the user with the view and the events triggered by the client (moves received
+ * from the opponent).
+ */
 public class GameController {
 
 	private GameView	view		= null;
@@ -33,12 +42,20 @@ public class GameController {
 	
 	private MapGraphics graphics	= null;
 	
+	private Path 		currentPath = null;
+	
+	/**
+	 * These are the possible game states.
+	 */
 	private enum GameState {
 		WAITING, 			// Waiting for other player to move,
-		STANDBY, 			// My turn, doing nothing,
-		TRAIN_SELECTED, 	// Selected a train 
+		STANDBY, 			// My turn, still doing nothing,
+		BUILDING_PATH, 		// Selected a train, I am now building a path
 	}
 	
+	/**
+	 * This contains the current state of the game.
+	 */
 	private GameState currentState = GameState.STANDBY;
 	 
 	public GameController(GameView gameView, GameModel gameModel) {
@@ -57,16 +74,26 @@ public class GameController {
 			(model.getMyRole() == Role.MASTER ? "Master" : "Slave") + ")"
 		);
 		
+		// Instantiates a new MapGraphics object to take care of the map
 		this.graphics = new MapGraphics(
-				view.getMainMapPanel(),
+				view.getMapLabel(),
 				new MapMouseListener()
 		);
 		
+		// Sets a MoveListener to handle the data received from the other player
 		model.getClient().setOnMove(new MoveListener());
+		
+		// Draw the interface
 		this.updateView();
 		
 	}
 	
+	/**
+	 * This methods is called everything something happens (some data for the game
+	 * is updated or the window is resized. This redraws the map - as this may have 
+	 * disappeared - and updates all of the information shown on the view).
+	 * -- Please keep as less expensive to compute as possible. --
+	 */
 	private void updateView() {
 		
 		if ( currentState == GameState.WAITING ) {
@@ -152,8 +179,8 @@ public class GameController {
 		
 		public final double 	SCALE_FACTOR_X		= 10;
 		public final double 	SCALE_FACTOR_Y		= 10;
-		public final double 	OFFSET_X			= 30;
-		public final double 	OFFSET_Y			= 30;
+		public final double 	OFFSET_X			= 0;
+		public final double 	OFFSET_Y			= 0;
 		
 		public final double 	CLICK_PRECISION			= 1.2;
 		public final double 	LABEL_RELATIVE_PADDING	= 1.4;
@@ -167,11 +194,15 @@ public class GameController {
 		public final String BACKGROUND_IMAGE 	= "src/resources/MainMap.jpg";
 		
 		
-		MapGraphics (JPanel container, MouseListener mouseListener) {
-			this.g = container.getGraphics();
-			height = (int) container.getSize().getHeight();
-			width  = (int) container.getSize().getWidth();
-			container.paintComponents(this.g);
+		MapGraphics (JLabel jLabel, MouseListener mouseListener) {
+			this.g = jLabel.getGraphics();
+			
+			jLabel.setSize(920, 560);
+
+			height = (int) jLabel.getSize().getHeight();
+			width  = (int) jLabel.getSize().getWidth();
+			jLabel.paintComponents(this.g);
+			
 			
 			// Enable text anti-aliasing
 	        ((Graphics2D) this.g).setRenderingHint(
@@ -179,14 +210,14 @@ public class GameController {
 	                RenderingHints.VALUE_TEXT_ANTIALIAS_ON
 	        );
 	        
-	        // Enable graphics anti-avaliasing
+	        // Enable graphics anti-aaliasing
 	        ((Graphics2D) this.g).setRenderingHint(
 	        		RenderingHints.KEY_ANTIALIASING,
 	                RenderingHints.VALUE_ANTIALIAS_ON
 	        );
 
-	        container.addMouseListener(mouseListener);
-	        container.addComponentListener(new ComponentListener() {
+	        jLabel.addMouseListener(mouseListener);
+	        jLabel.addComponentListener(new ComponentListener() {
 
 				@Override
 				public void componentResized(ComponentEvent e) {
@@ -217,6 +248,44 @@ public class GameController {
 			this.drawBackgroudImage();
 			this.drawEdges();
 			this.drawVertices();
+			this.drawTrains();
+			
+		}
+
+		private void drawTrains() {
+			
+			Role myRole = model.getMyRole();
+			
+			Vector<Train> myTrains  = model.getData().getPlayerByRole(myRole).getTrains();
+			Vector<Train> oppTrains = model.getData().getPlayerByRole(myRole == Role.MASTER ? Role.SLAVE : Role.MASTER).getTrains();
+			Vector<Train> allTrains = new Vector<Train>(); allTrains.addAll(myTrains); allTrains.addAll(oppTrains);
+			
+			for (Train t: allTrains) {
+				
+				if ( t.getJourney() == null ) {
+					// Train is not on the map, skip
+					continue;
+				}
+				
+				Edge edge = t.getJourney().getCurrentEdge();
+				int x1, y1, x2, y2;
+				
+				Vertex leftMost  = 
+					(edge.getVertices().get(0).getX() < edge.getVertices().get(1).getX())
+					? edge.getVertices().get(0) : edge.getVertices().get(1);
+				Vertex rightMost = 
+					(edge.getVertices().get(0).getX() < edge.getVertices().get(1).getX())
+					? edge.getVertices().get(1) : edge.getVertices().get(0);
+					
+				x1 = leftMost.getX();
+				y1 = leftMost.getY();
+				x2 = rightMost.getX();
+				y2 = rightMost.getY();
+				
+				
+				
+			}
+			
 		}
 
 		public void drawBackgroudImage() {
@@ -229,7 +298,8 @@ public class GameController {
 			}
 			g.drawImage(
 				img,
-				0, 0, 
+				(int) OFFSET_X,
+				(int) OFFSET_Y, 
 				width,
 				height,
 				0, 0,
