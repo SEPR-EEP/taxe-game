@@ -2,7 +2,7 @@ package com.eep.taxe.models;
 
 import java.util.Vector;
 
-import com.eep.taxe.res.Map;
+import com.eep.taxe.res.Generator;
 
 public class Player implements PlayerInterface {
 
@@ -24,7 +24,7 @@ public class Player implements PlayerInterface {
 		this.gold  = new Gold();
 		this.metal = new Metal();
 		
-		Map m = new Map();
+		Generator m = new Generator();
 		Vector<Vertex> vertices = m.generateMap();
 	}
 	
@@ -199,7 +199,7 @@ public class Player implements PlayerInterface {
 
 	
 	@Override
-	public void generateGoal() {
+	public void generateGoal(Vector<Vertex> map) {
 		
 		//If max number of goals is reached
 		if (this.currentGoalsNo() >= 3) {
@@ -208,23 +208,7 @@ public class Player implements PlayerInterface {
 		
 		for (Train train : trains){
 			if (! train.hasActiveGoal() ){
-				
-				//Starting station is where train is currently located
-				Station startingStation = train.getStationToStartNextGoalAt();
-				
-				//Station that is randomly chosen must not be the same as the starting station
-				Station endingStation = startingStation;
-				while (endingStation == startingStation){
-					endingStation = Map.getRandomStationFromMap();
-				}
-				
-				//Create goal based upon starting and ending station
-				Goal goal = new Goal(this.getCurrentAge().age, 
-						"Travel from " +startingStation.getName() +"to " +endingStation.getName(),
-						"Long description - maybe random scenario?",
-						startingStation,
-						endingStation);
-				
+				this.currentGoals.add(Generator.generateGoal(train, map));
 				this.currentGoals.add(goal);
 				
 				break; //Exit for loop early

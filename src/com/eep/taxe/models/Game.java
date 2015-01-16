@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.Vector;
 
 import com.eep.taxe.GameClient.Role;
-import com.eep.taxe.res.Map;
+import com.eep.taxe.res.Generator;
 
 
 public class Game extends com.eep.taxe.GameData implements GameInterface {
@@ -30,7 +30,7 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		this.master = new Player();
 		this.slave  = new Player();
 		
-		this.setVertices(Map.generateMap());
+		this.setVertices(Generator.generateMap());
 	}
 	
 	/**
