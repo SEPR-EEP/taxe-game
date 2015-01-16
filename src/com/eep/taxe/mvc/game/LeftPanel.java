@@ -13,7 +13,35 @@ import javax.swing.JPanel;
 public class LeftPanel extends JPanel{
 	private final int WIDTH;
 	private final int HEIGHT;
+	private JLabel ageLabel;
+	private JLabel player1NameLabel;
+	private JLabel player1ScoreLabel;
+	private JLabel player2NameLabel;
+	private JLabel player2ScoreLabel;
 	
+	public void setAge(String age){
+		ageLabel.setText(age);
+	}
+	
+	public void setPlayer1Name(String name){
+		player1NameLabel.setText(name);
+	}
+	
+	public void setPlayer2Name(String name){
+		player2NameLabel.setText(name);
+	}
+	
+	public void setPlayer1Score(int score){
+		String scoreString = "" + score;
+		player1ScoreLabel.setText(scoreString);
+	}
+
+	public void setPlayer2Score(int score){
+		String scoreString = "" + score;
+		player2ScoreLabel.setText(scoreString);
+	}
+
+
 	public LeftPanel(int width, int height){
 //		this.WIDTH = width;
 //		this.HEIGHT = height;
@@ -33,7 +61,7 @@ public class LeftPanel extends JPanel{
 				staticAgeLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
 				staticAgeLabel.setText("Age:");
 				
-				JLabel ageLabel = new JLabel();
+				ageLabel = new JLabel();
 				ageLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
 				ageLabel.setText("Stone Age");
 				
@@ -50,12 +78,12 @@ public class LeftPanel extends JPanel{
 				player1InfoPanel.setPreferredSize(new Dimension(WIDTH/16, WIDTH/32));
 				player1InfoPanel.setOpaque(false);
 				
-					JLabel player1NameLabel = new JLabel();
+					player1NameLabel = new JLabel();
 					player1NameLabel.setText("Player 1");
 					player1NameLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
 					player1NameLabel.setPreferredSize(new Dimension(WIDTH/32, WIDTH/64));
 					
-					JLabel player1ScoreLabel = new JLabel();
+					player1ScoreLabel = new JLabel();
 					player1ScoreLabel.setText("123423");
 					player1ScoreLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
 					player1ScoreLabel.setPreferredSize(new Dimension(WIDTH/32, WIDTH/64));
@@ -73,12 +101,12 @@ public class LeftPanel extends JPanel{
 				player2InfoPanel.setPreferredSize(new Dimension(WIDTH/16, WIDTH/32));
 				player2InfoPanel.setOpaque(false);
 				
-					JLabel player2NameLabel = new JLabel();
+					player2NameLabel = new JLabel();
 					player2NameLabel.setText("Player 2");
 					player2NameLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
 					player2NameLabel.setPreferredSize(new Dimension(WIDTH/32, WIDTH/64));
 					
-					JLabel player2ScoreLabel = new JLabel();
+					player2ScoreLabel = new JLabel();
 					player2ScoreLabel.setText("43565432");
 					player2ScoreLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
 					player2ScoreLabel.setPreferredSize(new Dimension(WIDTH/32, WIDTH/64));

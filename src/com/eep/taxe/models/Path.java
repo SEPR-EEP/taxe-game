@@ -72,16 +72,25 @@ public class Path extends Vector<Edge> implements Serializable {
 	}*/
 	
 	public boolean add(Vertex vertex){
-		if (this.getCurrentLastVertex() == null && vertex instanceof Station){
-			this.setStartingStation((Station) vertex);
-			this.setCurrentLastVertex(vertex);
-			return true;
+		//If first vertex has not yet been added
+		if (this.getCurrentLastVertex() == null){
+			
+			if (vertex instanceof Station){
+				this.setStartingStation((Station) vertex);
+				this.setCurrentLastVertex(vertex);
+				return true;
+			}
+			
+			return false; // First vertex must be a station
+			
 		}
 		
+		//Else find connecting edge with last vertex in journey
 		Edge connectingEdge = this.getCurrentLastVertex().getEdge(vertex);
 		
 		if (connectingEdge != null) {
 			this.add(connectingEdge);
+			this.setCurrentLastVertex(vertex);
 			return true;
 		}
 		
