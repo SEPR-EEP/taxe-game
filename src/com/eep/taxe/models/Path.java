@@ -99,13 +99,12 @@ public class Path extends Vector<Edge> implements Serializable {
 
 	/**
 	 * Returns the starting Vertex of the Edge with the given index
-	 * @param edge	Index of the edge in the path
+	 * @param edge	Edge in the path
 	 * @return		The Starting Vertex of this edge
 	 */
-	public Vertex startingVertexOfEdge(int edge) {
-		
-		// Out of range indices are ignored
-		if ( edge < 0 || this.size() <= edge ) {
+	public Vertex getStartingVertexOfEdge(Edge edge) {
+
+		if ( !this.contains(edge) ) {
 			return null;
 		}
 		
@@ -114,26 +113,25 @@ public class Path extends Vector<Edge> implements Serializable {
 		}
 		
 		// If this is the last edge
-		if ( edge == this.size() - 1 ) {
+		if ( this.lastElement() == edge ) {
 			// It is the vertex that is not the ending point
-			return	this.get(edge).other(this.endingStation);
+			return	edge.other(this.endingStation);
 		}
 		
-		return this.get(edge).vertexNotInCommonWithAdjacentEdge(
-			this.get(edge+1)
+		return edge.vertexNotInCommonWithAdjacentEdge(
+			this.get(indexOf(edge) + 1)
 		);	
 		
 	}
 	
 	/**
 	 * Returns the ending Vertex of the Edge with the given index
-	 * @param edge	Index of the edge in the path
+	 * @param edge	The edge in the path
 	 * @return		The Ending Vertex of this edge
 	 */
-	public Vertex endingVertexOfEdge(int edge) {
+	public Vertex getEndingVertexOfEdge(Edge edge) {
 		
-		// Out of range indices are ignored
-		if ( edge < 0 || this.size() <= edge ) {
+		if ( !this.contains(edge) ) {
 			return null;
 		}
 		
@@ -142,13 +140,13 @@ public class Path extends Vector<Edge> implements Serializable {
 		}
 		
 		// If this is the first edge
-		if ( edge == 0 ) {
+		if ( this.get(0) == edge ) {
 			// It is the vertex that is not the ending point
-			return	this.get(edge).other(this.startingStation);
+			return	edge.other(this.startingStation);
 		}
 		
-		return this.get(edge).vertexNotInCommonWithAdjacentEdge(
-			this.get(edge-1)
+		return edge.vertexNotInCommonWithAdjacentEdge(
+			this.get(indexOf(edge) - 1)
 		);	
 		
 	}
