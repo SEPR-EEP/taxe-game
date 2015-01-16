@@ -182,4 +182,5 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 		this.isJourneyComplete();
 	}
 
+	
 }
