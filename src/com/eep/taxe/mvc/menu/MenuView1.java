@@ -282,11 +282,6 @@ public class MenuView1 extends JFrame {
 		
 		
 		//create game
-		int bwb = label_21.getWidth();
-		int bhb = label_21.getHeight();
-		label_20.setSize(bwb, bhb);
-		label_21.setLocation(label_20.getLocation());	
-		
 		JPanel CreatGame = new JPanel();
 		CreatGame.setBounds(0, 0, 784, 562);
 		contentPane.add(CreatGame);
@@ -351,16 +346,6 @@ public class MenuView1 extends JFrame {
 		Waitingingbg.setBounds(0, 0, 784, 562);
 		Waiting.add(Waitingingbg);
 		
-		JPanel Loading = new JPanel();
-		Loading.setBounds(0, 0, 784, 562);
-		contentPane.add(Loading);
-		Loading.setLayout(null);
-		
-		JLabel Loadingbg = new JLabel("");
-		Loadingbg.setIcon(new ImageIcon("C:\\Users\\yd695\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\Content.IE5\\EGXEZJH4\\loading_-_Locomotive[1].jpg"));
-		Loadingbg.setBounds(0, 0, 784, 562);
-		Loading.add(Loadingbg);
-		
 		
 
 		
@@ -410,5 +395,11 @@ public class MenuView1 extends JFrame {
 		int bhcr = label_16.getHeight();
 		lblCreate.setSize(bwcr, bhcr);
 		label_16.setLocation(lblCreate.getLocation());
+		
+		int bwb = label_21.getWidth();
+		int bhb = label_21.getHeight();
+		label_20.setSize(bwb, bhb);
+		label_21.setLocation(label_20.getLocation());	
+		
 	}
 }
