@@ -168,6 +168,45 @@ public class Edge implements EdgeInterface {
 			System.out.println("  - " + s.getName());
 		}
 	}
-
+	
+	/**
+	 * Check if an edge has a vertex in common to another edge
+	 * @param e	The other edge
+	 * @return
+	 */
+	public boolean isAdjacentTo(Edge e) {
+		for ( Vertex i: this.getVertices() ) {
+			if ( e.hasVertex(i) ) {
+				return true;
+			}
+		}
+		return false;
+	}	
+	
+	/**
+	 * Check if an edge has a vertex in common to another edge
+	 * if yes, return the vertex in common
+	 * @param e	The other edge
+	 * @return The vertex in common or null
+	 */
+	public Vertex adjacentVertexTo(Edge e) {
+		for ( Vertex i: this.getVertices() ) {
+			if ( e.hasVertex(i) ) {
+				return i;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Given an adjacent edge, return the vertex that I have
+	 * and the other does not.
+	 */
+	public Vertex vertexNotInCommonWithAdjacentEdge(Edge adjacent) {
+		
+		Vertex inCommon = adjacentVertexTo(adjacent);
+		return this.other(inCommon);
+		
+	}
 
 }

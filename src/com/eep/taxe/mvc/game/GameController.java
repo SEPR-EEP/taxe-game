@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Vector;
 
@@ -244,12 +245,18 @@ public class GameController {
 
 		}
 		
+		private boolean drawing = false;
+		
 		public void drawMap() {
+			if ( drawing ) {
+				return;
+			}
+			drawing = true;
 			this.drawBackgroudImage();
 			this.drawEdges();
 			this.drawVertices();
 			this.drawTrains();
-			
+			drawing = false;
 		}
 
 		private void drawTrains() {
@@ -260,8 +267,9 @@ public class GameController {
 			Vector<Train> oppTrains = model.getData().getPlayerByRole(myRole == Role.MASTER ? Role.SLAVE : Role.MASTER).getTrains();
 			Vector<Train> allTrains = new Vector<Train>(); allTrains.addAll(myTrains); allTrains.addAll(oppTrains);
 			
-			for (Train t: allTrains) {
-				
+			System.out.println("There are " + myTrains.size() + " trains on the map");
+			for (Train t: myTrains) {
+							
 				if ( t.getJourney() == null ) {
 					// Train is not on the map, skip
 					continue;
@@ -269,10 +277,16 @@ public class GameController {
 				
 				Edge edge = t.getJourney().getCurrentEdge();
 				if ( edge == null ) {
+					System.out.println("- No current edge");
+
 					// Journey has no current edge, skip
 					continue;
 				}
 				int x1, y1, x2, y2;
+				
+				boolean mine = myTrains.contains(t);
+				System.out.println("There is a train between " + ((Station)edge.getVertices().get(0)).getName() + " and " +
+						((Station)edge.getVertices().get(1)).getName() + " and is mine? " + mine);
 				
 				Vertex leftMost  = 
 					(edge.getVertices().get(0).getX() < edge.getVertices().get(1).getX())
@@ -289,6 +303,7 @@ public class GameController {
 				
 				
 			}
+			System.out.println("Finished paiting trains");
 			
 		}
 

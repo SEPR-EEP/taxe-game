@@ -48,11 +48,13 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		Station ending;
 		do {
 			ending = this.getRandomStation();
-			System.out.println(ending);
 		} while ( starting == ending );
 		
 		j.addAll(getShortestPath(starting, ending));	
 		j.start();
+		
+		who.buyTrain(a);
+
 	}
 	
 	/**
