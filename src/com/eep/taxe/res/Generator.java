@@ -6,6 +6,7 @@ import com.eep.taxe.models.Edge;
 import com.eep.taxe.models.Goal;
 import com.eep.taxe.models.Junction;
 import com.eep.taxe.models.Station;
+import com.eep.taxe.models.Train;
 import com.eep.taxe.models.Vertex;
 
 /**
@@ -49,25 +50,30 @@ public class Generator {
 		
 		return r;
 	}
-	
-public static Goal generateGoal(train, map) {
 
-	//Starting station is where train is currently located
-	Station startingStation = train.getStationToStartNextGoalAt();
+	public static Goal generateGoal(Train train, Vector<Vertex> map) {
+
+	/*	//Starting station is where train is currently located
+		Station startingStation = train.getStationToStartNextGoalAt();
 	
-	//Station that is randomly chosen must not be the same as the starting station
-	Station endingStation = startingStation;
-	while (endingStation == startingStation){
-		endingStation = Generator.getRandomStationFromMap();
+		//Station that is randomly chosen must not be the same as the starting station
+		Station endingStation = startingStation;
+		while (endingStation == startingStation){
+			endingStation = Generator.getRandomStationFromMap();
+		}
+	
+		//Create goal based upon starting and ending station
+		Goal goal = new Goal(this.getCurrentAge().age, 
+				"Travel from " +startingStation.getName() +"to " +endingStation.getName(),
+				"Long description - maybe random scenario?",
+				startingStation,
+				endingStation); */
+		return null;
 	}
 	
-	//Create goal based upon starting and ending station
-	Goal goal = new Goal(this.getCurrentAge().age, 
-			"Travel from " +startingStation.getName() +"to " +endingStation.getName(),
-			"Long description - maybe random scenario?",
-			startingStation,
-			endingStation);
+	/*public static Train trainGenerator(age) {
+		
+	}*/
 	
 }
-	
-}
+
