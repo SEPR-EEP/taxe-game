@@ -6,6 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.eep.taxe.models.Age;
+import com.eep.taxe.models.Station;
 import com.eep.taxe.models.Train;
 import com.eep.taxe.models.TrainSpeedModifier;
 
@@ -15,6 +16,7 @@ public class SpeedModifierTest {
 	private float				baseSpeed, boostSpeedFactor, slowSpeedFactor;
 	private Train			 	steamTrain, futureTrain;
 	private TrainSpeedModifier	steamBoost, steamSlowdown;
+	private Station				York;			
 	
 	
 	@Before
@@ -28,8 +30,8 @@ public class SpeedModifierTest {
 		slowSpeedFactor = 0.5f;
 		
 		//Create train
-		steamTrain 			= new Train("Steam", 20, 30, null, baseSpeed);
-		futureTrain			= new Train("Future", 100, 50, null, baseSpeed);
+		steamTrain 			= new Train("Steam", null, 20, 30, null, baseSpeed, null);
+		futureTrain			= new Train("Future",null, 100, 50, null, baseSpeed, null);
 		
 		//Create modifier resources
 		steamBoost			= new TrainSpeedModifier("Booster", "", 5, 0, null, boostSpeedFactor);	//Doubles speed

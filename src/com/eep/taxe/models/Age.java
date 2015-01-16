@@ -10,7 +10,7 @@ public class Age implements AgeInterface {
 		FIRST, SECOND, THIRD, FOURTH;
 	}
 	
-	Ages age;
+	public Ages age;
 	
 	@Override
 	public int compareTo(Age o) {

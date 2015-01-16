@@ -20,6 +20,7 @@ public class Train implements TrainInterface {
 	/**
 	 * Instantiates a Train
 	 * @param	model		Model name of the train
+	 * @param	trainImage	Image icon for the train
 	 * @param	costInGold	Cost in gold to buy the train
 	 * @param	costInMetal	Cost in metal to buy the train
 	 * @param 	trainAge 	The game age that the train belongs to
@@ -51,6 +52,18 @@ public class Train implements TrainInterface {
 	@Override
 	public void setModel(String model) {
 		this.trainModel = model;
+	}
+	
+	/** Get the Image URI for the Train */
+	@Override
+	public String getTrainImage(){
+		return this.trainImage;
+	}
+	
+	/** Set the Image URI for the Train */
+	@Override
+	public void setTrainImage(String newImage){
+		this.trainImage = newImage;
 	}
 	
 	/** Get the cost in gold to buy the train
@@ -124,6 +137,9 @@ public class Train implements TrainInterface {
 		this.actualSpeed = this.baseSpeed;
 	}
 	
+	public void setStationToStartNextGoalAt(Station station){
+		this.stationToStartNextGoalAt = station;
+	}
 	
 	@Override
 	public void startAGoal(Goal goal, Journey journey) {
@@ -158,5 +174,13 @@ public class Train implements TrainInterface {
 
 	public Station getStationToStartNextGoalAt(){
 		return this.stationToStartNextGoalAt;
+	}
+	
+	public Journey getJourney() {
+		return journey;
+	}
+
+	public void setJourney(Journey journey) {
+		this.journey = journey;
 	}
 }

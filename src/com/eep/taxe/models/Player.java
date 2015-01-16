@@ -2,7 +2,7 @@ package com.eep.taxe.models;
 
 import java.util.Vector;
 
-import com.eep.taxe.res.Map;
+import com.eep.taxe.res.Generator;
 
 public class Player implements PlayerInterface {
 
@@ -23,13 +23,11 @@ public class Player implements PlayerInterface {
 	public Player() {
 		this.gold  = new Gold();
 		this.metal = new Metal();
-		
-		Map m = new Map();
-		Vector<Vertex> vertices = m.generateMap();
+	
 	}
 	
 	/**
-	 * Commpare two players by their score
+	 * Compare two players by their score
 	 * @param o	The other player
 	 * @return	1, 0, -1
 	 */
@@ -197,8 +195,9 @@ public class Player implements PlayerInterface {
 		return this.currentGoals;
 	}
 
+	
 	@Override
-	public void generateGoal() {
+	public void generateGoal(Vector<Vertex> map) {
 		
 		//If max number of goals is reached
 		if (this.currentGoalsNo() >= 3) {
@@ -207,9 +206,9 @@ public class Player implements PlayerInterface {
 		
 		for (Train train : trains){
 			if (! train.hasActiveGoal() ){
+				//this.currentGoals.add(Generator.generateGoal(train, map));
 				
-				Station startingStation = train.getStationToStartNextGoalAt();
-				
+				break; //Exit for loop early
 				
 			}
 		}

@@ -1,9 +1,12 @@
 package com.eep.taxe.models;
 
+import java.util.Random;
 import java.util.Vector;
 
 import com.eep.taxe.GameClient.Role;
-import com.eep.taxe.res.Map;
+import com.eep.taxe.models.Age.Ages;
+import com.eep.taxe.res.Generator;
+import com.eep.taxe.utils.Dijkstra;
 
 
 public class Game extends com.eep.taxe.GameData implements GameInterface {
@@ -20,7 +23,7 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 	private Vector<Vertex> vertices;
 	
 	private int		currentTurn	= 0;
-	private Role	currentRole;
+	private Role	currentRole = Role.SLAVE;
 	
 	public Game(String name, Difficulty d) {
 		this.setName(name);
@@ -28,8 +31,28 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		
 		this.master = new Player();
 		this.slave  = new Player();
+
+		this.setVertices(Generator.generateMap());
+
+		// Add a train to each the players
+		this.addFirstTrainToPlayer(master);
+		this.addFirstTrainToPlayer(slave);
+
+	}
+	
+	private void addFirstTrainToPlayer(Player who) {
+		Train 	a = new Train("Your First Train", null, 0, 0, Ages.FIRST, (float) 1.0, null);
+		Journey j = new Journey(a);
+	
+		Station starting = this.getRandomStation();
+		Station ending;
+		do {
+			ending = this.getRandomStation();
+			System.out.println(ending);
+		} while ( starting == ending );
 		
-		this.setVertices(Map.generateMap());
+		j.addAll(getShortestPath(starting, ending));	
+		j.start();
 	}
 	
 	/**
@@ -105,13 +128,19 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 	@Override
 	public void endTurn() {
 		
-		// TODO Game logic
+		if ( this.getCurrentRole() == Role.MASTER ) {
+			this.computeEndOfTurn();
+		}
 		
 		// Finally, increment role and turn
 		this.incrementRoleAndTurn();
 		
 	}
 	
+	private void computeEndOfTurn() {
+		// CALCULATE SCORES
+	}
+
 	/**
 	 * Increment the Role and the Turn
 	 */
@@ -155,6 +184,11 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 	public void setCurrentRole(Role currentRole) {
 		this.currentRole = currentRole;
 	}
+	
+	public Path getShortestPath(Vertex from, Vertex to) {
+		Dijkstra d = new Dijkstra(this.getVertices(), from);
+		return d.getShortestPathTo(to);
+	}
 
 	/**
 	 * Get the Vector of vertices of the map
@@ -186,4 +220,31 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		return this.vertices.add(v);
 	};
 	
+	/**
+	 * Get the vector of stations displayed on the map
+	 * @return vector of station
+	 */
+	public Vector<Station> getStations(){
+
+		Vector<Station> stations = new Vector<Station>();
+		
+		for (Vertex vertex : this.vertices){
+			if (vertex instanceof Station){
+				stations.add( (Station) vertex );
+			}
+		}
+		return stations;
+	}
+	
+	/**
+	 * Get a randomly selected station from the map
+	 * @return station
+	 */
+	public Station getRandomStation(){
+		Vector<Station> stations = getStations();
+		int numberOfStations = stations.size();
+		Random picker = new Random();
+		int randomStationNumber = picker.nextInt(numberOfStations);
+		return stations.get(randomStationNumber);
+	}
 }
