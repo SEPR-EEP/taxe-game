@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -153,4 +154,20 @@ public class GameView extends javax.swing.JFrame {
 		this.setVisible(true);
 
 	}
+	
+
+	public void showErrorMessage(String message) {
+		JOptionPane.showMessageDialog(this,
+			    message,
+			    "Game error",
+			    JOptionPane.ERROR_MESSAGE);
+	}	
+	
+	public void showMessage(String message) {
+		JOptionPane.showMessageDialog(this,
+			    message,
+			    "Game Info",
+			    JOptionPane.PLAIN_MESSAGE);
+	}
+	
 }

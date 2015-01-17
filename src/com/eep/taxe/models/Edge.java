@@ -162,11 +162,12 @@ public class Edge implements EdgeInterface {
 	/**
 	 * Pritns the name of the stations aroud 
 	 */
-	public void printStationNames() {
+	public void printVerticesNames() {
+		System.out.print("Edge: ");
 		for (Vertex x: this.getVertices()) {
-			Station s = (Station) x;
-			System.out.println("  - " + s.getName());
+			System.out.print(" | " + x.getVertexName());
 		}
+		System.out.println(";");
 	}
 	
 	/**

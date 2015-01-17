@@ -192,6 +192,17 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 		this.progressOnEdge = this.distanceTravelledOnEdge / lengthOfEdge;
 		this.isJourneyComplete();
 	}
+	
+	/**
+	 * Get the 
+	 */
+	public Vertex getLastVisitedVertex() {
+		if ( this.currentEdge == null ) {
+			return this.getStartingStation();
+		}
+		
+		return this.getStartingVertexOfEdge(this.currentEdge);
+	}
 
 	
 }

@@ -91,5 +91,16 @@ public abstract class Vertex implements VertexInterface {
 		}
 		return null;
 	}
+	
+	/**
+	 * Gets the name of the vertex (either a Junction or a Station)
+	 */
+	public String getVertexName() {
+		if ( this instanceof Station ) {
+			return ((Station)this).getName();
+		} else {
+			return "Junction";
+		}
+	}
 
 }

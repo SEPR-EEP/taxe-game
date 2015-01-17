@@ -199,6 +199,7 @@ public class GameController {
 		public final Color 		VERTEX_TEXT_COLOR 	= new Color(0x111111);
 		
 		public final Color EDGE_COLOR		 	= new Color(0x000000);
+		public final Color EDGE_COLOR_BUILDING 	= new Color(0xFF0000);
 		
 		public final String BACKGROUND_IMAGE 	= "src/resources/MainMap.jpg";
 		
@@ -378,8 +379,13 @@ public class GameController {
 				edges.addAll(v.getEdges());
 			}
 			
-			g.setColor(EDGE_COLOR);
 			for ( Edge e: edges ) {
+				
+				if ( buildingVertices != null && (new Path(buildingVertices)).contains(e) ) {
+					g.setColor(EDGE_COLOR_BUILDING);
+				} else {
+					g.setColor(EDGE_COLOR);
+				}
 				
 				int x1, y1, x2, y2;
 				x1 = (int) (x(e.getVertices().get(0).getX()) + OFFSET_X);
@@ -541,17 +547,61 @@ public class GameController {
 				break;
 			}
 			
+			this.buildingTrain 		= t;
+		
+			// Add the vertex where the train is located
+			this.buildingVertices 	= new Vector<Vertex>(); 
+			this.buildingVertices.add ( t.getJourney().getLastVisitedVertex() );
+			System.out.println("Journey starting at " + t.getJourney().getCurrentLastVertex().getVertexName() );
 			
+			this.currentState = GameState.BUILDING_PATH;
+			
+			break;
+						
 			
 		case BUILDING_PATH:
-            Vertex c = graphics.findVertex(e);
+			
+            Vertex v = graphics.findVertex(e);
+            if ( v == null ) {
+            	break;
+            }
+            
+            if ( v == this.buildingVertices.lastElement() ) {
+            	// Clicked on the last element added, remove it
+            	
+            	System.out.println("Removed " + this.buildingVertices.lastElement());
+            	this.buildingVertices.removeElementAt(this.buildingVertices.size() - 1);
+            	
+            	// If you removed the starting vertex, return to standby.
+            	if ( this.buildingVertices.size() == 0 ) {
+            		this.currentState 		= GameState.STANDBY;
+            		this.buildingTrain 		= null;
+            		this.buildingVertices	= null;
+            		System.out.println("Journey cancelled - returning to standby.");
+            	}
+            	
+            	break;
+            }
+            
+            if ( !this.buildingVertices.add(v) ) {
+            	view.showErrorMessage("Can't reach that vertex.");
+            }
 
+            System.out.println("Added vertex");
+            System.out.println("Last: " + v.getVertexName());
+            
 			break;
 			
 		default:
 			break;
 		}
 		
+		/*System.out.println("Current building path --");
+		if ( buildingVertices != null ) {
+			for ( Edge e: buildingVertices ) {
+				e.printVerticesNames();
+			}
+		}*/
 		updateView();
 		
 	}

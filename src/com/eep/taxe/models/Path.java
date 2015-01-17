@@ -26,6 +26,12 @@ public class Path extends Vector<Edge> implements Serializable {
 			this.add(v);
 		}
 	}
+	
+	public Path(Vector<Vertex> vertices) {
+		for ( Vertex v: vertices ) {
+			this.add(v);
+		}
+	}
 
 	/**
 	 * Calculate the total length of the Path
