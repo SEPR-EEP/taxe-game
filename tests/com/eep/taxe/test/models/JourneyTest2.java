@@ -15,6 +15,7 @@ import com.eep.taxe.models.Junction;
 import com.eep.taxe.models.Player;
 import com.eep.taxe.models.Station;
 import com.eep.taxe.models.Train;
+import com.eep.taxe.models.TrainSpeedModifier;
 import com.eep.taxe.models.Vertex;
 
 public class JourneyTest2 {
@@ -34,7 +35,6 @@ public class JourneyTest2 {
 	
 	// The journey of the test
 	private Journey trainJourney;
-	private int expectedTrainJourneyLength;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -148,6 +148,8 @@ public class JourneyTest2 {
 		//Player has first turn
 		trainJourney.incrementProgressByTurn();
 		
+		System.out.println(trainJourney.getDistanceTravelledOnJourney());
+		
 		if (trainJourney.getDistanceTravelledOnJourney() != 500){
 			fail("Train should have travelled 500km by end of first turn");
 		}
@@ -156,6 +158,44 @@ public class JourneyTest2 {
 		trainJourney.incrementProgressByTurn();
 		
 		//Player has third turn
+		trainJourney.incrementProgressByTurn();
+		
+		//Journey should have completed
+		if (! trainJourney.isJourneyComplete()){
+			fail("Journey should have completed");
+		}
+		
+	}
+	
+	@Test
+	public void testTravelFromParisToRomeWithSpeedBooster(){
+		//With a speed booster that doubles the trains speed it should only take two turns rather than three
+		
+		//Player adds Paris
+		trainJourney.add(Paris);
+		
+		//Player adds junction number 1
+		trainJourney.add(JN1);
+		
+		//Player adds Rome
+		trainJourney.add(Rome);
+		
+		//Player starts journey
+		trainJourney.start();
+		
+		//Use booster on train
+		TrainSpeedModifier steamBoost = new TrainSpeedModifier("Booster", "", 5, 0, null, 2);	//Doubles speed
+		steamBoost.useOnTrain(steamTrain);
+
+		//Player has first turn
+		trainJourney.incrementProgressByTurn();
+		
+		//Distance should be 1000km (500 x 2)
+		if (trainJourney.getDistanceTravelledOnJourney() != 1000){
+			fail("Train should have travelled 1000km by end of first turn");
+		}
+		
+		//Player has second turn
 		trainJourney.incrementProgressByTurn();
 		
 		//Journey should have completed

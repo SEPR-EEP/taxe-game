@@ -113,6 +113,12 @@ public class Path extends Vector<Edge> implements Serializable {
 		if (connectingEdge != null) {
 			this.add(connectingEdge);
 			this.setCurrentLastVertex(vertex);
+			
+			//If this vertex is a station set to ending station
+			if (vertex instanceof Station){
+				this.setEndingStation((Station) vertex); 
+			}
+			
 			return true;
 		}
 		

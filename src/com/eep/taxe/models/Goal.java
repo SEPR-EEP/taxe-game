@@ -3,6 +3,7 @@ package com.eep.taxe.models;
 import java.util.Vector;
 
 import com.eep.taxe.models.Age.Ages;
+import com.eep.taxe.utils.Dijkstra;
 
 public class Goal implements GoalInterface {
 
@@ -90,16 +91,19 @@ public class Goal implements GoalInterface {
 	 * @param optimalNumberOfTurns	Calculated shortest number of turns it would take the train travelling at its base speed
 	 * @return Points to be added to a player's score */
 	@Override
-	public int calculateReward(Journey journey, int optimalNumberOfTurns) {
+	public int calculateReward(Journey journey, Game game) {
 		
-		if ( journey.isJourneyComplete() 
-				&& this.willJourneyAcomplishGoal(journey)
-				&& optimalNumberOfTurns > 0){
-			
-			return journey.getTotalLength() * (optimalNumberOfTurns / journey.getTurnsElapsedSinceStart());
-		} 
+		if ( ! journey.isJourneyComplete() || ! this.willJourneyAcomplishGoal(journey)){
+			return 0;
+		}
 		
-		return 0;
+		Dijkstra dijkstra 	= new Dijkstra(game.getVertices(), this.getStartingStation());
+		Float optimalDistance	= dijkstra.getDistanceTo(getEndingStation());
+		
+		int optimalNumberOfTurns = this.optimalNumberOfTurns(optimalDistance, journey.getTrain().getBaseSpeed());
+		
+		return journey.getTotalLength() * (optimalNumberOfTurns / journey.getTurnsElapsedSinceStart());
+	
 	}
 
 	/** Check if a given journey's start and end station are the same as the goal's start and end station

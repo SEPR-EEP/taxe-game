@@ -156,6 +156,10 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 		return this.turnsElapsedSinceStart;
 	}
 	
+	public Train getTrain(){
+		return this.train;
+	}
+	
 	/**
 	 * Increment a train's progress on an edge for a turn.
 	 * If the train's distance travelled exceeds the length of the current edge, move on to the next edge in the path
