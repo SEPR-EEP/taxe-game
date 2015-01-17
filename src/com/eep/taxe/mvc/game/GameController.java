@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
@@ -92,6 +94,10 @@ public class GameController {
 		// Sets a MoveListener to handle the data received from the other player
 		model.getClient().setOnMove(new MoveListener());
 		
+		//Add all of the Listeners for Events generated in the view
+		this.view.addDetailsButtonActionListener(new DetailsButtonActionListener());
+		this.view.addMenuButtonActionListener(new MenuButtonActionListener());
+		
 		// Draw the interface
 		this.updateView();
 		
@@ -113,6 +119,23 @@ public class GameController {
 		
 		// TODO Get and display game data
 		this.graphics.drawMap();
+	}
+	
+	private class DetailsButtonActionListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+		}
+	}
+	
+	private class MenuButtonActionListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			view.mainMapPanel.setVisible(false);
+			
+		}
 	}
 	
 	private class MoveListener implements MoveEvent {
@@ -641,5 +664,6 @@ public class GameController {
 		}
 		
 	}
+
 
 }
