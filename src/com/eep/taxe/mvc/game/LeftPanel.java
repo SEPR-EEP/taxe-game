@@ -43,10 +43,8 @@ public class LeftPanel extends JPanel{
 
 
 	public LeftPanel(int width, int height){
-//		this.WIDTH = width;
-//		this.HEIGHT = height;
-		this.WIDTH = 1300;
-		this.HEIGHT = 720;
+		this.WIDTH = width;
+		this.HEIGHT = height;
 		this.setPreferredSize(new Dimension(WIDTH/8, HEIGHT));
 		this.setBackground(Color.GREEN);
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

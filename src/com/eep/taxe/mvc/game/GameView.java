@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -35,6 +36,7 @@ public class GameView extends javax.swing.JFrame {
 	private BottomPanel bottomPanel;
 	private JLabel mapLabel;
 	private JPanel gameMenuPanel;
+	JPanel mainMapPanel;
 	
 
 	
@@ -51,7 +53,7 @@ public class GameView extends javax.swing.JFrame {
 		mainMapPanel.setLayout(new BorderLayout(0, 0));
 			
 			mapLabel = new JLabel();
-//			mapLabel.setIcon(new ImageIcon(getClass().getResource("src/resources/MainMap.jpg")));
+			mapLabel.setIcon(new ImageIcon(getClass().getResource("RailroadTracks.jpg")));
 			mapLabel.setText("BACKGROUND FAILED TO LOAD");
 			
 		
@@ -73,17 +75,14 @@ public class GameView extends javax.swing.JFrame {
 			gameMenuPanel.add(bottomPanel, BorderLayout.SOUTH);
 			
 
-		gameMenuPanel.add(mapLabel);
+		mainMapPanel.add(mapLabel);
+		gameMenuPanel.add(mainMapPanel);
 		getContentPane().add(gameMenuPanel);
-
-
+		
+		
 		this.setVisible(true);
 
 	}
-	
-	
-	
-	
 
 	public void showErrorMessage(String message) {
 		JOptionPane.showMessageDialog(this,
@@ -99,56 +98,6 @@ public class GameView extends javax.swing.JFrame {
 			    JOptionPane.PLAIN_MESSAGE);
 	}
 	
-	
-	//----------------------Methods for manipulating TopPanel menu----------------------------------------
-	public void setTimer(String time){
-		topPanel.setTimer(time);
-	}
-	
-	public void setMissionInfo(String info){
-		topPanel.setMissionInfo(info);
-	}
-	
-	public void setGold(int gold) {
-		topPanel.setGold(gold);
-	}
-	
-	public void setMetal(int metal){
-		topPanel.setMetal(metal);
-	}
-	
-	public void addEndTurnButtonActionListener(ActionListener buttonListener){
-		topPanel.addEndTurnButtonActionListener(buttonListener);
-	}
-	
-	public void addDetailsButtonActionListener(ActionListener buttonListener){
-		topPanel.addDetailsButtonActionListener(buttonListener);
-	}
-	
-	
-	public void setAge (String age){
-		leftPanel.setAge(age);
-	}
-	
-	public void setPlayer1Name(String name){
-		leftPanel.setPlayer1Name(name);
-	}
-	
-	public void setPlayer2Name(String name){
-		leftPanel.setPlayer2Name(name);
-	}
-	
-	public void setPlayer1Score(int score){
-		leftPanel.setPlayer1Score(score);
-	}
-	
-	public void setPlayer2Score(int score){
-		leftPanel.setPlayer2Score(score);
-	}
-	//----------------------------------------------------------------------------------------------------
-	
-	
-	//----------------------Methods for manipulating LeftPanel menu---------------------------------------
 	public JLabel getMapLabel() {
 		return mapLabel;
 	}
@@ -157,7 +106,7 @@ public class GameView extends javax.swing.JFrame {
 		this.mapLabel = mapLabel;
 	}
 
-	JPanel mainMapPanel;
+	
 	public JPanel getMainMapPanel() {
 		return mainMapPanel;
 	}
@@ -173,16 +122,83 @@ public class GameView extends javax.swing.JFrame {
 	public void setGameMenuPanel(JPanel gameMenuPanel) {
 		this.gameMenuPanel = gameMenuPanel;
 	}
+	
+	
+	//----------------------Methods for manipulating TopPanel menu----------------------------------------
+		public void setTimer(String time){
+			topPanel.setTimer(time);
+		}
+		
+		public void setMissionInfo(String info){
+			topPanel.setMissionInfo(info);
+		}
+		
+		public void setGold(int gold) {
+			topPanel.setGold(gold);
+		}
+		
+		public void setMetal(int metal){
+			topPanel.setMetal(metal);
+		}
+		
+		public void addEndTurnButtonActionListener(ActionListener buttonListener){
+			topPanel.addEndTurnButtonActionListener(buttonListener);
+		}
+		
+		public void addDetailsButtonActionListener(ActionListener buttonListener){
+			topPanel.addDetailsButtonActionListener(buttonListener);
+		}
+	//----------------------------------------------------------------------------------------------------
+	
+	
+	//----------------------Methods for manipulating LeftPanel menu---------------------------------------
+		public void setAge (String age){
+			leftPanel.setAge(age);
+		}
+		
+		public void setPlayer1Name(String name){
+			leftPanel.setPlayer1Name(name);
+		}
+		
+		public void setPlayer2Name(String name){
+			leftPanel.setPlayer2Name(name);
+		}
+		
+		public void setPlayer1Score(int score){
+			leftPanel.setPlayer1Score(score);
+		}
+		
+		public void setPlayer2Score(int score){
+			leftPanel.setPlayer2Score(score);
+		}
 	//----------------------------------------------------------------------------------------------------
 	
 	
 	//----------------------Methods for manipulating RightPanel menu--------------------------------------
-	
+		public void setInfoText(String text){
+			rightPanel.setInfoText(text);
+		}
+		
+		public void setStartMissionButtonVisible(boolean visible){
+			rightPanel.setStartMissionButtonVisible(visible);
+		}
+		
+		public void addStartMissionButtonActionListener(ActionListener buttonListener){
+			rightPanel.addStartMissionButtonActionListener(buttonListener);
+		}
+		
+		public void addRegionButtonActionListener(ActionListener buttonListener){
+			rightPanel.addRegionButtonActionListener(buttonListener);
+		}
+		
+		public void addObjectiveButtonActionListener(ActionListener buttonListener){
+			rightPanel.addObjectiveButtonActionListener(buttonListener);
+		}
 	//----------------------------------------------------------------------------------------------------
 	
 	
 	//----------------------Methods for manipulating BottomPanel menu-------------------------------------
-	//InventorySlot Listeners
+		//InventorySlot Listeners
 		public void addInventorySlot1ActionListener(ActionListener buttonListener){
 			bottomPanel.addInventorySlot1ActionListener(buttonListener);
 		}
