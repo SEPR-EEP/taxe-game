@@ -12,6 +12,7 @@ import com.eep.taxe.models.Junction;
 import com.eep.taxe.models.Player;
 import com.eep.taxe.models.Station;
 import com.eep.taxe.models.Train;
+import com.eep.taxe.models.TrainSpeedModifier;
 import com.eep.taxe.models.Usable;
 import com.eep.taxe.models.Vertex;
 import com.eep.taxe.models.Age.Ages;
@@ -59,7 +60,9 @@ public class Generator {
 	}
 
 	public static Goal generateGoal(Train train, Vector<Vertex> map, Player player, Game game) {
-
+		if (train.getStationToStartNextGoalAt() == null) {
+			return null;
+		}
 		//Starting station is where train is currently located
 		Station startingStation = train.getStationToStartNextGoalAt();
 	
@@ -81,13 +84,13 @@ public class Generator {
 	public static ArrayList<Train> trainGenerator(Ages age, Game game) {
 		ArrayList<Train> trainList = new ArrayList<Train>();
 		
-		Train steamTrain = new Train("Steam Train", "", 100, 100, Ages.FIRST, 100, game.getRandomStation());
+		Train steamTrain = new Train("Steam Train", "IMAGE", 100, 100, Ages.FIRST, 100, null);
 		
-		Train combustionTrain = new Train("Combustion Train", "", 300, 300, Ages.SECOND, 200, game.getRandomStation());
+		Train combustionTrain = new Train("Combustion Train", "IMAGE", 300, 300, Ages.SECOND, 200, null);
 		
-		Train electricTrain = new Train("Electric Train", "", 600, 600, Ages.THIRD, 400, game.getRandomStation());
+		Train electricTrain = new Train("Electric Train", "IMAGE", 600, 600, Ages.THIRD, 400, null);
 		
-		Train futureTrain = new Train("Hover Train", "", 1000, 1000, Ages.FOURTH, 800, game.getRandomStation());
+		Train futureTrain = new Train("Hover Train", "IMAGE", 1000, 1000, Ages.FOURTH, 800, null);
 		
 		trainList.add(steamTrain);
 		
@@ -110,8 +113,10 @@ public class Generator {
 		return trainList;
 	}
 	
-	public static Vector<Usable> trainSpeedModifierGenerator(Usable usable) {
-		Vector<Usable> u = new Vector<Usable>();
+	public static Vector<TrainSpeedModifier> trainSpeedModifierGenerator(Ages age) {
+		Vector<TrainSpeedModifier> u = new Vector<TrainSpeedModifier>();
+		
+		TrainSpeedModifier speedBoost = new TrainSpeedModifier("Speed Boost", "IMAGE", 10, 10, Ages.FIRST, 10);
 		
 		return u;
 	}
