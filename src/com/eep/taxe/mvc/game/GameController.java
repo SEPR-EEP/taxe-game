@@ -3,6 +3,7 @@ package com.eep.taxe.mvc.game;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -59,6 +60,12 @@ public class GameController {
 	 * This contains the current state of the game.
 	 */
 	private GameState currentState = GameState.STANDBY;
+	
+	/**
+	 * Stuff needed to keep track of the current state
+	 */
+	private Train	 		buildingTrain; 		// The train being used to build a path
+	private	Vector<Vertex>	buildingVertices; 	// The list of vertices that have been selected
 	 
 	public GameController(GameView gameView, GameModel gameModel) {
 		this.setView(gameView);
@@ -197,6 +204,7 @@ public class GameController {
 		
 		public final String TRAIN_MINE 			= "src/resources/MyTrain.png";
 		public final String TRAIN_OPPONENT 		= "src/resources/OpponentTrain.png";
+		public final int	TRAIN_SIZE	 		= 32;
 		
 		
 		MapGraphics (JLabel jLabel, MouseListener mouseListener) {
@@ -284,40 +292,19 @@ public class GameController {
 			}
 			
 			for (Train t: allTrains) {
-								
-				if ( t.getJourney() == null ) {
-					// Train is not on the map, skip
-					continue;
-				}
 				
-				Edge edge = t.getJourney().getCurrentEdge();
-				if ( edge == null ) {
-					continue;
-				}
-
-				int 	Ax, Ay, Bx, By;
-				float 	Tx,	Ty;
-
 				boolean mine = myTrains.contains(t);
+				Point p = getTrainCoordinates(t);
+				if ( p == null ) {	// If train is not on the map
+					continue;		// Ignore and draw the next train
+				}
 
-				Vertex A  = t.getJourney().getStartingVertexOfEdge(edge);
-				Vertex B  = t.getJourney().getEndingVertexOfEdge  (edge);
-
-				Ax = A.getX(); Ay = A.getY();
-				Bx = B.getX(); By = B.getY();
-				
-				float Bweight = t.getJourney().getProgressOnEdge();
-				float Aweight = 1 - Bweight;
-
-				Tx = ( Ax * Aweight + Bx * Bweight );
-				Ty = ( Ay * Aweight + By * Bweight );
-			
 				g.drawImage(
 					mine ? myTrainImage : oppTrainImage,
-					(int) (x(Tx) + OFFSET_X - myTrainImage.getWidth()  / 2),
-					(int) (y(Ty) + OFFSET_Y - myTrainImage.getHeight() / 2),
-					(int) (x(Tx) + OFFSET_X + myTrainImage.getWidth()  / 2),
-					(int) (y(Ty) + OFFSET_Y + myTrainImage.getHeight() / 2),
+					(int) (x(p.getX()) + OFFSET_X - myTrainImage.getWidth()  / 2),
+					(int) (y(p.getY()) + OFFSET_Y - myTrainImage.getHeight() / 2),
+					(int) (x(p.getX()) + OFFSET_X + myTrainImage.getWidth()  / 2),
+					(int) (y(p.getY()) + OFFSET_Y + myTrainImage.getHeight() / 2),
 					0, 0,
 					myTrainImage.getWidth(),
 					myTrainImage.getHeight(),
@@ -325,6 +312,39 @@ public class GameController {
 				);
 				
 			}
+			
+		}
+		
+		private Point getTrainCoordinates(Train t) {
+			
+			
+			if ( t.getJourney() == null ) {
+				// Train is not on the map, skip
+				return null;
+			}
+			
+			Edge edge = t.getJourney().getCurrentEdge();
+			if ( edge == null ) {
+				return null;
+			}
+
+			int 	Ax, Ay, Bx, By;
+			float 	Tx,	Ty;
+
+
+			Vertex A  = t.getJourney().getStartingVertexOfEdge(edge);
+			Vertex B  = t.getJourney().getEndingVertexOfEdge  (edge);
+
+			Ax = A.getX(); Ay = A.getY();
+			Bx = B.getX(); By = B.getY();
+			
+			float Bweight = t.getJourney().getProgressOnEdge();
+			float Aweight = 1 - Bweight;
+
+			Tx = ( Ax * Aweight + Bx * Bweight );
+			Ty = ( Ay * Aweight + By * Bweight );
+			
+			return new Point((int) Tx, (int) Ty);
 			
 		}
 
@@ -452,6 +472,23 @@ public class GameController {
 
 	        for ( Train x: getPlayer().getTrains() ) {
 	        	
+	        	Point p = getTrainCoordinates(x);
+	        	if ( p == null ) {
+	        		continue;
+	        	}
+	        	
+	        	/*
+	        	 * Check if the click of coordinates (cx, cy) is inside
+	        	 * (p.getX(), p.getY()) and size (IMAGE_SIZE) * (2 * CLICK_PRECISION)
+	        	 */
+	        	if (
+	        		cx >= ( p.getX() - TRAIN_SIZE/2 * CLICK_PRECISION ) &&
+	        		cx <= ( p.getX() + TRAIN_SIZE/2 * CLICK_PRECISION ) &&
+	        		cy >= ( p.getY() - TRAIN_SIZE/2 * CLICK_PRECISION ) &&
+	        		cy <= ( p.getY() + TRAIN_SIZE/2 * CLICK_PRECISION )
+	        	) { 
+	        		return x;
+	        	}
 	        }
 	        return null;
 	    }
@@ -498,16 +535,24 @@ public class GameController {
 			
 		case STANDBY:	// MY TURN, DOING NOTHING
 			
+			// If a click on a train, start building path
+			Train t = graphics.findMyTrain(e);
+			if ( t == null ) {
+				break;
+			}
+			
+			
 			
 		case BUILDING_PATH:
             Vertex c = graphics.findVertex(e);
 
 			break;
-		case STANDBY:
-			break;
+			
 		default:
 			break;
 		}
+		
+		updateView();
 		
 	}
 	
