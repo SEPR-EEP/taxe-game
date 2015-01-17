@@ -28,6 +28,7 @@ import com.eep.taxe.GameData;
 import com.eep.taxe.models.Edge;
 import com.eep.taxe.models.Game;
 import com.eep.taxe.models.Path;
+import com.eep.taxe.models.Player;
 import com.eep.taxe.models.Station;
 import com.eep.taxe.models.Train;
 import com.eep.taxe.models.Vertex;
@@ -437,7 +438,12 @@ public class GameController {
 			return (int) (py * SCALE_FACTOR_Y);
 		}
 		
-	    public Vertex clickOnVertex(MouseEvent e) {
+		/**
+		 * Try and find a Vertex where the user has clicked.
+		 * @param 	e	The Click event
+		 * @return		Either a Vertex or null.
+		 */
+	    public Vertex findVertex(MouseEvent e) {
 	        double cx = ( (double) e.getX() - OFFSET_X ) / SCALE_FACTOR_X;
 	        double cy = ( (double) e.getY() - OFFSET_Y ) / SCALE_FACTOR_Y;
 	        
@@ -460,8 +466,75 @@ public class GameController {
 	        }
 	        return null;
 	    }
+	    
+	    /**
+		 * Try and find one of my trains where the user has clicked.
+		 * @param 	e	The Click event
+		 * @return		Either a Train or null.
+		 */
+	    public Train findMyTrain(MouseEvent e) {
+	        double cx = ( (double) e.getX() - OFFSET_X ) / SCALE_FACTOR_X;
+	        double cy = ( (double) e.getY() - OFFSET_Y ) / SCALE_FACTOR_Y;
+
+	        for ( Train x: getPlayer().getTrains() ) {
+	        	
+	        }
+	        return null;
+	    }
 
 	
+	}
+	
+	
+	/**
+	 * For rapidity, gets the player playing on this instance
+	 * @return 
+	 */
+	private Player getPlayer() {
+		return model.getData().getPlayerByRole(
+			model.getMyRole()
+		);
+	}
+	
+	/**
+	 * For rapidity, gets the player playing on the other instance
+	 * @return 
+	 */
+	private Player getOpponent() {
+		return model.getData().getPlayerByRole(
+			model.getMyRole() == Role.MASTER ? Role.SLAVE : Role.MASTER
+		);
+	}
+	
+	/**
+	 * This method is called every time the player clicks somewhere 
+	 * on the map. This method should - depending on the current state -
+	 * address the click differently, trying to understand what's been
+	 * clicked and what to do with it.
+	 * @param e
+	 */
+	private void clickOnMap(MouseEvent e) {
+		
+		switch ( currentState ) {
+		
+		case WAITING:	// NOT MY TURN
+			// Not my turn, do nothing.
+			System.out.println("It's not your turn - you're not supposed to click anywhere. Ignoring.");
+			break;
+			
+		case STANDBY:	// MY TURN, DOING NOTHING
+			
+			
+		case BUILDING_PATH:
+            Vertex c = graphics.findVertex(e);
+
+			break;
+		case STANDBY:
+			break;
+		default:
+			break;
+		}
+		
 	}
 	
 	private class MapMouseListener implements MouseListener {
@@ -481,17 +554,8 @@ public class GameController {
 		@Override
 		public void mouseReleased(MouseEvent e) {
 		  
-            Vertex c = graphics.clickOnVertex(e);
+			clickOnMap(e);
 
-            if ( c != null ) {
-                if ( c instanceof Station ) {
-                    System.out.println("Click on station: " + ((Station) c).getName());
-                } else {
-                    System.out.println("Click on a Junction");
-                }
-            } else {
-                System.out.println("Clicked nowhere");
-            }
 
 		}
 
