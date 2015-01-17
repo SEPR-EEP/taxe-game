@@ -1,34 +1,24 @@
 package com.eep.taxe.mvc.game;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import com.eep.taxe.models.Train;
 
-import com.eep.taxe.models.Usable;
-
-public class InventorySlot extends JButton{
+public class TrainSlot extends JButton{
 	private final int WIDTH;
 	private final int HEIGHT;
-	private Usable item;
+	private Train train;
 	private ImageIcon defaultIcon;
 	private boolean selected;
 
 	
 	
-	public void insertItem(Usable item) {
-		this.item = item;
-		this.setIcon(new ImageIcon(item.getImage()));
+	public void inserttrain(Train train) {
+		this.train = train;
+		this.setIcon(new ImageIcon(train.getTrainImage()));
 	}
 	
 	public void selectSlot(){
@@ -43,11 +33,11 @@ public class InventorySlot extends JButton{
 		selected = false;
 	}
 	
-	public Usable useItem(){
+	public Train usetrain(){
 		deselectSlot();
 		this.setIcon(defaultIcon);
-		Usable temp = item;
-		item = null;
+		Train temp = train;
+		train = null;
 		return temp;
 	}
 	
@@ -56,16 +46,15 @@ public class InventorySlot extends JButton{
 	}
 	
 	public boolean isEmpty(){
-		return (this.item == null);
+		return (this.train == null);
 	}
 	
 	
-	
-	public InventorySlot (final int width, final int height){
+	public TrainSlot (final int width, final int height){
 		this.WIDTH = width;
 		this.HEIGHT = height;
 		this.defaultIcon = new ImageIcon(getClass().getResource("RailroadTracks.jpg"));
-		this.item = null;
+		this.train = null;
 		this.selected = false;
 		this.setPreferredSize(new Dimension(WIDTH/24, WIDTH/24));
 		this.setIcon(defaultIcon);
