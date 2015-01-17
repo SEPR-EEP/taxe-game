@@ -1,10 +1,8 @@
 package com.eep.taxe.res;
 
-import java.awt.List;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import com.eep.taxe.models.Age;
 import com.eep.taxe.models.Edge;
 import com.eep.taxe.models.Game;
 import com.eep.taxe.models.Goal;
@@ -13,7 +11,6 @@ import com.eep.taxe.models.Player;
 import com.eep.taxe.models.Station;
 import com.eep.taxe.models.Train;
 import com.eep.taxe.models.TrainSpeedModifier;
-import com.eep.taxe.models.Usable;
 import com.eep.taxe.models.Vertex;
 import com.eep.taxe.models.Age.Ages;
 
@@ -21,10 +18,6 @@ import com.eep.taxe.models.Age.Ages;
  * Class used to generate the map
  */
 public class Generator {
-/* static list of Trains by age
- * vector of usables trainSpeedModifier
- * generateGoal
- */
 	public static Vector<Vertex> generateMap() {
 		Vector<Vertex> r = new Vector<Vertex>();
 		
@@ -108,19 +101,39 @@ public class Generator {
 				trainList.add(futureTrain);
 			default:
 				break;
-		}
+			}
 		
 		return trainList;
 	}
 	
 	public static Vector<TrainSpeedModifier> trainSpeedModifierGenerator(Ages age) {
-		Vector<TrainSpeedModifier> u = new Vector<TrainSpeedModifier>();
+		Vector<TrainSpeedModifier> trainSpeedModifierList = new Vector<TrainSpeedModifier>();
 		
-		TrainSpeedModifier speedBoost = new TrainSpeedModifier("Speed Boost", "IMAGE", 10, 10, Ages.FIRST, 10);
+		TrainSpeedModifier smallSpeedBoost = new TrainSpeedModifier("Small Speed Boost", "IMAGE", 10, 10, Ages.FIRST, 10);
+		TrainSpeedModifier mediumSpeedBoost = new TrainSpeedModifier("Medium Speed Boost", "IMAGE", 30, 30, Ages.SECOND, 30);
+		TrainSpeedModifier largeSpeedBoost = new TrainSpeedModifier("Large Speed Boost", "IMAGE", 60, 60, Ages.THIRD, 60);
+		TrainSpeedModifier megaSpeedBoost = new TrainSpeedModifier("Mega Speed Boost", "IMAGE", 100, 100, Ages.FOURTH, 100);
 		
-		return u;
+		trainSpeedModifierList.add(smallSpeedBoost);
+		
+		switch(age) {
+			case FIRST:
+				break;
+			case SECOND:
+				trainSpeedModifierList.add(mediumSpeedBoost);
+			case THIRD:
+				trainSpeedModifierList.add(mediumSpeedBoost);
+				trainSpeedModifierList.add(largeSpeedBoost);
+			case FOURTH:
+				trainSpeedModifierList.add(mediumSpeedBoost);
+				trainSpeedModifierList.add(largeSpeedBoost);
+				trainSpeedModifierList.add(megaSpeedBoost);
+			default:
+				break;
+			}
+		
+		return trainSpeedModifierList;
 	}
-	
 	
 }
 

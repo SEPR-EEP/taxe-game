@@ -2,8 +2,6 @@ package com.eep.taxe.models;
 
 import java.util.Vector;
 
-import com.eep.taxe.res.Generator;
-
 public class Player implements PlayerInterface {
 
 	private static final long serialVersionUID = 3534438349877377215L;
