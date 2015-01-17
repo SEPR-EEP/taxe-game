@@ -103,6 +103,9 @@ public class GameController {
 		
 	}
 	
+	
+	
+	
 	/**
 	 * This methods is called everything something happens (some data for the game
 	 * is updated or the window is resized. This redraws the map - as this may have 
