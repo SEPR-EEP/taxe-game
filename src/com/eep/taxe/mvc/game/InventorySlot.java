@@ -23,41 +23,6 @@ public class InventorySlot extends JButton{
 	private Usable item;
 	private ImageIcon defaultIcon;
 	private boolean selected;
-
-	
-	
-	public void insertItem(Usable item) {
-		this.item = item;
-		this.setIcon(new ImageIcon(item.getImage()));
-	}
-	
-	public void selectSlot(){
-		if(!isEmpty()){
-			this.setBorder(BorderFactory.createLineBorder(Color.GREEN, 2, true));
-			selected = true;
-		}
-	}
-	
-	public void deselectSlot(){
-		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
-		selected = false;
-	}
-	
-	public Usable useItem(){
-		deselectSlot();
-		this.setIcon(defaultIcon);
-		Usable temp = item;
-		item = null;
-		return temp;
-	}
-	
-	public boolean isSelected(){
-		return selected;
-	}
-	
-	public boolean isEmpty(){
-		return (this.item == null);
-	}
 	
 	
 	
@@ -74,7 +39,32 @@ public class InventorySlot extends JButton{
 	}
 
 
+	public Usable getItem() {
+		return item;
+	}
 
+	public void setItem(Usable item) {
+		if(item != null){
+			this.item = item;
+			this.setIcon(new ImageIcon(item.getImage()));
+		}else{
+			this.setIcon(defaultIcon);
+		}
+		
+	}
+
+	public void setSelected(boolean selected) {
+		if(selected == false){
+			this.selected = selected;
+			this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+		}else{
+			this.setBorder(BorderFactory.createLineBorder(Color.GREEN, 2, true));
+		}
+	}
+	
+	public boolean getSelected(){
+		return selected;
+	}
 	
 
 }

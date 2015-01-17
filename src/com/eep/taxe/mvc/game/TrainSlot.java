@@ -2,9 +2,12 @@ package com.eep.taxe.mvc.game;
 
 import java.awt.Color;
 import java.awt.Dimension;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+
+import com.eep.taxe.models.Train;
 import com.eep.taxe.models.Train;
 
 public class TrainSlot extends JButton{
@@ -13,42 +16,6 @@ public class TrainSlot extends JButton{
 	private Train train;
 	private ImageIcon defaultIcon;
 	private boolean selected;
-
-	
-	
-	public void inserttrain(Train train) {
-		this.train = train;
-		this.setIcon(new ImageIcon(train.getTrainImage()));
-	}
-	
-	public void selectSlot(){
-		if(!isEmpty()){
-			this.setBorder(BorderFactory.createLineBorder(Color.GREEN, 2, true));
-			selected = true;
-		}
-	}
-	
-	public void deselectSlot(){
-		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
-		selected = false;
-	}
-	
-	public Train usetrain(){
-		deselectSlot();
-		this.setIcon(defaultIcon);
-		Train temp = train;
-		train = null;
-		return temp;
-	}
-	
-	public boolean isSelected(){
-		return selected;
-	}
-	
-	public boolean isEmpty(){
-		return (this.train == null);
-	}
-	
 	
 	public TrainSlot (final int width, final int height){
 		this.WIDTH = width;
@@ -61,9 +28,33 @@ public class TrainSlot extends JButton{
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
 		this.setContentAreaFilled(false);
 	}
-
-
-
 	
+	public Train getTrain() {
+		return train;
+	}
+
+	public void setTrain(Train train) {
+		if(train != null){
+			this.train = train;
+			this.setIcon(new ImageIcon(train.getTrainImage()));
+		}else{
+			this.setIcon(defaultIcon);
+		}
+		
+	}
+
+	public void setSelected(boolean selected) {
+		if(selected == false){
+			this.selected = selected;
+			this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+		}else{
+			this.setBorder(BorderFactory.createLineBorder(Color.GREEN, 2, true));
+		}
+	}
+	
+	public boolean getSelected(){
+		return selected;
+	}
+
 
 }

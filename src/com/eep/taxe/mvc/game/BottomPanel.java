@@ -10,6 +10,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.eep.taxe.models.Usable;
+
 public class BottomPanel extends JPanel{
 //	private final int WIDTH;
 //	private final int HEIGHT;
@@ -62,6 +64,11 @@ public class BottomPanel extends JPanel{
 	
 	public void trainSlot4ActionListener(ActionListener buttonListener){
 		trainSlot4.addActionListener(buttonListener);
+	}
+	
+	//Getters and Setters for Inventory Slots
+	public Usable getItemInventorySlot1(){
+		return inventorySlot1.getIt
 	}
 	
 	
