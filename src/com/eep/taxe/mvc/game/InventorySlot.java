@@ -5,7 +5,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -58,22 +60,29 @@ public class InventorySlot extends JPanel{
 	
 	
 	
-	public InventorySlot(final int width, final int height){
-		this.WIDTH = width;
-		this.HEIGHT = height;
+	public InventorySlot (final int width, final int height){
+//		this.WIDTH = width;
+//		this.HEIGHT = height;
+		this.WIDTH = 1300;
+		this.HEIGHT = 720;
 		this.item = null;
 		this.setPreferredSize(new Dimension(WIDTH/24, WIDTH/24));
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		this.selected = false;
 		
-		this.setBackground(Color.RED);                            		//Makes the entire slot red
+//		this.setBackground(Color.RED);                            		//Makes the entire slot red
 		
-		this.itemLabel = new JLabel();
-		itemLabel.setSize(new Dimension(WIDTH/24, WIDTH/24));
-		//itemLabel.setBackground(Color.RED);							These make the area
-		//itemLabel.setOpaque(true);									behind the text red (wasn't sure which one you wanted) - Peter
-		itemLabel.setText("sdfdsfg");
-//		itemLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
+//		this.itemLabel = new JLabel();
+//		itemLabel.setSize(new Dimension(WIDTH/24, WIDTH/24));
+//		//itemLabel.setBackground(Color.RED);							These make the area
+//		//itemLabel.setOpaque(true);									behind the text red (wasn't sure which one you wanted) - Peter
+//		itemLabel.setText("sdfdsfg");
+////		itemLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
+		
+		JButton button = new JButton(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
+		button.setBorder(BorderFactory.createEmptyBorder());
+//		button.setContentAreaFilled(false);
+		button.setPreferredSize(new Dimension(50, 50));
 		
 		
 //		this.selectedPanel = new JPanel();
@@ -81,7 +90,7 @@ public class InventorySlot extends JPanel{
 //		selectedPanel.setPreferredSize(new Dimension(WIDTH/24, WIDTH/24));
 //		selectedPanel.setOpaque(false);
 		
-		this.add(itemLabel);
+		this.add(button);
 //		this.add(selectedPanel);
 	}
 
