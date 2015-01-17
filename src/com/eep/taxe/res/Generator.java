@@ -1,5 +1,7 @@
 package com.eep.taxe.res;
 
+import java.awt.List;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.eep.taxe.models.Age;
@@ -76,19 +78,42 @@ public class Generator {
 		return goal;
 	}
 
-	public static Train trainGenerator(Age age) {
-		/*switch(age) {
+	public static ArrayList<Train> trainGenerator(Ages age, Game game) {
+		ArrayList<Train> trainList = new ArrayList<Train>();
+		
+		Train steamTrain = new Train("Steam Train", "", 100, 100, Ages.FIRST, 100, game.getRandomStation());
+		
+		Train combustionTrain = new Train("Combustion Train", "", 300, 300, Ages.SECOND, 200, game.getRandomStation());
+		
+		Train electricTrain = new Train("Electric Train", "", 600, 600, Ages.THIRD, 400, game.getRandomStation());
+		
+		Train futureTrain = new Train("Hover Train", "", 1000, 1000, Ages.FOURTH, 800, game.getRandomStation());
+		
+		trainList.add(steamTrain);
+		
+		switch(age) {
 			case FIRST:
-				Train steamTrain = new Train(String model, String trainImage, int costInGold, int costInMetal, Ages trainAge, float baseSpeed, Station stationToStartNextGoalAt);
-				
+				break;
+			case SECOND:
+				trainList.add(combustionTrain);
+			case THIRD:
+				trainList.add(combustionTrain);
+				trainList.add(electricTrain);
+			case FOURTH:
+				trainList.add(combustionTrain);
+				trainList.add(electricTrain);
+				trainList.add(futureTrain);
+			default:
+				break;
+		}
 		
-		}*/
-		
-		return null;
+		return trainList;
 	}
 	
 	public static Vector<Usable> trainSpeedModifierGenerator(Usable usable) {
-		return null;
+		Vector<Usable> u = new Vector<Usable>();
+		
+		return u;
 	}
 	
 	
