@@ -80,7 +80,7 @@ public class lose extends JFrame {
 		
 		//BACKGOUND 
 		JLabel background = new JLabel("New label");
-		background.setIcon(new ImageIcon("C:\\Users\\yd695\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\Content.IE5\\0091D9A9\\lose1_-Train_Wreck[1].jpg"));
+		background.setIcon(new ImageIcon("H:\\git\\taxe-game\\src\\resources\\menuview img\\lose1 -Train Wreck.jpg"));
 		background.setSize(585, 700);
 		background.setLocation(0, -20);
 		contentPane.add(background);

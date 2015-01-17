@@ -98,7 +98,7 @@ public class MenuView1 extends JFrame {
 		JLabel quitbuttonbg = new JLabel("");
 		quitbuttonbg.setBounds(419, 280, 140, 36);
 		EnterGame.add(quitbuttonbg);
-		quitbuttonbg.setIcon(new ImageIcon("H:\\SEPR Pratical\\img\\btbg.jpg"));
+		quitbuttonbg.setIcon(new ImageIcon("H:\\git\\taxe-game\\src\\resources\\menuview img\\btbg.jpg"));
 	
 		JLabel lblEnter = new JLabel("ENTER", SwingConstants.CENTER);
 		lblEnter.setBounds(224, 280, 140, 36);
@@ -109,7 +109,7 @@ public class MenuView1 extends JFrame {
 		JLabel enterbuttonbg = new JLabel("");
 		enterbuttonbg.setBounds(224, 280, 140, 36);
 		EnterGame.add(enterbuttonbg);
-		enterbuttonbg.setIcon(new ImageIcon("H:\\SEPR Pratical\\img\\btbg.jpg"));
+		enterbuttonbg.setIcon(new ImageIcon("H:\\git\\taxe-game\\src\\resources\\menuview img\\btbg.jpg"));
 		
 		
 				//username
@@ -128,7 +128,7 @@ public class MenuView1 extends JFrame {
 		JLabel EnterGamebg = new JLabel("");
 		EnterGamebg.setBounds(0, 0, 784, 562);
 		EnterGame.add(EnterGamebg);
-		EnterGamebg.setIcon(new ImageIcon("H:\\SEPR Pratical\\img\\B1a-Railroad Tracks(1).jpg"));
+		EnterGamebg.setIcon(new ImageIcon("H:\\git\\taxe-game\\src\\resources\\menuview img\\B1a-Railroad Tracks(1).jpg"));
 		
 		String username = usernamebox.getText();
 		
@@ -148,7 +148,7 @@ public class MenuView1 extends JFrame {
 		MainMenu.add(label);
 		
 		JLabel label_1 = new JLabel("");
-		label_1.setIcon(new ImageIcon("H:\\SEPR Pratical\\img\\btbg.jpg"));
+		label_1.setIcon(new ImageIcon("H:\\git\\taxe-game\\src\\resources\\menuview img\\btbg.jpg"));
 		label_1.setLocation(new Point(224, 280));
 		label_1.setBounds(298, 404, 181, 36);
 		MainMenu.add(label_1);
@@ -160,7 +160,7 @@ public class MenuView1 extends JFrame {
 		MainMenu.add(label_2);
 		
 		JLabel label_3 = new JLabel("");
-		label_3.setIcon(new ImageIcon("H:\\SEPR Pratical\\img\\btbg.jpg"));
+		label_3.setIcon(new ImageIcon("H:\\git\\taxe-game\\src\\resources\\menuview img\\btbg.jpg"));
 		label_3.setLocation(new Point(298, 104));
 		label_3.setBounds(298, 104, 181, 36);
 		MainMenu.add(label_3);
@@ -172,7 +172,7 @@ public class MenuView1 extends JFrame {
 		MainMenu.add(label_4);
 		
 		JLabel label_5 = new JLabel("");
-		label_5.setIcon(new ImageIcon("H:\\SEPR Pratical\\img\\btbg.jpg"));
+		label_5.setIcon(new ImageIcon("H:\\git\\taxe-game\\src\\resources\\menuview img\\btbg.jpg"));
 		label_5.setLocation(new Point(298, 144));
 		label_5.setBackground(Color.BLACK);
 		label_5.setBounds(298, 202, 181, 36);
@@ -185,14 +185,14 @@ public class MenuView1 extends JFrame {
 		MainMenu.add(label_6);
 		
 		JLabel label_7 = new JLabel("");
-		label_7.setIcon(new ImageIcon("H:\\SEPR Pratical\\img\\btbg.jpg"));
+		label_7.setIcon(new ImageIcon("H:\\git\\taxe-game\\src\\resources\\menuview img\\btbg.jpg"));
 		label_7.setLocation(new Point(298, 144));
 		label_7.setBackground(Color.BLACK);
 		label_7.setBounds(298, 305, 181, 36);
 		MainMenu.add(label_7);
 		
 		JLabel Mainmenubg = new JLabel("");
-		Mainmenubg.setIcon(new ImageIcon("H:\\SEPR Pratical\\img\\B1a-Railroad Tracks(1).jpg"));
+		Mainmenubg.setIcon(new ImageIcon("H:\\git\\taxe-game\\src\\resources\\menuview img\\B1a-Railroad Tracks(1).jpg"));
 		Mainmenubg.setBounds(0, 0, 784, 562);
 		MainMenu.add(Mainmenubg);
 		
@@ -211,7 +211,7 @@ public class MenuView1 extends JFrame {
 		Credits.add(label_9);
 		
 		JLabel Creditsbg = new JLabel("");
-		Creditsbg.setIcon(new ImageIcon("C:\\Users\\yd695\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\Content.IE5\\Z8QQ1A7J\\C_D(g)-Railroad_Tracks[1].jpg"));
+		Creditsbg.setIcon(new ImageIcon("H:\\git\\taxe-game\\src\\resources\\menuview img\\C_D(g)-Railroad Tracks.jpg"));
 		Creditsbg.setBounds(0, 0, 784, 562);
 		Credits.add(Creditsbg);
 		
@@ -230,7 +230,7 @@ public class MenuView1 extends JFrame {
 		HTP.add(label_11);
 		
 		JLabel HTPbg = new JLabel("");
-		HTPbg.setIcon(new ImageIcon("C:\\Users\\yd695\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\Content.IE5\\7FG5I3HK\\C_D(g)-Railroad_Tracks[1].jpg"));
+		HTPbg.setIcon(new ImageIcon("H:\\git\\taxe-game\\src\\resources\\menuview img\\C_D(g)-Railroad Tracks.jpg"));
 		HTPbg.setBounds(0, 0, 784, 562);
 		HTP.add(HTPbg);
 
@@ -260,7 +260,7 @@ public class MenuView1 extends JFrame {
 		Connect.add(label_18);
 		
 		JLabel label_19 = new JLabel("");
-		label_19.setIcon(new ImageIcon("H:\\SEPR Pratical\\img\\btbg.jpg"));
+		label_19.setIcon(new ImageIcon("H:\\git\\taxe-game\\src\\resources\\menuview img\\btbg.jpg"));
 		label_19.setBounds(593, 392, 140, 36);
 		Connect.add(label_19);
 		
@@ -271,12 +271,12 @@ public class MenuView1 extends JFrame {
 		Connect.add(label_20);
 		
 		JLabel label_21 = new JLabel("");
-		label_21.setIcon(new ImageIcon("H:\\SEPR Pratical\\img\\btbg.jpg"));
+		label_21.setIcon(new ImageIcon("H:\\git\\taxe-game\\src\\resources\\menuview img\\btbg.jpg"));
 		label_21.setBounds(593, 462, 140, 36);
 		Connect.add(label_21);
 		
 		JLabel Connectbg = new JLabel("");
-		Connectbg.setIcon(new ImageIcon("C:\\Users\\yd695\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\Content.IE5\\ONS17EGS\\connect_-_Tunnel[1].jpg"));
+		Connectbg.setIcon(new ImageIcon("H:\\git\\taxe-game\\src\\resources\\menuview img\\connect - Tunnel.jpg"));
 		Connectbg.setBounds(0, 0, 784, 562);
 		Connect.add(Connectbg);
 		
@@ -305,7 +305,7 @@ public class MenuView1 extends JFrame {
 		CreatGame.add(lblCancel);
 		
 		JLabel label_15 = new JLabel("");
-		label_15.setIcon(new ImageIcon("H:\\SEPR Pratical\\img\\btbg.jpg"));
+		label_15.setIcon(new ImageIcon("H:\\git\\taxe-game\\src\\resources\\menuview img\\btbg.jpg"));
 		label_15.setLocation(new Point(593, 392));
 		label_15.setBounds(176, 285, 140, 36);
 		CreatGame.add(label_15);
@@ -317,13 +317,13 @@ public class MenuView1 extends JFrame {
 		CreatGame.add(lblCreate);
 		
 		JLabel label_16 = new JLabel("");
-		label_16.setIcon(new ImageIcon("H:\\SEPR Pratical\\img\\btbg.jpg"));
+		label_16.setIcon(new ImageIcon("H:\\git\\taxe-game\\src\\resources\\menuview img\\btbg.jpg"));
 		label_16.setLocation(new Point(593, 392));
 		label_16.setBounds(480, 285, 140, 36);
 		CreatGame.add(label_16);
 		
 		JLabel CreatGamebg = new JLabel("");
-		CreatGamebg.setIcon(new ImageIcon("C:\\Users\\yd695\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\Content.IE5\\EGXEZJH4\\connect_-_Tunnel[1].jpg"));
+		CreatGamebg.setIcon(new ImageIcon("H:\\git\\taxe-game\\src\\resources\\menuview img\\connect - Tunnel.jpg"));
 		CreatGamebg.setBounds(0, 0, 784, 562);
 		CreatGame.add(CreatGamebg);
 		

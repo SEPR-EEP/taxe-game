@@ -80,7 +80,7 @@ public class win extends JFrame {
 		
 		//BACKGOUND 
 		JLabel background = new JLabel("New label");
-		background.setIcon(new ImageIcon("C:\\Users\\yd695\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files\\Content.IE5\\NCS7FI5C\\win1_-_Toy_Train[1].jpg"));
+		background.setIcon(new ImageIcon("H:\\git\\taxe-game\\src\\resources\\menuview img\\win1 - Toy Train.jpg"));
 		background.setSize(580, 700);
 		background.setLocation(0, -20);
 		contentPane.add(background);
