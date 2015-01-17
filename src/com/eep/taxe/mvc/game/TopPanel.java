@@ -17,7 +17,7 @@ public class TopPanel extends JPanel{
 	private final int WIDTH;
 	private final int HEIGHT;
 	private JTextField timerTextField;
-	private JButton menuButton;
+	private JButton endTurnButton;
 	private JTextField missionTextField;
 	private JButton detailsButton;
 	private JLabel goldLabel;
@@ -43,8 +43,8 @@ public class TopPanel extends JPanel{
 		metalLabel.setText(metalString);
 	}
 	
-	public void addMenuButtonActionListener(ActionListener buttonListener){
-		menuButton.addActionListener(buttonListener);
+	public void addEndTurnButtonActionListener(ActionListener buttonListener){
+		endTurnButton.addActionListener(buttonListener);
 	}
 	
 	public void addDetailsButtonActionListener(ActionListener buttonListener){
@@ -75,10 +75,10 @@ public class TopPanel extends JPanel{
 				timerTextField.setHorizontalAlignment(JTextField.CENTER);
 				timerTextField.setLayout(new FlowLayout(FlowLayout.CENTER));
 				
-				menuButton = new JButton();
-				menuButton.setText("MENU");
-				menuButton.setFont(font);
-				menuButton.setPreferredSize(new Dimension(WIDTH*1/16, WIDTH*1/48));
+				endTurnButton = new JButton();
+				endTurnButton.setText("End Turn");
+				endTurnButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 11));
+				endTurnButton.setPreferredSize(new Dimension(WIDTH*1/16, WIDTH*1/48));
 				
 			JPanel missionDetailsPanel = new JPanel();
 //			missionDetailsPanel.setPreferredSize(new Dimension(WIDTH/4, WIDTH/32));
@@ -129,7 +129,7 @@ public class TopPanel extends JPanel{
 			missionDetailsPanel.add(missionTextField);
 			missionDetailsPanel.add(detailsButton);
 			timerMenuPanel.add(timerTextField);
-			timerMenuPanel.add(menuButton);
+			timerMenuPanel.add(endTurnButton);
 		this.add(timerMenuPanel);
 		this.add(missionDetailsPanel);
 		this.add(goldMetalPanel);

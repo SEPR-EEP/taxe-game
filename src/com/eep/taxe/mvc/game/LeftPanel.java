@@ -126,6 +126,7 @@ public class LeftPanel extends JPanel{
 			this.add(agePanel);
 			this.add(player1Panel);
 			this.add(player2Panel);
+			this.add(Box.createRigidArea(new Dimension(WIDTH/8, HEIGHT - (WIDTH/48 + WIDTH/32 + WIDTH/32 + WIDTH/32 + WIDTH/32))));
 		
 			this.setVisible(true);
 	}

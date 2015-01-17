@@ -4,20 +4,24 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.eep.taxe.models.Train;
 import com.eep.taxe.models.Usable;
 
 public class BottomPanel extends JPanel{
-//	private final int WIDTH;
-//	private final int HEIGHT;
-	
-	private final int 		WIDTH  	= 1300;
-	private final int 		HEIGHT 	= 720;
+	private final int WIDTH;
+	private final int HEIGHT;
+
 	private InventorySlot inventorySlot1;
 	private InventorySlot inventorySlot2;
 	private InventorySlot inventorySlot3;
@@ -27,56 +31,221 @@ public class BottomPanel extends JPanel{
 	private TrainSlot trainSlot2;
 	private TrainSlot trainSlot3;
 	private TrainSlot trainSlot4;
+	private JButton marketButton;
+	private JButton menuButton;
 	
 	//InventorySlot Listeners
-	public void inventorySlot1ActionListener(ActionListener buttonListener){
+	public void addInventorySlot1ActionListener(ActionListener buttonListener){
 		inventorySlot1.addActionListener(buttonListener);
 	}
 	
-	public void inventorySlot2ActionListener(ActionListener buttonListener){
+	public void addInventorySlot2ActionListener(ActionListener buttonListener){
 		inventorySlot2.addActionListener(buttonListener);
 	}
 	
-	public void inventorySlot3ActionListener(ActionListener buttonListener){
+	public void addInventorySlot3ActionListener(ActionListener buttonListener){
 		inventorySlot3.addActionListener(buttonListener);
 	}
 	
-	public void inventorySlot4ActionListener(ActionListener buttonListener){
+	public void addInventorySlot4ActionListener(ActionListener buttonListener){
 		inventorySlot4.addActionListener(buttonListener);
 	}
 	
-	public void inventorySlot5ActionListener(ActionListener buttonListener){
+	public void addInventorySlot5ActionListener(ActionListener buttonListener){
 		inventorySlot5.addActionListener(buttonListener);
 	}
 	
+	
 	//TrainSlots Listeners
-	public void trainSlot1ActionListener(ActionListener buttonListener){
+	public void addTrainSlot1ActionListener(ActionListener buttonListener){
 		trainSlot1.addActionListener(buttonListener);
 	}
 	
-	public void trainSlot2ActionListener(ActionListener buttonListener){
+	public void addTrainSlot2ActionListener(ActionListener buttonListener){
 		trainSlot2.addActionListener(buttonListener);
 	}
 	
-	public void trainSlot3ActionListener(ActionListener buttonListener){
+	public void addTrainSlot3ActionListener(ActionListener buttonListener){
 		trainSlot3.addActionListener(buttonListener);
 	}
 	
-	public void trainSlot4ActionListener(ActionListener buttonListener){
+	public void addTrainSlot4ActionListener(ActionListener buttonListener){
 		trainSlot4.addActionListener(buttonListener);
 	}
 	
-	//Getters and Setters for Inventory Slots
+	
+	//Getters and Setters for Inventory Slot 1
 	public Usable getItemInventorySlot1(){
-		return inventorySlot1.getIt
+		return inventorySlot1.getItem();
+	}
+	
+	public void setItemInventorySlot1(Usable item){
+		inventorySlot1.setItem(item);
+	}
+	
+	public boolean getSelectedInventorySlot1(){
+		return inventorySlot1.getSelected();
+	}
+	
+	public void setSelectedInventorySlot1(boolean selected){
+		inventorySlot1.setSelected(selected);
+	}
+	
+	//Getters and Setters for Inventory Slot 2
+	public Usable getItemInventorySlot2(){
+		return inventorySlot2.getItem();
+	}
+	
+	public void setItemInventorySlot2(Usable item){
+		inventorySlot2.setItem(item);
+	}
+	
+	public boolean getSelectedInventorySlot2(){
+		return inventorySlot2.getSelected();
+	}
+	
+	public void setSelectedInventorySlot2(boolean selected){
+		inventorySlot2.setSelected(selected);
+	}
+	
+	//Getters and Setters for Inventory Slot 3
+	public Usable getItemInventorySlot3(){
+		return inventorySlot3.getItem();
+	}
+	
+	public void setItemInventorySlot3(Usable item){
+		inventorySlot3.setItem(item);
+	}
+	
+	public boolean getSelectedInventorySlot3(){
+		return inventorySlot3.getSelected();
+	}
+	
+	public void setSelectedInventorySlot3(boolean selected){
+		inventorySlot3.setSelected(selected);
+	}
+	
+	//Getters and Setters for Inventory Slot 4 
+	public Usable getItemInventorySlot4(){
+		return inventorySlot4.getItem();
+	}
+	
+	public void setItemInventorySlot4(Usable item){
+		inventorySlot4.setItem(item);
+	}
+	
+	public boolean getSelectedInventorySlot4(){
+		return inventorySlot4.getSelected();
+	}
+	
+	public void setSelectedInventorySlot4(boolean selected){
+		inventorySlot4.setSelected(selected);
+	}
+	
+	//Getters and Setters for Inventory Slot 5
+	public Usable getItemInventorySlot5(){
+		return inventorySlot5.getItem();
+	}
+	
+	public void setItemInventorySlot5(Usable item){
+		inventorySlot5.setItem(item);
+	}
+	
+	public boolean getSelectedInventorySlot5(){
+		return inventorySlot5.getSelected();
+	}
+	
+	public void setSelectedInventorySlot5(boolean selected){
+		inventorySlot5.setSelected(selected);
+	}
+	
+	
+	//Getters and Setters for Train Slot 1
+	public Train getTrainTrainSlot1(){
+		return trainSlot1.getTrain();
+	}
+	
+	public void setTrainTrainSlot1(Train train){
+		trainSlot1.setTrain(train);
+	}
+	
+	public boolean getSelectedTrainSlot1(){
+		return trainSlot1.getSelected();
+	}
+	
+	public void setSelectedTrainSlot1(boolean selected){
+		trainSlot1.setSelected(selected);
+	}
+	
+	//Getters and Setters for Train Slot 2
+	public Train getTrainTrainSlot2(){
+		return trainSlot2.getTrain();
+	}
+	
+	public void setTrainTrainSlot2(Train train){
+		trainSlot2.setTrain(train);
+	}
+	
+	public boolean getSelectedTrainSlot2(){
+		return trainSlot2.getSelected();
+	}
+	
+	public void setSelectedTrainSlot2(boolean selected){
+		trainSlot2.setSelected(selected);
+	}
+	
+	//Getters and Setters for Train Slot 3
+	public Train getTrainTrainSlot3(){
+		return trainSlot3.getTrain();
+	}
+	
+	public void setTrainTrainSlot3(Train train){
+		trainSlot3.setTrain(train);
+	}
+	
+	public boolean getSelectedTrainSlot3(){
+		return trainSlot3.getSelected();
+	}
+	
+	public void setSelectedTrainSlot3(boolean selected){
+		trainSlot3.setSelected(selected);
+	}
+	
+	//Getters and Setters for Train Slot 4
+	public Train getTrainTrainSlot4(){
+		return trainSlot1.getTrain();
+	}
+	
+	public void setTrainTrainSlot4(Train train){
+		trainSlot1.setTrain(train);
+	}
+	
+	public boolean getSelectedTrainSlot4(){
+		return trainSlot1.getSelected();
+	}
+	
+	public void setSelectedTrainSlot4(boolean selected){
+		trainSlot1.setSelected(selected);
+	}
+	
+	
+	//Market button Action Listener
+	public void addMarketButtonActionListener(ActionListener buttonListener){
+		marketButton.addActionListener(buttonListener);
+	}
+	
+	
+	//Menu button Action Listener
+	public void addMenuButtonActionListener(ActionListener buttonListener){
+		menuButton.addActionListener(buttonListener);
 	}
 	
 	
 	public BottomPanel(int width, int height){
-//		this.WIDTH = width;
-//		this.HEIGHT = height;
+		this.WIDTH = width;
+		this.HEIGHT = height;
 		this.setBackground(Color.YELLOW);
-		this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		this.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
 		this.setPreferredSize(new Dimension(WIDTH, WIDTH/16));
 		this.setOpaque(false);
 				
@@ -110,13 +279,24 @@ public class BottomPanel extends JPanel{
 				trainPanel.add(trainSlot2);
 				trainPanel.add(trainSlot3);
 				trainPanel.add(trainSlot4);
+				
+			marketButton = new JButton();
+			marketButton.setIcon(new ImageIcon("DefaultMarketIcon"));
+			marketButton.setPreferredSize(new Dimension(WIDTH/20, WIDTH/20));
+			marketButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+			marketButton.setContentAreaFilled(false);
+			
+			menuButton = new JButton();
+			menuButton.setText("Menu");
+			menuButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+			menuButton.setPreferredSize(new Dimension(WIDTH*1/8, WIDTH*1/32));
 
 		this.add(inventoryPanel);
 		this.add(trainPanel);
-			
+		this.add(Box.createRigidArea(new Dimension(WIDTH/32, WIDTH/16)));
+		this.add(marketButton);
+		this.add(Box.createRigidArea(new Dimension(WIDTH/32, WIDTH/16)));
+		this.add(menuButton);
+		this.add(Box.createRigidArea(new Dimension(WIDTH/32, WIDTH/16)));
 	}
-	
-	
 }
-
-
