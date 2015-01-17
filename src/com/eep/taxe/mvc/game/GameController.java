@@ -306,7 +306,7 @@ public class GameController {
 			Vector<Train> myTrains  = model.getData().getPlayerByRole(myRole).getTrains();
 			Vector<Train> oppTrains = model.getData().getPlayerByRole(myRole == Role.MASTER ? Role.SLAVE : Role.MASTER).getTrains();
 
-			Vector<Train> allTrains = new Vector<Train>(); allTrains.addAll(myTrains); allTrains.addAll(oppTrains);
+			Vector<Train> allTrains = new Vector<Train>(); allTrains.addAll(oppTrains); allTrains.addAll(myTrains);
 
 			BufferedImage myTrainImage;
 			BufferedImage oppTrainImage;
@@ -325,7 +325,7 @@ public class GameController {
 				if ( p == null ) {	// If train is not on the map
 					continue;		// Ignore and draw the next train
 				}
-
+								
 				g.drawImage(
 					mine ? myTrainImage : oppTrainImage,
 					(int) (x(p.getX()) + OFFSET_X - myTrainImage.getWidth()  / 2),
@@ -344,7 +344,6 @@ public class GameController {
 		
 		private Point getTrainCoordinates(Train t) {
 			
-			
 			if ( t.getJourney() == null ) {
 				// Train is not on the map, skip
 				return null;
@@ -357,7 +356,6 @@ public class GameController {
 
 			int 	Ax, Ay, Bx, By;
 			float 	Tx,	Ty;
-
 
 			Vertex A  = t.getJourney().getStartingVertexOfEdge(edge);
 			Vertex B  = t.getJourney().getEndingVertexOfEdge  (edge);
@@ -578,7 +576,7 @@ public class GameController {
 			// Add the vertex where the train is located
 			this.buildingVertices 	= new Vector<Vertex>(); 
 			this.buildingVertices.add ( t.getJourney().getLastVisitedVertex() );
-			System.out.println("Journey starting at " + t.getJourney().getCurrentLastVertex().getVertexName() );
+			System.out.println("Journey starting at " + t.getJourney().getLastVisitedVertex().getVertexName() );
 			
 			this.currentState = GameState.BUILDING_PATH;
 			
@@ -613,8 +611,7 @@ public class GameController {
             	view.showErrorMessage("Can't reach that vertex.");
             }
 
-            System.out.println("Added vertex");
-            System.out.println("Last: " + v.getVertexName());
+            System.out.println("Added Vertex to journey: " + v.getVertexName());
             
 			break;
 			
