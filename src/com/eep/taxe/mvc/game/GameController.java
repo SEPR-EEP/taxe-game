@@ -217,7 +217,7 @@ public class GameController {
 		public final double 	OFFSET_X			= 0;
 		public final double 	OFFSET_Y			= 0;
 		
-		public final double 	CLICK_PRECISION			= 1.2;
+		public final double 	CLICK_PRECISION			= 1.8;
 		public final double 	LABEL_RELATIVE_PADDING	= 1.4;
 		
 		public final double 	VERTEX_SIZE 		= 2;
@@ -407,6 +407,12 @@ public class GameController {
 				
 				if ( buildingVertices != null && (new Path(buildingVertices)).contains(e) ) {
 					g.setColor(EDGE_COLOR_BUILDING);
+					drawTextWithShadow("" + ((new Path(buildingVertices)).indexOf(e) + 1) ,
+						(int) (x(e.getCenter().getX()) + OFFSET_X),
+						(int) (y(e.getCenter().getY()) + OFFSET_Y),
+						EDGE_COLOR_BUILDING
+					);
+					
 				} else {
 					g.setColor(EDGE_COLOR);
 				}
@@ -418,6 +424,7 @@ public class GameController {
 				y2 = (int) (y(e.getVertices().get(1).getY()) + OFFSET_Y);
 				
 				g.drawLine(x1, y1, x2, y2);
+				
 				
 			}
 			

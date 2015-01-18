@@ -22,9 +22,9 @@ public class Generator {
 		Vector<Vertex> r = new Vector<Vertex>();
 		
 		Station Rome 		= new Station(60, 40, "Rome Fiumicino");
-		Station Paris 		= new Station(20, 10, "Paris Centràle");
+		Station Paris 		= new Station(27, 20, "Paris Centràle");
 		Station Berlin 		= new Station(60, 10, "Berlin Hauptbahnhof");
-		Station Sofia		= new Station(80, 25, "Sofia Railway Station");
+		Station Sofia		= new Station(80, 25, "Sofia Station");
 		Station Madrid		= new Station(20, 40, "Madrid Atocha Station");
 		
 		Junction JN1		= new Junction(40, 25);
