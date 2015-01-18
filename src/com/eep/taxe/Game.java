@@ -22,11 +22,19 @@ public class Game extends Awaitility {
 	
 	public static void main(String[] args) {
 
-		// Create Client and ask user for server to connect to
+		// Create game client
 		client = new GameClient();
-		client.setServer(
-			Game.askForServer(client.getServer())
-		);
+
+		// Ask for the server URI to connect to
+		String serverURI = Game.askForServer(client.getServer());
+		
+		if ( serverURI == null ) {
+			System.out.println("User clicked cancel. Terminating.");
+			System.exit(0);
+		}
+		
+		// Set server URI
+		client.setServer(serverURI);
 		
 		System.out.println("Connecting to the server...");
 		try {
@@ -115,9 +123,6 @@ public class Game extends Awaitility {
         	null,
 			suggested
         );
-		if ( s == null ) {
-			return suggested;
-		}
 		return s;
 	}
 
