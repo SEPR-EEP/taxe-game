@@ -29,7 +29,7 @@ public class GameClient {
 	 * The event to trigger on move
 	 */
 	private MoveEvent onMove = null;
-	
+	private EndEvent  onEnd  = null;
 
 	public enum Role {
 		MASTER, SLAVE;
@@ -69,6 +69,15 @@ public class GameClient {
 		};
 		this.socket.on("GS", 	moveData);
 		this.socket.on("PP", 	moveData);
+		
+		this.socket.on("EG", 	new Listener() {
+			@Override
+			public void call(Object... arg0) {
+				if ( onEnd != null ) {
+					onEnd.receive();
+				}
+			}
+		});
 	}
 	
 	/**
@@ -182,6 +191,13 @@ public class GameClient {
 	}
 	
 	/**
+	 * Represents the abstract Callback for an End of Game
+	 */
+	public interface EndEvent {
+		public void receive();
+	}
+	
+	/**
 	 * Async operation. Create a game if possible.
 	 * @param playerName	The name of the player
 	 * @param difficulty	The difficulty level
@@ -283,6 +299,14 @@ public class GameClient {
 
 	public void setOnMove(MoveEvent onMove) {
 		this.onMove = onMove;
+	}
+	
+	public EndEvent getOnEnd() {
+		return onEnd;
+	}
+
+	public void setOnEnd(EndEvent onEnd) {
+		this.onEnd = onEnd;
 	}
 
 	public Role getRole() {

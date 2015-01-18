@@ -21,6 +21,7 @@ import java.util.Vector;
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 
+import com.eep.taxe.GameClient.EndEvent;
 import com.eep.taxe.GameClient.MoveEvent;
 import com.eep.taxe.GameClient.Role;
 import com.eep.taxe.GameClient.StatusItem;
@@ -94,6 +95,8 @@ public class GameController {
 		// Sets a MoveListener to handle the data received from the other player
 		model.getClient().setOnMove(new MoveListener());
 		
+		model.getClient().setOnEnd(new EndListener());
+		
 		//Add all of the Listeners for Events generated in the view
 		this.view.addDetailsButtonActionListener(new DetailsButtonActionListener());
 		this.view.addMenuButtonActionListener(new MenuButtonActionListener());
@@ -153,6 +156,14 @@ public class GameController {
 			currentState = GameState.STANDBY;
 			updateView();
 			
+		}
+	}
+	
+	private class EndListener implements EndEvent {
+		@Override
+		public void receive() {
+			view.showErrorMessage("Opponent disconnected. Game terminated. Sorry.");
+			System.exit(0);
 		}
 	}
 	
