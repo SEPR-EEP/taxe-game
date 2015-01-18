@@ -36,6 +36,7 @@ import com.eep.taxe.models.Station;
 import com.eep.taxe.models.Train;
 import com.eep.taxe.models.Vertex;
 import com.eep.taxe.mvc.game.BottomPanel.InventorySlotsListener;
+import com.eep.taxe.mvc.game.BottomPanel.TrainSlotsListener;
 
 /**
  * This is the Controller of the Game. All of the Game Logic related to the
@@ -106,6 +107,7 @@ public class GameController {
 		//this.view.addMarketButtonActionListener(new MarketButtonActionListener());
 		
 		this.view.addInventorySlotsActionListener(new InventorySlotsActionListener());
+		this.view.addTrainSlotsActionListener(new TrainSlotsActionListener());
 		
 		// Draw the interface
 		this.updateView();
@@ -159,7 +161,18 @@ public class GameController {
 		}
 		
 	}
-	
+
+	private class TrainSlotsActionListener implements TrainSlotsListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e, TrainSlot slot) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+
+
 	private class EndTurnButtonActionListener implements ActionListener {
 
 		@Override
@@ -189,6 +202,8 @@ public class GameController {
 		} 
 		
 	}
+
+	
 	private class MoveListener implements MoveEvent {
 		@Override
 		public void receive(GameData data) {

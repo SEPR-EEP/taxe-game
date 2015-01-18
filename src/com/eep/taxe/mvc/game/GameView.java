@@ -22,6 +22,8 @@ import javax.swing.JTextField;
 
 import com.eep.taxe.models.Train;
 import com.eep.taxe.models.Usable;
+import com.eep.taxe.mvc.game.BottomPanel.InventorySlotsListener;
+import com.eep.taxe.mvc.game.BottomPanel.TrainSlotsListener;
 
 public class GameView extends javax.swing.JFrame {
 
@@ -198,44 +200,14 @@ public class GameView extends javax.swing.JFrame {
 	
 	//----------------------Methods for manipulating BottomPanel menu-------------------------------------
 		//InventorySlot Listeners
-		public void addInventorySlot1ActionListener(ActionListener buttonListener){
-			bottomPanel.addInventorySlot1ActionListener(buttonListener);
+		public void addInventorySlotsActionListener(InventorySlotsListener inventoryListener){
+			bottomPanel.addInventorySlotsActionListener(inventoryListener);
 		}
-		
-		public void addInventorySlot2ActionListener(ActionListener buttonListener){
-			bottomPanel.addInventorySlot2ActionListener(buttonListener);
-		}
-		
-		public void addInventorySlot3ActionListener(ActionListener buttonListener){
-			bottomPanel.addInventorySlot3ActionListener(buttonListener);
-		}
-		
-		public void addInventorySlot4ActionListener(ActionListener buttonListener){
-			bottomPanel.addInventorySlot4ActionListener(buttonListener);
-		}
-		
-		public void addInventorySlot5ActionListener(ActionListener buttonListener){
-			bottomPanel.addInventorySlot5ActionListener(buttonListener);
-		}
-		
 		
 		//TrainSlots Listeners
-		public void addTrainSlot1ActionListener(ActionListener buttonListener){
-			bottomPanel.addTrainSlot1ActionListener(buttonListener);
+		public void addTrainSlotsActionListener(TrainSlotsListener trainListener){
+			bottomPanel.addTrainSlotsActionListener(trainListener);
 		}
-		
-		public void addTrainSlot2ActionListener(ActionListener buttonListener){
-			bottomPanel.addTrainSlot2ActionListener(buttonListener);
-		}
-		
-		public void addTrainSlot3ActionListener(ActionListener buttonListener){
-			bottomPanel.addTrainSlot3ActionListener(buttonListener);
-		}
-		
-		public void addTrainSlot4ActionListener(ActionListener buttonListener){
-			bottomPanel.addTrainSlot4ActionListener(buttonListener);
-		}
-		
 		
 		//Getters and Setters for Inventory Slot 1
 		public Usable getItemInventorySlot1(){
