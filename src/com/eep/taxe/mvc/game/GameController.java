@@ -194,7 +194,10 @@ public class GameController {
 
 		@Override
 		public void actionPerformed(ActionEvent e, final InventorySlot slot) {
-			// TODO Auto-generated method stub
+			if (slot.isEmpty()) {
+				view.showMessage("There is no item in this inventory slot.");
+				return;
+			}
 			
 		}
 		
@@ -204,7 +207,12 @@ public class GameController {
 
 		@Override
 		public void actionPerformed(ActionEvent e, final TrainSlot slot) {
-			// TODO Auto-generated method stub
+			if (slot.isEmpty()) {
+				view.showMessage("There is no train in this slot.");
+				return;
+			}
+			
+			clickOnTrain(slot.getTrain());
 			
 		}
 		
@@ -676,6 +684,48 @@ public class GameController {
 		);
 	}
 	
+
+	/**
+	 * This method is called when a click on a train is performed. This may be:
+	 * - The click on one of my trains on the map;
+	 * - The FIRST  (to select)   click on one of my trains in the inventory;
+	 * - The SECOND (to deselect) click on one of my trains in the inventory;
+	 * @param t
+	 */
+	private void clickOnTrain(Train t) {
+		
+		
+		if ( this.buildingTrain == t ) {
+			// SECOND CLICK ON ONE OF MY TRAINS IN THE INVENTORY
+			// - I should de-select the train and return to STANDBY
+			this.buildingTrain 		= null;
+			this.buildingVertices 	= null;
+			this.currentState		= GameState.STANDBY;
+			
+			
+		} else {
+			// I CLICKED FOR THE FIRST TIME ON A TRAIN OF MINE
+			// Either by clicking on it in the inventory (in this case, maybe I was already building
+			//  a path on the map, but I want to discard it, as I clicked on a different train),
+			//  or by clicking on it in the map (in this case, for sure there was no other path 
+			//  being built at the moment of the click).
+			this.buildingTrain 		= t;
+			this.buildingVertices 	= new Vector<Vertex>(); 
+
+			// Add the vertex where the train is located (if the train is on the map)
+			if ( t.getJourney() != null ) {
+				this.buildingVertices.add ( t.getJourney().getLastVisitedVertex() );
+				System.out.println("Journey starting at " + t.getJourney().getLastVisitedVertex().getVertexName() );
+
+			}
+			
+			
+			this.currentState = GameState.BUILDING_PATH;
+			
+		}
+		
+	}
+	
 	/**
 	 * This method is called every time the player clicks somewhere 
 	 * on the map. This method should - depending on the current state -
@@ -700,14 +750,7 @@ public class GameController {
 				break;
 			}
 			
-			this.buildingTrain 		= t;
-		
-			// Add the vertex where the train is located
-			this.buildingVertices 	= new Vector<Vertex>(); 
-			this.buildingVertices.add ( t.getJourney().getLastVisitedVertex() );
-			System.out.println("Journey starting at " + t.getJourney().getLastVisitedVertex().getVertexName() );
-			
-			this.currentState = GameState.BUILDING_PATH;
+			clickOnTrain(t);
 			
 			break;
 						

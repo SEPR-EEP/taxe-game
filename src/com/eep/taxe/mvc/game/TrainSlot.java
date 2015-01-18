@@ -32,6 +32,10 @@ public class TrainSlot extends JButton{
 	public Train getTrain() {
 		return train;
 	}
+	
+	public boolean isEmpty() {
+		return train == null;
+	}
 
 	public void setTrain(Train train) {
 		if(train != null){

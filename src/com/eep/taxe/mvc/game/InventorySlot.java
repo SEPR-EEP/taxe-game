@@ -39,6 +39,10 @@ public class InventorySlot extends JButton{
 	}
 
 
+	public boolean isEmpty() {
+		return item == null;
+	}
+	
 	public Usable getItem() {
 		return item;
 	}
