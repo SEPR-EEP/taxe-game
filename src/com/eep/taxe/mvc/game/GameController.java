@@ -477,6 +477,7 @@ public class GameController {
 			
 			Edge edge = t.getJourney().getCurrentEdge();
 			if ( edge == null ) {
+				System.out.println("[???] A train is on the map but with no current edge (this should not happen)");
 				return null;
 			}
 
@@ -485,7 +486,7 @@ public class GameController {
 
 			Vertex A  = t.getJourney().getStartingVertexOfEdge(edge);
 			Vertex B  = t.getJourney().getEndingVertexOfEdge  (edge);
-
+			
 			Ax = A.getX(); Ay = A.getY();
 			Bx = B.getX(); By = B.getY();
 			
@@ -830,8 +831,9 @@ public class GameController {
 		}
 		
 		
-		new Journey(buildingTrain, this.buildingVertices);
-
+		Journey j = new Journey(buildingTrain, this.buildingVertices);
+		j.start();
+		
 		this.buildingVertices = null;
 		this.buildingTrain 	  = null;
 		
