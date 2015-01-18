@@ -30,7 +30,7 @@ public class GameView extends javax.swing.JFrame {
 	private static final long serialVersionUID = -1784329706446539462L;
 	
 	private final int 		WIDTH  	= 1300;
-	private final int 		HEIGHT 	= 720;
+	private final int 		HEIGHT 	= 400;
 	private final String	TITLE	= "TAxE Game";
 	private TopPanel topPanel;
 	private LeftPanel leftPanel;
