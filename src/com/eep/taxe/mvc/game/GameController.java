@@ -656,7 +656,6 @@ public class GameController {
 	        		cy >= ( p.getY() - TRAIN_SIZE/2 * CLICK_PRECISION ) &&
 	        		cy <= ( p.getY() + TRAIN_SIZE/2 * CLICK_PRECISION )
 	        	) { 
-	        		System.out.println("User train clicked");
 	        		return x;
 	        	}
 	        }

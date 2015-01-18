@@ -215,15 +215,23 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 	}
 	
 	/**
-	 * Get the 
+	 * Get the last visited vertex of the journey. 
+	 * If the journey has finished, return the last edge.
 	 */
 	public Vertex getLastVisitedVertex() {
 		if ( this.currentEdge == null ) {
 			return this.getStartingStation();
 		}
 		
-		return this.getStartingVertexOfEdge(this.currentEdge);
+		if ( this.isJourneyComplete() ) {
+			return this.getEndingVertexOfEdge(this.currentEdge);
+
+		} else {
+			return this.getStartingVertexOfEdge(this.currentEdge);
+		}
+		
 	}
+	
 
 	
 }
