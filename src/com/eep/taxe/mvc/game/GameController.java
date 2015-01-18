@@ -1,5 +1,6 @@
 package com.eep.taxe.mvc.game;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -346,13 +347,18 @@ public class GameController {
 		public final double 	CLICK_PRECISION			= 1.2;
 		public final double 	LABEL_RELATIVE_PADDING	= 1.4;
 		
-		public final double 	VERTEX_SIZE 			= 2;
-		public final Color 		VERTEX_COLOR 			= new Color(0x002364);
-		public final Color 		VERTEX_COLOR_BUILDING 	= new Color(0xCC0000);
+		public final double 	VERTEX_SIZE_STATION 	= 2;
+		public final double 	VERTEX_SIZE_JUNCTION	= 1.5;
+		public final Color 		VERTEX_COLOR 			= new Color(0xCC0000);
+		public final Color 		VERTEX_COLOR_BUILDING 	= new Color(0xFF0000);
 		public final Color 		VERTEX_TEXT_COLOR 		= new Color(0x111111);
 		
-		public final Color EDGE_COLOR		 	= new Color(0x000000);
-		public final Color EDGE_COLOR_BUILDING 	= new Color(0xFF0000);
+		public final Color 			EDGE_COLOR		 	= new Color(0x000000);
+		public final Color			EDGE_COLOR_BUILDING = new Color(0xFF0000);
+		public final BasicStroke 	EDGE_STROKE 		= new BasicStroke(
+			2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND
+		);
+
 		
 		public final String BACKGROUND_IMAGE 	= "src/resources/MainMap.jpg";
 		
@@ -537,6 +543,9 @@ public class GameController {
 				edges.addAll(v.getEdges());
 			}
 			
+			// Set larger and smoother stroke
+			((Graphics2D) g).setStroke(EDGE_STROKE);
+			
 			for ( Edge e: edges ) {
 				
 				if ( buildingVertices != null && (new Path(buildingVertices)).contains(e) ) {
@@ -566,6 +575,11 @@ public class GameController {
 
 		private void drawVertices() {
 			for ( Vertex v: model.getData().getVertices() ) {
+				
+				double VERTEX_SIZE = 
+					v instanceof Station
+					? VERTEX_SIZE_STATION
+					: VERTEX_SIZE_JUNCTION;
 				
 				// Draw the vertex
 				if ( buildingVertices != null && buildingVertices.contains(v) ) {
@@ -619,6 +633,11 @@ public class GameController {
 	        
 	        for ( Vertex x: model.getData().getVertices() ) {
 	        	
+				double VERTEX_SIZE = 
+						x instanceof Station
+						? VERTEX_SIZE_STATION
+						: VERTEX_SIZE_JUNCTION;
+
 	        	/*
 	        	 * Check if the click of coordinates (cx, cy) is inside
 	        	 * the square with the vertex circle inscribed with center
