@@ -188,7 +188,7 @@ public class GameController {
 				
 			case STANDBY:
 				view.showMessage("You are just passing your turn");
-				return;
+				break;
 				
 			case WAITING:
 				view.showErrorMessage("It's not your turn - please wait.");
@@ -392,6 +392,11 @@ public class GameController {
 			for (Train t: allTrains) {
 				
 				boolean mine = myTrains.contains(t);
+				
+				System.out.print("Drawing train ");
+				System.out.print( mine ? "mine" : "opponent's");
+				System.out.println(t);
+
 				Point p = getTrainCoordinates(t);
 				if ( p == null ) {	// If train is not on the map
 					continue;		// Ignore and draw the next train

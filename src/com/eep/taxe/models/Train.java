@@ -156,14 +156,11 @@ public class Train implements TrainInterface {
 	@Override
 	public void moveForward() {
 		
-		if (this.hasActiveGoal){
-			journey.incrementProgressByTurn();
-			
-			if (journey.isJourneyComplete() ) {
-				this.hasActiveGoal = false;
-			}
+		if ( journey == null ) {
+			return;
 		}
 		
+		journey.incrementProgressByTurn();	
 		
 	}
 	
