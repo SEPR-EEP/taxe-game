@@ -35,9 +35,14 @@ public class BottomPanel extends JPanel{
 	private JButton menuButton;
 	
 	//InventorySlot Listeners
+	
+	public void addInventorySlotsActionListener()
+	
+	/*
 	public void addInventorySlot1ActionListener(ActionListener buttonListener){
 		inventorySlot1.addActionListener(buttonListener);
 	}
+	
 	
 	public void addInventorySlot2ActionListener(ActionListener buttonListener){
 		inventorySlot2.addActionListener(buttonListener);
@@ -54,7 +59,7 @@ public class BottomPanel extends JPanel{
 	public void addInventorySlot5ActionListener(ActionListener buttonListener){
 		inventorySlot5.addActionListener(buttonListener);
 	}
-	
+	*/
 	
 	//TrainSlots Listeners
 	public void addTrainSlot1ActionListener(ActionListener buttonListener){
