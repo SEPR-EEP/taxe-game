@@ -96,6 +96,9 @@ public class GameController {
 				new MapMouseListener()
 		);
 		
+		// Sets my nickname - this is as I might be the Slave player and have to set my name!
+		this.getPlayer().setNickname(this.getModel().getMyNickname());
+		
 		// Sets a MoveListener to handle the data received from the other player
 		model.getClient().setOnMove(new MoveListener());
 		
