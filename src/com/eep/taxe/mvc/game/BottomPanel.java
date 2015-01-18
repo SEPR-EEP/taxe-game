@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 import com.eep.taxe.models.Train;
 import com.eep.taxe.models.Usable;
@@ -281,14 +282,20 @@ public class BottomPanel extends JPanel{
 	
 	
 	public BottomPanel(int width, int height){
-		this.WIDTH = width;
-		this.HEIGHT = height;
-		this.setBackground(Color.YELLOW);
+		setBorder(null);
+		//this.WIDTH = width;
+		//this.HEIGHT = height;
+		WIDTH =1300;
+		HEIGHT = 720;
+		
+		this.setBackground(Color.WHITE);
 		this.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
 		this.setPreferredSize(new Dimension(WIDTH, WIDTH/16));
-		this.setOpaque(false);
+		
 				
 			JPanel inventoryPanel = new JPanel();
+			inventoryPanel.setBackground(new Color(211, 211, 211));
+			inventoryPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 			inventoryPanel.setPreferredSize(new Dimension(WIDTH/3 , WIDTH/16));
 			inventoryPanel.setLayout(new FlowLayout(FlowLayout.CENTER, WIDTH/64, WIDTH/96));
 			
@@ -307,7 +314,8 @@ public class BottomPanel extends JPanel{
 			JPanel trainPanel = new JPanel();
 			trainPanel.setPreferredSize(new Dimension(WIDTH/4 , WIDTH/16));
 			trainPanel.setLayout(new FlowLayout(FlowLayout.CENTER, WIDTH/64, WIDTH/96));
-			trainPanel.setBackground(Color.GRAY);
+			trainPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+			trainPanel.setBackground(new Color(169, 169, 169));
 			
 				trainSlot1 = new TrainSlot(WIDTH, HEIGHT);
 				trainSlot2 = new TrainSlot(WIDTH, HEIGHT);
@@ -327,14 +335,18 @@ public class BottomPanel extends JPanel{
 			
 			menuButton = new JButton();
 			menuButton.setText("Menu");
-			menuButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
-			menuButton.setPreferredSize(new Dimension(WIDTH*1/8, WIDTH*1/32));
+			menuButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+			menuButton.setPreferredSize(new Dimension(WIDTH/10, WIDTH/45));
+			menuButton.setBorderPainted(false);
+			menuButton.setBackground(Color.BLACK);
+			menuButton.setForeground(Color.BLACK);
+
 
 		this.add(inventoryPanel);
 		this.add(trainPanel);
 		this.add(Box.createRigidArea(new Dimension(WIDTH/32, WIDTH/16)));
 		this.add(marketButton);
-		this.add(Box.createRigidArea(new Dimension(WIDTH/32, WIDTH/16)));
+		this.add(Box.createRigidArea(new Dimension(WIDTH/31, WIDTH/16)));
 		this.add(menuButton);
 		this.add(Box.createRigidArea(new Dimension(WIDTH/32, WIDTH/16)));
 	}
