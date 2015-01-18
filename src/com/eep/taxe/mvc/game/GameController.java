@@ -131,12 +131,8 @@ public class GameController {
 	 */
 	private void updateView() {
 
-		if ( currentState == GameState.WAITING ) {
-			System.out.println("Chill, you're waiting for the other player.");
-		} else {
-			System.out.println("It's your turn to play.");
-		}
 		
+		this.graphics.drawMap();
 		
 		Role myRole = model.getMyRole();
 		Role opponentRole = myRole == Role.MASTER ? Role.SLAVE : Role.MASTER;
@@ -157,15 +153,21 @@ public class GameController {
 		Vector<Goal> myGoals  = model.getData().getPlayerByRole(myRole).getCurrentGoals();
 		String info = "";
 		for (Goal goal : myGoals){
-			info += "\nGoal: " + myGoals.get(0).getShortDescription() + "\n";
+			info += "Goal: " + myGoals.get(0).getShortDescription() + "\n\n";
 		}
 		
+		if ( currentState == GameState.WAITING ) {
+			info += "It's your opponent's turn. PLEASE WAIT.";
+		} else {
+			info += "It's your turn. PLEASE PLAY.";
+		}
+
 		this.view.setInfoText(info);
 		
 		//this.view.setMissionInfo(myGoals.toString());
 		
 		// TODO Get and display game data
-		this.graphics.drawMap();
+		
 	}
 	
 	private class DetailsButtonActionListener implements ActionListener{
@@ -684,7 +686,7 @@ public class GameController {
 		
 		case WAITING:	// NOT MY TURN
 			// Not my turn, do nothing.
-			System.out.println("It's not your turn - you're not supposed to click anywhere. Ignoring.");
+			view.showMessage("Please wait, it's your opponent's turn.");
 			break;
 			
 		case STANDBY:	// MY TURN, DOING NOTHING
