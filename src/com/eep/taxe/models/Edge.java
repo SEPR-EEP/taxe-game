@@ -1,5 +1,6 @@
 package com.eep.taxe.models;
 
+import java.awt.Point;
 import java.util.Vector;
 
 public class Edge implements EdgeInterface {
@@ -210,4 +211,17 @@ public class Edge implements EdgeInterface {
 		
 	}
 
+	/**
+	 * Returns the coordinates for the middle of the Edge
+	 * (average between the vertices' points)
+	 */
+	public Point getCenter() {
+		
+		return new Point( 
+			( this.getVertices().get(0).getX() + this.getVertices().get(1).getX() ) / 2,
+			( this.getVertices().get(0).getY() + this.getVertices().get(1).getY() ) / 2
+		);
+		
+		
+	}
 }

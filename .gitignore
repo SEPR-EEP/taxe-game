@@ -12,3 +12,6 @@ target/
 **/Desktop.ini
 
 /doc/
+
+## Logs
+hs_err*.log
