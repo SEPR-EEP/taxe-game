@@ -59,7 +59,7 @@ public class MenuView1 extends JFrame {
 	private JLabel askusername;
 	private JLabel EnterGamebg;
 	
-	private JLabel label;
+	private JLabel quitLabel;
 	private JLabel label_1;
 	private JLabel label_2;
 	private JLabel label_3;
@@ -99,6 +99,8 @@ public class MenuView1 extends JFrame {
 				try {
 					MenuView1 frame = new MenuView1();
 					frame.setVisible(true);
+					//frame.enterGame();
+					//frame.createQuitButton();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -120,17 +122,19 @@ public class MenuView1 extends JFrame {
 		this.setSize(WIDTH, HEIGHT);
 		this.setTitle(TITLE);
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.lobby	= this.createLobby();
+		//this.lobby	= this.createLobby();
 		contentPane.setLayout(null);
-	//}
+	}
 		
 		
-		//enter game
+	public void enterGame() {
 		EnterGame = new JPanel();
 		EnterGame.setBounds(0, 0, 784, 562);
 		contentPane.add(EnterGame);
 		EnterGame.setLayout(null);
-		
+		}
+	
+	public void createQuitButton() {
 		lblQuit = new JLabel("QUIT", SwingConstants.CENTER);
 		lblQuit.setBounds(419, 280, 140, 36);
 		EnterGame.add(lblQuit);
@@ -141,7 +145,9 @@ public class MenuView1 extends JFrame {
 		quitbuttonbg.setBounds(419, 280, 140, 36);
 		EnterGame.add(quitbuttonbg);
 		quitbuttonbg.setIcon(new ImageIcon(getClass().getResource("/resources/menuview img/btbg.jpg")));
+	}
 	
+	public void createEnterButton() {
 		lblEnter = new JLabel("ENTER", SwingConstants.CENTER);
 		lblEnter.setBounds(224, 280, 140, 36);
 		EnterGame.add(lblEnter);
@@ -152,43 +158,54 @@ public class MenuView1 extends JFrame {
 		enterbuttonbg.setBounds(224, 280, 140, 36);
 		EnterGame.add(enterbuttonbg);
 		enterbuttonbg.setIcon(new ImageIcon("/resources/menuview img/btbg.jpg"));
+	}
 		
-		
-				//username
-				usernamebox = new JTextField();
-				usernamebox.setBounds(224, 202, 335, 36);
-				EnterGame.add(usernamebox);
-				usernamebox.setForeground(new Color(0, 0, 0));
-				usernamebox.setColumns(10);
+	public void askUserName() {
+		usernamebox = new JTextField();
+		usernamebox.setBounds(224, 202, 335, 36);
+		EnterGame.add(usernamebox);
+		usernamebox.setForeground(new Color(0, 0, 0));
+		usernamebox.setColumns(10);
 				
-				askusername = new JLabel("Please enter a user name!");
-				askusername.setBounds(220, 104, 343, 35);
-				EnterGame.add(askusername);
-				askusername.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 30));
+		askusername = new JLabel("Please enter a user name!");
+		askusername.setBounds(220, 104, 343, 35);
+		EnterGame.add(askusername);
+		askusername.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 30));
+		String username = usernamebox.getText();
+	}
 		
+	public String getUserName() {
+		String username = usernamebox.getText();
+	}
 	
+	public void setBackground() {
 		EnterGamebg = new JLabel("");
 		EnterGamebg.setBounds(10, 11, 784, 562);
 		EnterGame.add(EnterGamebg);
 		EnterGamebg.setIcon(new ImageIcon("/resources/menuview img/B1a-Railroad Tracks(1).jpg"));
-		
-		String username = usernamebox.getText();
+	}
+	
+
 		
 		
 	
-		//main menu
+	public void mainMenu() {
 		MainMenu = new JPanel();
 		MainMenu.setLayout(null);
 		MainMenu.setBorder(new EmptyBorder(5, 5, 5, 5));
 		MainMenu.setBounds(0, 0, 784, 562);
 		contentPane.add(MainMenu);
-		
-		label = new JLabel("QUIT", SwingConstants.CENTER);
-		label.setForeground(Color.WHITE);
-		label.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 18));
-		label.setBounds(298, 404, 181, 36);
-		MainMenu.add(label);
-		
+	}
+	
+	public void createQuitLabel() {
+		quitLabel = new JLabel("QUIT", SwingConstants.CENTER);
+		quitLabel.setForeground(Color.WHITE);
+		quitLabel.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 18));
+		quitLabel.setBounds(298, 404, 181, 36);
+		MainMenu.add(quitLabel);
+	}
+	
+	
 		label_1 = new JLabel("");
 		label_1.setIcon(new ImageIcon("/resources/menuview img/btbg.jpg"));
 		label_1.setLocation(new Point(224, 280));
@@ -259,6 +276,7 @@ public class MenuView1 extends JFrame {
 		
 		
 		// how to play
+	public void howToPlayScreen() {
 		HTP = new JPanel();
 		HTP.setLayout(null);
 		HTP.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -275,7 +293,7 @@ public class MenuView1 extends JFrame {
 		HTPbg.setIcon(new ImageIcon("/resources/menuview img/C_D(g)-Railroad Tracks.jpg"));
 		HTPbg.setBounds(0, 0, 784, 562);
 		HTP.add(HTPbg);
-
+		}
 		
 
 		//connect
@@ -317,34 +335,40 @@ public class MenuView1 extends JFrame {
 		label_21.setBounds(593, 462, 140, 36);
 		Connect.add(label_21);
 		
-		Connectbg = new JLabel("");
-		Connectbg.setIcon(new ImageIcon("/resources/menuview img/connect - Tunnel.jpg"));
-		Connectbg.setBounds(0, 0, 784, 562);
-		Connect.add(Connectbg);
+		public void setConnectBackground() {
+			Connectbg = new JLabel("");
+			Connectbg.setIcon(new ImageIcon("/resources/menuview img/connect - Tunnel.jpg"));
+			Connectbg.setBounds(0, 0, 784, 562);
+			Connect.add(Connectbg);
+		}
 		
+		public void createGame() {
+			createGame = new JPanel();
+			createGame.setBounds(0, 0, 784, 562);
+			contentPane.add(createGame);
+			createGame.setLayout(null);
+		}
 		
-		//create game
-		createGame = new JPanel();
-		createGame.setBounds(0, 0, 784, 562);
-		contentPane.add(createGame);
-		createGame.setLayout(null);
+		public void createDifficultySelectBox() {
+			Difficulty = new JComboBox();
+			Difficulty.setToolTipText("");
+			Difficulty.setModel(new DefaultComboBoxModel(new String[] {"  Choose difficulty", "  \u25CF  Easy", "  \u25CF  Medium", "  \u25CF  Hard"}));
+			Difficulty.setSelectedIndex(0);
+			Difficulty.setMaximumRowCount(4);
+			Difficulty.setForeground(Color.BLACK);
+			Difficulty.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 16));
+			Difficulty.setBackground(Color.DARK_GRAY);
+			Difficulty.setBounds(302, 218, 181, 35);
+			createGame.add(Difficulty);
+		}
 		
-		Difficulty = new JComboBox();
-		Difficulty.setToolTipText("");
-		Difficulty.setModel(new DefaultComboBoxModel(new String[] {"  Choose difficulty", "  \u25CF  Easy", "  \u25CF  Medium", "  \u25CF  Hard"}));
-		Difficulty.setSelectedIndex(0);
-		Difficulty.setMaximumRowCount(4);
-		Difficulty.setForeground(Color.BLACK);
-		Difficulty.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 16));
-		Difficulty.setBackground(Color.DARK_GRAY);
-		Difficulty.setBounds(302, 218, 181, 35);
-		createGame.add(Difficulty);
-		
-		lblCancel = new JLabel("Cancel ", SwingConstants.CENTER);
-		lblCancel.setForeground(Color.WHITE);
-		lblCancel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 18));
-		lblCancel.setBounds(179, 293, 140, 36);
-		createGame.add(lblCancel);
+		public void createCancelLabel() {
+			lblCancel = new JLabel("Cancel ", SwingConstants.CENTER);
+			lblCancel.setForeground(Color.WHITE);
+			lblCancel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 18));
+			lblCancel.setBounds(179, 293, 140, 36);
+			createGame.add(lblCancel);
+		}
 		
 		label_15 = new JLabel("");
 		label_15.setIcon(new ImageIcon("/resources/menuview img/btbg.jpg"));
@@ -352,11 +376,13 @@ public class MenuView1 extends JFrame {
 		label_15.setBounds(176, 285, 140, 36);
 		createGame.add(label_15);
 		
-		lblCreate = new JLabel("Create", SwingConstants.CENTER);
-		lblCreate.setForeground(Color.WHITE);
-		lblCreate.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 18));
-		lblCreate.setBounds(467, 293, 140, 36);
-		createGame.add(lblCreate);
+		public void makeCreateGameLabel() {
+			lblCreate = new JLabel("Create", SwingConstants.CENTER);
+			lblCreate.setForeground(Color.WHITE);
+			lblCreate.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 18));
+			lblCreate.setBounds(467, 293, 140, 36);
+			createGame.add(lblCreate);
+		}
 		
 		label_16 = new JLabel("");
 		label_16.setIcon(new ImageIcon("/resources/menuview img/btbg.jpg"));
@@ -364,30 +390,31 @@ public class MenuView1 extends JFrame {
 		label_16.setBounds(480, 285, 140, 36);
 		createGame.add(label_16);
 		
-		CreatGamebg = new JLabel("");
-		CreatGamebg.setIcon(new ImageIcon("/resources/menuview img/connect - Tunnel.jpg"));
-		CreatGamebg.setBounds(0, 0, 784, 562);
-		createGame.add(CreatGamebg);
-		
+		public void createBackground() {
+			CreatGamebg = new JLabel("");
+			CreatGamebg.setIcon(new ImageIcon("/resources/menuview img/connect - Tunnel.jpg"));
+			CreatGamebg.setBounds(0, 0, 784, 562);
+			createGame.add(CreatGamebg);
+		}
 
-		// waiting
-		waiting = new JPanel();
-		waiting.setBounds(0, 0, 784, 562);
-		contentPane.add(waiting);
-		waiting.setLayout(null);
-		
-		lblNewLabel = new JLabel("Please wait for another player to join!");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Franklin Gothic Demi Cond", Font.PLAIN, 32));
-		lblNewLabel.setBounds(119, 33, 502, 38);
-		waiting.add(lblNewLabel);
-		lblNewLabel.setForeground(Color.WHITE);
-		
-		Waitingingbg = new JLabel("");
-		Waitingingbg.setIcon(new ImageIcon("/resources/menuview img/connect - Tunnel.jpg"));
-		Waitingingbg.setBounds(0, 0, 784, 562);
-		waiting.add(Waitingingbg);
-		
+		public void loadingScreen() {
+			waiting = new JPanel();
+			waiting.setBounds(0, 0, 784, 562);
+			contentPane.add(waiting);
+			waiting.setLayout(null);
+
+			lblNewLabel = new JLabel("Please wait for another player to join!");
+			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNewLabel.setFont(new Font("Franklin Gothic Demi Cond", Font.PLAIN, 32));
+			lblNewLabel.setBounds(119, 33, 502, 38);
+			waiting.add(lblNewLabel);
+			lblNewLabel.setForeground(Color.WHITE);
+
+			Waitingingbg = new JLabel("");
+			Waitingingbg.setIcon(new ImageIcon("/resources/menuview img/connect - Tunnel.jpg"));
+			Waitingingbg.setBounds(0, 0, 784, 562);
+			waiting.add(Waitingingbg);
+		}
 		
 
 		
