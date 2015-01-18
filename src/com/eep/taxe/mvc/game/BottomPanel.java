@@ -282,6 +282,7 @@ public class BottomPanel extends JPanel{
 	
 	
 	public BottomPanel(int width, int height){
+		setOpaque(false);
 		setBorder(null);
 		//this.WIDTH = width;
 		//this.HEIGHT = height;

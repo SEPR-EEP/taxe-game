@@ -49,9 +49,9 @@ public class GameView extends javax.swing.JFrame {
 			
 		
 		gameMenuPanel = new JPanel();
+		gameMenuPanel.setBackground(new Color(245, 245, 245));
 		gameMenuPanel.setPreferredSize(getContentPane().getSize());
 		gameMenuPanel.setLayout(new BorderLayout(0, 0));
-		gameMenuPanel.setOpaque(false);
 	
 			topPanel = new TopPanel(WIDTH, HEIGHT);
 			gameMenuPanel.add(topPanel, BorderLayout.NORTH);
@@ -63,6 +63,7 @@ public class GameView extends javax.swing.JFrame {
 			gameMenuPanel.add(rightPanel, BorderLayout.EAST);
 
 			bottomPanel = new BottomPanel(WIDTH, HEIGHT);
+			bottomPanel.setBackground(new Color(245, 245, 220));
 			gameMenuPanel.add(bottomPanel, BorderLayout.SOUTH);
 
 

@@ -23,53 +23,54 @@ public class LeftPanel extends JPanel{
 	
 	
 	public LeftPanel(int width, int height){
+		setOpaque(false);
+		setBackground(new Color(255, 255, 255));
 //		this.WIDTH = width;
 //		this.HEIGHT = height;
 		this.WIDTH = 1300;
 		this.HEIGHT = 720;
 		this.setPreferredSize(new Dimension(WIDTH/8, HEIGHT));
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.setOpaque(false);
 		
 			JPanel agePanel = new JPanel();
 			agePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, WIDTH/512));
 			agePanel.setPreferredSize(new Dimension(WIDTH/9, HEIGHT/24));
-			agePanel.setBackground(new Color(150, 150, 150, 123));
+			agePanel.setBackground(new Color(169, 169, 169));
 				
 				JLabel staticAgeLabel = new JLabel();
-				staticAgeLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
-				staticAgeLabel.setText("Age:");
+				staticAgeLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
+				staticAgeLabel.setText("Age: ");
 				
 				ageLabel = new JLabel();
-				ageLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+				ageLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
 				ageLabel.setText("Stone Age");
 				
 			JPanel player1Panel = new JPanel();
+			player1Panel.setBackground(new Color(211, 211, 211));
 			player1Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 0,  0));
-			player1Panel.setOpaque(false);
 			
 				JLabel player1IconLabel = new JLabel();
 //				player1IconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
 				player1IconLabel.setPreferredSize(new Dimension(WIDTH/32, HEIGHT/16));
 				
 				JPanel player1InfoPanel = new JPanel();
+				player1InfoPanel.setBackground(new Color(211, 211, 211));
 				player1InfoPanel.setLayout(new BoxLayout(player1InfoPanel, BoxLayout.Y_AXIS));
 				player1InfoPanel.setPreferredSize(new Dimension(WIDTH/16, HEIGHT/16));
-				player1InfoPanel.setOpaque(false);
 				
 					player1NameLabel = new JLabel();
 					player1NameLabel.setText("Player 1");
-					player1NameLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+					player1NameLabel.setFont(new Font(Font.SANS_SERIF, Font.ITALIC, 13));
 					player1NameLabel.setPreferredSize(new Dimension(WIDTH/32, HEIGHT/32));
 					
 					player1ScoreLabel = new JLabel();
 					player1ScoreLabel.setText("123423");
-					player1ScoreLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+					player1ScoreLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
 					player1ScoreLabel.setPreferredSize(new Dimension(WIDTH/32, HEIGHT/32));
 					
 			JPanel player2Panel = new JPanel();
+			player2Panel.setBackground(new Color(211, 211, 211));
 			player2Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 0,  0));
-			player2Panel.setOpaque(false);
 					
 				JLabel player2IconLabel = new JLabel();
 //				player2IconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
@@ -82,12 +83,12 @@ public class LeftPanel extends JPanel{
 				
 					player2NameLabel = new JLabel();
 					player2NameLabel.setText("Player 2");
-					player2NameLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+					player2NameLabel.setFont(new Font(Font.SANS_SERIF, Font.ITALIC, 13));
 					player2NameLabel.setPreferredSize(new Dimension(WIDTH/32, HEIGHT/32));
 					
 					player2ScoreLabel = new JLabel();
 					player2ScoreLabel.setText("43565432");
-					player2ScoreLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+					player2ScoreLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
 					player2ScoreLabel.setPreferredSize(new Dimension(WIDTH/32, HEIGHT/32));
 					
 					player1InfoPanel.add(player1NameLabel);
