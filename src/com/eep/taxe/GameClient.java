@@ -18,7 +18,15 @@ public class GameClient {
 	/**
 	 * The Game Server URL (must be available at all times!)
 	 */
-	final static String SERVER_URL = "http://taxe-server.alacriter.co.uk:8042";
+	private String SERVER_URL = "http://taxe-server.alacriter.co.uk:8042";
+
+	public String getServer() {
+		return SERVER_URL;
+	}
+
+	public void setServer(String sERVER_URL) {
+		SERVER_URL = sERVER_URL;
+	}
 
 	/**
 	 * This holds the connection to the server (see http://socket.io)
@@ -41,7 +49,7 @@ public class GameClient {
 	 * Asynchronously tries to connect to the Server.
 	 * After calling this method, you should use isConnected() to check for a connection.
 	 */
-	public void connect() {
+	public void connect() throws URISyntaxException {
 		
 		// Add an option to force new connections to be always created 
 		// (by default, socket.io will try and use only one connection per host,
@@ -49,13 +57,7 @@ public class GameClient {
 		IO.Options opts = new IO.Options();
 		opts.forceNew = true;
 
-		try {
-			this.socket = IO.socket(GameClient.SERVER_URL, opts);
-		} catch (URISyntaxException e) {
-			System.out.println("Fatal Error: Malformed Server URI\n" 
-					+ "Please check SERVER_URL in the GameClient Class, terminating.");
-			System.exit(1);
-		}
+		this.socket = IO.socket(this.SERVER_URL, opts);
 		this.socket.connect();
 		Listener moveData = new Listener() {
 			@Override

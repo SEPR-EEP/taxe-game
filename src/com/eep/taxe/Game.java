@@ -3,11 +3,15 @@ package com.eep.taxe;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import com.eep.taxe.GameClient.Role;
 import com.eep.taxe.mvc.game.*;
 import com.eep.taxe.mvc.menu.*;
 import com.eep.taxe.mvc.menu.MenuController.StartGameListener;
 import com.jayway.awaitility.Awaitility;
+import com.jayway.awaitility.core.ConditionTimeoutException;
 
 
 public class Game extends Awaitility {
@@ -18,25 +22,45 @@ public class Game extends Awaitility {
 	
 	public static void main(String[] args) {
 
-		// Try to connect to the server
+		// Create Client and ask user for server to connect to
 		client = new GameClient();
+		client.setServer(
+			Game.askForServer(client.getServer())
+		);
+		
 		System.out.println("Connecting to the server...");
-		client.connect();
-		
-		// Wait for connection, at most TIMEOUT seconds
-		await().atMost(TIMEOUT, TimeUnit.SECONDS).until(new Callable<Boolean>() {@Override
-			public Boolean call() {
-				return client.isConnected();
-			}
-		});
-		
-		// Check if a connection is established
-		if ( !client.isConnected() ) {
-			System.out.println("Timeout, connection failed. Terminating.");
+		try {
+			client.connect();
+
+		} catch ( Exception e ) {
+			// Connection will fail immediately for malformed server URIs.
+			System.out.println("ERROR!");
+			System.out.println("The URI is not valid. Terminating.");
+			showURIError();
 			System.exit(1);
 		}
 		
-		System.out.print("Connected, starting GUI...");
+		// Wait for connection, at most TIMEOUT seconds
+		try {
+			await().atMost(TIMEOUT, TimeUnit.SECONDS)
+			.until(new Callable<Boolean>() {
+				@Override
+				public Boolean call() throws Exception {
+					return client.isConnected();
+				}
+			});
+		} catch (ConditionTimeoutException e ) {
+			
+			// Timeout occurred :(
+			System.out.println("ERROR!");
+			System.out.println("Timeout occurred while trying to connect to '"
+					+ client.getServer() + "'\nTerminating.");
+			showConnectionError();
+			System.exit(1);
+			
+		}
+		
+		System.out.print("Starting Menu Graphical User Interface...");
 		
 		// Start Menu MVC
 		MenuView 		menuView 		= new MenuView();
@@ -60,19 +84,69 @@ public class Game extends Awaitility {
 				com.eep.taxe.models.Game data,
 				Role role, String nickname
 		) {
-			System.out.print("Game initiated, starting GUI...");
+			System.out.print("Game initiated, starting Game Graphical User Interface... ");
 
-			System.out.print(" V..");
+			System.out.print("V..");
 			GameView 		gameView 		= new GameView();
 			System.out.print("M..");
 			GameModel		gameModel 		= new GameModel(client, data);
 							gameModel		  .setMyRole(role);
 							gameModel		  .setMyNickname(nickname);
-			System.out.print("C..");
+			System.out.print("C.. ");
 			GameController	gameController	= new GameController(gameView, gameModel);
-			System.out.println(" DONE.");
+			System.out.println("DONE.");
 		}
 	}
+	
+	/**
+	 * Shows a dialog asking for a server URI.
+	 * The box is pre-filled with the suggested server URI.
+	 * @param suggested	The suggested (default) server URI.
+	 * @return			The server URI to connect to.
+	 */
+	private static String askForServer(String suggested) {
+		String s = (String) JOptionPane.showInputDialog(
+			new JFrame(),
+        	"To use the default server and start the game, click OK.\n"
+			+ "Otherwise, insert server URI and click OK.",
+        	"Choose Game Server",
+        	JOptionPane.PLAIN_MESSAGE,
+        	null,
+        	null,
+			suggested
+        );
+		if ( s == null ) {
+			return suggested;
+		}
+		return s;
+	}
 
+	/**
+	 * Shows a connection (timeout) error.
+	 */
+	private static void showConnectionError() {
+		JOptionPane.showMessageDialog(
+			new JFrame(),
+		    "Could not connect to the specified URI.\n" +
+		    		"Please check the Server URI and try again.",
+		    "Connection timeout",
+		    JOptionPane.ERROR_MESSAGE
+		);
+
+	}
+	
+	/**
+	 * Shows an URI error.
+	 */
+	private static void showURIError() {
+		JOptionPane.showMessageDialog(
+			new JFrame(),
+		    "The specified URI is invalid.\n" +
+		    		"Please check the Server URI and try again.",
+		    "Invalid URI",
+		    JOptionPane.ERROR_MESSAGE
+		);
+
+	}
 
 }
