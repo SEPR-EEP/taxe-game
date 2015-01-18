@@ -31,6 +31,7 @@ import com.eep.taxe.models.Edge;
 import com.eep.taxe.models.Game;
 import com.eep.taxe.models.Goal;
 import com.eep.taxe.models.Journey;
+import com.eep.taxe.models.Junction;
 import com.eep.taxe.models.Path;
 import com.eep.taxe.models.Player;
 import com.eep.taxe.models.Station;
@@ -227,7 +228,6 @@ public class GameController {
 			switch (currentState) {
 			case BUILDING_PATH:
 				if (!finalisePath()) {
-					view.showErrorMessage("Your path is not valid. Please complete.");
 					return;
 				}
 				break;
@@ -815,8 +815,20 @@ public class GameController {
 	private boolean finalisePath() {
 		
 		if ( this.buildingVertices.size() < 2 ) {
+			view.showErrorMessage("You are setting a journey.\n" 
+					+ "Click on the starting vertex again to cancel.");
 			return false;
 		}
+		
+		if ( this.buildingVertices.lastElement() instanceof Junction ) {
+			view.showErrorMessage(
+					"This is not a valid journey.\n"
+					+ "Trains can't end journeys at Junctions, "
+					+ "passengers would get lost in the middle of nowhere!"
+			);
+			return false;
+		}
+		
 		
 		new Journey(buildingTrain, this.buildingVertices);
 
