@@ -28,7 +28,7 @@ public class RightPanel extends JPanel {
 //		this.WIDTH = width;
 //		this.HEIGHT = height;
 		WIDTH = 1300;
-		HEIGHT = 720;
+		HEIGHT = 400;
 		
 		this.setPreferredSize(new Dimension(WIDTH/6, HEIGHT));
 		this.setBackground(Color.RED);
