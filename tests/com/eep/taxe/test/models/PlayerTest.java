@@ -60,19 +60,14 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void testBuyFutureTrain() {
-		//Give player 500 gold and 500 metal
+	public void testValidBuyFutureTrain() {
+		//Give player One 500 gold and 500 metal
 		playerOne.addGold(500);
 		playerOne.addMetal(500);
 		
-		//Player should be able to buy future train
+		//Player One should be able to buy future train
 		if (! playerOne.canBuyTrain(futureTrain)){
 			fail("Player one has 500 gold and metal - train only costs 400 gold and 300 metal");
-		}
-		
-		//Other player should not be able to
-		if (playerTwo.canBuyTrain(futureTrain)){
-			fail("Player should not be able to afford train");
 		}
 		
 		//Buy train
@@ -89,6 +84,64 @@ public class PlayerTest {
 		
 		if (playerOne.getMetalQuantity() != 200){
 			fail("Player should only have 200 metal left");
+		}
+		
+	}
+	
+	@Test
+	public void testInvalidBuyFutureTrain() {
+		//Give player Two 300 gold and 200 metal
+		playerTwo.addGold(200);
+		playerTwo.addMetal(100);
+		
+		//Player Two should not be able to buy future train
+		if (playerTwo.canBuyTrain(futureTrain)){
+			fail("Player two has 200 gold and 100 metal - train costs 400 gold and 300 metal");
+		}
+		
+		//Buy train
+		playerTwo.buyTrain(futureTrain);
+		
+		if (playerTwo.getTrains().contains(futureTrain)){
+			fail("Player should not have train");
+		}
+		
+		//Test gold and metal levels
+		if (playerTwo.getGoldQuantity() != 200){
+			fail("Player should still have 200 gold left");
+		}
+		
+		if (playerTwo.getMetalQuantity() != 100){
+			fail("Player should still have 100 metal left");
+		}
+		
+	}
+	
+	@Test
+	public void testExtremeBuyFutureTrain() {
+		//Give player One 400 gold and 300 metal
+		playerOne.addGold(400);
+		playerOne.addMetal(300);
+		
+		//Player One should be able to buy future train
+		if (! playerOne.canBuyTrain(futureTrain)){
+			fail("Player one has 400 gold and 300 metal - train only costs 400 gold and 300 metal");
+		}
+		
+		//Buy train
+		playerOne.buyTrain(futureTrain);
+		
+		if (! playerOne.getTrains().contains(futureTrain)){
+			fail("Player should have train");
+		}
+		
+		//Test gold and metal levels
+		if (playerOne.getGoldQuantity() != 0){
+			fail("Player should only have 0 gold left");
+		}
+		
+		if (playerOne.getMetalQuantity() != 0){
+			fail("Player should only have 0 metal left");
 		}
 		
 	}
