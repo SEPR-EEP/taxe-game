@@ -181,14 +181,6 @@ public class GameView extends javax.swing.JFrame {
 			rightPanel.setInfoText(text);
 		}
 		
-		public void setStartMissionButtonVisible(boolean visible){
-			rightPanel.setStartMissionButtonVisible(visible);
-		}
-		
-		public void addStartMissionButtonActionListener(ActionListener buttonListener){
-			rightPanel.addStartMissionButtonActionListener(buttonListener);
-		}
-		
 		public void addRegionButtonActionListener(ActionListener buttonListener){
 			rightPanel.addRegionButtonActionListener(buttonListener);
 		}
