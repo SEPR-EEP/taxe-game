@@ -2,7 +2,7 @@ package com.eep.taxe.models;
 
 import com.eep.taxe.models.Age.Ages;
 
-public class Train implements TrainInterface {
+public class Train implements TrainInterface, Cloneable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -156,15 +156,22 @@ public class Train implements TrainInterface {
 	@Override
 	public void moveForward() {
 		
-		if (this.hasActiveGoal){
-			journey.incrementProgressByTurn();
-			
-			if (journey.isJourneyComplete() ) {
-				this.hasActiveGoal = false;
-			}
+		if ( journey == null ) {
+			return;
 		}
 		
+		journey.incrementProgressByTurn();	
 		
+	}
+	
+	public Train clone() {
+		try {
+			return (Train) super.clone();
+		} catch (CloneNotSupportedException e) {
+			System.out.println("Impossible to clone train.");
+			System.exit(1);
+		}
+		return null;
 	}
 	
 	public Boolean hasActiveGoal(){

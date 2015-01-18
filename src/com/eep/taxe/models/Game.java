@@ -38,24 +38,26 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		this.addFirstTrainToPlayer(master);
 		this.addFirstTrainToPlayer(slave);
 
+
 	}
 	
 	private void addFirstTrainToPlayer(Player who) {
-		Train 	a = new Train("Your First Train", null, 0, 0, Ages.FIRST, (float) 1.0, null);
-		Journey j = new Journey(a);
+
+		Train 	a = Generator.generateTrains(who.getCurrentAge().age, this).get(0).clone();
 	
 		Station starting = this.getRandomStation();
+		a.setStationToStartNextGoalAt(starting);
+
 		Station ending;
 		do {
 			ending = this.getRandomStation();
 		} while ( starting == ending );
 
-		for ( Vertex i: getShortestPath(starting, ending).getVerticesInOrder(starting) ) {
-			j.add(i);
-		}
+		Journey j = new Journey(a, getShortestPath(starting, ending).getVerticesInOrder(starting));
+
 		j.start();
 		
-		who.buyTrain(a);
+		who.getTrains().add(a);
 
 	}
 	
@@ -142,7 +144,18 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 	}
 	
 	private void computeEndOfTurn() {
+		
+		// Move trains
+		Vector<Train> allTrains = new Vector<Train>();
+		allTrains.addAll(getPlayerByRole(Role.MASTER).getTrains());
+		allTrains.addAll(getPlayerByRole(Role.SLAVE).getTrains());
+		
+		for ( Train t: allTrains ) {
+			t.moveForward();
+		}
+		
 		// CALCULATE SCORES
+		
 	}
 
 	/**

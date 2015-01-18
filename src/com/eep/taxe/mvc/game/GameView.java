@@ -200,12 +200,12 @@ public class GameView extends javax.swing.JFrame {
 	
 	//----------------------Methods for manipulating BottomPanel menu-------------------------------------
 		//InventorySlot Listeners
-		public void addInventorySlotsActionListener(InventorySlotsListener inventoryListener){
+		public void addInventorySlotsActionListener(final InventorySlotsListener inventoryListener){
 			bottomPanel.addInventorySlotsActionListener(inventoryListener);
 		}
 		
 		//TrainSlots Listeners
-		public void addTrainSlotsActionListener(TrainSlotsListener trainListener){
+		public void addTrainSlotsActionListener(final TrainSlotsListener trainListener){
 			bottomPanel.addTrainSlotsActionListener(trainListener);
 		}
 		

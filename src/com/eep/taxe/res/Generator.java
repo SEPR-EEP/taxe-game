@@ -74,7 +74,7 @@ public class Generator {
 		return goal;
 	}
 
-	public static ArrayList<Train> trainGenerator(Ages age, Game game) {
+	public static ArrayList<Train> generateTrains(Ages age, Game game) {
 		ArrayList<Train> trainList = new ArrayList<Train>();
 		
 		Train steamTrain = new Train("Steam Train", "IMAGE", 100, 100, Ages.FIRST, 100, null);

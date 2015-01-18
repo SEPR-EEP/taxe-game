@@ -28,17 +28,11 @@ public class BottomPanel extends JPanel{
 	private InventorySlot inventorySlot3;
 	private InventorySlot inventorySlot4;
 	private InventorySlot inventorySlot5;
-	private InventorySlot[] inventorySlots = {
-			inventorySlot1, inventorySlot2, inventorySlot3, inventorySlot4, inventorySlot5
-	};
 	
 	private TrainSlot trainSlot1;
 	private TrainSlot trainSlot2;
 	private TrainSlot trainSlot3;
 	private TrainSlot trainSlot4;
-	private TrainSlot[] trainSlots = {
-			trainSlot1, trainSlot2, trainSlot3, trainSlot4
-	};
 	
 	private JButton marketButton;
 	private JButton menuButton;
@@ -46,36 +40,71 @@ public class BottomPanel extends JPanel{
 	// InventorySlot Listeners
 	
 	public void addInventorySlotsActionListener(final InventorySlotsListener listener) {
-		
-		for ( final InventorySlot i: inventorySlots ) {
-			i.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					listener.actionPerformed(e, i);
-				}
-			});
-		}
-		
+		inventorySlot1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listener.actionPerformed(e, inventorySlot1);
+			}
+		});		
+		inventorySlot2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listener.actionPerformed(e, inventorySlot2);
+			}
+		});
+		inventorySlot3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listener.actionPerformed(e, inventorySlot3);
+			}
+		});		
+		inventorySlot4.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listener.actionPerformed(e, inventorySlot4);
+			}
+		});		
+		inventorySlot5.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listener.actionPerformed(e, inventorySlot5);
+			}
+		});		
 	}
 	
 	public interface InventorySlotsListener  {
-		public void actionPerformed(ActionEvent e, InventorySlot slot);
+		public void actionPerformed(ActionEvent e, final InventorySlot slot);
 	}
 	
 	
 	// Train Slots Listeners
 
 	public void addTrainSlotsActionListener(final TrainSlotsListener listener) {
-		
-		for ( final TrainSlot i: trainSlots ) {
-			i.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					listener.actionPerformed(e, i);
-				}
-			});
-		}
-		
+		trainSlot1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listener.actionPerformed(e, trainSlot1);
+			}
+		});		
+		trainSlot2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listener.actionPerformed(e, trainSlot2);
+			}
+		});
+		trainSlot3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listener.actionPerformed(e, trainSlot3);
+			}
+		});		
+		trainSlot4.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listener.actionPerformed(e, trainSlot4);
+			}
+		});		
+
 	}
 	
 	public interface TrainSlotsListener  {
