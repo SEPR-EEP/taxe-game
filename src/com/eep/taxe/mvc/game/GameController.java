@@ -333,6 +333,8 @@ public class GameController {
 		public final double 	SCALE_FACTOR_Y		= 10;
 		public final double 	OFFSET_X			= 0;
 		public final double 	OFFSET_Y			= 0;
+		public final double 	OFFSET_MINE			= -1;
+		public final double 	OFFSET_OPPONENT		= 1;
 		
 		public final double 	CLICK_PRECISION			= 1.2;
 		public final double 	LABEL_RELATIVE_PADDING	= 1.4;
@@ -452,10 +454,10 @@ public class GameController {
 					mine ? 
 						(t == buildingTrain ? selTrainImage : myTrainImage)
 						: oppTrainImage,
-					(int) (x(p.getX()) + OFFSET_X - myTrainImage.getWidth()  / 2),
-					(int) (y(p.getY()) + OFFSET_Y - myTrainImage.getHeight() / 2),
-					(int) (x(p.getX()) + OFFSET_X + myTrainImage.getWidth()  / 2),
-					(int) (y(p.getY()) + OFFSET_Y + myTrainImage.getHeight() / 2),
+					(int) (x(p.getX()) + OFFSET_X - myTrainImage.getWidth()  / 2 + (mine? OFFSET_MINE: OFFSET_OPPONENT) ),
+					(int) (y(p.getY()) + OFFSET_Y - myTrainImage.getHeight() / 2 + (mine? OFFSET_MINE: OFFSET_OPPONENT) ),
+					(int) (x(p.getX()) + OFFSET_X + myTrainImage.getWidth()  / 2 + (mine? OFFSET_MINE: OFFSET_OPPONENT) ),
+					(int) (y(p.getY()) + OFFSET_Y + myTrainImage.getHeight() / 2 + (mine? OFFSET_MINE: OFFSET_OPPONENT) ),
 					0, 0,
 					myTrainImage.getWidth(),
 					myTrainImage.getHeight(),
