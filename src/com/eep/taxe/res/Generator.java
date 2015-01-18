@@ -67,7 +67,7 @@ public class Generator {
 	
 		//Create goal based upon starting and ending station
 		Goal goal = new Goal(player.getCurrentAge().age, 
-				"Travel from " +startingStation.getName() +"to " +endingStation.getName(),
+				"Travel from " +startingStation.getName() +" to " +endingStation.getName(),
 				"Long description - maybe random scenario?",
 				startingStation,
 				endingStation); 
@@ -77,13 +77,13 @@ public class Generator {
 	public static ArrayList<Train> generateTrains(Ages age, Game game) {
 		ArrayList<Train> trainList = new ArrayList<Train>();
 		
-		Train steamTrain = new Train("Steam Train", "IMAGE", 100, 100, Ages.FIRST, 100, null);
+		Train steamTrain = new Train("Steam Train", "IMAGE", 100, 100, Ages.FIRST, 500, null);
 		
-		Train combustionTrain = new Train("Combustion Train", "IMAGE", 300, 300, Ages.SECOND, 200, null);
+		Train combustionTrain = new Train("Combustion Train", "IMAGE", 300, 300, Ages.SECOND, 800, null);
 		
-		Train electricTrain = new Train("Electric Train", "IMAGE", 600, 600, Ages.THIRD, 400, null);
+		Train electricTrain = new Train("Electric Train", "IMAGE", 600, 600, Ages.THIRD, 1000, null);
 		
-		Train futureTrain = new Train("Hover Train", "IMAGE", 1000, 1000, Ages.FOURTH, 800, null);
+		Train futureTrain = new Train("Hover Train", "IMAGE", 1000, 1000, Ages.FOURTH, 1500, null);
 		
 		trainList.add(steamTrain);
 		

@@ -2,6 +2,8 @@ package com.eep.taxe.models;
 
 import java.util.Vector;
 
+import com.eep.taxe.res.Generator;
+
 public class Player implements PlayerInterface {
 
 	private static final long serialVersionUID = 3534438349877377215L;
@@ -24,6 +26,7 @@ public class Player implements PlayerInterface {
 		
 		this.trains = new Vector<Train>();
 		this.inventory = new Vector<Usable>();
+		this.currentGoals = new Vector<Goal>();
 	}
 	
 	/**
@@ -193,29 +196,58 @@ public class Player implements PlayerInterface {
 		return this.getCurrentGoals().size();
 	}
 
+	public void cashInCompletedGoals(Vector<Vertex> vertices){
+		
+		for (Train train : this.getTrains()){
+			
+			//For each of player's goals check if train's journey has completed it
+			for (Goal goal : this.getCurrentGoals()){
+				int reward = goal.calculateReward(train.getJourney(), vertices); //0 if journey has not completed goal
+				
+				//If score is rewarded for goal it is completed, so remove it
+				if (reward > 0){
+					train.setStationToStartNextGoalAt(goal.getEndingStation());
+					this.getCurrentGoals().remove(goal);
+				}
+				
+				this.incrementScore(reward);
+			}
+		}
+		
+		
+	}
+	
 	@Override
 	public Vector<Goal> getCurrentGoals() {
 		return this.currentGoals;
 	}
 
-	
-	@Override
-	public void generateGoal(Vector<Vertex> map) {
-		
-		//If max number of goals is reached
-		if (this.currentGoalsNo() >= 3) {
+	public void addGoal(Goal goal){
+		if (this.currentGoalsNo() >= 3){
 			return;
 		}
 		
+		this.getCurrentGoals().addElement(goal);
+		
+	}
+	
+	@Override
+	public void generateGoal(Game game) {
+		
 		for (Train train : trains){
-			if (! train.hasActiveGoal() ){
-				//this.currentGoals.add(Generator.generateGoal(train, map));
-				
-				break; //Exit for loop early
-				
+			
+			/*
+			//If number of goals is not yet maximum assign a goal to the train
+			if (this.currentGoalsNo() < 3){
+				this.currentGoals.add(Generator.generateGoal(train, game.getVertices(), this, game));
+			}*/
+			
+			//If trains journey is completed add a new goal if it completed a goal
+			if (train.getJourney().isJourneyComplete() && this.currentGoalsNo() < 3){
+				this.currentGoals.add(Generator.generateGoal(train, game.getVertices(), this, game));
+	
 			}
 		}
-		
 	}
 
 	@Override

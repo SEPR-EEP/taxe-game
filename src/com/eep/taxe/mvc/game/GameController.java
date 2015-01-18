@@ -29,6 +29,7 @@ import com.eep.taxe.GameClient.StatusResponse;
 import com.eep.taxe.GameData;
 import com.eep.taxe.models.Edge;
 import com.eep.taxe.models.Game;
+import com.eep.taxe.models.Goal;
 import com.eep.taxe.models.Journey;
 import com.eep.taxe.models.Path;
 import com.eep.taxe.models.Player;
@@ -129,12 +130,39 @@ public class GameController {
 	 * -- Please keep as less expensive to compute as possible. --
 	 */
 	private void updateView() {
-		
+
 		if ( currentState == GameState.WAITING ) {
 			System.out.println("Chill, you're waiting for the other player.");
 		} else {
 			System.out.println("It's your turn to play.");
 		}
+		
+		
+		Role myRole = model.getMyRole();
+		Role opponentRole = myRole == Role.MASTER ? Role.SLAVE : Role.MASTER;
+		
+		//Display player names
+		String myName = model.getMyNickname();
+		String opponentName = model.getData().getPlayerByRole(opponentRole).getNickname();
+		this.view.setPlayer1Name(myName);
+		this.view.setPlayer2Name(opponentName);
+		
+		//Display score
+		int myScore = model.getData().getPlayerByRole(myRole).getScore();
+		int opponentScore = model.getData().getPlayerByRole(opponentRole).getScore();
+		this.view.setPlayer1Score(myScore);
+		this.view.setPlayer2Score(opponentScore);
+		
+		//Display goals
+		Vector<Goal> myGoals  = model.getData().getPlayerByRole(myRole).getCurrentGoals();
+		String info = "";
+		for (Goal goal : myGoals){
+			info += "\nGoal: " + myGoals.get(0).getShortDescription() + "\n";
+		}
+		
+		this.view.setInfoText(info);
+		
+		//this.view.setMissionInfo(myGoals.toString());
 		
 		// TODO Get and display game data
 		this.graphics.drawMap();

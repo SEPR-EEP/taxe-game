@@ -12,9 +12,7 @@ public class Train implements TrainInterface, Cloneable {
 	private int costInMetal, costInGold;
 	private final float baseSpeed;	//Speed of the train without modifiers
 	private float actualSpeed;		//Speed of the train with modifiers applied, if non applied then baseSpeed == actualSpeed
-	private Goal goal;
 	private Journey journey;
-	private Boolean hasActiveGoal;
 	
 	private Station stationToStartNextGoalAt; // The station the train will start its next goal from
 	/**
@@ -34,7 +32,6 @@ public class Train implements TrainInterface, Cloneable {
 		this.trainAge = trainAge;
 		this.baseSpeed = baseSpeed;
 		this.actualSpeed = baseSpeed;
-		this.hasActiveGoal = false;
 		this.stationToStartNextGoalAt = stationToStartNextGoalAt;
 	}
 	
@@ -142,15 +139,15 @@ public class Train implements TrainInterface, Cloneable {
 	}
 	
 	@Override
-	public void startAGoal(Goal goal, Journey journey) {
+	public Boolean startAGoal(Goal goal, Journey journey) {
 		
 		if (goal.willJourneyAcomplishGoal(journey) ){
-			this.hasActiveGoal = true;
 			this.journey = journey;
-			this.goal = goal;
 			this.stationToStartNextGoalAt = goal.getEndingStation();
-			
+			return true;
 		}
+		
+		return false;
 	}
 	
 	@Override
@@ -173,11 +170,6 @@ public class Train implements TrainInterface, Cloneable {
 		}
 		return null;
 	}
-	
-	public Boolean hasActiveGoal(){
-		return this.hasActiveGoal;
-	}
-	
 
 	public Station getStationToStartNextGoalAt(){
 		return this.stationToStartNextGoalAt;

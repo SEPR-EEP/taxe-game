@@ -91,13 +91,13 @@ public class Goal implements GoalInterface {
 	 * @param optimalNumberOfTurns	Calculated shortest number of turns it would take the train travelling at its base speed
 	 * @return Points to be added to a player's score */
 	@Override
-	public int calculateReward(Journey journey, Game game) {
+	public int calculateReward(Journey journey, Vector<Vertex> vertices) {
 		
 		if ( ! journey.isJourneyComplete() || ! this.willJourneyAcomplishGoal(journey)){
 			return 0;
 		}
 		
-		Dijkstra dijkstra 	= new Dijkstra(game.getVertices(), this.getStartingStation());
+		Dijkstra dijkstra 	= new Dijkstra(vertices, this.getStartingStation());
 		Float optimalDistance	= dijkstra.getDistanceTo(getEndingStation());
 		
 		int optimalNumberOfTurns = this.optimalNumberOfTurns(optimalDistance, journey.getTrain().getBaseSpeed());

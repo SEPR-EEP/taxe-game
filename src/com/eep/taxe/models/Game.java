@@ -37,27 +37,49 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		// Add a train to each the players
 		this.addFirstTrainToPlayer(master);
 		this.addFirstTrainToPlayer(slave);
+		
 
 
 	}
 	
 	private void addFirstTrainToPlayer(Player who) {
 
-		Train 	a = Generator.generateTrains(who.getCurrentAge().age, this).get(0).clone();
-	
+		/* Alfio old code
+		Train a = Generator.generateTrains(who.getCurrentAge().age, this).get(0).clone();
 		Station starting = this.getRandomStation();
 		a.setStationToStartNextGoalAt(starting);
-
 		Station ending;
 		do {
-			ending = this.getRandomStation();
+		ending = this.getRandomStation();
 		} while ( starting == ending );
-
 		Journey j = new Journey(a, getShortestPath(starting, ending).getVerticesInOrder(starting));
-
 		j.start();
-		
 		who.getTrains().add(a);
+		*/
+		
+		
+		//Create a clone of a generated train with a random starting station
+		Train 	train = Generator.generateTrains(who.getCurrentAge().age, this).get(0).clone();
+		Station starting = this.getRandomStation();
+		train.setStationToStartNextGoalAt(starting);
+		
+		who.getTrains().add(train);
+		
+		//Create a first goal for the player
+		Goal goal = Generator.generateGoal(train, this.vertices, who, this);;
+		who.addGoal(goal);
+		
+		//Create an empty journey ready for player input
+		//Journey journey = new Journey(train);
+		
+		//Add starting station to journey
+		//journey.add(starting);
+		
+		Journey journey = new Journey(train, getShortestPath(starting, goal.getEndingStation()).getVerticesInOrder(starting));
+		
+		journey.start();
+		
+		
 
 	}
 	
@@ -145,16 +167,39 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 	
 	private void computeEndOfTurn() {
 		
+		/* Alfio old code
 		// Move trains
 		Vector<Train> allTrains = new Vector<Train>();
 		allTrains.addAll(getPlayerByRole(Role.MASTER).getTrains());
 		allTrains.addAll(getPlayerByRole(Role.SLAVE).getTrains());
+		for ( Train t: allTrains ) {
+		t.moveForward();
+		}
+		*/
+		
+		
+		Player masterPlayer = getPlayerByRole(Role.MASTER);
+		Player slavePlayer = getPlayerByRole(Role.SLAVE);
+		
+		// Move trains
+		Vector<Train> allTrains = new Vector<Train>();
+		allTrains.addAll(masterPlayer.getTrains());
+		allTrains.addAll(slavePlayer.getTrains());
 		
 		for ( Train t: allTrains ) {
 			t.moveForward();
 		}
 		
-		// CALCULATE SCORES
+		// Calculate scores
+		masterPlayer.cashInCompletedGoals(vertices);
+		slavePlayer.cashInCompletedGoals(vertices);
+		
+		/* Not working yet
+		//Generate new goals
+		masterPlayer.generateGoal(this);
+		slavePlayer.generateGoal(this);
+		*/
+		
 		
 	}
 

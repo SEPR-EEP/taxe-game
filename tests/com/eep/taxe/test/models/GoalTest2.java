@@ -140,7 +140,7 @@ public class GoalTest2 {
 		}
 		
 		//Goal should be completed - so get reward based upon journey and game
-		int score = goal.calculateReward(trainJourney, game);
+		int score = goal.calculateReward(trainJourney, vertices);
 		
 		System.out.println(score);
 		
