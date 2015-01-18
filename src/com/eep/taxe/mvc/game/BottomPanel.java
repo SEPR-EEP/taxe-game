@@ -36,10 +36,14 @@ public class BottomPanel extends JPanel{
 	private TrainSlot trainSlot2;
 	private TrainSlot trainSlot3;
 	private TrainSlot trainSlot4;
+	private TrainSlot[] trainSlots = {
+			trainSlot1, trainSlot2, trainSlot3, trainSlot4
+	};
+	
 	private JButton marketButton;
 	private JButton menuButton;
 	
-	//InventorySlot Listeners
+	// InventorySlot Listeners
 	
 	public void addInventorySlotsActionListener(final InventorySlotsListener listener) {
 		
@@ -58,45 +62,26 @@ public class BottomPanel extends JPanel{
 		public void actionPerformed(ActionEvent e, InventorySlot slot);
 	}
 	
-	/*
-	public void addInventorySlot1ActionListener(ActionListener buttonListener){
-		inventorySlot1.addActionListener(buttonListener);
+	
+	// Train Slots Listeners
+
+	public void addTrainSlotsActionListener(final TrainSlotsListener listener) {
+		
+		for ( final TrainSlot i: trainSlots ) {
+			i.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					listener.actionPerformed(e, i);
+				}
+			});
+		}
+		
 	}
 	
-	
-	public void addInventorySlot2ActionListener(ActionListener buttonListener){
-		inventorySlot2.addActionListener(buttonListener);
+	public interface TrainSlotsListener  {
+		public void actionPerformed(ActionEvent e, TrainSlot slot);
 	}
 	
-	public void addInventorySlot3ActionListener(ActionListener buttonListener){
-		inventorySlot3.addActionListener(buttonListener);
-	}
-	
-	public void addInventorySlot4ActionListener(ActionListener buttonListener){
-		inventorySlot4.addActionListener(buttonListener);
-	}
-	
-	public void addInventorySlot5ActionListener(ActionListener buttonListener){
-		inventorySlot5.addActionListener(buttonListener);
-	}
-	*/
-	
-	//TrainSlots Listeners
-	public void addTrainSlot1ActionListener(ActionListener buttonListener){
-		trainSlot1.addActionListener(buttonListener);
-	}
-	
-	public void addTrainSlot2ActionListener(ActionListener buttonListener){
-		trainSlot2.addActionListener(buttonListener);
-	}
-	
-	public void addTrainSlot3ActionListener(ActionListener buttonListener){
-		trainSlot3.addActionListener(buttonListener);
-	}
-	
-	public void addTrainSlot4ActionListener(ActionListener buttonListener){
-		trainSlot4.addActionListener(buttonListener);
-	}
 	
 	
 	//Getters and Setters for Inventory Slot 1
