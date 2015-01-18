@@ -99,18 +99,23 @@ public class GameController {
 		model.getClient().setOnMove(new MoveListener());
 		
 		model.getClient().setOnEnd(new EndListener());
-		
 		//Add all of the Listeners for Events generated in the view
 		this.view.addDetailsButtonActionListener(new DetailsButtonActionListener());
 		this.view.addMenuButtonActionListener(new MenuButtonActionListener());
 		this.view.addEndTurnButtonActionListener(new EndTurnButtonActionListener());
 		//this.view.addMarketButtonActionListener(new MarketButtonActionListener());
+
+
+		final InventorySlotsActionListener a = new InventorySlotsActionListener();
+		this.view.addInventorySlotsActionListener(a);
 		
-		this.view.addInventorySlotsActionListener(new InventorySlotsActionListener());
-		this.view.addTrainSlotsActionListener(new TrainSlotsActionListener());
+		final TrainSlotsActionListener b = new TrainSlotsActionListener();
+		this.view.addTrainSlotsActionListener(b);
 		
+
 		// Draw the interface
 		this.updateView();
+
 		
 	}
 	
@@ -155,7 +160,7 @@ public class GameController {
 	private class InventorySlotsActionListener implements InventorySlotsListener{
 
 		@Override
-		public void actionPerformed(ActionEvent e, InventorySlot slot) {
+		public void actionPerformed(ActionEvent e, final InventorySlot slot) {
 			// TODO Auto-generated method stub
 			
 		}
@@ -165,7 +170,7 @@ public class GameController {
 	private class TrainSlotsActionListener implements TrainSlotsListener{
 
 		@Override
-		public void actionPerformed(ActionEvent e, TrainSlot slot) {
+		public void actionPerformed(ActionEvent e, final TrainSlot slot) {
 			// TODO Auto-generated method stub
 			
 		}
@@ -393,10 +398,6 @@ public class GameController {
 				
 				boolean mine = myTrains.contains(t);
 				
-				System.out.print("Drawing train ");
-				System.out.print( mine ? "mine" : "opponent's");
-				System.out.println(t);
-
 				Point p = getTrainCoordinates(t);
 				if ( p == null ) {	// If train is not on the map
 					continue;		// Ignore and draw the next train

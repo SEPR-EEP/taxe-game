@@ -43,7 +43,7 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 	
 	private void addFirstTrainToPlayer(Player who) {
 
-		Train 	a = Generator.generateTrains(who.getCurrentAge().age, this).get(0);
+		Train 	a = Generator.generateTrains(who.getCurrentAge().age, this).get(0).clone();
 	
 		Station starting = this.getRandomStation();
 		a.setStationToStartNextGoalAt(starting);
