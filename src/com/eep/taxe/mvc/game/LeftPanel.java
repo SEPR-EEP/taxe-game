@@ -7,6 +7,7 @@ import java.awt.Font;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -68,7 +69,7 @@ public class LeftPanel extends JPanel{
 			player1Panel.setOpaque(false);
 			
 				JLabel player1IconLabel = new JLabel();
-//				player1IconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
+				player1IconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
 				player1IconLabel.setPreferredSize(new Dimension(WIDTH/32, WIDTH/32));
 				
 				JPanel player1InfoPanel = new JPanel();
@@ -91,7 +92,7 @@ public class LeftPanel extends JPanel{
 			player2Panel.setOpaque(false);
 					
 				JLabel player2IconLabel = new JLabel();
-//				player2IconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
+				player2IconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
 				player2IconLabel.setPreferredSize(new Dimension(WIDTH/32, WIDTH/32));
 				
 				JPanel player2InfoPanel = new JPanel();

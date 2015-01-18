@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -105,7 +106,7 @@ public class TopPanel extends JPanel{
 		goldMetalPanel.setOpaque(false);
 		
 			JLabel goldImageLabel = new JLabel();
-//			goldImageLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
+			goldImageLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
 			goldImageLabel.setPreferredSize(new Dimension(WIDTH/48, WIDTH/48));
 			
 			goldLabel = new JLabel();
@@ -114,7 +115,7 @@ public class TopPanel extends JPanel{
 			goldLabel.setPreferredSize(new Dimension(WIDTH/24, WIDTH/48));
 			
 			JLabel metalImageLabel = new JLabel();
-//			metalImageLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
+			metalImageLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
 			metalImageLabel.setPreferredSize(new Dimension(WIDTH/48, WIDTH/48));
 			
 			metalLabel = new JLabel();

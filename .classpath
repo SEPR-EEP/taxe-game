@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="com/eep/taxe/mvc/menu/Menu Resources/|com/eep/taxe/mvc/menu/Menu Resources/|resources/|resources/|resources/|resources/" kind="src" path="src"/>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="lib"/>
 	<classpathentry kind="src" path="tests"/>
 	<classpathentry exported="true" kind="lib" path="lib/engine.io-client-0.3.1-javadoc.jar"/>

@@ -250,7 +250,7 @@ public class GameController {
 	                RenderingHints.VALUE_TEXT_ANTIALIAS_ON
 	        );
 	        
-	        // Enable graphics anti-aaliasing
+	        // Enable graphics anti-aliasing
 	        ((Graphics2D) this.g).setRenderingHint(
 	        		RenderingHints.KEY_ANTIALIASING,
 	                RenderingHints.VALUE_ANTIALIAS_ON

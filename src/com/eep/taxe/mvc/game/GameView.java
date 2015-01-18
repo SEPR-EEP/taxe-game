@@ -42,18 +42,18 @@ public class GameView extends javax.swing.JFrame {
 	
 	
 	public GameView() {
+
 		this.setSize(WIDTH, HEIGHT);
 		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 		
 		mainMapPanel = new JPanel();
 		mainMapPanel.setPreferredSize(getContentPane().getSize());
 //		mainMapPanel.setBackground(Color.CYAN);
 		mainMapPanel.setLayout(new BorderLayout(0, 0));
-			
+
 			mapLabel = new JLabel();
-			mapLabel.setIcon(new ImageIcon(getClass().getResource("RailroadTracks.jpg")));
+			mapLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
 			mapLabel.setText("BACKGROUND FAILED TO LOAD");
 			
 		
@@ -61,24 +61,23 @@ public class GameView extends javax.swing.JFrame {
 		gameMenuPanel.setPreferredSize(getContentPane().getSize());
 		gameMenuPanel.setLayout(new BorderLayout(0, 0));
 		gameMenuPanel.setOpaque(false);
-						
+	
 			topPanel = new TopPanel(WIDTH, HEIGHT);
 			gameMenuPanel.add(topPanel, BorderLayout.NORTH);
-						
+
 			leftPanel = new LeftPanel(WIDTH, HEIGHT);
 			gameMenuPanel.add(leftPanel, BorderLayout.WEST);
-			
+
 			rightPanel = new RightPanel(WIDTH, HEIGHT);
 			gameMenuPanel.add(rightPanel, BorderLayout.EAST);
-			
+
 			bottomPanel = new BottomPanel(WIDTH, HEIGHT);
 			gameMenuPanel.add(bottomPanel, BorderLayout.SOUTH);
-			
+
 
 		mainMapPanel.add(mapLabel);
 		gameMenuPanel.add(mainMapPanel);
 		getContentPane().add(gameMenuPanel);
-		
 		
 		this.setVisible(true);
 

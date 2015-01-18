@@ -52,7 +52,7 @@ public class RightPanel extends JPanel {
 				
 				regionButton = new JButton();
 				regionButton.setPreferredSize(new Dimension(WIDTH/18, WIDTH/18));
-				regionButton.setIcon(new ImageIcon(getClass().getResource("RailroadTracks.jpg")));
+				regionButton.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
 				regionButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
 				regionButton.setContentAreaFilled(false);
 
@@ -71,7 +71,7 @@ public class RightPanel extends JPanel {
 				
 				objectiveButton = new JButton();
 				objectiveButton.setPreferredSize(new Dimension(WIDTH/18, WIDTH/18));
-				objectiveButton.setIcon(new ImageIcon(getClass().getResource("RailroadTracks.jpg")));
+				objectiveButton.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
 				objectiveButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
 				objectiveButton.setContentAreaFilled(false);
 
