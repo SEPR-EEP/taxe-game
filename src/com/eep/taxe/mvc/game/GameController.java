@@ -147,21 +147,22 @@ public class GameController {
 		this.view.setPlayer1Name(myName);
 		this.view.setPlayer2Name(opponentName);
 		
-		//Display score
+		// Display score
 		int myScore = model.getData().getPlayerByRole(myRole).getScore();
 		int opponentScore = model.getData().getPlayerByRole(opponentRole).getScore();
 		this.view.setPlayer1Score(myScore);
 		this.view.setPlayer2Score(opponentScore);
 		
-		//Display goals
+		// Display goals - in HTML for nicer formatting!
 		Vector<Goal> myGoals  = model.getData().getPlayerByRole(myRole).getCurrentGoals();
 		String info = "<html>";
+		
 		for (Goal goal : myGoals){
-			info += "<b>Goal</b>: " + myGoals.get(0).getShortDescription() + "\n\n";
+			info += "<b>Goal</b>: " + goal.getShortDescription() + "<br /><br />";
 		}
 		
 		info += "<br /><br /><hr /><center><b>";
-		
+		// Show PLEASE WAIT or PLEASE PLAY in large reassuring letters
 		if ( currentState == GameState.WAITING ) {
 			info += "It's your opponent's turn\n<big color=red>PLEASE WAIT</big>";
 		} else {
@@ -170,6 +171,9 @@ public class GameController {
 
 		info += "</b></center></html>";
 		this.view.setInfoText(info);
+		
+		// Display turn number
+		this.view.setTimer("Turn " + (model.getData().getCurrentTurn() + 1));
 		
 		//this.view.setMissionInfo(myGoals.toString());
 		
