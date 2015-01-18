@@ -66,6 +66,8 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 			//So distance travelled does not exceed length of journey or edge
 			this.distanceTravelledOnJourney = getTotalLength();
 			this.distanceTravelledOnEdge = getCurrentEdge().getLength();
+			this.progressOnEdge = this.distanceTravelledOnEdge / getCurrentEdge().getLength();
+
 		}
 		return this.journeyComplete;
 	}
