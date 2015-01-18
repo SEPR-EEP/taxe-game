@@ -147,11 +147,11 @@ public class PlayerTest {
 	}
 	
 	@Test
-	public void testBuyBooster(){
-		//Give player 500 gold
+	public void testValidBuyBooster(){
+		//Give player One 500 gold
 		playerOne.addGold(500);
 		
-		//Player should be able to buy steam booster
+		//Player One should be able to buy steam booster
 		if (! playerOne.canBuy(steamBoost) ){
 			fail("Player one has 500 gold, steam booster cost 100");
 		}
@@ -159,16 +159,35 @@ public class PlayerTest {
 		//Buy booster
 		playerOne.buy(steamBoost);
 		
-		//Test if player has resource
+		//Test if player One has resource
 		if (! playerOne.hasResource(steamBoost) ){
 			fail("Player should have resource");
 		}
 		
 	}
 	
+	@Test
+	public void testInvalidBuyBooster(){
+		//Give player One 50 gold
+		playerOne.addGold(50);
+		
+		//Player One should not be able to buy steam booster
+		if (playerOne.canBuy(steamBoost) ){
+			fail("Player one has 50 gold, steam booster cost 100");
+		}
+		
+		//Buy booster
+		playerOne.buy(steamBoost);
+		
+		//Test if player One does not have resource
+		if (playerOne.hasResource(steamBoost) ){
+			fail("Player should not have resource");
+		}
+		
+	}
 	
 	@Test
-	public void testBuySlowdownAndUsesOnOtherPlayer(){
+	public void testValidBuySlowdownAndUseOnOtherPlayer(){
 		//Give both players spendable resources
 		playerOne.addGold(500);
 		playerTwo.addGold(500);
@@ -187,5 +206,29 @@ public class PlayerTest {
 		if (steamTrainTwo.getBaseSpeed() / 2 != steamTrainTwo.getSpeed() ){
 			fail("Steam slowdown has not been used on other player");
 		}
+		
 	}
+	
+	public void testInvalidBuySlowdownAndUseOnOtherPlayer(){
+		//Give both players spendable resources
+		playerOne.addGold(500);
+		playerTwo.addGold(500);
+		playerTwo.addMetal(500);
+		
+		//PlayerOne buys steam slowdown
+		playerOne.buy(steamSlowdown);
+			
+		//PlayerTwo buys steam train
+		playerOne.buyTrain(steamTrainTwo);
+			
+		//PlayerOne uses steam slowdown on player two's train
+		steamSlowdown.useOnTrain(steamTrainTwo);
+			
+		//Player one's steam slowdown should have halved the speed of player two's steam train
+		if (steamTrainTwo.getBaseSpeed() / 2 != steamTrainTwo.getSpeed() ){
+			fail("Steam slowdown has not been used on other player");
+		}	
+		
+	}
+	
 }
