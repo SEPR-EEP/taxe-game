@@ -293,12 +293,13 @@ public class GameController {
 		public final double 	OFFSET_X			= 0;
 		public final double 	OFFSET_Y			= 0;
 		
-		public final double 	CLICK_PRECISION			= 1.8;
+		public final double 	CLICK_PRECISION			= 1.2;
 		public final double 	LABEL_RELATIVE_PADDING	= 1.4;
 		
-		public final double 	VERTEX_SIZE 		= 2;
-		public final Color 		VERTEX_COLOR 		= new Color(0xFF0000);
-		public final Color 		VERTEX_TEXT_COLOR 	= new Color(0x111111);
+		public final double 	VERTEX_SIZE 			= 2;
+		public final Color 		VERTEX_COLOR 			= new Color(0x002364);
+		public final Color 		VERTEX_COLOR_BUILDING 	= new Color(0xCC0000);
+		public final Color 		VERTEX_TEXT_COLOR 		= new Color(0x111111);
 		
 		public final Color EDGE_COLOR		 	= new Color(0x000000);
 		public final Color EDGE_COLOR_BUILDING 	= new Color(0xFF0000);
@@ -307,6 +308,7 @@ public class GameController {
 		
 		public final String TRAIN_MINE 			= "src/resources/MyTrain.png";
 		public final String TRAIN_OPPONENT 		= "src/resources/OpponentTrain.png";
+		public final String TRAIN_SELECTED 		= "src/resources/SelectedTrain.png";
 		public final int	TRAIN_SIZE	 		= 32;
 		
 		
@@ -386,9 +388,11 @@ public class GameController {
 
 			BufferedImage myTrainImage;
 			BufferedImage oppTrainImage;
+			BufferedImage selTrainImage;
 			try {
 				myTrainImage 	= ImageIO.read(new File(TRAIN_MINE));
 				oppTrainImage 	= ImageIO.read(new File(TRAIN_OPPONENT));
+				selTrainImage 	= ImageIO.read(new File(TRAIN_SELECTED));
 			} catch (IOException e) {
 				e.printStackTrace();
 				return;
@@ -404,7 +408,9 @@ public class GameController {
 				}
 								
 				g.drawImage(
-					mine ? myTrainImage : oppTrainImage,
+					mine ? 
+						(t == buildingTrain ? selTrainImage : myTrainImage)
+						: oppTrainImage,
 					(int) (x(p.getX()) + OFFSET_X - myTrainImage.getWidth()  / 2),
 					(int) (y(p.getY()) + OFFSET_Y - myTrainImage.getHeight() / 2),
 					(int) (x(p.getX()) + OFFSET_X + myTrainImage.getWidth()  / 2),
@@ -511,7 +517,12 @@ public class GameController {
 			for ( Vertex v: model.getData().getVertices() ) {
 				
 				// Draw the vertex
-				g.setColor(VERTEX_COLOR);
+				if ( buildingVertices != null && buildingVertices.contains(v) ) {
+					g.setColor(VERTEX_COLOR_BUILDING);
+				} else {
+					g.setColor(VERTEX_COLOR);
+				}
+				
 				g.fillOval(
 						(int) (x(v.getX()) - x(VERTEX_SIZE)/2 + OFFSET_X),
 						(int) (y(v.getY()) - y(VERTEX_SIZE)/2 + OFFSET_Y),
@@ -601,6 +612,7 @@ public class GameController {
 	        		cy >= ( p.getY() - TRAIN_SIZE/2 * CLICK_PRECISION ) &&
 	        		cy <= ( p.getY() + TRAIN_SIZE/2 * CLICK_PRECISION )
 	        	) { 
+	        		System.out.println("User train clicked");
 	        		return x;
 	        	}
 	        }
@@ -691,10 +703,14 @@ public class GameController {
             	break;
             }
             
-            if ( !this.buildingVertices.add(v) ) {
-            	view.showErrorMessage("Can't reach that vertex.");
+            // Check if it would be possible to create a path and V
+            // as the next single vertex - if not, it means it is not reachable.
+            if ( !(new Path(this.buildingVertices)).add(v) ) {
+            	view.showErrorMessage("Can't reach that point. Please select one Station or Junction at a time.");
+            	break;
             }
-
+            
+            this.buildingVertices.add(v);
             System.out.println("Added Vertex to journey: " + v.getVertexName());
             
 			break;
