@@ -169,17 +169,13 @@ public class Player implements PlayerInterface {
 
 	@Override
 	public void buyTrain(Train train) {
-		System.out.println("X");
 		if ( !this.canBuyTrain(train) )
 			return;
-		System.out.println("Y");
 
 		this.reduceGold   (train.getCostInGold());
 		this.reduceMetal  (train.getCostInMetal());
-		System.out.println("Z");
 
 		this.trains.add(train);
-		System.out.println("X");
 
 	}
 
