@@ -74,6 +74,7 @@ public class TopPanel extends JPanel{
 		Font buttonFont = new Font(Font.SANS_SERIF, Font.BOLD, 12);
 			
 			JPanel timerMenuPanel = new JPanel();
+			timerMenuPanel.setOpaque(false);
 			timerMenuPanel.setBackground(Color.WHITE);
 			FlowLayout fl_timerMenuPanel = new FlowLayout(FlowLayout.LEFT);
 			timerMenuPanel.setLayout(fl_timerMenuPanel);
@@ -105,6 +106,7 @@ public class TopPanel extends JPanel{
 				endTurnButton.setForeground(Color.BLACK);
 				
 				JPanel missionDetailsPanel = new JPanel();
+				missionDetailsPanel.setOpaque(false);
 //				missionDetailsPanel.setPreferredSize(new Dimension(WIDTH/4, WIDTH/32));
 				FlowLayout fl_missionDetailsPanel = new FlowLayout(FlowLayout.CENTER, 5, 5);
 				missionDetailsPanel.setBackground(Color.WHITE);
@@ -132,6 +134,7 @@ public class TopPanel extends JPanel{
 
 				
 		JPanel goldMetalPanel = new JPanel();
+		goldMetalPanel.setOpaque(false);
 		FlowLayout fl_goldMetalPanel = new FlowLayout(FlowLayout.RIGHT);
 		fl_goldMetalPanel.setHgap(7);
 		fl_goldMetalPanel.setVgap(1);

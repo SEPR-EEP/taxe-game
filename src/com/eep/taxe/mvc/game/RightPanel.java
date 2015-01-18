@@ -29,6 +29,8 @@ public class RightPanel extends JPanel {
 	private JTextPane infoPane;
 	
 	public RightPanel(final int width, final int height){
+		setOpaque(false);
+		setBackground(new Color(255, 248, 220));
 		setBorder(null);
 //		this.WIDTH = width;
 //		this.HEIGHT = height;
@@ -39,11 +41,14 @@ public class RightPanel extends JPanel {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		JPanel objectiveRegionsPanel = new JPanel();
+		objectiveRegionsPanel.setOpaque(false);
+		objectiveRegionsPanel.setBackground(new Color(255, 248, 220));
 		objectiveRegionsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		
 			Font labelFont = new Font(Font.SANS_SERIF, Font.BOLD, 14);
 		
 			JPanel regionPanel = new JPanel();
+			regionPanel.setOpaque(false);
 			regionPanel.setBackground(new Color(255, 255, 255));
 			regionPanel.setPreferredSize(new Dimension(WIDTH/12, WIDTH/12));
 			regionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -65,6 +70,7 @@ public class RightPanel extends JPanel {
 
 			
 			JPanel objectivePanel = new JPanel();
+			objectivePanel.setOpaque(false);
 			objectivePanel.setBackground(new Color(255, 255, 255));
 			objectivePanel.setPreferredSize(new Dimension(WIDTH/12, WIDTH/12));
 			objectivePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -84,6 +90,7 @@ public class RightPanel extends JPanel {
 				objectiveButton.setContentAreaFilled(false);
 
 		JPanel infoPanel = new JPanel();
+		infoPanel.setOpaque(false);
 		infoPanel.setBackground(new Color(255, 255, 255));
 		infoPanel.setPreferredSize(new Dimension(WIDTH/6, HEIGHT - (WIDTH*4/32 + WIDTH/12)));
 
@@ -104,6 +111,7 @@ public class RightPanel extends JPanel {
 			infoPanel.add(rigidArea, BorderLayout.WEST);
 			
 			JPanel infoPanePanel = new JPanel();
+			infoPanePanel.setOpaque(false);
 			infoPanel.add(infoPanePanel, BorderLayout.CENTER);
 						infoPanePanel.setLayout(new MigLayout("", "[196px]", "[470px]"));
 						infoPanePanel.setPreferredSize(new Dimension(WIDTH/6-20, HEIGHT - (WIDTH*4/32 + WIDTH/12)-40));

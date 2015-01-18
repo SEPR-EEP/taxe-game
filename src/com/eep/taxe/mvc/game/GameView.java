@@ -30,7 +30,7 @@ public class GameView extends javax.swing.JFrame {
 	private static final long serialVersionUID = -1784329706446539462L;
 	
 	private final int 		WIDTH  	= 1300;
-	private final int 		HEIGHT 	= 400;
+	private final int 		HEIGHT 	= 720;
 	private final String	TITLE	= "TAxE Game";
 	private TopPanel topPanel;
 	private LeftPanel leftPanel;
@@ -61,9 +61,9 @@ public class GameView extends javax.swing.JFrame {
 			
 		
 		gameMenuPanel = new JPanel();
+		gameMenuPanel.setBackground(new Color(245, 245, 245));
 		gameMenuPanel.setPreferredSize(getContentPane().getSize());
 		gameMenuPanel.setLayout(new BorderLayout(0, 0));
-		gameMenuPanel.setOpaque(false);
 	
 			topPanel = new TopPanel(WIDTH, HEIGHT);
 			gameMenuPanel.add(topPanel, BorderLayout.NORTH);
@@ -75,6 +75,7 @@ public class GameView extends javax.swing.JFrame {
 			gameMenuPanel.add(rightPanel, BorderLayout.EAST);
 
 			bottomPanel = new BottomPanel(WIDTH, HEIGHT);
+			bottomPanel.setBackground(new Color(245, 245, 220));
 			gameMenuPanel.add(bottomPanel, BorderLayout.SOUTH);
 
 
