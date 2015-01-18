@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
@@ -27,6 +28,10 @@ public class BottomPanel extends JPanel{
 	private InventorySlot inventorySlot3;
 	private InventorySlot inventorySlot4;
 	private InventorySlot inventorySlot5;
+	private InventorySlot[] inventorySlots = {
+			inventorySlot1, inventorySlot2, inventorySlot3, inventorySlot4, inventorySlot5
+	};
+	
 	private TrainSlot trainSlot1;
 	private TrainSlot trainSlot2;
 	private TrainSlot trainSlot3;
@@ -36,7 +41,22 @@ public class BottomPanel extends JPanel{
 	
 	//InventorySlot Listeners
 	
-	public void addInventorySlotsActionListener()
+	public void addInventorySlotsActionListener(final InventorySlotsListener listener) {
+		
+		for ( final InventorySlot i: inventorySlots ) {
+			i.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					listener.actionPerformed(e, i);
+				}
+			});
+		}
+		
+	}
+	
+	public interface InventorySlotsListener  {
+		public void actionPerformed(ActionEvent e, InventorySlot slot);
+	}
 	
 	/*
 	public void addInventorySlot1ActionListener(ActionListener buttonListener){
