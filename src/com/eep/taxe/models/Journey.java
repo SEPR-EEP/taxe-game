@@ -1,6 +1,7 @@
 package com.eep.taxe.models;
 
 import java.io.Serializable;
+import java.util.Vector;
 
 public class Journey extends Path implements JourneyInterface, Serializable {
 
@@ -29,6 +30,18 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 		this.journeyComplete = false;
 		this.isMoving = false;
 		train.setJourney(this);
+	}
+	
+	/**
+	 * Create e Journey given a Train and a list of Vertices to add
+	 * @param The Train for the Journey
+	 * @param The List of vertices to add
+	 */
+	public Journey(Train train, Vector<Vertex> vertices) {
+		this(train);
+		for ( Vertex v: vertices ) {
+			this.add(v);
+		}
 	}
 	
 	/**

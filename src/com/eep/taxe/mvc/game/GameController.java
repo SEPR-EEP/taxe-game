@@ -29,6 +29,7 @@ import com.eep.taxe.GameClient.StatusResponse;
 import com.eep.taxe.GameData;
 import com.eep.taxe.models.Edge;
 import com.eep.taxe.models.Game;
+import com.eep.taxe.models.Journey;
 import com.eep.taxe.models.Path;
 import com.eep.taxe.models.Player;
 import com.eep.taxe.models.Station;
@@ -102,7 +103,7 @@ public class GameController {
 		this.view.addDetailsButtonActionListener(new DetailsButtonActionListener());
 		this.view.addMenuButtonActionListener(new MenuButtonActionListener());
 		this.view.addEndTurnButtonActionListener(new EndTurnButtonActionListener());
-		this.view.addMarketButtonActionListener(new MarketButtonActionListener());
+		//this.view.addMarketButtonActionListener(new MarketButtonActionListener());
 		
 		this.view.addInventorySlotsActionListener(new InventorySlotsActionListener());
 		
@@ -159,6 +160,35 @@ public class GameController {
 		
 	}
 	
+	private class EndTurnButtonActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			switch (currentState) {
+			case BUILDING_PATH:
+				if (!finalisePath()) {
+					view.showErrorMessage("Your path is not valid. Please complete.");
+					return;
+				}
+				break;
+				
+			case STANDBY:
+				view.showMessage("You are just passing your turn");
+				return;
+				
+			case WAITING:
+				view.showErrorMessage("It's not your turn - please wait.");
+				return;
+				
+			}
+			
+			endTurn();
+			updateView();
+			
+		} 
+		
+	}
 	private class MoveListener implements MoveEvent {
 		@Override
 		public void receive(GameData data) {
@@ -660,6 +690,25 @@ public class GameController {
 		}*/
 		updateView();
 		
+	}
+	
+	/**
+	 * If the user is building a path and click END TURN, the path is 
+	 * finalised. This function should check if the path can be finalised.
+	 * If not, it should return false. If yes, it should set the Journey.
+	 */
+	private boolean finalisePath() {
+		
+		if ( this.buildingVertices.size() < 2 ) {
+			return false;
+		}
+		
+		new Journey(buildingTrain, this.buildingVertices);
+
+		this.buildingVertices = null;
+		this.buildingTrain 	  = null;
+		
+		return true;
 	}
 	
 	private class MapMouseListener implements MouseListener {
