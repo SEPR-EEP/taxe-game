@@ -167,17 +167,7 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 	
 	private void computeEndOfTurn() {
 		
-		/* Alfio old code
-		// Move trains
-		Vector<Train> allTrains = new Vector<Train>();
-		allTrains.addAll(getPlayerByRole(Role.MASTER).getTrains());
-		allTrains.addAll(getPlayerByRole(Role.SLAVE).getTrains());
-		for ( Train t: allTrains ) {
-		t.moveForward();
-		}
-		*/
-		
-		
+
 		Player masterPlayer = getPlayerByRole(Role.MASTER);
 		Player slavePlayer = getPlayerByRole(Role.SLAVE);
 		

@@ -132,6 +132,7 @@ public class RightPanel extends JPanel {
 	}
 	
 	public void setInfoText(String text){
+        infoPane.setContentType("text/html"); // Enable HTML formatting
 		infoPane.setText(text);
 	}
 	

@@ -1,24 +1,12 @@
 package com.eep.taxe.mvc.game;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import com.eep.taxe.models.Train;
 import com.eep.taxe.models.Usable;
@@ -30,7 +18,7 @@ public class GameView extends javax.swing.JFrame {
 	private static final long serialVersionUID = -1784329706446539462L;
 	
 	private final int 		WIDTH  	= 1300;
-	private final int 		HEIGHT 	= 400;
+	private final int 		HEIGHT 	= 720;
 	private final String	TITLE	= "TAxE Game";
 	private TopPanel topPanel;
 	private LeftPanel leftPanel;

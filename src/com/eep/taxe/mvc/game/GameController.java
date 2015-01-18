@@ -155,17 +155,20 @@ public class GameController {
 		
 		//Display goals
 		Vector<Goal> myGoals  = model.getData().getPlayerByRole(myRole).getCurrentGoals();
-		String info = "";
+		String info = "<html>";
 		for (Goal goal : myGoals){
-			info += "Goal: " + myGoals.get(0).getShortDescription() + "\n\n";
+			info += "<b>Goal</b>: " + myGoals.get(0).getShortDescription() + "\n\n";
 		}
 		
+		info += "<br /><br /><hr /><center><b>";
+		
 		if ( currentState == GameState.WAITING ) {
-			info += "It's your opponent's turn. PLEASE WAIT.";
+			info += "It's your opponent's turn\n<big color=red>PLEASE WAIT</big>";
 		} else {
-			info += "It's your turn. PLEASE PLAY.";
+			info += "It's your turn\n<big color=green>PLEASE PLAY</big>";
 		}
 
+		info += "</b></center></html>";
 		this.view.setInfoText(info);
 		
 		//this.view.setMissionInfo(myGoals.toString());
