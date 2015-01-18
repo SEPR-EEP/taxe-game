@@ -48,6 +48,7 @@ public class GameView extends javax.swing.JFrame {
 		this.setSize(WIDTH, HEIGHT);
 		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setResizable(false);
 		
 		mainMapPanel = new JPanel();
 		mainMapPanel.setPreferredSize(getContentPane().getSize());
