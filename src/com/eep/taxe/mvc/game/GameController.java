@@ -793,7 +793,7 @@ public class GameController {
 	        }
 	        return null;
 	    }
-	    
+
 	    /**
 		 * Try and find one of my trains where the user has clicked.
 		 * @param 	e	The Click event
@@ -824,6 +824,52 @@ public class GameController {
 	        	}
 	        }
 	        return null;
+	    }
+
+	    /**
+		 * Try and find one of the opponent's trains where the user has clicked.
+		 * @param 	e	The Click event
+		 * @return		Either a Train or null.
+		 */
+	    public Train findOpponentTrain(MouseEvent e) {
+	        double cx = ( (double) e.getX() - OFFSET_X ) / SCALE_FACTOR_X;
+	        double cy = ( (double) e.getY() - OFFSET_Y ) / SCALE_FACTOR_Y;
+
+	        for ( Train x: getOpponent().getTrains() ) {
+	        	
+	        	Point p = getTrainCoordinates(x);
+	        	if ( p == null ) {
+	        		continue;
+	        	}
+	        	
+	        	/*
+	        	 * Check if the click of coordinates (cx, cy) is inside
+	        	 * (p.getX(), p.getY()) and size (IMAGE_SIZE) * (2 * CLICK_PRECISION)
+	        	 */
+	        	if (
+	        		cx >= ( p.getX() - TRAIN_SIZE/2 * CLICK_PRECISION ) &&
+	        		cx <= ( p.getX() + TRAIN_SIZE/2 * CLICK_PRECISION ) &&
+	        		cy >= ( p.getY() - TRAIN_SIZE/2 * CLICK_PRECISION ) &&
+	        		cy <= ( p.getY() + TRAIN_SIZE/2 * CLICK_PRECISION )
+	        	) { 
+	        		return x;
+	        	}
+	        }
+	        return null;
+	    }
+	    
+	    /**
+	     * Find a train where the user has clicked
+	     * @return	Either a train or null
+	     */
+	    public Train findTrain(MouseEvent e) {
+	    	Train t;
+	    	t = findMyTrain(e);
+	    	if ( t != null ) {
+	    		return t;
+	    	}
+	    	t = findOpponentTrain(e);
+	    	return t;
 	    }
 
 	
@@ -902,18 +948,49 @@ public class GameController {
 	
 	private void applyUsableToTrain(Train t) {
 		
+		boolean ok 	 = true;
+
 		if ( usableInUse instanceof TrainSpeedModifier ) {
+			
 			TrainSpeedModifier r = (TrainSpeedModifier) usableInUse;
-			r.useOnTrain(t);
-			System.out.println("Modifier applied - Train speed is now " + t.getActualSpeed() + " mph");
+			
+			boolean mine = getPlayer().getTrains().contains(t);
+			
+			// Avoid slowing down my trains
+			if ( mine && r.getSpeedFactor() < 1 ) {
+				view.showErrorMessage("You do not really want to slow down" +
+						" one of your trains. Use it on your opponent!");
+				ok = false;
+			}
+			
+			// Avoid speeding up opponent's trains
+			if ( !mine && r.getSpeedFactor() > 1 ) {
+				view.showErrorMessage("You probably do not really want to " +
+						" give this advantage to your opponent. Use it on"  +
+						" one of your trains instead!");
+				ok = false;
+			}
+			
+			// If everything's okay, use the speed modifier
+			if ( ok ) {
+				r.useOnTrain(t);
+				System.out.println("Modifier applied. " +
+					"Train speed now is " + t.getActualSpeed() + " mph"
+				);
+			}
 			
 		} else {
-			System.out.println("WARNING - I do not know what to do with this type of Usable.");
 			
+			System.out.println("WARNING - I do not know what to do with this type of Usable.");
+			ok = false;
 			
 		}
 		
-		getPlayer().getInventory().remove(usableInUse);
+		// Remove from the inventory if I used it
+		if ( ok ) {
+			getPlayer().getInventory().remove(usableInUse);
+		}
+		
 		usableInUse = null;
 
 	}
@@ -938,15 +1015,19 @@ public class GameController {
 			break;
 			
 		case USING_RESOURCE:	// MY TURN, USING RESOURCE
+			Train a = graphics.findTrain(e);
+			if ( a == null ) {
+				break;
+			}
+			clickOnTrain(a);
+			break;
+
 		case STANDBY:			// MY TURN, DOING NOTHING
-			
 			Train t = graphics.findMyTrain(e);
 			if ( t == null ) {
 				break;
 			}
-			
 			clickOnTrain(t);
-			
 			break;
 						
 			
