@@ -54,10 +54,12 @@ public class Generator {
 	}
 
 	public static Goal generateGoal(Train train, Vector<Vertex> map, Player player, Station startingStation, Game game) {
-		if (train.getStationToStartNextGoalAt() == null) {
+		if (startingStation == null) {
 			return null;
 		}
 	
+		System.out.println("Hello");
+		
 		//Station that is randomly chosen must not be the same as the starting station
 		Station endingStation = startingStation;
 		while (endingStation == startingStation){
