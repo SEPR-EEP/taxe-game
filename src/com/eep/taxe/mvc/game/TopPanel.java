@@ -32,34 +32,6 @@ public class TopPanel extends JPanel{
 	
 	
 	
-	public void setTimer(String time){
-		timerTextField.setText(time);
-	}
-	
-	public void setMissionInfo(String info){
-		missionTextField.setText(info);
-	}
-	
-	public void setGold(int gold) {
-		String goldString = "" + gold;
-		goldLabel.setText(goldString);
-	}
-	
-	public void setMetal(int metal){
-		String metalString = "" + metal;
-		metalLabel.setText(metalString);
-	}
-	
-	public void addEndTurnButtonActionListener(ActionListener buttonListener){
-		endTurnButton.addActionListener(buttonListener);
-	}
-	
-	public void addDetailsButtonActionListener(ActionListener buttonListener){
-		detailsButton.addActionListener(buttonListener);
-	}
-	
-	
-	
 	public TopPanel(int width, int height){
 		this.WIDTH = width;
     	this.HEIGHT = height;
@@ -142,7 +114,7 @@ public class TopPanel extends JPanel{
 		goldMetalPanel.setOpaque(false);
 		
 			JLabel goldImageLabel = new JLabel();
-			goldImageLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
+			goldImageLabel.setIcon(new ImageIcon(getClass().getResource("/resources/gameview/GoldIcon.png")));
 			goldImageLabel.setPreferredSize(new Dimension(WIDTH/48, WIDTH/48));
 			
 			goldLabel = new JLabel();
@@ -154,7 +126,7 @@ public class TopPanel extends JPanel{
 			goldLabel.setPreferredSize(new Dimension(WIDTH/22, WIDTH/48));
 			
 			JLabel metalImageLabel = new JLabel();
-			metalImageLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
+			metalImageLabel.setIcon(new ImageIcon(getClass().getResource("/resources/gameview/MetalIcon.png")));
 			metalImageLabel.setPreferredSize(new Dimension(WIDTH/48, WIDTH/48));
 			
 			metalLabel = new JLabel();
@@ -183,5 +155,33 @@ public class TopPanel extends JPanel{
 		this.add(timerMenuPanel);
 		this.add(missionDetailsPanel);
 		this.add(goldMetalPanel);
+	}
+	
+	
+	
+	public void setTimer(String time){
+		timerTextField.setText(time);
+	}
+	
+	public void setMissionInfo(String info){
+		missionTextField.setText(info);
+	}
+	
+	public void setGold(int gold) {
+		String goldString = "" + gold;
+		goldLabel.setText(goldString);
+	}
+	
+	public void setMetal(int metal){
+		String metalString = "" + metal;
+		metalLabel.setText(metalString);
+	}
+	
+	public void addEndTurnButtonActionListener(ActionListener buttonListener){
+		endTurnButton.addActionListener(buttonListener);
+	}
+	
+	public void addDetailsButtonActionListener(ActionListener buttonListener){
+		detailsButton.addActionListener(buttonListener);
 	}
 }
