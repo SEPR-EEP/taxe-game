@@ -79,10 +79,10 @@ public class GoalTest2 {
 		//Due to random nature of generator test multiple times
 		for (int testNo = 0; testNo < 1000; testNo++){
 			//Generate a goal for player's train based upon the game's map
-			goal = Generator.generateGoal(steamTrain, vertices, player, game);
+			goal = Generator.generateGoal(steamTrain, vertices, player, steamTrain.getStationToStartNextGoalAt(), game);
 			
 			//The generated goal's starting station should be Rome
-			if (! vertices.contains(goal.getStartingStation())){
+			if (goal.getStartingStation() != Rome){
 				fail("Starting station of goal is not Rome");
 			}
 			
@@ -98,10 +98,35 @@ public class GoalTest2 {
 		}
 	}
 	
-	@Test public void testGenerateGoalFromNowhere(){
+	@Test
+	public void testGenerateGoalFromRandomStationOnMap(){
+		//Due to random nature of generator test multiple times
+		for (int testNo = 0; testNo < 1000; testNo++){
+			//Generate a goal for player's train based upon the game's map
+			goal = Generator.generateGoal(steamTrain, vertices, player, game.getRandomStation(), game);
+			
+			//The generated goal's starting station should be on the map
+			if (! vertices.contains(goal.getStartingStation())){
+				fail("Starting station of goal is not on map");
+			}
+			
+			//The generated goal's ending station should be on the map
+			if (! vertices.contains(goal.getEndingStation())){
+				fail("Ending station is not on the map");
+			}
+			
+			//The generated goal's starting station must not be the same as ending station
+			if (goal.getStartingStation() == goal.getEndingStation()){
+				fail("Ending station is same as starting station");
+			}
+		}
+	}
+	
+	@Test 
+	public void testGenerateGoalFromNowhere(){
 		//Train has not been placed on map, i.e. stationToStartNextGoalAt = null
 		
-		goal = Generator.generateGoal(steamTrain, vertices, player, game);
+		goal = Generator.generateGoal(steamTrain, vertices, player, steamTrain.getStationToStartNextGoalAt(), game);
 		
 		//Goal should be null as the train is not on the map
 		if (goal != null){
@@ -115,7 +140,7 @@ public class GoalTest2 {
 		steamTrain.setStationToStartNextGoalAt(Rome);
 		
 		//Generate a goal for player's train based upon the game's map
-		goal = Generator.generateGoal(steamTrain, vertices, player, game);
+		goal = Generator.generateGoal(steamTrain, vertices, player, steamTrain.getStationToStartNextGoalAt(), game);
 		
 		//For sake of test case set ending station to Sofia - rather than a random one
 		goal.setEndingStation(Sofia);
@@ -139,20 +164,107 @@ public class GoalTest2 {
 			trainJourney.incrementProgressByTurn();
 		}
 		
-		//Goal should be completed - so get reward based upon journey and game
-		int score = goal.calculateReward(trainJourney, vertices);
+		//Goal should be completed
+		Boolean hasAccomplished = goal.hasJourneyAccomplishedGoal(trainJourney);
 		
-		System.out.println(score);
-		
-		//Score should be greater than 0
-		if (score <= 0){
-			fail("No score has been given");
+		if (! hasAccomplished){
+			fail("Goal should have been accomplished by journey");
 		}
 		
-		//As journey is an optimal journey score should equal distance
-		if (score != trainJourney.getTotalLength()){
-			fail("Score should equal journey distance for optimal journey");
+	}
+	
+	@Test
+	public void testDoNotAccomplishGoalWithWrongJourneyOne(){
+		//Place train on map at Rome
+		steamTrain.setStationToStartNextGoalAt(Rome);
+		
+		//Generate a goal for player's train based upon the game's map
+		goal = Generator.generateGoal(steamTrain, vertices, player, steamTrain.getStationToStartNextGoalAt(), game);
+		
+		//For sake of test case set ending station to Berlin - rather than a random one
+		goal.setEndingStation(Berlin);
+		
+		//Player creates a path (Berlin to Sofia)
+		trainJourney.add(Rome);
+		trainJourney.add(Sofia);
+		
+		//Start Journey
+		trainJourney.start();
+		
+		//Keep journey going until it is complete
+		while(! trainJourney.isJourneyComplete()){
+			trainJourney.incrementProgressByTurn();
+		}
+		
+		//Goal should not be completed
+		Boolean hasAccomplished = goal.hasJourneyAccomplishedGoal(trainJourney);
+		
+		if (hasAccomplished){
+			fail("Goal should not have been accomplished by journey");
+		}
+	}
+	
+	@Test
+	public void testDoNotAccomplishGoalWithWrongJourneyTwo(){
+		//Place train on map at Rome
+		steamTrain.setStationToStartNextGoalAt(Rome);
+		
+		//Generate a goal for player's train based upon the game's map
+		goal = Generator.generateGoal(steamTrain, vertices, player, steamTrain.getStationToStartNextGoalAt(), game);
+		
+		//For sake of test case set ending station to Berlin - rather than a random one
+		goal.setEndingStation(Berlin);
+		
+		//Player creates a path (Berlin to Sofia)
+		trainJourney.add(Sofia);
+		trainJourney.add(Rome);
+		
+		//Start Journey
+		trainJourney.start();
+		
+		//Keep journey going until it is complete
+		while(! trainJourney.isJourneyComplete()){
+			trainJourney.incrementProgressByTurn();
+		}
+		
+		//Goal should not be completed
+		Boolean hasAccomplished = goal.hasJourneyAccomplishedGoal(trainJourney);
+		
+		if (hasAccomplished){
+			fail("Goal should not have been accomplished by journey");
 		}
 	}
 
+	
+	@Test
+	public void testDoNotAccomplishGoalWithWrongJourneyThree(){
+		//Place train on map at Rome
+		steamTrain.setStationToStartNextGoalAt(Rome);
+		
+		//Generate a goal for player's train based upon the game's map
+		goal = Generator.generateGoal(steamTrain, vertices, player, steamTrain.getStationToStartNextGoalAt(), game);
+		
+		//For sake of test case set ending station to Berlin - rather than a random one
+		goal.setEndingStation(Berlin);
+		
+		//Player creates a path (Berlin to Rome)
+		trainJourney.add(Berlin);
+		trainJourney.add(Sofia);
+		trainJourney.add(Rome);
+		
+		//Start Journey
+		trainJourney.start();
+		
+		//Keep journey going until it is complete
+		while(! trainJourney.isJourneyComplete()){
+			trainJourney.incrementProgressByTurn();
+		}
+		
+		//Goal should not be completed
+		Boolean hasAccomplished = goal.hasJourneyAccomplishedGoal(trainJourney);
+		
+		if (hasAccomplished){
+			fail("Goal should not have been accomplished by journey");
+		}
+	}
 }

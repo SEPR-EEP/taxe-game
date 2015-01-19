@@ -57,8 +57,6 @@ public class Generator {
 		if (startingStation == null) {
 			return null;
 		}
-	
-		System.out.println("Hello");
 		
 		//Station that is randomly chosen must not be the same as the starting station
 		Station endingStation = startingStation;
