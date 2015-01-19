@@ -165,9 +165,9 @@ public class GameController {
 		info += "<br /><br /><hr /><center><b>";
 		// Show PLEASE WAIT or PLEASE PLAY in large reassuring letters
 		if ( currentState == GameState.WAITING ) {
-			info += "It's your opponent's turn\n<big color=red>PLEASE WAIT</big>";
+			info += "It's your opponent's turn<br /><big color=red>PLEASE WAIT</big>";
 		} else {
-			info += "It's your turn\n<big color=green>PLEASE PLAY</big>";
+			info += "It's your turn<br /><big color=green>PLEASE PLAY</big>";
 		}
 
 		info += "</b></center></html>";
