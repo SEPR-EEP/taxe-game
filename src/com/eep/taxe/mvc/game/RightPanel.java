@@ -4,23 +4,24 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
+import java.awt.Component;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
-import java.awt.BorderLayout;
-import java.awt.Component;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.border.MatteBorder;
+import javax.swing.border.TitledBorder;
+
+import net.miginfocom.swing.MigLayout;
+
 
 public class RightPanel extends JPanel {
 	private final int WIDTH;
@@ -32,10 +33,10 @@ public class RightPanel extends JPanel {
 	public RightPanel(final int width, final int height){
 		setBackground(Color.WHITE);
 		setBorder(null);
-//		this.WIDTH = width;
-//		this.HEIGHT = height;
-		WIDTH = 1300;
-		HEIGHT = 720;
+	    this.WIDTH = width;
+		this.HEIGHT = height;
+		//WIDTH = 1300;
+		//HEIGHT = 720;
 		
 		this.setPreferredSize(new Dimension(WIDTH/6, HEIGHT - WIDTH*3/32));
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -111,7 +112,7 @@ public class RightPanel extends JPanel {
 			
 						infoPanePanel.setLayout(new MigLayout("", "[196px]", "[470px]"));
 						infoPanePanel.setPreferredSize(new Dimension(WIDTH/6-20, HEIGHT - (WIDTH*4/32 + WIDTH/12)-40));
-						infoPanePanel.setBorder(new LineBorder(Color.BLACK, 2));
+						infoPanePanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 2), "Details", TitledBorder.CENTER, TitledBorder.TOP, new Font(Font.SANS_SERIF,Font.BOLD,12), new Color(0,0,0)));
 						infoPanePanel.setBackground(Color.WHITE);
 						
 						infoPane = new JTextPane();

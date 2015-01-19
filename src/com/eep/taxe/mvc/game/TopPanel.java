@@ -15,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
-import javax.swing.plaf.metal.MetalTextFieldUI;
 import javax.swing.Box;
 
 
@@ -62,10 +61,10 @@ public class TopPanel extends JPanel{
 	
 	
 	public TopPanel(int width, int height){
-//		this.WIDTH = width;
-//		this.HEIGHT = height;
-		WIDTH =1300;
-		HEIGHT = 720;
+		this.WIDTH = width;
+    	this.HEIGHT = height;
+//		WIDTH =1300;
+//		HEIGHT = 720;
 		this.setPreferredSize(new Dimension(WIDTH, WIDTH/32));
 		this.setLayout(new GridLayout(0, 3));
 		this.setOpaque(false);

@@ -1,6 +1,5 @@
 package com.eep.taxe.mvc.game;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -10,15 +9,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
 
 import com.eep.taxe.models.Train;
 import com.eep.taxe.models.Usable;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.TitledBorder;
 
 public class BottomPanel extends JPanel{
 	private final int WIDTH;
@@ -37,6 +35,77 @@ public class BottomPanel extends JPanel{
 	
 	private JButton marketButton;
 	private JButton menuButton;
+	
+	
+	public BottomPanel(int width, int height){
+		setBorder(null);
+		this.WIDTH = width;
+		this.HEIGHT = height;
+//		WIDTH =1300;
+//		HEIGHT = 720;
+		
+		this.setBackground(Color.WHITE);
+		this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		this.setPreferredSize(new Dimension(WIDTH, WIDTH/16));
+		
+				
+			JPanel inventoryPanel = new JPanel();
+			inventoryPanel.setBackground(new Color(211, 211, 211, 150));
+			inventoryPanel.setBorder(new TitledBorder(new MatteBorder(2, 2, 0, 2, (Color) new Color(0, 0, 0)), "Inventory", TitledBorder.CENTER, TitledBorder.TOP, new Font(Font.SANS_SERIF,Font.BOLD,12), Color.BLACK));
+			inventoryPanel.setPreferredSize(new Dimension(WIDTH/3+80 , WIDTH/16));
+			inventoryPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 35, 0));
+			
+				inventorySlot1 = new InventorySlot(WIDTH, HEIGHT);
+				inventorySlot2 = new InventorySlot(WIDTH, HEIGHT);
+				inventorySlot3 = new InventorySlot(WIDTH, HEIGHT);
+				inventorySlot4 = new InventorySlot(WIDTH, HEIGHT);
+				inventorySlot5 = new InventorySlot(WIDTH, HEIGHT);
+					
+				inventoryPanel.add(inventorySlot1);
+				inventoryPanel.add(inventorySlot2);
+				inventoryPanel.add(inventorySlot3);
+				inventoryPanel.add(inventorySlot4);
+				inventoryPanel.add(inventorySlot5);
+				
+			JPanel trainPanel = new JPanel();
+			trainPanel.setPreferredSize(new Dimension(WIDTH/3 , WIDTH/16));
+			trainPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 35, 0));
+			trainPanel.setBorder(new TitledBorder(new MatteBorder(2, 2, 0, 2, (Color) new Color(0, 0, 0)), "Trains", TitledBorder.CENTER, TitledBorder.TOP, new Font(Font.SANS_SERIF,Font.BOLD,12), new Color(0, 0, 0)));
+			trainPanel.setBackground(new Color(169, 169, 169, 150));
+			
+				trainSlot1 = new TrainSlot(WIDTH, HEIGHT);
+				trainSlot2 = new TrainSlot(WIDTH, HEIGHT);
+				trainSlot3 = new TrainSlot(WIDTH, HEIGHT);
+				trainSlot4 = new TrainSlot(WIDTH, HEIGHT);
+				
+				trainPanel.add(trainSlot1);
+				trainPanel.add(trainSlot2);
+				trainPanel.add(trainSlot3);
+				trainPanel.add(trainSlot4);
+				
+			marketButton = new JButton();
+			marketButton.setIcon(new ImageIcon("DefaultMarketIcon"));
+			marketButton.setPreferredSize(new Dimension(WIDTH/20, WIDTH/20));
+			marketButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+			marketButton.setContentAreaFilled(false);
+			
+			menuButton = new JButton();
+			menuButton.setText("Menu");
+			menuButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+			menuButton.setPreferredSize(new Dimension(WIDTH/10, WIDTH/45));
+			menuButton.setBorderPainted(false);
+			menuButton.setBackground(Color.BLACK);
+			menuButton.setForeground(Color.BLACK);
+
+
+		this.add(inventoryPanel);
+		this.add(trainPanel);
+		this.add(Box.createRigidArea(new Dimension(WIDTH/32, WIDTH/16)));
+		this.add(marketButton);
+		this.add(Box.createRigidArea(new Dimension(WIDTH/20, WIDTH/16)));
+		this.add(menuButton);
+		this.add(Box.createRigidArea(new Dimension(WIDTH/32, WIDTH/16)));
+	}
 	
 	// InventorySlot Listeners
 	
@@ -280,74 +349,4 @@ public class BottomPanel extends JPanel{
 		menuButton.addActionListener(buttonListener);
 	}
 	
-	
-	public BottomPanel(int width, int height){
-		setBorder(null);
-		//this.WIDTH = width;
-		//this.HEIGHT = height;
-		WIDTH =1300;
-		HEIGHT = 720;
-		
-		this.setBackground(Color.WHITE);
-		this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		this.setPreferredSize(new Dimension(WIDTH, WIDTH/16));
-		
-				
-			JPanel inventoryPanel = new JPanel();
-			inventoryPanel.setBackground(new Color(211, 211, 211, 150));
-			inventoryPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-			inventoryPanel.setPreferredSize(new Dimension(WIDTH/3+80 , WIDTH/16));
-			inventoryPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 35, 13));
-			
-				inventorySlot1 = new InventorySlot(WIDTH, HEIGHT);
-				inventorySlot2 = new InventorySlot(WIDTH, HEIGHT);
-				inventorySlot3 = new InventorySlot(WIDTH, HEIGHT);
-				inventorySlot4 = new InventorySlot(WIDTH, HEIGHT);
-				inventorySlot5 = new InventorySlot(WIDTH, HEIGHT);
-					
-				inventoryPanel.add(inventorySlot1);
-				inventoryPanel.add(inventorySlot2);
-				inventoryPanel.add(inventorySlot3);
-				inventoryPanel.add(inventorySlot4);
-				inventoryPanel.add(inventorySlot5);
-				
-			JPanel trainPanel = new JPanel();
-			trainPanel.setPreferredSize(new Dimension(WIDTH/3 , WIDTH/16));
-			trainPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 35, WIDTH/96));
-			trainPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-			trainPanel.setBackground(new Color(169, 169, 169, 150));
-			
-				trainSlot1 = new TrainSlot(WIDTH, HEIGHT);
-				trainSlot2 = new TrainSlot(WIDTH, HEIGHT);
-				trainSlot3 = new TrainSlot(WIDTH, HEIGHT);
-				trainSlot4 = new TrainSlot(WIDTH, HEIGHT);
-				
-				trainPanel.add(trainSlot1);
-				trainPanel.add(trainSlot2);
-				trainPanel.add(trainSlot3);
-				trainPanel.add(trainSlot4);
-				
-			marketButton = new JButton();
-			marketButton.setIcon(new ImageIcon("DefaultMarketIcon"));
-			marketButton.setPreferredSize(new Dimension(WIDTH/20, WIDTH/20));
-			marketButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
-			marketButton.setContentAreaFilled(false);
-			
-			menuButton = new JButton();
-			menuButton.setText("Menu");
-			menuButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
-			menuButton.setPreferredSize(new Dimension(WIDTH/10, WIDTH/45));
-			menuButton.setBorderPainted(false);
-			menuButton.setBackground(Color.BLACK);
-			menuButton.setForeground(Color.BLACK);
-
-
-		this.add(inventoryPanel);
-		this.add(trainPanel);
-		this.add(Box.createRigidArea(new Dimension(WIDTH/32, WIDTH/16)));
-		this.add(marketButton);
-		this.add(Box.createRigidArea(new Dimension(WIDTH/20, WIDTH/16)));
-		this.add(menuButton);
-		this.add(Box.createRigidArea(new Dimension(WIDTH/32, WIDTH/16)));
-	}
 }

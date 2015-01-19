@@ -7,7 +7,6 @@ import java.awt.Font;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -25,10 +24,10 @@ public class LeftPanel extends JPanel{
 	public LeftPanel(int width, int height){
 		setOpaque(false);
 		setBackground(new Color(255, 255, 255));
-//		this.WIDTH = width;
-//		this.HEIGHT = height;
-		this.WIDTH = 1300;
-		this.HEIGHT = 720;
+		this.WIDTH = width;
+		this.HEIGHT = height;
+//		this.WIDTH = 1300;
+//		this.HEIGHT = 720;
 		this.setPreferredSize(new Dimension(WIDTH/8, HEIGHT));
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
