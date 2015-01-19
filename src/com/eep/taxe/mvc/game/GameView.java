@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -30,7 +29,6 @@ public class GameView extends javax.swing.JFrame {
 	private JImagePanel gameMenuPanel;
 	JPanel mainMapPanel;
 	
-
 	
 	
 	public GameView() {
