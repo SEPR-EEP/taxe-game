@@ -154,13 +154,14 @@ public class GameController {
 		this.view.setPlayer2Name(opponentName);
 		
 		// Display score
-		int myScore = model.getData().getPlayerByRole(myRole).getScore();
-		int opponentScore = model.getData().getPlayerByRole(opponentRole).getScore();
-		this.view.setPlayer1Score(myScore);
-		this.view.setPlayer2Score(opponentScore);
+		this.view.setPlayer1Score(getPlayer().getScore() + " (" + getPlayer().getGoalsCompleted() + " goals)");
+		this.view.setPlayer2Score(getOpponent().getScore() + " (" + getOpponent().getGoalsCompleted() + " goals)");
 		
 		// Display inventory resources
 		this.updateInventory();
+		
+		// Display current age
+		this.view.setAge(getPlayer().getCurrentAge().getName());
 		
 		// Display goals - in HTML for nicer formatting!
 		Vector<Goal> myGoals  = model.getData().getPlayerByRole(myRole).getCurrentGoals();
