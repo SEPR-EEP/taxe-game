@@ -21,6 +21,7 @@ import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import com.eep.taxe.GameClient.EndEvent;
 import com.eep.taxe.GameClient.MoveEvent;
@@ -89,17 +90,17 @@ public class GameController {
 		if ( model.getMyRole() == Role.MASTER ) {
 			this.currentState = GameState.WAITING;
 		}
-		
+
 		// Add to the window title " - Playing as NAME (ROLE)"
 		view.setTitle(
 			view.getTitle() + 
 			" - Playing as: " + model.getMyNickname() + " (" +
 			(model.getMyRole() == Role.MASTER ? "Master" : "Slave") + ")"
 		);
-		
+
 		// Instantiates a new MapGraphics object to take care of the map
 		this.graphics = new MapGraphics(
-				view.getMapLabel(),
+				view.getGameMenuPanel(),
 				new MapMouseListener()
 		);
 		
@@ -123,7 +124,6 @@ public class GameController {
 		final TrainSlotsActionListener b = new TrainSlotsActionListener();
 		this.view.addTrainSlotsActionListener(b);
 		
-
 		// Draw the interface
 		this.updateView();
 
@@ -507,14 +507,14 @@ public class GameController {
 		public final double	TRAIN_SIZE	 		= 32 / SCALE_FACTOR_X;
 		
 		
-		MapGraphics (JLabel jLabel, MouseListener mouseListener) {
-			this.g = jLabel.getGraphics();
+		MapGraphics (JPanel jPanel, MouseListener mouseListener) {
+			this.g = jPanel.getGraphics();
 			
-			jLabel.setSize(920, 560);
+			jPanel.setSize(920, 560);
 
-			height = (int) jLabel.getSize().getHeight();
-			width  = (int) jLabel.getSize().getWidth();
-			jLabel.paintComponents(this.g);
+			height = (int) jPanel.getSize().getHeight();
+			width  = (int) jPanel.getSize().getWidth();
+			jPanel.paintComponents(this.g);
 			
 			
 			// Enable text anti-aliasing
@@ -529,8 +529,8 @@ public class GameController {
 	                RenderingHints.VALUE_ANTIALIAS_ON
 	        );
 
-	        jLabel.addMouseListener(mouseListener);
-	        jLabel.addComponentListener(new ComponentListener() {
+	        jPanel.addMouseListener(mouseListener);
+	        jPanel.addComponentListener(new ComponentListener() {
 
 				@Override
 				public void componentResized(ComponentEvent e) {
@@ -564,7 +564,7 @@ public class GameController {
 				return;
 			}
 			drawing = true;
-			this.drawBackgroudImage();
+			//this.drawBackgroudImage();
 			this.drawEdges();
 			this.drawVertices();
 			this.drawTrains();

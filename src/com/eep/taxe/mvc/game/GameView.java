@@ -37,12 +37,12 @@ public class GameView extends javax.swing.JFrame {
 		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
-		
+
 		gameMenuPanel = new JImagePanel();
 		gameMenuPanel.setBackground(new Color(245, 245, 245));
 		gameMenuPanel.setPreferredSize(getContentPane().getSize());
 		gameMenuPanel.setLayout(new BorderLayout(0, 0));
-	
+
 			topPanel = new TopPanel(WIDTH, HEIGHT);
 			gameMenuPanel.add(topPanel, BorderLayout.NORTH);
 
