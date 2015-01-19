@@ -90,6 +90,7 @@ public class GameController {
 		if ( model.getMyRole() == Role.MASTER ) {
 			this.currentState = GameState.WAITING;
 		}
+		System.out.println("A");
 
 		// Add to the window title " - Playing as NAME (ROLE)"
 		view.setTitle(
@@ -100,16 +101,18 @@ public class GameController {
 
 		// Instantiates a new MapGraphics object to take care of the map
 		this.graphics = new MapGraphics(
-				view.getGameMenuPanel(),
+				view.getMapLabel(),
 				new MapMouseListener()
 		);
-		
+		System.out.println("B");
+
 		// Sets my nickname - this is as I might be the Slave player and have to set my name!
 		this.getPlayer().setNickname(this.getModel().getMyNickname());
 		
 		// Sets a MoveListener to handle the data received from the other player
 		model.getClient().setOnMove(new MoveListener());
-		
+		System.out.println("C");
+
 		model.getClient().setOnEnd(new EndListener());
 		//Add all of the Listeners for Events generated in the view
 		this.view.addDetailsButtonActionListener(new DetailsButtonActionListener());
@@ -124,8 +127,10 @@ public class GameController {
 		final TrainSlotsActionListener b = new TrainSlotsActionListener();
 		this.view.addTrainSlotsActionListener(b);
 		
+		System.out.println("D");
 		// Draw the interface
 		this.updateView();
+		System.out.println("E");
 
 		
 	}
@@ -506,14 +511,14 @@ public class GameController {
 		public final double	TRAIN_SIZE	 		= 32 / SCALE_FACTOR_X;
 		
 		
-		MapGraphics (JPanel jPanel, MouseListener mouseListener) {
-			this.g = jPanel.getGraphics();
+		MapGraphics (JLabel jLabel, MouseListener mouseListener) {
+			this.g = jLabel.getGraphics();
 			
-			jPanel.setSize(920, 560);
+			jLabel.setSize(920, 560);
 
-			height = (int) jPanel.getSize().getHeight();
-			width  = (int) jPanel.getSize().getWidth();
-			jPanel.paintComponents(this.g);
+			height = (int) jLabel.getSize().getHeight();
+			width  = (int) jLabel.getSize().getWidth();
+			jLabel.paintComponents(this.g);
 			
 			
 			// Enable text anti-aliasing
@@ -528,8 +533,8 @@ public class GameController {
 	                RenderingHints.VALUE_ANTIALIAS_ON
 	        );
 
-	        jPanel.addMouseListener(mouseListener);
-	        jPanel.addComponentListener(new ComponentListener() {
+	        jLabel.addMouseListener(mouseListener);
+	        jLabel.addComponentListener(new ComponentListener() {
 
 				@Override
 				public void componentResized(ComponentEvent e) {
