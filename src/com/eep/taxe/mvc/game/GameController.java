@@ -141,7 +141,6 @@ public class GameController {
 	 */
 	private void updateView() {
 
-		
 		this.graphics.drawMap();
 		
 		Role myRole = model.getMyRole();
@@ -563,8 +562,8 @@ public class GameController {
 			if ( drawing ) {
 				return;
 			}
-			drawing = true;
-			//this.drawBackgroudImage();
+			drawing = true;			
+			this.drawBackgroudImage();
 			this.drawEdges();
 			this.drawVertices();
 			this.drawTrains();
