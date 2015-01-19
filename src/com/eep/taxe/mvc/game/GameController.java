@@ -504,7 +504,7 @@ public class GameController {
 		public final String TRAIN_MINE 			= "src/resources/MyTrain.png";
 		public final String TRAIN_OPPONENT 		= "src/resources/OpponentTrain.png";
 		public final String TRAIN_SELECTED 		= "src/resources/SelectedTrain.png";
-		public final int	TRAIN_SIZE	 		= 32;
+		public final double	TRAIN_SIZE	 		= 32 / SCALE_FACTOR_X;
 		
 		
 		MapGraphics (JLabel jLabel, MouseListener mouseListener) {
