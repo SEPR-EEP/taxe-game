@@ -537,11 +537,11 @@ public class GameController {
 		);
 
 		
-		public final String BACKGROUND_IMAGE 	= "src/resources/MainMap.jpg";
+		public final String BACKGROUND_IMAGE 	= "/resources/MainMap.jpg";
 		
-		public final String TRAIN_MINE 			= "src/resources/MyTrain.png";
-		public final String TRAIN_OPPONENT 		= "src/resources/OpponentTrain.png";
-		public final String TRAIN_SELECTED 		= "src/resources/SelectedTrain.png";
+		public final String TRAIN_MINE 			= "/resources/MyTrain.png";
+		public final String TRAIN_OPPONENT 		= "/resources/OpponentTrain.png";
+		public final String TRAIN_SELECTED 		= "/resources/SelectedTrain.png";
 		public final double	TRAIN_SIZE	 		= 32 / SCALE_FACTOR_X;
 		
 		
