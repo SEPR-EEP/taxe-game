@@ -1,6 +1,9 @@
 package com.eep.taxe.models;
 
+import java.util.Random;
 import java.util.Vector;
+
+import com.eep.taxe.res.Generator;
 
 public class Player implements PlayerInterface {
 
@@ -18,12 +21,15 @@ public class Player implements PlayerInterface {
 	
 	private Vector<Goal>		currentGoals;
 	
+	private final int 			MAX_USABLES = 5;
+	
 	public Player() {
 		this.gold  = new Gold();
 		this.metal = new Metal();
 		
 		this.trains = new Vector<Train>();
 		this.inventory = new Vector<Usable>();
+		this.currentGoals = new Vector<Goal>();
 	}
 	
 	/**
@@ -193,34 +199,99 @@ public class Player implements PlayerInterface {
 		return this.getCurrentGoals().size();
 	}
 
+	/**
+	 * Cashes in the goals that have been accomplished
+	 * @param game
+	 * @return	The number of goals accomplished
+	 */
+	public int cashInCompletedGoals(Game game){
+		int r = 0;
+		
+		for (Train train : this.getTrains()){
+			
+			//For each of player's goals check if train's journey has completed it
+			Vector<Goal> goals = new Vector<Goal>(this.getCurrentGoals());
+			for (Goal goal : goals){
+				
+				Journey journey = train.getJourney(); //Train's journey
+				
+				//Skip to next iteration if the train has no journey
+				if (journey == null){
+					continue;
+				}
+				
+				//CALLING A METHOD TO CALCULATE SCORING COULD GO HERE
+				
+				
+				//If goal is completed remove it
+				if (goal.hasJourneyAccomplishedGoal(journey)){
+					train.setStationToStartNextGoalAt(goal.getEndingStation());
+					this.getCurrentGoals().remove(goal);
+					
+					//Generate a new goal to replace this one
+					this.generateGoalToStartAtCurrentStation(train, game);
+					
+					r++;
+				}
+			}
+			
+		}
+		return r;
+	}
+	
 	@Override
 	public Vector<Goal> getCurrentGoals() {
 		return this.currentGoals;
 	}
-
 	
 	@Override
-	public void generateGoal(Vector<Vertex> map) {
+	public void generateGoal(Train train, Game game) {
 		
-		//If max number of goals is reached
-		if (this.currentGoalsNo() >= 3) {
-			return;
+		if (this.currentGoalsNo() < 3){
+			Goal newGoal = Generator.generateGoal(train, game.getVertices(), this, game.getRandomStation(), game);
+			this.currentGoals.add(newGoal);
 		}
 		
-		for (Train train : trains){
-			if (! train.hasActiveGoal() ){
-				//this.currentGoals.add(Generator.generateGoal(train, map));
-				
-				break; //Exit for loop early
-				
-			}
+	}
+	
+	public void generateGoalToStartAtCurrentStation(Train train, Game game){
+		//If trains journey is completed or max goal not yet reached add a new goal
+		if (train.getJourney().isJourneyComplete() && this.currentGoalsNo() < 3){
+			Goal newGoal = Generator.generateGoal(train, game.getVertices(), this, train.getStationToStartNextGoalAt(), game);
+			this.currentGoals.add(newGoal);
+			train.setStationToStartNextGoalAt(newGoal.getEndingStation());
 		}
-		
 	}
 
 	@Override
 	public boolean canAccomplish(Goal goal) {
 		return goal.canBeAccomplishedBy(this);
+	}
+
+	/**
+	 * Adds at most n random usable to the player's inventory.
+	 * When the inventory is full, it stops.
+	 * @param 	n	How many items to add.
+	 */
+	public void addRandomUsables(int n) {
+		
+		for ( int i = 0; i < n; i++ ) {
+			
+			// If the inventory is full, just don't bother
+			if ( this.getInventory().size() >= MAX_USABLES ) {
+				break;
+			}
+			
+			// Take all possible upgrades
+			Vector<Usable> pool = Generator.generateTrainSpeedModifier(this.getCurrentAge().age);
+			int r = (new Random()).nextInt(pool.size()); // Pick a random number
+			
+			this.getInventory().add(
+				pool.get(r)
+			);
+			
+		}
+		
 	}
 
 

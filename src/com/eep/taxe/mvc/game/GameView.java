@@ -2,23 +2,13 @@ package com.eep.taxe.mvc.game;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import com.eep.taxe.models.Train;
 import com.eep.taxe.models.Usable;
@@ -48,6 +38,7 @@ public class GameView extends javax.swing.JFrame {
 		this.setSize(WIDTH, HEIGHT);
 		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setResizable(false);
 		
 		mainMapPanel = new JPanel();
 		mainMapPanel.setPreferredSize(getContentPane().getSize());
@@ -60,9 +51,9 @@ public class GameView extends javax.swing.JFrame {
 			
 		
 		gameMenuPanel = new JPanel();
+		gameMenuPanel.setBackground(new Color(245, 245, 245));
 		gameMenuPanel.setPreferredSize(getContentPane().getSize());
 		gameMenuPanel.setLayout(new BorderLayout(0, 0));
-		gameMenuPanel.setOpaque(false);
 	
 			topPanel = new TopPanel(WIDTH, HEIGHT);
 			gameMenuPanel.add(topPanel, BorderLayout.NORTH);
@@ -74,6 +65,7 @@ public class GameView extends javax.swing.JFrame {
 			gameMenuPanel.add(rightPanel, BorderLayout.EAST);
 
 			bottomPanel = new BottomPanel(WIDTH, HEIGHT);
+			bottomPanel.setBackground(new Color(245, 245, 220));
 			gameMenuPanel.add(bottomPanel, BorderLayout.SOUTH);
 
 
@@ -178,14 +170,6 @@ public class GameView extends javax.swing.JFrame {
 	//----------------------Methods for manipulating RightPanel menu--------------------------------------
 		public void setInfoText(String text){
 			rightPanel.setInfoText(text);
-		}
-		
-		public void setStartMissionButtonVisible(boolean visible){
-			rightPanel.setStartMissionButtonVisible(visible);
-		}
-		
-		public void addStartMissionButtonActionListener(ActionListener buttonListener){
-			rightPanel.addStartMissionButtonActionListener(buttonListener);
 		}
 		
 		public void addRegionButtonActionListener(ActionListener buttonListener){

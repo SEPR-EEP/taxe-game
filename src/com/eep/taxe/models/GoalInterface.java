@@ -1,6 +1,7 @@
 package com.eep.taxe.models;
 
 import java.io.Serializable;
+import java.util.Vector;
 
 public interface GoalInterface extends AgeRelatedInterface, Serializable {
 
@@ -16,8 +17,7 @@ public interface GoalInterface extends AgeRelatedInterface, Serializable {
 	public void 			setEndingStation(Station s);		// Set the ending Vertex for the Goal
 	
 
-	public int 				calculateReward(Journey journey, Game game);					//Calculate reward for a given completed journey
-	public Boolean 			willJourneyAcomplishGoal(Journey journey);						//Check if a given journey's start and end station are those of the Goal
+	public Boolean 			willJourneyAccomplishGoal(Journey journey);						//Check if a given journey's start and end station are those of the Goal
 	public Boolean			canBeAccomplishedBy(Player p);									// Check if Player can accomplish the Goal
 	public int 				optimalNumberOfTurns(float shortestPathLength, float baseSpeed);					// Calculate duration of the Goal
 	

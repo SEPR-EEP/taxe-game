@@ -187,7 +187,7 @@ public class GoalTest {
 		trainJourney.add(e4);
 		
 		//Initial check
-		if (goal.willJourneyAcomplishGoal(trainJourney)){
+		if (goal.willJourneyAccomplishGoal(trainJourney)){
 			fail("Starting station and ending station of journey are not those of goal so it cannot be acomplished");
 		}
 		

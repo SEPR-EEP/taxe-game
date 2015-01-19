@@ -39,18 +39,21 @@ public class InventorySlot extends JButton{
 	}
 
 
+	public boolean isEmpty() {
+		return item == null;
+	}
+	
 	public Usable getItem() {
 		return item;
 	}
 
 	public void setItem(Usable item) {
 		if(item != null){
-			this.item = item;
 			this.setIcon(new ImageIcon(item.getImage()));
 		}else{
 			this.setIcon(defaultIcon);
 		}
-		
+		this.item = item; // You need to be able to set the item to null		
 	}
 
 	public void setSelected(boolean selected) {

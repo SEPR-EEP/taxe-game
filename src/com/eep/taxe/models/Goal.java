@@ -86,24 +86,14 @@ public class Goal implements GoalInterface {
 		
 	}
 
-	/** Calculate the Score that a given completed journey will be rewarded for accomplishing the goal 
-	 * @param journey	The completed journey that the train travelled
-	 * @param optimalNumberOfTurns	Calculated shortest number of turns it would take the train travelling at its base speed
-	 * @return Points to be added to a player's score */
-	@Override
-	public int calculateReward(Journey journey, Game game) {
-		
-		if ( ! journey.isJourneyComplete() || ! this.willJourneyAcomplishGoal(journey)){
-			return 0;
-		}
-		
-		Dijkstra dijkstra 	= new Dijkstra(game.getVertices(), this.getStartingStation());
-		Float optimalDistance	= dijkstra.getDistanceTo(getEndingStation());
-		
-		int optimalNumberOfTurns = this.optimalNumberOfTurns(optimalDistance, journey.getTrain().getBaseSpeed());
-		
-		return journey.getTotalLength() * (optimalNumberOfTurns / journey.getTurnsElapsedSinceStart());
 	
+	public Boolean hasJourneyAccomplishedGoal(Journey journey){
+		if (willJourneyAccomplishGoal(journey)){
+			if (journey.isJourneyComplete()){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/** Check if a given journey's start and end station are the same as the goal's start and end station
@@ -111,7 +101,7 @@ public class Goal implements GoalInterface {
 	 * @return True if the given journey will accomplish the goal upon completion 
 	 */
 	@Override
-	public Boolean willJourneyAcomplishGoal(Journey journey){
+	public Boolean willJourneyAccomplishGoal(Journey journey){
 		if (journey.isEmpty()){
 			return false;
 		}

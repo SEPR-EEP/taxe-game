@@ -125,7 +125,7 @@ public class GoalTest2 {
 		trainJourney.add(Sofia);
 		
 		//Journey should be able to accomplish goal
-		Boolean canAccomplish = goal.willJourneyAcomplishGoal(trainJourney);
+		Boolean canAccomplish = goal.willJourneyAccomplishGoal(trainJourney);
 		
 		if (! canAccomplish){
 			fail("Goal should recognise journey as accomplishable");
@@ -140,7 +140,7 @@ public class GoalTest2 {
 		}
 		
 		//Goal should be completed - so get reward based upon journey and game
-		int score = goal.calculateReward(trainJourney, game);
+		int score = goal.calculateReward(trainJourney, vertices);
 		
 		System.out.println(score);
 		

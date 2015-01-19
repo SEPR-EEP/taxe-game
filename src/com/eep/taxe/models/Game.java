@@ -37,27 +37,37 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		// Add a train to each the players
 		this.addFirstTrainToPlayer(master);
 		this.addFirstTrainToPlayer(slave);
-
+		
+		//Generate a goal for each player's first train
+		master.generateGoalToStartAtCurrentStation(master.getTrains().get(0), this);
+		slave.generateGoalToStartAtCurrentStation(slave.getTrains().get(0), this);
 
 	}
 	
 	private void addFirstTrainToPlayer(Player who) {
 
-		Train 	a = Generator.generateTrains(who.getCurrentAge().age, this).get(0).clone();
-	
+		//Create a clone of a generated train with a random starting station
+		Train 	train = Generator.generateTrains(who.getCurrentAge().age, this).get(0).clone();
 		Station starting = this.getRandomStation();
-		a.setStationToStartNextGoalAt(starting);
-
+		train.setStationToStartNextGoalAt(starting);
+		
+		who.getTrains().add(train);
+		
+		//Get an ending station that is not starting
 		Station ending;
 		do {
 			ending = this.getRandomStation();
 		} while ( starting == ending );
-
-		Journey j = new Journey(a, getShortestPath(starting, ending).getVerticesInOrder(starting));
-
-		j.start();
 		
-		who.getTrains().add(a);
+		//Have the train travel the journey so it has an initialised place on the map
+		Journey journey = new Journey(train, getShortestPath(starting, ending).getVerticesInOrder(starting));
+		journey.start();
+		while(! journey.isJourneyComplete()){
+			journey.incrementProgressByTurn();
+		}
+		train.setStationToStartNextGoalAt(ending);
+		
+		
 
 	}
 	
@@ -145,16 +155,36 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 	
 	private void computeEndOfTurn() {
 		
+
+		Player masterPlayer = getPlayerByRole(Role.MASTER);
+		Player slavePlayer = getPlayerByRole(Role.SLAVE);
+		
 		// Move trains
 		Vector<Train> allTrains = new Vector<Train>();
-		allTrains.addAll(getPlayerByRole(Role.MASTER).getTrains());
-		allTrains.addAll(getPlayerByRole(Role.SLAVE).getTrains());
+		allTrains.addAll(masterPlayer.getTrains());
+		allTrains.addAll(slavePlayer.getTrains());
 		
 		for ( Train t: allTrains ) {
 			t.moveForward();
 		}
 		
-		// CALCULATE SCORES
+		// Calculate scores
+		masterPlayer.incrementGoalsCompleted(
+			masterPlayer.cashInCompletedGoals(this)
+		);
+		slavePlayer.incrementGoalsCompleted(
+			slavePlayer.cashInCompletedGoals(this)
+		);
+		
+		
+		//Generate new goals (currently only working for 1 train)
+		masterPlayer.generateGoal(masterPlayer.getTrains().get(0), this);
+		slavePlayer.generateGoal(slavePlayer.getTrains().get(0), this);
+		
+		// Add up to 2 random resources to each player
+		masterPlayer.addRandomUsables(2);
+		slavePlayer.addRandomUsables(2);
+		
 		
 	}
 

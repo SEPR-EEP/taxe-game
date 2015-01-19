@@ -62,8 +62,12 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 		if (getDistanceTravelledOnJourney() >= getTotalLength() ){
 			this.journeyComplete = true;
 			this.isMoving = false;
-			this.distanceTravelledOnJourney = getTotalLength();	//So distance travelled does not exceed length of journey
 			
+			//So distance travelled does not exceed length of journey or edge
+			this.distanceTravelledOnJourney = getTotalLength();
+			this.distanceTravelledOnEdge = getCurrentEdge().getLength();
+			this.progressOnEdge = this.distanceTravelledOnEdge / getCurrentEdge().getLength();
+
 		}
 		return this.journeyComplete;
 	}
@@ -128,6 +132,10 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 			
 			//If the current edge's distance is less than or equal to initial progress set current edge to next
 			while (this.currentEdge.getLength() <= initialProgress){
+				if ( getNextEdge() == null ) {
+					this.distanceTravelledOnEdge = edge.getLength();
+					break;
+				}
 				setCurrentEdge(getNextEdge(), initialProgress - this.currentEdge.getLength() );
 			}
 		}
@@ -211,15 +219,23 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 	}
 	
 	/**
-	 * Get the 
+	 * Get the last visited vertex of the journey. 
+	 * If the journey has finished, return the last edge.
 	 */
 	public Vertex getLastVisitedVertex() {
 		if ( this.currentEdge == null ) {
 			return this.getStartingStation();
 		}
 		
-		return this.getStartingVertexOfEdge(this.currentEdge);
+		if ( this.isJourneyComplete() ) {
+			return this.getEndingVertexOfEdge(this.currentEdge);
+
+		} else {
+			return this.getStartingVertexOfEdge(this.currentEdge);
+		}
+		
 	}
+	
 
 	
 }

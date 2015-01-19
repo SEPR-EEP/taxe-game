@@ -311,7 +311,7 @@ public class MenuController {
 		Game g = new Game(name, d);
 		
 		g.getMasterPlayer() .setNickname(name);
-		g.getSlavePlayer()  .setNickname("Waiting for Player 2 to Join");
+		g.getSlavePlayer()  .setNickname("Your Opponent");
 
 		return g;
 	}
