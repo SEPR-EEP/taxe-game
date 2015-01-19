@@ -141,7 +141,7 @@ public class Train implements TrainInterface, Cloneable {
 	@Override
 	public Boolean startAGoal(Goal goal, Journey journey) {
 		
-		if (goal.willJourneyAcomplishGoal(journey) ){
+		if (goal.willJourneyAccomplishGoal(journey) ){
 			this.journey = journey;
 			this.stationToStartNextGoalAt = goal.getEndingStation();
 			return true;

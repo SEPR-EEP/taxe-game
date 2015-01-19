@@ -38,49 +38,34 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		this.addFirstTrainToPlayer(master);
 		this.addFirstTrainToPlayer(slave);
 		
-
+		//Generate a goal for each player's first train
+		master.generateGoal(master.getTrains().get(0), this);
+		slave.generateGoal(slave.getTrains().get(0), this);
 
 	}
 	
 	private void addFirstTrainToPlayer(Player who) {
 
-		/* Alfio old code
-		Train a = Generator.generateTrains(who.getCurrentAge().age, this).get(0).clone();
-		Station starting = this.getRandomStation();
-		a.setStationToStartNextGoalAt(starting);
-		Station ending;
-		do {
-		ending = this.getRandomStation();
-		} while ( starting == ending );
-		Journey j = new Journey(a, getShortestPath(starting, ending).getVerticesInOrder(starting));
-		j.start();
-		who.getTrains().add(a);
-		*/
-		
-		
 		//Create a clone of a generated train with a random starting station
 		Train 	train = Generator.generateTrains(who.getCurrentAge().age, this).get(0).clone();
 		Station starting = this.getRandomStation();
 		train.setStationToStartNextGoalAt(starting);
-		
 		who.getTrains().add(train);
 		
-		//Create a first goal for the player
-		Goal goal = Generator.generateGoal(train, this.vertices, who, this);;
-		who.addGoal(goal);
+		//Get an ending station that is not starting
+		Station ending;
+		do {
+			ending = this.getRandomStation();
+		} while ( starting == ending );
 		
-		//Create an empty journey ready for player input
-		//Journey journey = new Journey(train);
-		
-		//Add starting station to journey
-		//journey.add(starting);
-		
-		Journey journey = new Journey(train, getShortestPath(starting, goal.getEndingStation()).getVerticesInOrder(starting));
-		
+		//Have the train travel the journey so it has an initialised place on the map
+		Journey journey = new Journey(train, getShortestPath(starting, ending).getVerticesInOrder(starting));
 		journey.start();
+		while(! journey.isJourneyComplete()){
+			journey.incrementProgressByTurn();
+		}
+		train.setStationToStartNextGoalAt(ending);
 		
-		
-
 	}
 	
 	/**
@@ -181,14 +166,13 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		}
 		
 		// Calculate scores
-		masterPlayer.cashInCompletedGoals(vertices);
-		slavePlayer.cashInCompletedGoals(vertices);
+		masterPlayer.cashInCompletedGoals(this);
+		slavePlayer.cashInCompletedGoals(this);
 		
-		/* Not working yet
+		
 		//Generate new goals
-		masterPlayer.generateGoal(this);
-		slavePlayer.generateGoal(this);
-		*/
+		//masterPlayer.generateGoal(this);
+		//slavePlayer.generateGoal(this);
 		
 		
 	}

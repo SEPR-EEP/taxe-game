@@ -196,24 +196,32 @@ public class Player implements PlayerInterface {
 		return this.getCurrentGoals().size();
 	}
 
-	public void cashInCompletedGoals(Vector<Vertex> vertices){
-		
+	public void cashInCompletedGoals(Game game){
+	
 		for (Train train : this.getTrains()){
 			
 			//For each of player's goals check if train's journey has completed it
-			for (Goal goal : this.getCurrentGoals()){
-				int reward = goal.calculateReward(train.getJourney(), vertices); //0 if journey has not completed goal
+			Vector<Goal> goals = new Vector<Goal>(this.getCurrentGoals());
+			for (Goal goal : goals){
 				
-				//If score is rewarded for goal it is completed, so remove it
-				if (reward > 0){
-					train.setStationToStartNextGoalAt(goal.getEndingStation());
-					this.getCurrentGoals().remove(goal);
+				Journey journey = train.getJourney(); //Train's journey
+				
+				//Skip to next iteration if the train has no journey
+				if (journey == null){
+					continue;
 				}
 				
-				this.incrementScore(reward);
+				//If score is rewarded for goal it is completed, so remove it
+				if (goal.hasJourneyAccomplishedGoal(journey)){
+					train.setStationToStartNextGoalAt(goal.getEndingStation());
+					this.getCurrentGoals().remove(goal);
+					
+					//Generate a new goal to replace this one
+					this.generateGoal(train, game);
+				}
 			}
+			
 		}
-		
 		
 	}
 	
@@ -232,21 +240,20 @@ public class Player implements PlayerInterface {
 	}
 	
 	@Override
-	public void generateGoal(Game game) {
+	public void generateGoal(Train train, Game game) {
 		
-		for (Train train : trains){
-			
-			/*
-			//If number of goals is not yet maximum assign a goal to the train
-			if (this.currentGoalsNo() < 3){
-				this.currentGoals.add(Generator.generateGoal(train, game.getVertices(), this, game));
-			}*/
-			
-			//If trains journey is completed add a new goal if it completed a goal
-			if (train.getJourney().isJourneyComplete() && this.currentGoalsNo() < 3){
-				this.currentGoals.add(Generator.generateGoal(train, game.getVertices(), this, game));
-	
-			}
+		System.out.println("Hello");
+		
+		/*
+		//If number of goals is not yet maximum assign a goal to the train
+		if (this.currentGoalsNo() < 3){
+			this.currentGoals.add(Generator.generateGoal(train, game.getVertices(), this, game));
+		}*/
+		
+		//If trains journey is completed add a new goal if it completed a goal
+		if (train.getJourney().isJourneyComplete() && this.currentGoalsNo() < 3){
+			this.currentGoals.add(Generator.generateGoal(train, game.getVertices(), this, game));
+
 		}
 	}
 
