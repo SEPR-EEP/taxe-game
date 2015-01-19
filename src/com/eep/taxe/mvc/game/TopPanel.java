@@ -78,7 +78,7 @@ public class TopPanel extends JPanel{
 			timerMenuPanel.setBackground(Color.WHITE);
 			FlowLayout fl_timerMenuPanel = new FlowLayout(FlowLayout.LEFT);
 			timerMenuPanel.setLayout(fl_timerMenuPanel);
-			
+			timerMenuPanel.setOpaque(false);
 			
 				timerTextField = new JTextField();
 				timerTextField.setBackground(Color.WHITE);
@@ -105,13 +105,12 @@ public class TopPanel extends JPanel{
 				endTurnButton.setBackground(Color.BLACK);
 				endTurnButton.setForeground(Color.BLACK);
 				
-				JPanel missionDetailsPanel = new JPanel();
-				missionDetailsPanel.setOpaque(false);
-//				missionDetailsPanel.setPreferredSize(new Dimension(WIDTH/4, WIDTH/32));
-				FlowLayout fl_missionDetailsPanel = new FlowLayout(FlowLayout.CENTER, 5, 5);
-				missionDetailsPanel.setBackground(Color.WHITE);
-				missionDetailsPanel.setLayout(fl_missionDetailsPanel);
-				
+			JPanel missionDetailsPanel = new JPanel();
+			missionDetailsPanel.setOpaque(false);
+			FlowLayout fl_missionDetailsPanel = new FlowLayout(FlowLayout.CENTER, 5, 5);
+			missionDetailsPanel.setBackground(Color.WHITE);
+			missionDetailsPanel.setLayout(fl_missionDetailsPanel);
+			missionDetailsPanel.setOpaque(false);
 			
 				missionTextField = new JTextField();
 				missionTextField.setBorder(new LineBorder(new Color(171, 173, 179), 2));
@@ -141,6 +140,7 @@ public class TopPanel extends JPanel{
 		fl_goldMetalPanel.setAlignOnBaseline(true);
 		goldMetalPanel.setLayout(fl_goldMetalPanel);
 		goldMetalPanel.setBackground(Color.WHITE);
+		goldMetalPanel.setOpaque(false);
 		
 			JLabel goldImageLabel = new JLabel();
 			goldImageLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
