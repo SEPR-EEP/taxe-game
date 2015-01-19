@@ -17,7 +17,7 @@ public class JImagePanel extends JPanel {
 
   public JImagePanel() {
 	try {
-		img = ImageIO.read(getClass().getResource("MainMap.jpg"));
+		img = ImageIO.read(getClass().getResource("/resources/MainMap.jpg"));
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
