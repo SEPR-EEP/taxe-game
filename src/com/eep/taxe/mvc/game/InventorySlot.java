@@ -49,7 +49,7 @@ public class InventorySlot extends JButton{
 
 	public void setItem(Usable item) {
 		if(item != null){
-			this.setIcon(new ImageIcon(item.getImage()));
+			this.setIcon(new ImageIcon(getClass().getResource(item.getImage())));
 		}else{
 			this.setIcon(defaultIcon);
 		}

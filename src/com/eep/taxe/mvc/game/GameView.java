@@ -99,6 +99,10 @@ public class GameView extends javax.swing.JFrame {
 		this.mainMapPanel = mainMapPanel;
 	}
 
+	public void repaint() {
+		this.gameMenuPanel.repaint();
+	}
+	
 	public JPanel getGameMenuPanel() {
 		return gameMenuPanel;
 	}
