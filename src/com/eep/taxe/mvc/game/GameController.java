@@ -693,7 +693,7 @@ public class GameController {
 		public void drawBackgroudImage() {
 			BufferedImage img = null;
 			try {
-				img = ImageIO.read(new File(BACKGROUND_IMAGE));
+				img = ImageIO.read(this.getClass().getResourceAsStream(BACKGROUND_IMAGE));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
