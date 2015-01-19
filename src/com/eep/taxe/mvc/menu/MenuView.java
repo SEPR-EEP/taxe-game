@@ -366,7 +366,7 @@ public class MenuView extends JFrame {
 		
 		howToPlayTitle = new JLabel("How To Play", SwingConstants.CENTER);
 		howToPlayTitle.setForeground(Color.BLACK);
-		howToPlayTitle.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 30));
+		howToPlayTitle.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 26));
 		howToPlayTitle.setBounds(319, 74, 181, 36);
 		HTP.add(howToPlayTitle);
 		
@@ -471,9 +471,9 @@ public class MenuView extends JFrame {
 		Difficulty.setModel(new DefaultComboBoxModel(DIFFICULTY_CHOICHES));
 		Difficulty.setSelectedIndex(0);
 		Difficulty.setMaximumRowCount(4);
-		Difficulty.setForeground(Color.BLACK);
-		Difficulty.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 16));
-		Difficulty.setBackground(Color.DARK_GRAY);
+		Difficulty.setForeground(Color.WHITE);
+		Difficulty.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 16));
+		Difficulty.setBackground(Color.BLACK);
 		Difficulty.setBounds(302, 218, 181, 35);
 		createGame.add(Difficulty);
 		createCancelButton();
@@ -522,12 +522,18 @@ public class MenuView extends JFrame {
 		contentPane.add(waiting);
 		waiting.setLayout(null);
 
-		lblNewLabel = new JLabel("Please wait for another player to join!");
+		lblNewLabel = new JLabel("Please wait for your opponent player to join.");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Franklin Gothic Demi Cond", Font.PLAIN, 32));
-		lblNewLabel.setBounds(119, 33, 502, 38);
+		lblNewLabel.setFont(new Font("Franklin Gothic Demi Cond", Font.PLAIN, 22));
+		lblNewLabel.setBounds(119, 133, 502, 38);
 		waiting.add(lblNewLabel);
+		JLabel lblNewLabel2 = new JLabel("Hopefully it won't take long. Relax.");
+		lblNewLabel2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel2.setFont(new Font("Franklin Gothic Demi Cond", Font.PLAIN, 18));
+		lblNewLabel2.setBounds(119, 160, 502, 38);
+		waiting.add(lblNewLabel2);
 		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel2.setForeground(Color.WHITE);
 
 		Waitingingbg = new JLabel("");
 		Waitingingbg.setIcon(new ImageIcon(getClass().getResource("/resources/menuview img/connect - Tunnel.jpg")));

@@ -2,6 +2,7 @@ package com.eep.taxe.mvc.game;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -190,12 +191,32 @@ public class GameController {
 		// Display turn number
 		this.view.setTimer("Turn " + (model.getData().getCurrentTurn() + 1));
 		
-		//this.view.setMissionInfo(myGoals.toString());
+		this.view.setMissionInfo(getMissionText());
 		
 		// TODO Get and display game data
 		
 	}
 	
+	private String getMissionText() {
+		switch (currentState) {
+		case BUILDING_PATH:
+			return "Specify the Stations/Junctions of your journey and click OK to start.";
+		case STANDBY:
+			return "Select a Train to start a Journey or select an item to use.";
+		case USING_RESOURCE:
+			return "Select a Train you want to apply the " + usableInUse.getName() + " on.";
+		case WAITING:
+			return "Plase wait for your opponent to make a move.";
+		default:
+			break;
+		
+		}
+		return "I don't know what you should do";
+	}
+
+
+
+
 	private void updateInventory() {
 		this.emptyInventorySlots();
 		for ( Usable u: this.getPlayer().getInventory() ) {
@@ -243,9 +264,7 @@ public class GameController {
 			buildingTrain 	= null;
 			buildingVertices= null;
 
-			view.showMessage("Click on the train you want to apply " + 
-					usableInUse.getName() + " onto.");
-			
+			updateView();
 			
 		}
 		
@@ -766,6 +785,7 @@ public class GameController {
 		}	
 		
 		private void drawTextWithShadow(String string, int x, int y, Color textColor ) {
+			g.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
 			g.setColor(textColor);
 			g.drawString(string, x+1, y+1);
 			g.setColor(new Color(0xFFFFFF));

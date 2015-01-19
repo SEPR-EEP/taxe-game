@@ -3,6 +3,7 @@ package com.eep.taxe.mvc.game;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
@@ -46,8 +47,9 @@ public class GameView extends javax.swing.JFrame {
 		gameMenuPanel.setLayout(new BorderLayout(0, 0));
 		
 			mapLabel = new JLabel();
-			mapLabel.setText("     Please, click to play.");
-			//mapLabel.setIcon(new ImageIcon(getClass().getResource("/resources/MainMap.jpg")));
+			mapLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 21));
+			mapLabel.setHorizontalAlignment(JLabel.CENTER);
+			mapLabel.setText("Please, click to play.");
 			mapLabel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
 			gameMenuPanel.add(mapLabel);

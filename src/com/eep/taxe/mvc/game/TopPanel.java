@@ -85,8 +85,8 @@ public class TopPanel extends JPanel{
 				missionTextField = new JTextField();
 				missionTextField.setBorder(new LineBorder(new Color(0,0,0), 2));
 				missionTextField.setText("Current Mission");
-				missionTextField.setFont(font);
-				missionTextField.setPreferredSize(new Dimension(WIDTH/6, WIDTH/48));
+				missionTextField.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 10));
+				missionTextField.setPreferredSize(new Dimension(WIDTH/2, WIDTH/48));
 				missionTextField.setEditable(false);
 				missionTextField.setHorizontalAlignment(JTextField.CENTER);
 				missionTextField.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -120,6 +120,7 @@ public class TopPanel extends JPanel{
 			goldLabel.setBackground(new Color(169,169,169,160));
 			goldLabel.setAlignmentY(CENTER_ALIGNMENT);
 			goldLabel.setFont(font);
+			goldLabel.setHorizontalAlignment(JLabel.CENTER);
 			goldLabel.setText("1350000000000000000000000000000000000000000000000");
 			goldLabel.setPreferredSize(new Dimension(WIDTH/22, WIDTH/48));
 			
@@ -130,6 +131,7 @@ public class TopPanel extends JPanel{
 			metalLabel = new JLabel();
 			metalLabel.setOpaque(true);
 			metalLabel.setAlignmentY(CENTER_ALIGNMENT);
+			metalLabel.setHorizontalAlignment(JLabel.CENTER);
 			metalLabel.setBackground(new Color(169,169,169,160));
 			metalLabel.setFont(font);
 			metalLabel.setText("170000000");
@@ -147,7 +149,7 @@ public class TopPanel extends JPanel{
 			goldMetalPanel.add(metalImageLabel);
 			goldMetalPanel.add(metalLabel);
 			missionDetailsPanel.add(missionTextField);
-			missionDetailsPanel.add(detailsButton);
+			//missionDetailsPanel.add(detailsButton);
 			timerMenuPanel.add(timerTextField);
 			timerMenuPanel.add(endTurnButton);
 		this.add(timerMenuPanel);
