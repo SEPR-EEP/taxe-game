@@ -44,37 +44,37 @@ public class BottomPanel extends JPanel{
 		inventorySlot1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				listener.actionPerformed(e, inventorySlot1);
+				listener.actionPerformed(e, 1);
 			}
 		});		
 		inventorySlot2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				listener.actionPerformed(e, inventorySlot2);
+				listener.actionPerformed(e, 2);
 			}
 		});
 		inventorySlot3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				listener.actionPerformed(e, inventorySlot3);
+				listener.actionPerformed(e, 3);
 			}
 		});		
 		inventorySlot4.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				listener.actionPerformed(e, inventorySlot4);
+				listener.actionPerformed(e, 4);
 			}
 		});		
 		inventorySlot5.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				listener.actionPerformed(e, inventorySlot5);
+				listener.actionPerformed(e, 5);
 			}
 		});		
 	}
 	
 	public interface InventorySlotsListener  {
-		public void actionPerformed(ActionEvent e, final InventorySlot slot);
+		public void actionPerformed(ActionEvent e, int slot);
 	}
 	
 	
@@ -84,32 +84,32 @@ public class BottomPanel extends JPanel{
 		trainSlot1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				listener.actionPerformed(e, trainSlot1);
+				listener.actionPerformed(e, 1);
 			}
 		});		
 		trainSlot2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				listener.actionPerformed(e, trainSlot2);
+				listener.actionPerformed(e, 2);
 			}
 		});
 		trainSlot3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				listener.actionPerformed(e, trainSlot3);
+				listener.actionPerformed(e, 3);
 			}
 		});		
 		trainSlot4.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				listener.actionPerformed(e, trainSlot4);
+				listener.actionPerformed(e, 4);
 			}
 		});		
 
 	}
 	
 	public interface TrainSlotsListener  {
-		public void actionPerformed(ActionEvent e, TrainSlot slot);
+		public void actionPerformed(ActionEvent e, int slot);
 	}
 	
 	

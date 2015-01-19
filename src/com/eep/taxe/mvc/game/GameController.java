@@ -37,6 +37,7 @@ import com.eep.taxe.models.Path;
 import com.eep.taxe.models.Player;
 import com.eep.taxe.models.Station;
 import com.eep.taxe.models.Train;
+import com.eep.taxe.models.Usable;
 import com.eep.taxe.models.Vertex;
 import com.eep.taxe.mvc.game.BottomPanel.InventorySlotsListener;
 import com.eep.taxe.mvc.game.BottomPanel.TrainSlotsListener;
@@ -55,6 +56,8 @@ public class GameController {
 	private MapGraphics graphics	= null;
 	
 	private Path 		currentPath = null;
+	
+	private Usable 		usableInUse = null;
 	
 	/**
 	 * These are the possible game states.
@@ -154,6 +157,9 @@ public class GameController {
 		this.view.setPlayer1Score(myScore);
 		this.view.setPlayer2Score(opponentScore);
 		
+		// Display inventory resources
+		this.updateInventory();
+		
 		// Display goals - in HTML for nicer formatting!
 		Vector<Goal> myGoals  = model.getData().getPlayerByRole(myRole).getCurrentGoals();
 		String info = "<html>";
@@ -182,6 +188,17 @@ public class GameController {
 		
 	}
 	
+	private void updateInventory() {
+		this.emptyInventorySlots();
+		System.out.println("This player has " + this.getPlayer().getInventory().size() + " resources");
+		for ( Usable u: this.getPlayer().getInventory() ) {
+			int n = firstEmptyInventorySlot();
+			System.out.println("First empty slot is n. " + n + " to contain Resource " + u);
+			setItemInventorySlot	(n, u);
+			setSelectedInventorySlot(n, this.usableInUse == u);
+		}
+	}
+	
 	private class DetailsButtonActionListener implements ActionListener{
 
 		@Override
@@ -202,26 +219,138 @@ public class GameController {
 	private class InventorySlotsActionListener implements InventorySlotsListener{
 
 		@Override
-		public void actionPerformed(ActionEvent e, final InventorySlot slot) {
-			if (slot.isEmpty()) {
+		public void actionPerformed(ActionEvent e, int slot) {
+			if (getItemInventorySlot(slot) == null) {
 				view.showMessage("There is no item in this inventory slot.");
 				return;
 			}
 			
+			view.showMessage("Item: " + getItemInventorySlot(slot));
+			
 		}
 		
+	}
+	
+	/**
+	 * Returns the number of the first empty inventory slot - if any.
+	 * If all of the slots are occupied, returns 0
+	 * @return 	The first empty occupied slot, return 0 if all full
+	 */
+	private int firstEmptyInventorySlot() {
+		if ( this.view.getItemInventorySlot1() == null ) { return 1; }
+		if ( this.view.getItemInventorySlot2() == null ) { return 2; }
+		if ( this.view.getItemInventorySlot3() == null ) { return 3; }
+		if ( this.view.getItemInventorySlot4() == null ) { return 4; }
+		if ( this.view.getItemInventorySlot5() == null ) { return 5; }
+		return 0;
+	}	
+	
+	/**
+	 * Returns the number of the first empty train slot - if any.
+	 * If all of the slots are occupied, returns 0
+	 * @return 	The first empty occupied slot, return 0 if all full
+	 */
+	private int firstEmptyTrainSlot() {
+		if ( this.view.getTrainTrainSlot1() == null ) { return 1; }
+		if ( this.view.getTrainTrainSlot2() == null ) { return 2; }
+		if ( this.view.getTrainTrainSlot3() == null ) { return 3; }
+		if ( this.view.getTrainTrainSlot4() == null ) { return 4; }
+		return 0;
+	}
+	
+	/**
+	 * Get the item of the inventory slot at the given number
+	 */
+	private Usable getItemInventorySlot(int n) {
+		switch (n) {
+			case 1: return this.view.getItemInventorySlot1();
+			case 2: return this.view.getItemInventorySlot2();
+			case 3: return this.view.getItemInventorySlot3();
+			case 4: return this.view.getItemInventorySlot4();
+			case 5: return this.view.getItemInventorySlot5();
+			default: return null;
+		}
+	}
+	
+	/**
+	 * Get the train of the train slot at the given number
+	 */
+	private Train getTrainTrainSlot(int n) {
+		switch (n) {
+			case 1: return this.view.getTrainTrainSlot1();
+			case 2: return this.view.getTrainTrainSlot2();
+			case 3: return this.view.getTrainTrainSlot3();
+			case 4: return this.view.getTrainTrainSlot4();
+			default: return null;
+		}
+	}
+	
+	/**
+	 * Set the item of the inventory slot at the given number
+	 */
+	private void setItemInventorySlot(int n, Usable i) {
+		switch (n) {
+			case 1: this.view.setItemInventorySlot1(i); break;
+			case 2: this.view.setItemInventorySlot2(i); break;
+			case 3: this.view.setItemInventorySlot3(i); break;
+			case 4: this.view.setItemInventorySlot4(i); break;
+			case 5: this.view.setItemInventorySlot5(i); break;
+		}
+	}
+	
+	/**
+	 * Set the if a slot at a given number should be selected
+	 */
+	private void setSelectedInventorySlot(int n, boolean i) {
+		switch (n) {
+			case 1: this.view.setSelectedInventorySlot1(i); break;
+			case 2: this.view.setSelectedInventorySlot2(i); break;
+			case 3: this.view.setSelectedInventorySlot3(i); break;
+			case 4: this.view.setSelectedInventorySlot4(i); break;
+			case 5: this.view.setSelectedInventorySlot5(i); break;
+		}
+	}
+	
+	/**
+	 * Get the train of the train slot at the given number
+	 */
+	private void setTrainTrainSlot(int n, Train i) {
+		switch (n) {
+			case 1: this.view.setTrainTrainSlot1(i); break;
+			case 2: this.view.setTrainTrainSlot2(i); break;
+			case 3: this.view.setTrainTrainSlot3(i); break;
+			case 4: this.view.setTrainTrainSlot4(i); break;
+		}	
+	}
+	
+	/**
+	 * Empty the inventory
+	 */
+	private void emptyInventorySlots() {
+		for ( int i = 1; i <= 5; i ++ ) {
+			setItemInventorySlot(i, null);
+		}
+	}	
+	
+	/**
+	 * Empty the train slots
+	 */
+	private void emptyTrainSlots() {
+		for ( int i = 1; i <= 4; i ++ ) {
+			setTrainTrainSlot(i, null);
+		}
 	}
 
 	private class TrainSlotsActionListener implements TrainSlotsListener{
 
 		@Override
-		public void actionPerformed(ActionEvent e, final TrainSlot slot) {
-			if (slot.isEmpty()) {
+		public void actionPerformed(ActionEvent e, int slot) {
+			if (getTrainTrainSlot(slot) == null) {
 				view.showMessage("There is no train in this slot.");
 				return;
 			}
 			
-			clickOnTrain(slot.getTrain());
+			clickOnTrain(getTrainTrainSlot(slot));
 			
 		}
 		

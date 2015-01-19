@@ -1,5 +1,6 @@
 package com.eep.taxe.models;
 
+import java.util.Random;
 import java.util.Vector;
 
 import com.eep.taxe.res.Generator;
@@ -19,6 +20,8 @@ public class Player implements PlayerInterface {
 	private Metal				metal;
 	
 	private Vector<Goal>		currentGoals;
+	
+	private final int 			MAX_USABLES = 6;
 	
 	public Player() {
 		this.gold  = new Gold();
@@ -253,6 +256,32 @@ public class Player implements PlayerInterface {
 	@Override
 	public boolean canAccomplish(Goal goal) {
 		return goal.canBeAccomplishedBy(this);
+	}
+
+	/**
+	 * Adds at most n random usable to the player's inventory.
+	 * When the inventory is full, it stops.
+	 * @param 	n	How many items to add.
+	 */
+	public void addRandomUsables(int n) {
+		
+		for ( int i = 0; i < n; i++ ) {
+			
+			// If the inventory is full, just don't bother
+			if ( this.getInventory().size() >= MAX_USABLES ) {
+				break;
+			}
+			
+			// Take all possible upgrades
+			Vector<Usable> pool = Generator.generateTrainSpeedModifier(this.getCurrentAge().age);
+			int r = (new Random()).nextInt(pool.size()); // Pick a random number
+			
+			this.getInventory().add(
+				pool.get(r)
+			);
+			
+		}
+		
 	}
 
 

@@ -39,7 +39,6 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		this.addFirstTrainToPlayer(slave);
 		
 
-
 	}
 	
 	private void addFirstTrainToPlayer(Player who) {
@@ -189,6 +188,11 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		masterPlayer.generateGoal(this);
 		slavePlayer.generateGoal(this);
 		*/
+		
+		
+		// Add up to 2 random resources to each player
+		masterPlayer.addRandomUsables(2);
+		slavePlayer.addRandomUsables(2);
 		
 		
 	}
