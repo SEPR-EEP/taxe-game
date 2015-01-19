@@ -14,7 +14,7 @@ import com.eep.taxe.models.TrainSpeedModifier;
 import com.eep.taxe.models.Age.Ages;
 import com.eep.taxe.models.Game.Difficulty;
 
-public class PlayerTest {
+public class PlayerAndResourcesTest {
 
 	//The game
 	private Game game;
