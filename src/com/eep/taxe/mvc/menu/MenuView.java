@@ -32,6 +32,8 @@ import javax.swing.SwingConstants;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JScrollBar;
@@ -623,15 +625,30 @@ public class MenuView extends JFrame {
 	 * Adds a Game to the Game list
 	 */
 	public void addGameToList(String id, String name, int difficulty, Date created) {
-		// TODO Auto-generated method stub
+
+		SimpleDateFormat date = new SimpleDateFormat("dd/M/yyyy hh:mm");
 		DefaultTableModel model = (DefaultTableModel) gameTable.getModel();
 		model.addRow(new Object[]{
-			id, name,
-			difficulty, created.toString()
+			id, 
+			name,
+			getDifficultyString(difficulty),
+			date.format(created)
 		});
 		
 	}
 	
+	private String getDifficultyString(int difficulty) {
+		switch (difficulty) {
+		case 1:
+			return DIFFICULTY_EASY;
+		case 2:
+			return DIFFICULTY_MEDIUM;
+		case 3:
+			return DIFFICULTY_HARD;
+		default:
+			return DIFFICULTY_EASY;
+		}
+	}
 	public String getGameAtRow(int row) {
 		return (String) gameTable.getValueAt(row, 0);
 	}
