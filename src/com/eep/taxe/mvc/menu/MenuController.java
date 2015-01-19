@@ -35,8 +35,10 @@ import com.eep.taxe.utils.RunnableArgs;
  */
 public class MenuController {
 
-	private MenuView 	view 	= null;
+	private MenuView1 	view 	= null;
 	private MenuModel	model 	= null;
+	
+	private String 		name 	= "";
 	
 	/*
 	 * These properties are used to configure the 
@@ -55,16 +57,19 @@ public class MenuController {
 	
 	private StartGameListener startGameListener = null;
 
-	public MenuController(MenuView menuView, MenuModel menuModel) {
+	public MenuController(MenuView1 menuView, MenuModel menuModel) {
 		this.view 	= menuView;
 		this.model 	= menuModel;
 		
 		// Add all of the Listeners for Events generated in the View
-		this.view.addMainButtonListener(new MainButtonListener());
-		this.view.addBackButtonListener(new BackButtonListener());
-		this.view.addCreditsButtonListener(new CreditsButtonListener());
-		this.view.addCreateButtonListener(new CreateButtonListener());
-		this.view.addTableMouseListener(new TableMouseListener());
+		//this.view.addMainButtonListener(new MainButtonListener());
+		//this.view.addBackButtonListener(new BackButtonListener());
+		//this.view.addCreditsButtonListener(new CreditsButtonListener());
+		//this.view.addCreateButtonListener(new CreateButtonListener());
+		//this.view.addTableMouseListener(new TableMouseListener());
+		
+		this.view.addQuitButtonMouseListener(new QuitLabelMouseListener());
+		this.view.addEnterButtonMouseListener(new EnterButtonMouseListener());
 		
 		// Start the Refresher for the Game List
 		this.startGameListRefresher();
@@ -72,6 +77,40 @@ public class MenuController {
 		// Assign the StartGame class to catch any Move Event (see below)
 		this.model.getClient().setOnMove(new StartGame());
 		
+	}
+	
+	/*
+	 * ==== EVENTS: ENTER GAME SCREEN ====
+	 */
+	
+	// QUIT button
+	private class QuitLabelMouseListener extends MouseAdapter {
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			System.exit(1);
+		}
+	}
+	
+	// ENTER button
+	private class EnterButtonMouseListener extends MouseAdapter {
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			name = view.getUserName();
+			if ( !validUserName(name) ) {
+				return;
+			}
+			
+			view.showMainMenu();
+		}
+	}
+	
+	private boolean validUserName(String name) {
+		if ( name == null || name.length() < 2 ) {
+			view.showErrorMessage("Please choose a longer name.");
+			return false;
+		}
+		// TODO More checks on valid user names
+		return true;
 	}
 	
 	/**
@@ -114,7 +153,7 @@ public class MenuController {
 	private class MainButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			view.showLobby();
+			//view.showLobby();
 			refreshEnabled = true;
 		}		
 	}	
@@ -122,7 +161,7 @@ public class MenuController {
 	private class BackButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			view.showMainMenu();
+			//view.showMainMenu();
 			refreshEnabled = false;
 		}		
 	}	
@@ -147,8 +186,8 @@ public class MenuController {
 	        Point p = me.getPoint();
 	        int row = table.rowAtPoint(p);
 	        if (me.getClickCount() == 2) { // I want a double click
-	            String gameID = view.getGameAtRow(row);
-	            joinGame(gameID);
+	           // String gameID = view.getGameAtRow(row);
+	            //joinGame(gameID);
 	        }
 	    }
 
@@ -165,7 +204,7 @@ public class MenuController {
 	private void listGames() {
     	model.getClient().listGames(new GameListResponse() {
 			public void response(ArrayList<GameListItem> gameList) {
-				view.emptyGameList();
+				/*view.emptyGameList();
 				for ( GameListItem i: gameList ) {
 					view.addGameToList(
 						i.id,
@@ -173,7 +212,7 @@ public class MenuController {
 						i.difficulty,
 						i.created
 					);
-				}
+				}*/
 			}  
     	});
 	}
@@ -189,19 +228,19 @@ public class MenuController {
 	private void createNewGame() {
 		
 		// Ask for player's name
-		view.askForName(new RunnableArgs(){
-			@Override
-			public void run() {
+		//view.askForName(new RunnableArgs(){
+			//@Override
+			//public void run() {
 				
-				final String name = (String) this.getArgs()[0];
+				//final String name = (String) this.getArgs()[0];
 				
-				if ( name == null ) {
-					view.showErrorMessage("Aborted.");
-					return;
-				}
+				//if ( name == null ) {
+					//view.showErrorMessage("Aborted.");
+					//return;
+				//}
 				
 				// Ask for difficulty
-				view.askForDifficulty(new RunnableArgs() {
+				/*view.askForDifficulty(new RunnableArgs() {
 
 					@Override
 					public void run() {
@@ -228,9 +267,9 @@ public class MenuController {
 							}
 						});						
 					}
-				});
-			}
-		});
+				});*/
+			//}
+		//});
 	}
 	
 	/**
@@ -247,7 +286,7 @@ public class MenuController {
 	 */
 	private void joinGame(final String gameID) {
 		
-		this.view.askForName(new RunnableArgs(){
+		/*this.view.askForName(new RunnableArgs(){
 			@Override
 			public void run() {
 				
@@ -278,7 +317,7 @@ public class MenuController {
 
 				
 			}
-		});
+		});*/
 
 	}
 	
@@ -340,11 +379,11 @@ public class MenuController {
 	}
 
 
-	public MenuView getView() {
+	public MenuView1 getView() {
 		return view;
 	}
 
-	public void setView(MenuView view) {
+	public void setView(MenuView1 view) {
 		this.view = view;
 	}
 

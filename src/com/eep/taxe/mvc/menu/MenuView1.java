@@ -11,6 +11,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import java.awt.Font;
 
@@ -28,6 +29,7 @@ import javax.swing.SwingConstants;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JScrollBar;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -39,11 +41,10 @@ public class MenuView1 extends JFrame {
 	private final int 		WIDTH  	= 800;
 	private final int 		HEIGHT 	= 600;
 	private final String	TITLE	= "Game Menu";
-
-	private JPanel menu;
-	private JPanel lobby;
-	private JPanel EnterGame;
+	
 	private JPanel contentPane;
+
+	private JPanel EnterGame;
 	private JPanel MainMenu;
 	private JPanel Credits;
 	private JPanel HTP;
@@ -51,6 +52,7 @@ public class MenuView1 extends JFrame {
 	private JPanel createGame;
 	private JPanel waiting;
 	
+	private JPanel[] screensList = null;
 	
 	private JLabel lblQuit;
 	private JLabel quitButtonbg;
@@ -116,24 +118,95 @@ public class MenuView1 extends JFrame {
 		setContentPane(contentPane);
 		
 		//SCREEN SIZE
-		this.setSize(WIDTH, HEIGHT);
+		this.setResizable(false);
 		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.lobby	= this.createLobby();
+
 		contentPane.setLayout(null);
-		enterGame();
-		createQuitButton();
-		createEnterButton();
-		askUserName();
+		
+		/** INITIALISES ALL OF THE SCREENS */
+		createEnterGame();
+		createMainMenu();
+		createCreditsScreen();
+		createHowToPlayScreen();
+		createConnectScreen();
+		createCreateGame();
+		createLoadingScreen();
+		
+		screensList = new JPanel[] {
+				EnterGame, MainMenu, Credits, HTP, Connect, createGame, waiting
+		};
+		
+		showEnterGame();
+		
+		setVisible(true);
+		
 	}
+	
+	/**
+	 * Hides all of the panels (but does not pack & revalidate)
+	 */
+	private void hideEverything() {
+		for ( JPanel x: screensList ) {
+			if ( x == null ) {
+				continue;
+			}
+			this.remove(x);
+		}
+	}
+	
+	/**
+	 * Hides everything and shows only the specified panel.
+	 * @param panel	The panel to show
+	 */
+	private void showPanel(JPanel panel) {
+		this.hideEverything();
+		this.add(panel);
+		this.pack();
+		this.setSize(WIDTH, HEIGHT);
+		this.validate();
+	}
+	
+	public void showEnterGame() {
+		this.showPanel(EnterGame);
+	}
+	
+	public void showMainMenu() {
+		this.showPanel(MainMenu);
+	}
+	
+	public void showCredits() {
+		this.showPanel(Credits);
+	}
+	
+	public void showHTP() {
+		this.showPanel(HTP);
+	}
+	
+	public void showConnect() {
+		this.showPanel(Connect);
+	}
+	
+	public void showCreateGame() {
+		this.showPanel(createGame);
+	}
+	
+	public void showWaitingScreen() {
+		this.showPanel(waiting);
+	}
+
 		
 		
-	public void enterGame() {
+	public void createEnterGame() {
 		EnterGame = new JPanel();
 		EnterGame.setBounds(0, 0, 784, 562);
 		contentPane.add(EnterGame);
 		EnterGame.setLayout(null);
-		}
+		createQuitButton();
+		createEnterButton();
+		askUserName();
+		setBackground();
+	}
 	
 	public void createQuitButton() {
 		lblQuit = new JLabel("QUIT", SwingConstants.CENTER);
@@ -168,7 +241,7 @@ public class MenuView1 extends JFrame {
 		usernamebox.setForeground(new Color(0, 0, 0));
 		usernamebox.setColumns(10);
 				
-		askusername = new JLabel("Please enter a user name!");
+		askusername = new JLabel("What's your name?");
 		askusername.setBounds(220, 104, 343, 35);
 		EnterGame.add(askusername);
 		askusername.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 30));
@@ -183,15 +256,20 @@ public class MenuView1 extends JFrame {
 		EnterGamebg = new JLabel("");
 		EnterGamebg.setBounds(10, 11, 784, 562);
 		EnterGame.add(EnterGamebg);
-		EnterGamebg.setIcon(new ImageIcon("/resources/menuview img/B1a-Railroad Tracks(1).jpg"));
+		EnterGamebg.setIcon(new ImageIcon(getClass().getResource("/resources/menuview img/B1a-Railroad Tracks(1).jpg")));
 	}
 	
-	public void mainMenu() {
+	public void createMainMenu() {
 		MainMenu = new JPanel();
 		MainMenu.setLayout(null);
 		MainMenu.setBorder(new EmptyBorder(5, 5, 5, 5));
 		MainMenu.setBounds(0, 0, 784, 562);
 		contentPane.add(MainMenu);
+		createStartGameButton();
+		createQuitLabel();
+		createHowToPlayButton();
+		createCreditsButton();
+		setMainMenuBackground();
 	}
 	
 	public void createQuitLabel() {
@@ -254,13 +332,13 @@ public class MenuView1 extends JFrame {
 	
 	public void setMainMenuBackground() {
 		Mainmenubg = new JLabel("");
-		Mainmenubg.setIcon(new ImageIcon("/resources/menuview img/B1a-Railroad Tracks(1).jpg"));
+		Mainmenubg.setIcon(new ImageIcon(getClass().getResource("/resources/menuview img/B1a-Railroad Tracks(1).jpg")));
 		Mainmenubg.setBounds(0, 0, 784, 562);
 		MainMenu.add(Mainmenubg);
 	}
 		
 		//credits
-	public void creditsScreen() {
+	public void createCreditsScreen() {
 		Credits = new JPanel();
 		Credits.setBounds(0, 0, 784, 562);
 		contentPane.add(Credits);
@@ -280,7 +358,7 @@ public class MenuView1 extends JFrame {
 	}
 		
 		// how to play
-	public void howToPlayScreen() {
+	public void createHowToPlayScreen() {
 		HTP = new JPanel();
 		HTP.setLayout(null);
 		HTP.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -301,7 +379,7 @@ public class MenuView1 extends JFrame {
 		
 
 		//connect
-	public void connectScreen() {
+	public void createConnectScreen() {
 		Connect = new JPanel();
 		Connect.setLayout(null);
 		Connect.setBounds(0, 0, 784, 562);
@@ -355,7 +433,7 @@ public class MenuView1 extends JFrame {
 		Connect.add(Connectbg);
 	}
 		
-	public void createGame() {
+	public void createCreateGame() {
 		createGame = new JPanel();
 		createGame.setBounds(0, 0, 784, 562);
 		contentPane.add(createGame);
@@ -373,6 +451,9 @@ public class MenuView1 extends JFrame {
 		Difficulty.setBackground(Color.DARK_GRAY);
 		Difficulty.setBounds(302, 218, 181, 35);
 		createGame.add(Difficulty);
+		createCancelButton();
+		makeCreateGameButton();
+		createGameBackground();
 	}
 		
 	public void createCancelButton() {
@@ -410,7 +491,7 @@ public class MenuView1 extends JFrame {
 		createGame.add(CreatGamebg);
 	}
 
-	public void loadingScreen() {
+	public void createLoadingScreen() {
 		waiting = new JPanel();
 		waiting.setBounds(0, 0, 784, 562);
 		contentPane.add(waiting);
@@ -433,6 +514,7 @@ public class MenuView1 extends JFrame {
 	// MouseListeners
 	
 	public void addQuitButtonMouseListener(MouseAdapter mouseListener) {
+		lblQuit.addMouseListener(mouseListener);
 		quitButtonbg.addMouseListener(mouseListener);
 	}
 	
@@ -471,4 +553,19 @@ public class MenuView1 extends JFrame {
 	public void addCreateGameButtonMouseListener(MouseAdapter mouseListener) {
 		createButtonBG.addMouseListener(mouseListener);
 	}
+	
+	public void showErrorMessage(String message) {
+		JOptionPane.showMessageDialog(this,
+			    message,
+			    "Game error",
+			    JOptionPane.ERROR_MESSAGE);
+	}	
+	
+	public void showMessage(String message) {
+		JOptionPane.showMessageDialog(this,
+			    message,
+			    "Game Info",
+			    JOptionPane.PLAIN_MESSAGE);
+	}
+
 }
