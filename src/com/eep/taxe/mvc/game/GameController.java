@@ -101,7 +101,7 @@ public class GameController {
 
 		// Instantiates a new MapGraphics object to take care of the map
 		this.graphics = new MapGraphics(
-				view.getMapLabel(),
+				view.getGameMenuPanel(),
 				new MapMouseListener()
 		);
 
@@ -545,14 +545,15 @@ public class GameController {
 		public final double	TRAIN_SIZE	 		= 32 / SCALE_FACTOR_X;
 		
 		
-		MapGraphics (JLabel jLabel, MouseListener mouseListener) {
-			this.g = jLabel.getGraphics();
+		MapGraphics (JImagePanel jImagePanel, MouseListener mouseListener) {
+			this.g = jImagePanel.getGraphics();
 			
-			jLabel.setSize(920, 560);
+			jImagePanel.setSize(920, 560);
 
-			height = (int) jLabel.getSize().getHeight();
-			width  = (int) jLabel.getSize().getWidth();
-			jLabel.paintComponents(this.g);
+			height = (int) jImagePanel.getSize().getHeight();
+			width  = (int) jImagePanel.getSize().getWidth();
+			jImagePanel.paintMap(g);
+			jImagePanel.paintComponents(this.g);
 			
 			
 			// Enable text anti-aliasing
@@ -567,8 +568,8 @@ public class GameController {
 	                RenderingHints.VALUE_ANTIALIAS_ON
 	        );
 
-	        jLabel.addMouseListener(mouseListener);
-	        jLabel.addComponentListener(new ComponentListener() {
+	        jImagePanel.addMouseListener(mouseListener);
+	        jImagePanel.addComponentListener(new ComponentListener() {
 
 				@Override
 				public void componentResized(ComponentEvent e) {
@@ -691,24 +692,8 @@ public class GameController {
 		}
 
 		public void drawBackgroudImage() {
-			BufferedImage img = null;
-			try {
-				img = ImageIO.read(this.getClass().getResourceAsStream(BACKGROUND_IMAGE));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			g.drawImage(
-				img,
-				(int) OFFSET_X,
-				(int) OFFSET_Y, 
-				width,
-				height,
-				0, 0,
-				img.getWidth(), 
-				img.getHeight(),
-				null
-			);
+			view.getGameMenuPanel().paintMap(g);
+			view.getGameMenuPanel().paintComponents(g);
 		}
 		
 		private void drawEdges() {

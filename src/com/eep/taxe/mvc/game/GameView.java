@@ -28,8 +28,7 @@ public class GameView extends javax.swing.JFrame {
 	private LeftPanel leftPanel;
 	private RightPanel rightPanel;
 	private BottomPanel bottomPanel;
-	private JLabel mapLabel;
-	private JPanel gameMenuPanel;
+	private JImagePanel gameMenuPanel;
 	JPanel mainMapPanel;
 	
 	
@@ -41,18 +40,10 @@ public class GameView extends javax.swing.JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 
-		gameMenuPanel = new JPanel();
+		gameMenuPanel = new JImagePanel();
 		gameMenuPanel.setBackground(new Color(245, 245, 245));
 		gameMenuPanel.setPreferredSize(getContentPane().getSize());
 		gameMenuPanel.setLayout(new BorderLayout(0, 0));
-		
-			mapLabel = new JLabel();
-			mapLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 21));
-			mapLabel.setHorizontalAlignment(JLabel.CENTER);
-			mapLabel.setText("Please, click to play.");
-			mapLabel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-
-			gameMenuPanel.add(mapLabel);
 			
 			topPanel = new TopPanel(WIDTH, HEIGHT);
 			gameMenuPanel.add(topPanel, BorderLayout.NORTH);
@@ -85,15 +76,6 @@ public class GameView extends javax.swing.JFrame {
 			    JOptionPane.PLAIN_MESSAGE);
 	}
 	
-	public JLabel getMapLabel() {
-		return mapLabel;
-	}
-
-	public void setMapLabel(JLabel mapLabel) {
-		this.mapLabel = mapLabel;
-	}
-
-	
 	public JPanel getMainMapPanel() {
 		return mainMapPanel;
 	}
@@ -101,12 +83,8 @@ public class GameView extends javax.swing.JFrame {
 	public void setMainMapPanel(JPanel mainMapPanel) {
 		this.mainMapPanel = mainMapPanel;
 	}
-
-	public void repaint() {
-		this.gameMenuPanel.repaint();
-	}
 	
-	public JPanel getGameMenuPanel() {
+	public JImagePanel getGameMenuPanel() {
 		return gameMenuPanel;
 	}
 

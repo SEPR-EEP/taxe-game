@@ -16,12 +16,7 @@ public class JImagePanel extends JPanel {
   private Image img;
 
   public JImagePanel() {
-	try {
-		img = ImageIO.read(getClass().getResource("/resources/MainMap.jpg"));
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+
     
     Dimension size = new Dimension(1300, 720);
     setPreferredSize(size);
@@ -31,12 +26,14 @@ public class JImagePanel extends JPanel {
     setLayout(null);
   }
 
-  public void paintComponent(Graphics g) {
+  public void paintMap(Graphics g) {
+		try {
+			img = ImageIO.read(getClass().getResource("/resources/MainMap.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	  g.drawImage(img, 0, 0, null);
   } 
   
-  public void repaint() {
-	  //Graphics g = this.getGraphics();
-	  //paintComponent(g);
-  }
+
 }
