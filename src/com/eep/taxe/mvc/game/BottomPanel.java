@@ -289,15 +289,15 @@ public class BottomPanel extends JPanel{
 		HEIGHT = 720;
 		
 		this.setBackground(Color.WHITE);
-		this.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
+		this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		this.setPreferredSize(new Dimension(WIDTH, WIDTH/16));
 		
 				
 			JPanel inventoryPanel = new JPanel();
 			inventoryPanel.setBackground(new Color(211, 211, 211));
 			inventoryPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-			inventoryPanel.setPreferredSize(new Dimension(WIDTH/3 , WIDTH/16));
-			inventoryPanel.setLayout(new FlowLayout(FlowLayout.CENTER, WIDTH/64, WIDTH/96));
+			inventoryPanel.setPreferredSize(new Dimension(WIDTH/3+80 , WIDTH/16));
+			inventoryPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 35, 13));
 			
 				inventorySlot1 = new InventorySlot(WIDTH, HEIGHT);
 				inventorySlot2 = new InventorySlot(WIDTH, HEIGHT);
@@ -312,8 +312,8 @@ public class BottomPanel extends JPanel{
 				inventoryPanel.add(inventorySlot5);
 				
 			JPanel trainPanel = new JPanel();
-			trainPanel.setPreferredSize(new Dimension(WIDTH/4 , WIDTH/16));
-			trainPanel.setLayout(new FlowLayout(FlowLayout.CENTER, WIDTH/64, WIDTH/96));
+			trainPanel.setPreferredSize(new Dimension(WIDTH/3 , WIDTH/16));
+			trainPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 35, WIDTH/96));
 			trainPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 			trainPanel.setBackground(new Color(169, 169, 169));
 			
@@ -346,7 +346,7 @@ public class BottomPanel extends JPanel{
 		this.add(trainPanel);
 		this.add(Box.createRigidArea(new Dimension(WIDTH/32, WIDTH/16)));
 		this.add(marketButton);
-		this.add(Box.createRigidArea(new Dimension(WIDTH/31, WIDTH/16)));
+		this.add(Box.createRigidArea(new Dimension(WIDTH/20, WIDTH/16)));
 		this.add(menuButton);
 		this.add(Box.createRigidArea(new Dimension(WIDTH/32, WIDTH/16)));
 	}
