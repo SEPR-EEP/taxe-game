@@ -38,9 +38,12 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		this.addFirstTrainToPlayer(master);
 		this.addFirstTrainToPlayer(slave);
 		
+<<<<<<< HEAD
+=======
 		//Generate a goal for each player's first train
 		master.generateGoal(master.getTrains().get(0), this);
 		slave.generateGoal(slave.getTrains().get(0), this);
+>>>>>>> 18b61075dc1ffdd00d52c0acb440e94624ad3a2e
 
 	}
 	
@@ -50,7 +53,6 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		Train 	train = Generator.generateTrains(who.getCurrentAge().age, this).get(0).clone();
 		Station starting = this.getRandomStation();
 		train.setStationToStartNextGoalAt(starting);
-		
 		who.getTrains().add(train);
 		
 		//Get an ending station that is not starting
@@ -67,8 +69,6 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		}
 		train.setStationToStartNextGoalAt(ending);
 		
-		
-
 	}
 	
 	/**
@@ -176,6 +176,7 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		//Generate new goals
 		//masterPlayer.generateGoal(this);
 		//slavePlayer.generateGoal(this);
+		
 		
 		// Add up to 2 random resources to each player
 		masterPlayer.addRandomUsables(2);

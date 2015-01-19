@@ -245,6 +245,7 @@ public class Player implements PlayerInterface {
 	@Override
 	public void generateGoal(Train train, Game game) {
 		
+		System.out.println("Hello");
 		
 		/*
 		//If number of goals is not yet maximum assign a goal to the train
