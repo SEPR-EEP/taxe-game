@@ -37,6 +37,8 @@ import com.eep.taxe.models.Path;
 import com.eep.taxe.models.Player;
 import com.eep.taxe.models.Station;
 import com.eep.taxe.models.Train;
+import com.eep.taxe.models.TrainSpeedModifier;
+import com.eep.taxe.models.Usable;
 import com.eep.taxe.models.Vertex;
 import com.eep.taxe.mvc.game.BottomPanel.InventorySlotsListener;
 import com.eep.taxe.mvc.game.BottomPanel.TrainSlotsListener;
@@ -56,6 +58,8 @@ public class GameController {
 	
 	private Path 		currentPath = null;
 	
+	private Usable 		usableInUse = null;
+	
 	/**
 	 * These are the possible game states.
 	 */
@@ -63,6 +67,7 @@ public class GameController {
 		WAITING, 			// Waiting for other player to move,
 		STANDBY, 			// My turn, still doing nothing,
 		BUILDING_PATH, 		// Selected a train, I am now building a path
+		USING_RESOURCE,		// Selected a train, I now need to select a train
 	}
 	
 	/**
@@ -149,10 +154,14 @@ public class GameController {
 		this.view.setPlayer2Name(opponentName);
 		
 		// Display score
-		int myScore = model.getData().getPlayerByRole(myRole).getScore();
-		int opponentScore = model.getData().getPlayerByRole(opponentRole).getScore();
-		this.view.setPlayer1Score(myScore);
-		this.view.setPlayer2Score(opponentScore);
+		this.view.setPlayer1Score(getPlayer().getScore() + " (" + getPlayer().getGoalsCompleted() + " goals)");
+		this.view.setPlayer2Score(getOpponent().getScore() + " (" + getOpponent().getGoalsCompleted() + " goals)");
+		
+		// Display inventory resources
+		this.updateInventory();
+		
+		// Display current age
+		this.view.setAge(getPlayer().getCurrentAge().getName());
 		
 		// Display goals - in HTML for nicer formatting!
 		Vector<Goal> myGoals  = model.getData().getPlayerByRole(myRole).getCurrentGoals();
@@ -165,9 +174,9 @@ public class GameController {
 		info += "<br /><br /><hr /><center><b>";
 		// Show PLEASE WAIT or PLEASE PLAY in large reassuring letters
 		if ( currentState == GameState.WAITING ) {
-			info += "It's your opponent's turn\n<big color=red>PLEASE WAIT</big>";
+			info += "It's your opponent's turn<br /><big color=red>PLEASE WAIT</big>";
 		} else {
-			info += "It's your turn\n<big color=green>PLEASE PLAY</big>";
+			info += "It's your turn<br /><big color=green>PLEASE PLAY</big>";
 		}
 
 		info += "</b></center></html>";
@@ -180,6 +189,15 @@ public class GameController {
 		
 		// TODO Get and display game data
 		
+	}
+	
+	private void updateInventory() {
+		this.emptyInventorySlots();
+		for ( Usable u: this.getPlayer().getInventory() ) {
+			int n = firstEmptyInventorySlot();
+			setItemInventorySlot	(n, u);
+			setSelectedInventorySlot(n, this.usableInUse == u);
+		}
 	}
 	
 	private class DetailsButtonActionListener implements ActionListener{
@@ -202,26 +220,145 @@ public class GameController {
 	private class InventorySlotsActionListener implements InventorySlotsListener{
 
 		@Override
-		public void actionPerformed(ActionEvent e, final InventorySlot slot) {
-			if (slot.isEmpty()) {
-				view.showMessage("There is no item in this inventory slot.");
+		public void actionPerformed(ActionEvent e, int slot) {
+			if (getItemInventorySlot(slot) == null) {
+				view.showMessage("There is no item in this inventory slot (slot#" + slot + ")");
 				return;
 			}
 			
+			currentState 	= GameState.USING_RESOURCE;
+			usableInUse		= getItemInventorySlot(slot);
+			buildingTrain 	= null;
+			buildingVertices= null;
+
+			view.showMessage("Click on the train you want to apply " + 
+					usableInUse.getName() + " onto.");
+			
+			
 		}
 		
+	}
+	
+	/**
+	 * Returns the number of the first empty inventory slot - if any.
+	 * If all of the slots are occupied, returns 0
+	 * @return 	The first empty occupied slot, return 0 if all full
+	 */
+	private int firstEmptyInventorySlot() {
+		if ( this.view.getItemInventorySlot1() == null ) { return 1; }
+		if ( this.view.getItemInventorySlot2() == null ) { return 2; }
+		if ( this.view.getItemInventorySlot3() == null ) { return 3; }
+		if ( this.view.getItemInventorySlot4() == null ) { return 4; }
+		if ( this.view.getItemInventorySlot5() == null ) { return 5; }
+		return 0;
+	}	
+	
+	/**
+	 * Returns the number of the first empty train slot - if any.
+	 * If all of the slots are occupied, returns 0
+	 * @return 	The first empty occupied slot, return 0 if all full
+	 */
+	private int firstEmptyTrainSlot() {
+		if ( this.view.getTrainTrainSlot1() == null ) { return 1; }
+		if ( this.view.getTrainTrainSlot2() == null ) { return 2; }
+		if ( this.view.getTrainTrainSlot3() == null ) { return 3; }
+		if ( this.view.getTrainTrainSlot4() == null ) { return 4; }
+		return 0;
+	}
+	
+	/**
+	 * Get the item of the inventory slot at the given number
+	 */
+	private Usable getItemInventorySlot(int n) {
+		switch (n) {
+			case 1: return this.view.getItemInventorySlot1();
+			case 2: return this.view.getItemInventorySlot2();
+			case 3: return this.view.getItemInventorySlot3();
+			case 4: return this.view.getItemInventorySlot4();
+			case 5: return this.view.getItemInventorySlot5();
+			default: return null;
+		}
+	}
+	
+	/**
+	 * Get the train of the train slot at the given number
+	 */
+	private Train getTrainTrainSlot(int n) {
+		switch (n) {
+			case 1: return this.view.getTrainTrainSlot1();
+			case 2: return this.view.getTrainTrainSlot2();
+			case 3: return this.view.getTrainTrainSlot3();
+			case 4: return this.view.getTrainTrainSlot4();
+			default: return null;
+		}
+	}
+	
+	/**
+	 * Set the item of the inventory slot at the given number
+	 */
+	private void setItemInventorySlot(int n, Usable i) {
+		switch (n) {
+			case 1: this.view.setItemInventorySlot1(i); break;
+			case 2: this.view.setItemInventorySlot2(i); break;
+			case 3: this.view.setItemInventorySlot3(i); break;
+			case 4: this.view.setItemInventorySlot4(i); break;
+			case 5: this.view.setItemInventorySlot5(i); break;
+		}
+	}
+	
+	/**
+	 * Set the if a slot at a given number should be selected
+	 */
+	private void setSelectedInventorySlot(int n, boolean i) {
+		switch (n) {
+			case 1: this.view.setSelectedInventorySlot1(i); break;
+			case 2: this.view.setSelectedInventorySlot2(i); break;
+			case 3: this.view.setSelectedInventorySlot3(i); break;
+			case 4: this.view.setSelectedInventorySlot4(i); break;
+			case 5: this.view.setSelectedInventorySlot5(i); break;
+		}
+	}
+	
+	/**
+	 * Get the train of the train slot at the given number
+	 */
+	private void setTrainTrainSlot(int n, Train i) {
+		switch (n) {
+			case 1: this.view.setTrainTrainSlot1(i); break;
+			case 2: this.view.setTrainTrainSlot2(i); break;
+			case 3: this.view.setTrainTrainSlot3(i); break;
+			case 4: this.view.setTrainTrainSlot4(i); break;
+		}	
+	}
+	
+	/**
+	 * Empty the inventory
+	 */
+	private void emptyInventorySlots() {
+		for ( int i = 1; i <= 5; i ++ ) {
+			setItemInventorySlot(i, null);
+		}
+	}	
+	
+	/**
+	 * Empty the train slots
+	 */
+	private void emptyTrainSlots() {
+		for ( int i = 1; i <= 4; i ++ ) {
+			setTrainTrainSlot(i, null);
+		}
 	}
 
 	private class TrainSlotsActionListener implements TrainSlotsListener{
 
 		@Override
-		public void actionPerformed(ActionEvent e, final TrainSlot slot) {
-			if (slot.isEmpty()) {
+		public void actionPerformed(ActionEvent e, int slot) {
+			if (getTrainTrainSlot(slot) == null) {
 				view.showMessage("There is no train in this slot.");
 				return;
 			}
 			
-			clickOnTrain(slot.getTrain());
+			clickOnTrain(getTrainTrainSlot(slot));
 			
 		}
 		
@@ -240,13 +377,15 @@ public class GameController {
 				}
 				break;
 				
-			case STANDBY:
-				view.showMessage("You are just passing your turn");
-				break;
-				
 			case WAITING:
 				view.showErrorMessage("It's not your turn - please wait.");
 				return;
+				
+			case USING_RESOURCE:
+			case STANDBY:
+			default:
+				view.showMessage("You are just passing your turn");
+				break;				
 				
 			}
 			
@@ -655,7 +794,7 @@ public class GameController {
 	        }
 	        return null;
 	    }
-	    
+
 	    /**
 		 * Try and find one of my trains where the user has clicked.
 		 * @param 	e	The Click event
@@ -688,6 +827,52 @@ public class GameController {
 	        return null;
 	    }
 
+	    /**
+		 * Try and find one of the opponent's trains where the user has clicked.
+		 * @param 	e	The Click event
+		 * @return		Either a Train or null.
+		 */
+	    public Train findOpponentTrain(MouseEvent e) {
+	        double cx = ( (double) e.getX() - OFFSET_X ) / SCALE_FACTOR_X;
+	        double cy = ( (double) e.getY() - OFFSET_Y ) / SCALE_FACTOR_Y;
+
+	        for ( Train x: getOpponent().getTrains() ) {
+	        	
+	        	Point p = getTrainCoordinates(x);
+	        	if ( p == null ) {
+	        		continue;
+	        	}
+	        	
+	        	/*
+	        	 * Check if the click of coordinates (cx, cy) is inside
+	        	 * (p.getX(), p.getY()) and size (IMAGE_SIZE) * (2 * CLICK_PRECISION)
+	        	 */
+	        	if (
+	        		cx >= ( p.getX() - TRAIN_SIZE/2 * CLICK_PRECISION ) &&
+	        		cx <= ( p.getX() + TRAIN_SIZE/2 * CLICK_PRECISION ) &&
+	        		cy >= ( p.getY() - TRAIN_SIZE/2 * CLICK_PRECISION ) &&
+	        		cy <= ( p.getY() + TRAIN_SIZE/2 * CLICK_PRECISION )
+	        	) { 
+	        		return x;
+	        	}
+	        }
+	        return null;
+	    }
+	    
+	    /**
+	     * Find a train where the user has clicked
+	     * @return	Either a train or null
+	     */
+	    public Train findTrain(MouseEvent e) {
+	    	Train t;
+	    	t = findMyTrain(e);
+	    	if ( t != null ) {
+	    		return t;
+	    	}
+	    	t = findOpponentTrain(e);
+	    	return t;
+	    }
+
 	
 	}
 	
@@ -718,12 +903,20 @@ public class GameController {
 	 * - The click on one of my trains on the map;
 	 * - The FIRST  (to select)   click on one of my trains in the inventory;
 	 * - The SECOND (to deselect) click on one of my trains in the inventory;
+	 * - The click on any train to apply the resource
 	 * @param t
 	 */
 	private void clickOnTrain(Train t) {
 		
 		
-		if ( this.buildingTrain == t ) {
+		if ( currentState == GameState.USING_RESOURCE ) {
+			this.applyUsableToTrain(t);
+			this.usableInUse 		= null;
+			this.currentState		= GameState.STANDBY;
+			
+			
+			
+		} else if ( this.buildingTrain == t ) {
 			// SECOND CLICK ON ONE OF MY TRAINS IN THE INVENTORY
 			// - I should de-select the train and return to STANDBY
 			this.buildingTrain 		= null;
@@ -754,6 +947,58 @@ public class GameController {
 		
 	}
 	
+	private void applyUsableToTrain(Train t) {
+		
+		boolean ok 	 = true;
+
+		if ( usableInUse instanceof TrainSpeedModifier ) {
+			
+			TrainSpeedModifier r = (TrainSpeedModifier) usableInUse;
+			
+			boolean mine = getPlayer().getTrains().contains(t);
+			
+			// Avoid slowing down my trains
+			if ( mine && r.getSpeedFactor() < 1 ) {
+				view.showErrorMessage("You do not really want to slow down" +
+						" one of your trains. Use it on your opponent!");
+				ok = false;
+			}
+			
+			// Avoid speeding up opponent's trains
+			if ( !mine && r.getSpeedFactor() > 1 ) {
+				view.showErrorMessage("You probably do not really want to " +
+						" give this advantage to your opponent. Use it on"  +
+						" one of your trains instead!");
+				ok = false;
+			}
+			
+			// If everything's okay, use the speed modifier
+			if ( ok ) {
+				r.useOnTrain(t);
+				System.out.println("Modifier applied. " +
+					"Train speed now is " + t.getActualSpeed() + " mph"
+				);
+			}
+			
+		} else {
+			
+			System.out.println("WARNING - I do not know what to do with this type of Usable.");
+			ok = false;
+			
+		}
+		
+		// Remove from the inventory if I used it
+		if ( ok ) {
+			getPlayer().getInventory().remove(usableInUse);
+		}
+		
+		usableInUse = null;
+
+	}
+
+
+
+
 	/**
 	 * This method is called every time the player clicks somewhere 
 	 * on the map. This method should - depending on the current state -
@@ -770,16 +1015,20 @@ public class GameController {
 			view.showMessage("Please wait, it's your opponent's turn.");
 			break;
 			
-		case STANDBY:	// MY TURN, DOING NOTHING
-			
-			// If a click on a train, start building path
+		case USING_RESOURCE:	// MY TURN, USING RESOURCE
+			Train a = graphics.findTrain(e);
+			if ( a == null ) {
+				break;
+			}
+			clickOnTrain(a);
+			break;
+
+		case STANDBY:			// MY TURN, DOING NOTHING
 			Train t = graphics.findMyTrain(e);
 			if ( t == null ) {
 				break;
 			}
-			
 			clickOnTrain(t);
-			
 			break;
 						
 			

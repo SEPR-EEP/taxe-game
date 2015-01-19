@@ -132,6 +132,10 @@ public class Journey extends Path implements JourneyInterface, Serializable {
 			
 			//If the current edge's distance is less than or equal to initial progress set current edge to next
 			while (this.currentEdge.getLength() <= initialProgress){
+				if ( getNextEdge() == null ) {
+					this.distanceTravelledOnEdge = edge.getLength();
+					break;
+				}
 				setCurrentEdge(getNextEdge(), initialProgress - this.currentEdge.getLength() );
 			}
 		}

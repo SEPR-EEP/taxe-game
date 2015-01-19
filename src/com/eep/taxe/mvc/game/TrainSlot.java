@@ -39,11 +39,12 @@ public class TrainSlot extends JButton{
 
 	public void setTrain(Train train) {
 		if(train != null){
-			this.train = train;
 			this.setIcon(new ImageIcon(train.getTrainImage()));
 		}else{
 			this.setIcon(defaultIcon);
 		}
+		this.train = train;
+
 		
 	}
 

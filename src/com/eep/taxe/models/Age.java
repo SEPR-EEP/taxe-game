@@ -12,6 +12,8 @@ public class Age implements AgeInterface {
 	
 	public Ages age;
 	
+	private static final int 	AGE_DURATION = 3;
+	
 	@Override
 	public int compareTo(Age o) {
 		/* Compares age of this object to age of parameter object.
@@ -78,13 +80,13 @@ public class Age implements AgeInterface {
 
 	public Age(int goalsCompleted) {
 		
-		if (goalsCompleted < 5) {
+		if (goalsCompleted < AGE_DURATION) {
 			this.age = Ages.FIRST;
 		}
-		else if (goalsCompleted >= 5 && goalsCompleted < 10) {
+		else if (goalsCompleted >= AGE_DURATION && goalsCompleted < AGE_DURATION*2) {
 			this.age = Ages.SECOND;
 		}
-		else if (goalsCompleted >= 10 && goalsCompleted < 15) {
+		else if (goalsCompleted >= AGE_DURATION*2 && goalsCompleted < AGE_DURATION*3) {
 			this.age = Ages.THIRD;
 		}
 		else {
@@ -97,12 +99,16 @@ public class Age implements AgeInterface {
 		switch (age) {
 			case FIRST:
 				this.age = Ages.FIRST;
+				break;
 			case SECOND:
 				this.age = Ages.SECOND;
+				break;
 			case THIRD:
 				this.age = Ages.THIRD;
+				break;
 			case FOURTH:
 				this.age = Ages.FOURTH;
+				break;
 			default:
 				break;
 		}
@@ -111,16 +117,20 @@ public class Age implements AgeInterface {
 	@Override
 	public String getName() {
 		
-		String name = "";
+		String name = "Strange Age";
 		switch (age) {
 			case FIRST:
 				name = "Steam Age";
+				break;
 			case SECOND:
 				name = "Combustion Engine Age";
+				break;
 			case THIRD:
 				name = "Electrical Age";
+				break;
 			case FOURTH:
 				name = "Futuristic Age";
+				break;
 			default:
 				break;
 		}
@@ -134,12 +144,16 @@ public class Age implements AgeInterface {
 		switch (age) {
 			case FIRST:
 				description = ""; // TODO Needs to be written
+				break;
 			case SECOND:
 				description = ""; // TODO Needs to be written
+				break;
 			case THIRD:
 				description = ""; // TODO Needs to be written
+				break;
 			case FOURTH:
 				description = ""; // TODO Needs to be written
+				break;
 			default:
 				break;
 			}

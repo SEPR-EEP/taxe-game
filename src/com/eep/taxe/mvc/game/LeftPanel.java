@@ -130,14 +130,12 @@ public class LeftPanel extends JPanel{
 		player2NameLabel.setText(name);
 	}
 	
-	public void setPlayer1Score(int score){
-		String scoreString = "" + score;
-		player1ScoreLabel.setText(scoreString);
+	public void setPlayer1Score(String score){
+		player1ScoreLabel.setText(score);
 	}
 
-	public void setPlayer2Score(int score){
-		String scoreString = "" + score;
-		player2ScoreLabel.setText(scoreString);
+	public void setPlayer2Score(String score){
+		player2ScoreLabel.setText(score);
 	}
 	
 }

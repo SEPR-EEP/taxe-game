@@ -11,6 +11,7 @@ import com.eep.taxe.models.Player;
 import com.eep.taxe.models.Station;
 import com.eep.taxe.models.Train;
 import com.eep.taxe.models.TrainSpeedModifier;
+import com.eep.taxe.models.Usable;
 import com.eep.taxe.models.Vertex;
 import com.eep.taxe.models.Age.Ages;
 
@@ -52,13 +53,11 @@ public class Generator {
 		return r;
 	}
 
-	public static Goal generateGoal(Train train, Vector<Vertex> map, Player player, Game game) {
-		if (train.getStationToStartNextGoalAt() == null) {
+	public static Goal generateGoal(Train train, Vector<Vertex> map, Player player, Station startingStation, Game game) {
+		if (startingStation == null) {
 			return null;
 		}
-		//Starting station is where train is currently located
-		Station startingStation = train.getStationToStartNextGoalAt();
-	
+		
 		//Station that is randomly chosen must not be the same as the starting station
 		Station endingStation = startingStation;
 		while (endingStation == startingStation){
@@ -106,31 +105,38 @@ public class Generator {
 		return trainList;
 	}
 	
-	public static Vector<TrainSpeedModifier> trainSpeedModifierGenerator(Ages age) {
-		Vector<TrainSpeedModifier> trainSpeedModifierList = new Vector<TrainSpeedModifier>();
+	public static Vector<Usable> generateTrainSpeedModifier(Ages age) {
+		Vector<Usable> trainSpeedModifierList = new Vector<Usable>();
 		
-		TrainSpeedModifier smallSpeedBoost = new TrainSpeedModifier("Small Speed Boost", "IMAGE", 10, 10, Ages.FIRST, 10);
-		TrainSpeedModifier mediumSpeedBoost = new TrainSpeedModifier("Medium Speed Boost", "IMAGE", 30, 30, Ages.SECOND, 30);
-		TrainSpeedModifier largeSpeedBoost = new TrainSpeedModifier("Large Speed Boost", "IMAGE", 60, 60, Ages.THIRD, 60);
-		TrainSpeedModifier megaSpeedBoost = new TrainSpeedModifier("Mega Speed Boost", "IMAGE", 100, 100, Ages.FOURTH, 100);
+		TrainSpeedModifier smallSpeedBoost 		= new TrainSpeedModifier("Small Speed Boost", 	"/resources/SpeedBoost.png", 10, 10, Ages.FIRST, 	1.2f);
+		TrainSpeedModifier smallSpeedSlowdown 	= new TrainSpeedModifier("Small Speed Slowdown","/resources/SlowDown.png", 10, 10, Ages.FIRST, 		0.8f);
+		
+		TrainSpeedModifier mediumSpeedBoost 	= new TrainSpeedModifier("Medium Speed Boost", 	"/resources/SpeedBoost.png", 30, 30, Ages.SECOND, 	1.5f);
+		TrainSpeedModifier mediumSpeedSlowdown 	= new TrainSpeedModifier("Medium Speed Slowdown","/resources/SlowDown.png", 30, 30, Ages.SECOND, 	0.6f);
+		
+		TrainSpeedModifier largeSpeedBoost		= new TrainSpeedModifier("Large Speed Boost",	"/resources/SpeedBoost.png", 60, 60, Ages.THIRD, 	1.9f);
+		TrainSpeedModifier largeSpeedSlowdown	= new TrainSpeedModifier("Large Speed Slowdown",	"/resources/SlowDown.png", 60, 60, Ages.THIRD, 	.4f);
+		
+		TrainSpeedModifier megaSpeedBoost	 	= new TrainSpeedModifier("Mega Speed Boost", 	"/resources/SpeedBoost.png", 100, 100, Ages.FOURTH, 2.5f);
+		TrainSpeedModifier megaSpeedSlowdown 	= new TrainSpeedModifier("Mega Speed Slowdown", "/resources/SlowDown.png", 100, 100, Ages.FOURTH, 	.2f);
 		
 		trainSpeedModifierList.add(smallSpeedBoost);
+		trainSpeedModifierList.add(smallSpeedSlowdown);
 		
 		switch(age) {
-			case FIRST:
-				break;
-			case SECOND:
-				trainSpeedModifierList.add(mediumSpeedBoost);
-			case THIRD:
-				trainSpeedModifierList.add(mediumSpeedBoost);
-				trainSpeedModifierList.add(largeSpeedBoost);
-			case FOURTH:
-				trainSpeedModifierList.add(mediumSpeedBoost);
-				trainSpeedModifierList.add(largeSpeedBoost);
-				trainSpeedModifierList.add(megaSpeedBoost);
-			default:
-				break;
-			}
+		
+		case FOURTH:
+			trainSpeedModifierList.add(megaSpeedBoost);
+			trainSpeedModifierList.add(megaSpeedSlowdown);
+		case THIRD:
+			trainSpeedModifierList.add(largeSpeedBoost);
+			trainSpeedModifierList.add(largeSpeedSlowdown);
+		case SECOND:
+			trainSpeedModifierList.add(mediumSpeedBoost);
+			trainSpeedModifierList.add(mediumSpeedSlowdown);
+		default:
+			break;
+		}
 		
 		return trainSpeedModifierList;
 	}

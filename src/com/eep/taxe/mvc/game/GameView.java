@@ -140,11 +140,11 @@ public class GameView extends javax.swing.JFrame {
 			leftPanel.setPlayer2Name(name);
 		}
 		
-		public void setPlayer1Score(int score){
-			leftPanel.setPlayer1Score(score);
+		public void setPlayer1Score(String string){
+			leftPanel.setPlayer1Score(string);
 		}
 		
-		public void setPlayer2Score(int score){
+		public void setPlayer2Score(String score){
 			leftPanel.setPlayer2Score(score);
 		}
 	//----------------------------------------------------------------------------------------------------
