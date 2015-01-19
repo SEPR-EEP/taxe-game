@@ -36,7 +36,7 @@ public class LeftPanel extends JPanel{
 			JPanel agePanel = new JPanel();
 			agePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, WIDTH/512));
 			agePanel.setPreferredSize(new Dimension(WIDTH/9, HEIGHT/24));
-			agePanel.setBackground(new Color(169, 169, 169, 128));
+			agePanel.setBackground(new Color(169, 169, 169));
 				
 				JLabel staticAgeLabel = new JLabel();
 				staticAgeLabel.setOpaque(false);
@@ -49,7 +49,7 @@ public class LeftPanel extends JPanel{
 				ageLabel.setText("Stone Age");
 				
 			JPanel player1Panel = new JPanel();
-			player1Panel.setBackground(new Color(211, 211, 211, 128));
+			player1Panel.setBackground(new Color(211, 211, 211));
 			player1Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 0,  0));
 			
 				JLabel player1IconLabel = new JLabel();
@@ -72,7 +72,7 @@ public class LeftPanel extends JPanel{
 					player1ScoreLabel.setPreferredSize(new Dimension(WIDTH/32, HEIGHT/32));
 					
 			JPanel player2Panel = new JPanel();
-			player2Panel.setBackground(new Color(211, 211, 211, 128));
+			player2Panel.setBackground(new Color(211, 211, 211));
 			player2Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 0,  0));
 					
 				JLabel player2IconLabel = new JLabel();
