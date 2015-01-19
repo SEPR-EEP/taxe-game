@@ -623,9 +623,9 @@ public class GameController {
 			BufferedImage oppTrainImage;
 			BufferedImage selTrainImage;
 			try {
-				myTrainImage 	= ImageIO.read(new File(TRAIN_MINE));
-				oppTrainImage 	= ImageIO.read(new File(TRAIN_OPPONENT));
-				selTrainImage 	= ImageIO.read(new File(TRAIN_SELECTED));
+				myTrainImage 	= ImageIO.read(this.getClass().getResourceAsStream(TRAIN_MINE));
+				oppTrainImage 	= ImageIO.read(this.getClass().getResourceAsStream(TRAIN_OPPONENT));
+				selTrainImage 	= ImageIO.read(this.getClass().getResourceAsStream(TRAIN_SELECTED));
 			} catch (IOException e) {
 				e.printStackTrace();
 				return;

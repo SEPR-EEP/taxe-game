@@ -22,9 +22,6 @@ import com.eep.taxe.GameClient.StatusResponse;
 import com.eep.taxe.GameData;
 import com.eep.taxe.models.Game;
 import com.eep.taxe.models.Game.Difficulty;
-import com.eep.taxe.models.Player;
-import com.eep.taxe.res.Generator;
-import com.eep.taxe.utils.RunnableArgs;
 
 /**
  * This is the Controller class (MVC) for the Menu of the Game.
@@ -39,6 +36,8 @@ public class MenuController {
 	private MenuModel	model 	= null;
 	
 	private String 		name 	= "";
+	
+	private final String	HOWTOPLAY_URL 	= "http://sepr-eep.github.io/usermanual/";
 	
 	/*
 	 * These properties are used to configure the 
@@ -136,7 +135,8 @@ public class MenuController {
 	
 	private class HowToPlayButtonMouseListener extends MouseAdapter {
 		public void mouseReleased(MouseEvent e) {
-			view.showHTP();
+			// view.showHTP();
+			view.openWebpage(HOWTOPLAY_URL);
 		}
 	}
 	

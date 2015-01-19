@@ -1,6 +1,7 @@
 package com.eep.taxe.mvc.menu;
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -32,6 +33,7 @@ import javax.swing.SwingConstants;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -350,6 +352,31 @@ public class MenuView extends JFrame {
 		creditsTitle.setBounds(319, 74, 181, 36);
 		Credits.add(creditsTitle);
 		
+		String creditsString = "<html><center>"
+				+ "<strong>TAxE game has been developed by the EEP team, for the Software Engineering "
+				+ "Project module at the Department of Computer Science, University of York.</strong>"
+				+ "<hr />"
+				+ "<a href='https://github.com/sepr-eep/taxe-game'>GitHub Repository</a> &mdash; "
+				+ "<a href='http://sepr-eep.github.io'>Team Website</a> &mdash; "
+				+ "<a href='http://sepr-eep.github.io/usermanual'>User Manual</a>"
+				+ "</center><hr >"
+				+ "<h4>Authors</h4>"
+				+ "<ul>"
+				+ " <li><strong>Cosgrove, Richard</strong> (rc1035@york.ac.uk);</li>"
+				+ " <li><strong>Dong, Yindi</strong> (yd695@york.ac.uk);</li>"
+				+ " <li><strong>Fresta, Alfio Emanuele</strong> (aef517@york.ac.uk);</li>"
+				+ " <li><strong>Grierson, Andy</strong> (ag1106@york.ac.uk);</li>"
+				+ " <li><strong>Kokov, Stefan</strong> (sk1056@york.ac.uk);</li>"
+				+ " <li><strong>Lippit, Peter</strong> (pjl513@york.ac.uk);</li>"
+				+ "</ul>"
+				+ "</html>";
+		JLabel creditsText = new JLabel(creditsString, SwingConstants.CENTER);
+		creditsText.setForeground(Color.BLACK);
+		creditsText.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 12));
+		creditsText.setBounds(150, 0, 500, 500);
+		Credits.add(creditsTitle);
+		Credits.add(creditsText);
+		
 		Creditsbg = new JLabel("");
 		Creditsbg.setIcon(new ImageIcon(getClass().getResource("/resources/menuview img/C_D(g)-Railroad Tracks.jpg")));
 		Creditsbg.setBounds(0, 0, 784, 562);
@@ -655,10 +682,18 @@ public class MenuView extends JFrame {
 			return DIFFICULTY_EASY;
 		}
 	}
+	
 	public String getGameAtRow(int row) {
 		return (String) gameTable.getValueAt(row, 0);
 	}
 
+	public static void openWebpage(String urlString) {
+	    try {
+	        Desktop.getDesktop().browse(new URL(urlString).toURI());
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
 
 
 }
