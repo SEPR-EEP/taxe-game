@@ -35,7 +35,7 @@ import com.eep.taxe.utils.RunnableArgs;
  */
 public class MenuController {
 
-	private MenuView1 	view 	= null;
+	private MenuView 	view 	= null;
 	private MenuModel	model 	= null;
 	
 	private String 		name 	= "";
@@ -57,7 +57,7 @@ public class MenuController {
 	
 	private StartGameListener startGameListener = null;
 
-	public MenuController(MenuView1 menuView, MenuModel menuModel) {
+	public MenuController(MenuView menuView, MenuModel menuModel) {
 		this.view 	= menuView;
 		this.model 	= menuModel;
 		
@@ -66,11 +66,22 @@ public class MenuController {
 		//this.view.addBackButtonListener(new BackButtonListener());
 		//this.view.addCreditsButtonListener(new CreditsButtonListener());
 		//this.view.addCreateButtonListener(new CreateButtonListener());
-		//this.view.addTableMouseListener(new TableMouseListener());
 		
 		this.view.addQuitButtonMouseListener(new QuitLabelMouseListener());
 		this.view.addEnterButtonMouseListener(new EnterButtonMouseListener());
 		
+		this.view.addCreditsButtonMouseListener(new CreditsButtonMouseListener());
+		this.view.addHowToPlayButtonMouseListener(new HowToPlayButtonMouseListener());
+		this.view.addBackButtonMouseListener(new BackButtonMouseListener());
+		this.view.addStartGameButtonMouseListener(new StartGameButtonMouseListener());
+		
+		this.view.addHostGameButtonMouseListener(new HostGameButtonMouseListener());
+		
+		this.view.addCancelButtonMouseListener(new CancelButtonMouseListener());
+		this.view.addCreateGameButtonMouseListener(new CreateGameButtonMouseListener());
+		
+		this.view.addTableMouseListener(new TableMouseListener());
+
 		// Start the Refresher for the Game List
 		this.startGameListRefresher();
 		
@@ -113,6 +124,66 @@ public class MenuController {
 		return true;
 	}
 	
+
+	/*
+	 * ==== EVENTS: MENU GAME SCREEN ====
+	 */
+	private class CreditsButtonMouseListener extends MouseAdapter {
+		public void mouseReleased(MouseEvent e) {
+			view.showCredits();
+		}
+	}
+	
+	private class HowToPlayButtonMouseListener extends MouseAdapter {
+		public void mouseReleased(MouseEvent e) {
+			view.showHTP();
+		}
+	}
+	
+	private class BackButtonMouseListener extends MouseAdapter {
+		public void mouseReleased(MouseEvent e) {
+			view.showMainMenu();
+			refreshEnabled = false;
+		}
+	}	
+	
+	private class StartGameButtonMouseListener extends MouseAdapter {
+		public void mouseReleased(MouseEvent e) {
+			view.showConnect();
+			refreshEnabled = true;
+
+		}
+	}
+
+
+	/*
+	 * ==== EVENTS: CONNECT GAME SCREEN ====
+	 */
+	private class HostGameButtonMouseListener extends MouseAdapter {
+		public void mouseReleased(MouseEvent e) {
+			refreshEnabled = false;
+			view.showCreateGame();
+		}
+	}
+
+	/**
+	 * ==== EVENTS: CREATE GAME SCREEN ====
+	 */
+	private class CancelButtonMouseListener extends MouseAdapter {
+		public void mouseReleased(MouseEvent e) {
+			refreshEnabled = true;
+			view.showConnect();
+		}
+	}
+	
+	private class CreateGameButtonMouseListener extends MouseAdapter {
+		public void mouseReleased(MouseEvent e) {
+			createNewGame();
+		}
+	}
+
+	
+	
 	/**
 	 * This class catches any MoveEvent. The first move event is
 	 * always triggered at the Game start. If I am the Master player,
@@ -149,36 +220,7 @@ public class MenuController {
 			
 		}
 	}
-	
-	private class MainButtonListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			//view.showLobby();
-			refreshEnabled = true;
-		}		
-	}	
-	
-	private class BackButtonListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			//view.showMainMenu();
-			refreshEnabled = false;
-		}		
-	}	
-	
-	private class CreditsButtonListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			System.out.println("Yaaaay, credits!");
-		}		
-	}	
-	
-	private class CreateButtonListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			createNewGame();
-		}		
-	}
+
 	
 	private class TableMouseListener extends MouseAdapter {
 	    public void mousePressed(MouseEvent me) {
@@ -186,8 +228,8 @@ public class MenuController {
 	        Point p = me.getPoint();
 	        int row = table.rowAtPoint(p);
 	        if (me.getClickCount() == 2) { // I want a double click
-	           // String gameID = view.getGameAtRow(row);
-	            //joinGame(gameID);
+	           String gameID = view.getGameAtRow(row);
+	           joinGame(gameID);
 	        }
 	    }
 
@@ -204,7 +246,7 @@ public class MenuController {
 	private void listGames() {
     	model.getClient().listGames(new GameListResponse() {
 			public void response(ArrayList<GameListItem> gameList) {
-				/*view.emptyGameList();
+				view.emptyGameList();
 				for ( GameListItem i: gameList ) {
 					view.addGameToList(
 						i.id,
@@ -212,7 +254,7 @@ public class MenuController {
 						i.difficulty,
 						i.created
 					);
-				}*/
+				}
 			}  
     	});
 	}
@@ -227,49 +269,24 @@ public class MenuController {
 	 */
 	private void createNewGame() {
 		
-		// Ask for player's name
-		//view.askForName(new RunnableArgs(){
-			//@Override
-			//public void run() {
+		int difficulty = view.getSelectedDifficulty();
+		Game data = generateGameData(name, difficulty);
+		model.setData(data);
+		model.setNickname(name);
+		
+		// Create the actual game
+		model.getClient().createGame(name, difficulty, data, new GameInfoResponse() {
+			@Override
+			public void response(GameListItem item) {
 				
-				//final String name = (String) this.getArgs()[0];
+				view.showWaitingScreen();
+				System.out.println("Game #" + item.id + " created.");
+				System.out.println("Ok, waiting for other player.");
 				
-				//if ( name == null ) {
-					//view.showErrorMessage("Aborted.");
-					//return;
-				//}
-				
-				// Ask for difficulty
-				/*view.askForDifficulty(new RunnableArgs() {
+			}
+		});	
 
-					@Override
-					public void run() {
-					
-						if ( this.getArgs()[0] == null ) {
-							view.showErrorMessage("Aborted.");
-							return;
-						}
-						
-						Integer d = Integer.valueOf((String) this.getArgs()[0]);
-						Game data = generateGameData(name, d);
-						model.setData(data);
-						model.setNickname(name);
-						
-						// Create the actual game
-						model.getClient().createGame(name, d, data, new GameInfoResponse() {
-							@Override
-							public void response(GameListItem item) {
-								
-								view.showWaitScreen();
-								System.out.println("Game #" + item.id + " created.");
-								System.out.println("Ok, waiting for other player.");
-								
-							}
-						});						
-					}
-				});*/
-			//}
-		//});
+			
 	}
 	
 	/**
@@ -286,39 +303,25 @@ public class MenuController {
 	 */
 	private void joinGame(final String gameID) {
 		
-		/*this.view.askForName(new RunnableArgs(){
+		model.setNickname(name);
+		
+		model.getClient().joinGame(gameID, name, new StatusResponse() {
 			@Override
-			public void run() {
+			public void response(StatusItem item) {
 				
-				final String name = (String) this.getArgs()[0];
-
-				if ( name == null ) {
-					view.showErrorMessage("Aborted.");
+				if ( !item.ok ) {
+					view.showErrorMessage("Can't join: " + item.error);
 					return;
 				}
 				
-				model.setNickname(name);
-				
-				model.getClient().joinGame(gameID, name, new StatusResponse() {
-					@Override
-					public void response(StatusItem item) {
-						
-						if ( !item.ok ) {
-							view.showErrorMessage("Can't join: " + item.error);
-							return;
-						}
-						
-						view.showWaitScreen();
-						System.out.println("Game #" + gameID + " joined.");
-						System.out.println("Ok, waiting for other player.");
-						
-					}
-				});
-
+				view.showWaitingScreen();
+				System.out.println("Game #" + gameID + " joined.");
+				System.out.println("Ok, waiting for other player.");
 				
 			}
-		});*/
+		});
 
+			
 	}
 	
 	/**
@@ -379,11 +382,11 @@ public class MenuController {
 	}
 
 
-	public MenuView1 getView() {
+	public MenuView getView() {
 		return view;
 	}
 
-	public void setView(MenuView1 view) {
+	public void setView(MenuView view) {
 		this.view = view;
 	}
 

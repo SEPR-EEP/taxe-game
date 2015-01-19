@@ -71,7 +71,7 @@ public class Game extends Awaitility {
 		System.out.print("Starting Menu Graphical User Interface...");
 		
 		// Start Menu MVC
-		MenuView1 		menuView 		= new MenuView1();
+		MenuView 		menuView 		= new MenuView();
 		MenuModel		menuModel		= new MenuModel(client);
 		MenuController	menuController	= new MenuController(menuView, menuModel);
 		
