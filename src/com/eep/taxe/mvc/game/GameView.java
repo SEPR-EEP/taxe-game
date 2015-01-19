@@ -58,7 +58,6 @@ public class GameView extends javax.swing.JFrame {
 		getContentPane().add(gameMenuPanel);
 		
 		this.setVisible(true);
-
 	}
 
 	public void showErrorMessage(String message) {
