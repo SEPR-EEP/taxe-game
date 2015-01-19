@@ -6,7 +6,11 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Rectangle;
+import java.awt.GridLayout;
+import java.awt.Label;
 
+import javax.swing.Box;
+import javax.swing.border.MatteBorder;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -18,19 +22,59 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import net.miginfocom.swing.MigLayout;
-import javax.swing.border.MatteBorder;
 
 
 public class Store extends JDialog {
 
-	private final int WIDTH =600;
-	private final int HEIGHT =450;
+	private final int WIDTH =650;
+	private final int HEIGHT =600;
 	
 	private JTextPane itemDetails_JTextPane;
 	private JButton Buy_JButton;
 	private JButton ReturnToGame_JButton;
 	
+	private TradeInSlot tradeInSlot;
+	
+	private MarketSlot powerUpSlot1;
+	private MarketSlot powerUpSlot2;
+	private MarketSlot powerUpSlot3;
+	private MarketSlot powerUpSlot4;
+	private MarketSlot powerUpSlot5;
+		
+	private MarketSlot trapsSlot1;
+	private MarketSlot trapsSlot2;
+	private MarketSlot trapsSlot3;
+	private MarketSlot trapsSlot4;
+	private MarketSlot trapsSlot5;
+	
+	private TrainSlot trainSlot1;
+	private TrainSlot trainSlot2;
+	private TrainSlot trainSlot3;
+	private TrainSlot trainSlot4;
+	private TrainSlot trainSlot5;
+		
+	private InventorySlot inventorySlot1;
+	private InventorySlot inventorySlot2;
+	private InventorySlot inventorySlot3;
+	private InventorySlot inventorySlot4;
+	private InventorySlot inventorySlot5;
+	
+	private TrainSlot trainInventSlot1;
+	private TrainSlot trainInventSlot2;
+	private TrainSlot trainInventSlot3;
+	private TrainSlot trainInventSlot4;
+
+	
+	
 	private String itemDetailsText;
+	private Color lightColor = new Color(240,240,240);
+	private Color darkColor = new Color(128,128,128);
+	private JTextField metalCost_textField;
+	private JTextField gold_textField;
+	private Component rigidArea;
+	private Component rigidArea_1;
+	private Component rigidArea_2;
+	
 	
 	public static void main(String[] args) {
 		try {
@@ -50,7 +94,7 @@ public class Store extends JDialog {
 		getContentPane().setLayout(new BorderLayout());
 		{
 			JPanel panel = new JPanel();
-			panel.setBorder(new MatteBorder(0, 5, 5, 5, (Color) new Color(128,128,128)));
+			panel.setBorder(new MatteBorder(0, 5, 5, 5, (Color) darkColor));
 			getContentPane().add(panel, BorderLayout.NORTH);
 			
 			panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -66,7 +110,7 @@ public class Store extends JDialog {
 				marketTitle_JtextField.setEditable(false);
 				marketTitle_JtextField.setBounds(new Rectangle(15, 200, 110, 25));
 				marketTitle_JtextField.setBorder(null);
-				marketTitle_JtextField.setBackground(new Color(128, 128, 128));
+				marketTitle_JtextField.setBackground(darkColor);
 				marketTitle_JtextField.setHorizontalAlignment(SwingConstants.CENTER);
 				marketTitle_JtextField.setForeground(Color.WHITE);
 				marketTitle_JtextField.setFont(new Font("Sans Serif", Font.BOLD, 20));
@@ -90,14 +134,15 @@ public class Store extends JDialog {
 					detailsPanel_JPanel.setSize(new Dimension(80, 2));
 					detailsPanel_JPanel.setMaximumSize(new Dimension(WIDTH/5, (HEIGHT*9/10)));
 					detailsPanel_JPanel.setBackground(new Color(255, 255, 255));
-					detailsPanel_JPanel.setLayout(new MigLayout("", "[100px, grow,center]", "[250px,grow,center][grow,center]"));
+					detailsPanel_JPanel.setLayout(new MigLayout("", "[100px,grow,center]", "[450px,grow,center][grow,center]"));
 					
 					
 					//  ITEM DETAILS PANEL ------------------------------
 							JPanel detailsContainer_JPanel = new JPanel();
 							detailsPanel_JPanel.add(detailsContainer_JPanel, "flowy,cell 0 0");
 							
-							detailsContainer_JPanel.setLayout(new MigLayout("", "[145px]", "[360px][28px]"));
+							detailsContainer_JPanel.setBackground(lightColor);
+							detailsContainer_JPanel.setLayout(new MigLayout("", "[145px,grow]", "[250px][100,grow][100][30px]"));
 							
 							
 							//  ITEM DETAILS ------------------------------
@@ -108,16 +153,59 @@ public class Store extends JDialog {
 																	
 									itemDetails_JTextPane.setEditable(false);
 									itemDetails_JTextPane.setPreferredSize(new Dimension(WIDTH/4-45, HEIGHT*9/10));
-									itemDetails_JTextPane.setBorder(new LineBorder(new Color(171, 173, 179), 2));
+									itemDetails_JTextPane.setBorder(new TitledBorder(new LineBorder(new Color(171,173,179), 2), "Item Details", TitledBorder.CENTER, TitledBorder.TOP, new Font(Font.SANS_SERIF, Font.BOLD, 11), new Color(171,173,179)));
 									itemDetails_JTextPane.setMaximumSize(new Dimension(WIDTH/4-45, (HEIGHT*9/10)));
 									itemDetails_JTextPane.setText(itemDetailsText);
 									itemDetails_JTextPane.setFont(new Font("Sans Serif", Font.BOLD, 12));
 									itemDetails_JTextPane.setAlignmentX(Component.BOTTOM_ALIGNMENT);
 							
+									JPanel costPanel_JPanel = new JPanel();
+									costPanel_JPanel.setBorder(new TitledBorder(new LineBorder(new Color(171,173,179), 2), "Cost: ", TitledBorder.LEADING, TitledBorder.TOP, new Font(Font.SANS_SERIF, Font.BOLD, 11), new Color(171,173,179)));
+									detailsContainer_JPanel.add(costPanel_JPanel, "cell 0 1,alignx center,aligny center");
+									costPanel_JPanel.setLayout(new GridLayout(2, 2, 5, 8));
+									
+									Label metalCost_JLabel = new Label("Metal:");
+									metalCost_JLabel.setPreferredSize(new Dimension(20, 10));
+									metalCost_JLabel.setFont(new Font("SansSerif", Font.BOLD, 11));
+									costPanel_JPanel.add(metalCost_JLabel);
+									
+									metalCost_textField = new JTextField();
+									metalCost_textField.setFont(new Font("SansSerif", Font.PLAIN, 11));
+									metalCost_textField.setPreferredSize(new Dimension(20, 10));
+									metalCost_textField.setHorizontalAlignment(SwingConstants.CENTER);
+									metalCost_textField.setBackground(new Color(128, 128, 128, 28));
+									metalCost_textField.setBorder(null);
+									metalCost_textField.setText("1314414");
+									costPanel_JPanel.add(metalCost_textField);
+									metalCost_textField.setColumns(10);
+									
+									Label goldCost_JLabel = new Label("Gold: ");
+									goldCost_JLabel.setPreferredSize(new Dimension(20, 10));
+									goldCost_JLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 11));
+									costPanel_JPanel.add(goldCost_JLabel);
+									
+									gold_textField = new JTextField();
+									gold_textField.setFont(new Font("SansSerif", Font.PLAIN, 11));
+									gold_textField.setPreferredSize(new Dimension(20, 10));
+									gold_textField.setHorizontalAlignment(SwingConstants.CENTER);
+									gold_textField.setBackground(new Color(128, 128, 128, 28));
+									gold_textField.setBorder(null);
+									gold_textField.setText("636");
+									costPanel_JPanel.add(gold_textField);
+									gold_textField.setColumns(10);
+									
+									JPanel tradePanel = new JPanel();
+									tradePanel.setBorder(new TitledBorder(new LineBorder(new Color(171,173,179), 2), "Trade for: ", TitledBorder.LEADING, TitledBorder.TOP, new Font(Font.SANS_SERIF, Font.BOLD, 11), new Color(171,173,179)));
+									detailsContainer_JPanel.add(tradePanel, "flowx,cell 0 2,grow");
+									tradePanel.setLayout(new BoxLayout(tradePanel, BoxLayout.PAGE_AXIS));
+									
+									tradeInSlot = new TradeInSlot (WIDTH, HEIGHT);
+									tradeInSlot.setAlignmentX(Component.CENTER_ALIGNMENT);
+									tradePanel.add(tradeInSlot);
 									
 							//  BUY BUTTON ---------------------------------------------------
 									Buy_JButton = new JButton("Buy");
-									detailsContainer_JPanel.add(Buy_JButton, "cell 0 1,alignx left,aligny top");
+									detailsContainer_JPanel.add(Buy_JButton, "cell 0 3,alignx left,aligny top");
 									
 									Buy_JButton.setBounds(new Rectangle(15, 200, 110, 25));
 									Buy_JButton.setPreferredSize(new Dimension(145, 28));
@@ -161,7 +249,7 @@ public class Store extends JDialog {
 								powerTitle_JTextField.setEditable(false);
 								powerTitle_JTextField.setBounds(new Rectangle(15, 200, 110, 25));
 								powerTitle_JTextField.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-								powerTitle_JTextField.setBackground(new Color(128, 128, 128));
+								powerTitle_JTextField.setBackground(darkColor);
 								powerTitle_JTextField.setHorizontalAlignment(SwingConstants.CENTER);
 								powerTitle_JTextField.setForeground(new Color(255, 255, 255));
 								powerTitle_JTextField.setFont(new Font("Sans Serif", Font.BOLD, 12));
@@ -172,7 +260,24 @@ public class Store extends JDialog {
 								JPanel powerIcons_JPanel = new JPanel();
 								powerPanel_JPanel.add(powerIcons_JPanel, BorderLayout.CENTER);
 									
+								powerIcons_JPanel.setBackground(lightColor);
+								powerIcons_JPanel.setLayout(new GridLayout(0, 5, 0, 0));
 									// icons
+								powerUpSlot1 = new MarketSlot(WIDTH, HEIGHT);
+								powerUpSlot1.setBorder(null);
+								powerIcons_JPanel.add(powerUpSlot1);
+								powerUpSlot2 = new MarketSlot(WIDTH, HEIGHT);
+								powerUpSlot2.setBorder(null);
+								powerIcons_JPanel.add(powerUpSlot2);
+								powerUpSlot3 = new MarketSlot(WIDTH, HEIGHT);
+								powerUpSlot3.setBorder(null);
+								powerIcons_JPanel.add(powerUpSlot3);
+								powerUpSlot4 = new MarketSlot(WIDTH, HEIGHT);
+								powerUpSlot4.setBorder(null);
+								powerIcons_JPanel.add(powerUpSlot4);
+								powerUpSlot5 = new MarketSlot(WIDTH, HEIGHT);
+								powerUpSlot5.setBorder(null);
+								powerIcons_JPanel.add(powerUpSlot5);
 							
 					//  TRAPS PANEL ----------------------------------------------
 							JPanel trapsPanel_JPanel = new JPanel();
@@ -188,7 +293,7 @@ public class Store extends JDialog {
 							trapsTitle_JTextField.setEditable(false);
 							trapsTitle_JTextField.setBounds(new Rectangle(15, 200, 110, 25));
 							trapsTitle_JTextField.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-							trapsTitle_JTextField.setBackground(new Color(128, 128, 128));
+							trapsTitle_JTextField.setBackground(darkColor);
 							trapsTitle_JTextField.setHorizontalAlignment(SwingConstants.CENTER);
 							trapsTitle_JTextField.setForeground(new Color(255, 255, 255));
 							trapsTitle_JTextField.setFont(new Font("Sans Serif", Font.BOLD, 12));
@@ -199,7 +304,25 @@ public class Store extends JDialog {
 							JPanel trapsIcons_JPanel = new JPanel();
 							trapsPanel_JPanel.add(trapsIcons_JPanel, BorderLayout.CENTER);
 								
+							trapsIcons_JPanel.setBackground(lightColor);
+							trapsIcons_JPanel.setLayout(new GridLayout(0, 5, 0, 0));
 							// icons
+							
+							trapsSlot1 = new MarketSlot(WIDTH, HEIGHT);
+							trapsSlot1.setBorder(null);
+							trapsIcons_JPanel.add(trapsSlot1);
+							trapsSlot2 = new MarketSlot(WIDTH, HEIGHT);
+							trapsSlot2.setBorder(null);
+							trapsIcons_JPanel.add(trapsSlot2);
+							trapsSlot3 = new MarketSlot(WIDTH, HEIGHT);
+							trapsSlot3.setBorder(null);
+							trapsIcons_JPanel.add(trapsSlot3);
+							trapsSlot4 = new MarketSlot(WIDTH, HEIGHT);
+							trapsSlot4.setBorder(null);
+							trapsIcons_JPanel.add(trapsSlot4);
+							trapsSlot5 = new MarketSlot(WIDTH, HEIGHT);
+							trapsSlot5.setBorder(null);
+							trapsIcons_JPanel.add(trapsSlot5);
 							
 							
 					//  TRAINS PANEL ------------------------------------------
@@ -216,7 +339,7 @@ public class Store extends JDialog {
 							    trainsTitle_JTextField.setEditable(false);
 								trainsTitle_JTextField.setBounds(new Rectangle(15, 200, 110, 25));
 								trainsTitle_JTextField.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-								trainsTitle_JTextField.setBackground(new Color(128, 128, 128));
+								trainsTitle_JTextField.setBackground(darkColor);
 								trainsTitle_JTextField.setHorizontalAlignment(SwingConstants.CENTER);
 								trainsTitle_JTextField.setForeground(new Color(255, 255, 255));
 								trainsTitle_JTextField.setFont(new Font("Sans Serif", Font.BOLD, 12));
@@ -226,7 +349,25 @@ public class Store extends JDialog {
 								JPanel trainsIcons_JPanel = new JPanel();
 								trainsPanel_JPanel.add(trainsIcons_JPanel, BorderLayout.CENTER);
 								
+								trainsIcons_JPanel.setBackground(lightColor);
+								trainsIcons_JPanel.setLayout(new GridLayout(0, 5, 0, 0));
 								// icons
+								
+								trainSlot1 = new TrainSlot(WIDTH, HEIGHT);
+								trainsIcons_JPanel.add(trainSlot1);
+								trainSlot1.setBorder(null);
+								trainSlot2 = new TrainSlot(WIDTH, HEIGHT);
+								trainsIcons_JPanel.add(trainSlot2);
+								trainSlot2.setBorder(null);
+								trainSlot3 = new TrainSlot(WIDTH, HEIGHT);
+								trainsIcons_JPanel.add(trainSlot3);
+								trainSlot3.setBorder(null);
+								trainSlot4 = new TrainSlot(WIDTH, HEIGHT);
+								trainsIcons_JPanel.add(trainSlot4);
+								trainSlot4.setBorder(null);
+								trainSlot5 = new TrainSlot(WIDTH, HEIGHT);
+								trainsIcons_JPanel.add(trainSlot5);
+								trainSlot5.setBorder(null);
 								
 					//  INVENTORY PANEL --------------------------------------
 							JPanel inventoryPanel_JPanel = new JPanel();
@@ -242,7 +383,7 @@ public class Store extends JDialog {
 							    inventoryTitle_JTextField.setEditable(false);
 								inventoryTitle_JTextField.setBounds(new Rectangle(15, 200, 110, 25));
 								inventoryTitle_JTextField.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-								inventoryTitle_JTextField.setBackground(new Color(128, 128, 128));
+								inventoryTitle_JTextField.setBackground(darkColor);
 								inventoryTitle_JTextField.setHorizontalAlignment(SwingConstants.CENTER);
 								inventoryTitle_JTextField.setForeground(new Color(255, 255, 255));
 								inventoryTitle_JTextField.setFont(new Font("Sans Serif", Font.BOLD, 12));
@@ -250,9 +391,62 @@ public class Store extends JDialog {
 								
 							//  INVENTORY ICONS -------------------------------------
 								JPanel inventoryIcons_JPanel = new JPanel();
+								inventoryIcons_JPanel.setBorder(null);
 								inventoryPanel_JPanel.add(inventoryIcons_JPanel, BorderLayout.CENTER);
 								
-								// icons
+								inventoryIcons_JPanel.setBackground(lightColor);
+									inventoryIcons_JPanel.setLayout(new BoxLayout(inventoryIcons_JPanel, BoxLayout.Y_AXIS));
+									
+									rigidArea_1 = Box.createRigidArea(new Dimension(650, 15));
+									inventoryIcons_JPanel.add(rigidArea_1);
+								
+									JPanel inventoryPowerIcons = new JPanel();
+									inventoryIcons_JPanel.add(inventoryPowerIcons);
+									
+									inventoryPowerIcons.setLayout(new GridLayout(0, 5, 5, 5));
+									// icons
+									
+										inventorySlot1 = new InventorySlot(WIDTH, HEIGHT);
+										inventorySlot1.setBorder(null);
+										inventoryPowerIcons.add(inventorySlot1);
+										inventorySlot2 = new InventorySlot(WIDTH, HEIGHT);
+										inventorySlot2.setBorder(null);
+										inventoryPowerIcons.add(inventorySlot2);
+										inventorySlot3 = new InventorySlot(WIDTH, HEIGHT);
+										inventorySlot3.setBorder(null);
+										inventoryPowerIcons.add(inventorySlot3);
+										inventorySlot4 = new InventorySlot(WIDTH, HEIGHT);
+										inventorySlot4.setBorder(null);
+										inventoryPowerIcons.add(inventorySlot4);
+										inventorySlot5 = new InventorySlot(WIDTH, HEIGHT);
+										inventorySlot5.setBorder(null);
+										inventoryPowerIcons.add(inventorySlot5);
+									
+									rigidArea_2 = Box.createRigidArea(new Dimension(650, 15));
+									inventoryIcons_JPanel.add(rigidArea_2);
+								
+									JPanel inventoryTrainIcons_JPanel = new JPanel();
+									inventoryIcons_JPanel.add(inventoryTrainIcons_JPanel);
+									
+									inventoryTrainIcons_JPanel.setLayout(new GridLayout(0, 4, 0, 0));
+									
+										trainInventSlot1 = new TrainSlot(WIDTH, HEIGHT);
+										trainInventSlot1.setBorder(null);
+										inventoryTrainIcons_JPanel.add(trainInventSlot1);
+										trainInventSlot2 = new TrainSlot(WIDTH, HEIGHT);
+										trainInventSlot2.setBorder(null);
+										inventoryTrainIcons_JPanel.add(trainInventSlot2);
+										trainInventSlot3 = new TrainSlot(WIDTH, HEIGHT);
+										trainInventSlot3.setBorder(null);
+										inventoryTrainIcons_JPanel.add(trainInventSlot3);
+										trainInventSlot4 = new TrainSlot(WIDTH, HEIGHT);
+										trainInventSlot4.setBorder(null);
+										inventoryTrainIcons_JPanel.add(trainInventSlot4);
+										
+										rigidArea = Box.createRigidArea(new Dimension(650, 15));
+										inventoryIcons_JPanel.add(rigidArea);
+								
+								
 			}
 		
 		}

@@ -1,5 +1,6 @@
 package com.eep.taxe.mvc.game;
 
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,19 +18,19 @@ import javax.swing.JPanel;
 
 import com.eep.taxe.models.Usable;
 
-public class InventorySlot extends JButton{
+public class MarketSlot extends JButton{
 	private final int WIDTH;
 	private final int HEIGHT;
 	private Usable item;
 	private ImageIcon defaultIcon;
 	private boolean selected;
 	
-	private final String EMPTY_TOOLTIP = "Empty slot";
 	
 	
-	public InventorySlot (final int width, final int height){
+	public MarketSlot (final int width, final int height){
 		this.WIDTH = width;
 		this.HEIGHT = height;
+
 		this.defaultIcon = new ImageIcon(getClass().getResource("/resources/gameview/EmptySlotX.png"));
 		this.item = null;
 		this.selected = false;
@@ -37,7 +38,6 @@ public class InventorySlot extends JButton{
 		this.setIcon(defaultIcon);
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
 		this.setContentAreaFilled(false);
-		this.setToolTipText(EMPTY_TOOLTIP);
 	}
 
 
@@ -51,11 +51,9 @@ public class InventorySlot extends JButton{
 
 	public void setItem(Usable item) {
 		if(item != null){
-			this.setIcon(new ImageIcon(getClass().getResource(item.getImage())));
-			this.setToolTipText(item.getName());
+			this.setIcon(new ImageIcon(item.getImage()));
 		}else{
 			this.setIcon(defaultIcon);
-			this.setToolTipText(EMPTY_TOOLTIP);
 		}
 		this.item = item; // You need to be able to set the item to null		
 	}
