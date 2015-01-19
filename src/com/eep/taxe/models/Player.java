@@ -21,7 +21,7 @@ public class Player implements PlayerInterface {
 	
 	private Vector<Goal>		currentGoals;
 	
-	private final int 			MAX_USABLES = 6;
+	private final int 			MAX_USABLES = 5;
 	
 	public Player() {
 		this.gold  = new Gold();

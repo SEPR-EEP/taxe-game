@@ -12,6 +12,7 @@ public class Train implements TrainInterface, Cloneable {
 	private int costInMetal, costInGold;
 	private final float baseSpeed;	//Speed of the train without modifiers
 	private float actualSpeed;		//Speed of the train with modifiers applied, if non applied then baseSpeed == actualSpeed
+
 	private Journey journey;
 	
 	private Station stationToStartNextGoalAt; // The station the train will start its next goal from
@@ -161,6 +162,10 @@ public class Train implements TrainInterface, Cloneable {
 		
 	}
 	
+	public float getActualSpeed() {
+		return actualSpeed;
+	}
+
 	public Train clone() {
 		try {
 			return (Train) super.clone();
