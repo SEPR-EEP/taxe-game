@@ -209,26 +209,50 @@ public class PlayerTest {
 		
 	}
 	
-	public void testInvalidBuySlowdownAndUseOnOtherPlayer(){
+	@Test
+	public void testInvalidBuySlowdownAndUseOnSelf(){
+		//Give both players spendable resources
+		playerOne.addGold(1000);
+		playerOne.addMetal(500);
+		
+		//PlayerOne buys steam slowdown
+		playerOne.buy(steamSlowdown);
+			
+		//PlayerOne buys steam train
+		playerOne.buyTrain(steamTrainOne);
+			
+		//PlayerOne uses steam slowdown on player one's train
+		steamSlowdown.useOnTrain(steamTrainOne);
+			
+		//Player one's steam slowdown should not have halved the speed of player one's steam train
+		if (steamTrainOne.getBaseSpeed() != steamTrainOne.getSpeed() ){
+			fail("Steam slowdown should not have been used on their own train");
+		}	
+		
+	}
+	
+	@Test
+	public void testInvalidBuySpeedBoostAndUseOnOtherPlayer(){
 		//Give both players spendable resources
 		playerOne.addGold(500);
 		playerTwo.addGold(500);
 		playerTwo.addMetal(500);
 		
-		//PlayerOne buys steam slowdown
-		playerOne.buy(steamSlowdown);
+		//PlayerOne buys steam boost
+		playerOne.buy(steamBoost);
 			
 		//PlayerTwo buys steam train
-		playerOne.buyTrain(steamTrainTwo);
+		playerTwo.buyTrain(steamTrainTwo);
 			
-		//PlayerOne uses steam slowdown on player two's train
-		steamSlowdown.useOnTrain(steamTrainTwo);
+		//PlayerOne uses steam boost on player one's train
+		steamBoost.useOnTrain(steamTrainTwo);
 			
-		//Player one's steam slowdown should have halved the speed of player two's steam train
-		if (steamTrainTwo.getBaseSpeed() / 2 != steamTrainTwo.getSpeed() ){
-			fail("Steam slowdown has not been used on other player");
+		//Player one's steam boost should not have been used on Player Two's steam train
+		if (steamTrainTwo.getBaseSpeed() != steamTrainTwo.getSpeed() ){
+			fail("Steam boost should not have been used on opponent's train");
 		}	
 		
 	}
+	
 	
 }
