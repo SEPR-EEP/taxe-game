@@ -37,16 +37,11 @@ public class LeftPanel extends JPanel{
 			agePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, WIDTH/512));
 			agePanel.setPreferredSize(new Dimension(WIDTH/9, HEIGHT/24));
 			agePanel.setBackground(new Color(169, 169, 169));
-				
-				JLabel staticAgeLabel = new JLabel();
-				staticAgeLabel.setOpaque(false);
-				staticAgeLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
-				staticAgeLabel.setText("Age: ");
-				
+								
 				ageLabel = new JLabel();
 				ageLabel.setOpaque(false);
-				ageLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
-				ageLabel.setText("Stone Age");
+				ageLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+				ageLabel.setText("Loading");
 				
 			JPanel player1Panel = new JPanel();
 			player1Panel.setBackground(new Color(211, 211, 211));
@@ -104,7 +99,6 @@ public class LeftPanel extends JPanel{
 				player2Panel.add(player2IconLabel);
 				player2Panel.add(Box.createRigidArea(new Dimension(WIDTH/128, HEIGHT/16)));
 				player2Panel.add(player2InfoPanel);
-				agePanel.add(staticAgeLabel);
 				agePanel.add(ageLabel);
 				
 			this.add(Box.createRigidArea(new Dimension(WIDTH/8, HEIGHT/32)));

@@ -46,7 +46,7 @@ public class GameView extends javax.swing.JFrame {
 		gameMenuPanel.setLayout(new BorderLayout(0, 0));
 		
 			mapLabel = new JLabel();
-			mapLabel.setText("Click to start.");
+			mapLabel.setText("     Please, click to play.");
 			//mapLabel.setIcon(new ImageIcon(getClass().getResource("/resources/MainMap.jpg")));
 			mapLabel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
@@ -110,6 +110,10 @@ public class GameView extends javax.swing.JFrame {
 
 	public void setGameMenuPanel(JImagePanel gameMenuPanel) {
 		this.gameMenuPanel = gameMenuPanel;
+	}
+	
+	public void enableEndTurnButton(boolean b) {
+		this.topPanel.enableEndTurnButton(b);
 	}
 	
 	

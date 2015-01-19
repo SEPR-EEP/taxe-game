@@ -68,12 +68,12 @@ public class TopPanel extends JPanel{
 					public void actionPerformed(ActionEvent arg0) {
 					}
 				});
-				endTurnButton.setText("End Turn");
+				endTurnButton.setText("OK - End Turn");
 				endTurnButton.setFont(buttonFont);
-				endTurnButton.setPreferredSize(new Dimension(WIDTH/15, WIDTH/48));
+				endTurnButton.setPreferredSize(new Dimension(WIDTH/10, WIDTH/48));
 				endTurnButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 				endTurnButton.setBorderPainted(false);
-				endTurnButton.setForeground(Color.BLACK);
+				endTurnButton.setForeground(Color.RED);
 				
 			JPanel missionDetailsPanel = new JPanel();
 			missionDetailsPanel.setOpaque(false);
@@ -155,6 +155,9 @@ public class TopPanel extends JPanel{
 		this.add(goldMetalPanel);
 	}
 	
+	public void enableEndTurnButton(boolean b) {
+		endTurnButton.setEnabled(b);
+	}
 	
 	
 	public void setTimer(String time){

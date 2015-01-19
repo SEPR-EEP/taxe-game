@@ -90,7 +90,6 @@ public class GameController {
 		if ( model.getMyRole() == Role.MASTER ) {
 			this.currentState = GameState.WAITING;
 		}
-		System.out.println("A");
 
 		// Add to the window title " - Playing as NAME (ROLE)"
 		view.setTitle(
@@ -104,14 +103,12 @@ public class GameController {
 				view.getMapLabel(),
 				new MapMouseListener()
 		);
-		System.out.println("B");
 
 		// Sets my nickname - this is as I might be the Slave player and have to set my name!
 		this.getPlayer().setNickname(this.getModel().getMyNickname());
 		
 		// Sets a MoveListener to handle the data received from the other player
 		model.getClient().setOnMove(new MoveListener());
-		System.out.println("C");
 
 		model.getClient().setOnEnd(new EndListener());
 		//Add all of the Listeners for Events generated in the view
@@ -127,10 +124,8 @@ public class GameController {
 		final TrainSlotsActionListener b = new TrainSlotsActionListener();
 		this.view.addTrainSlotsActionListener(b);
 		
-		System.out.println("D");
 		// Draw the interface
 		this.updateView();
-		System.out.println("E");
 
 		
 	}
@@ -164,7 +159,7 @@ public class GameController {
 		// Display inventory resources
 		this.updateInventory();
 		
-		// Display current age
+		// Display current age		
 		this.view.setAge(getPlayer().getCurrentAge().getName());
 		
 		// Display goals - in HTML for nicer formatting!
@@ -179,12 +174,18 @@ public class GameController {
 		// Show PLEASE WAIT or PLEASE PLAY in large reassuring letters
 		if ( currentState == GameState.WAITING ) {
 			info += "It's your opponent's turn<br /><big color=red>PLEASE WAIT</big>";
+			view.enableEndTurnButton(false);
 		} else {
 			info += "It's your turn<br /><big color=green>PLEASE PLAY</big>";
+			view.enableEndTurnButton(true);
 		}
 
 		info += "</b></center></html>";
 		this.view.setInfoText(info);
+		
+		// They are at zero right now.
+		this.view.setGold(getPlayer().getGoldQuantity());
+		this.view.setMetal(getPlayer().getMetalQuantity());
 		
 		// Display turn number
 		this.view.setTimer("Turn " + (model.getData().getCurrentTurn() + 1));
@@ -225,6 +226,13 @@ public class GameController {
 
 		@Override
 		public void actionPerformed(ActionEvent e, int slot) {
+			
+			// If it is not your turn
+			if ( currentState == GameState.WAITING ) {
+				view.showMessage("Please wait your turn.");
+				return;
+			}
+			
 			if (getItemInventorySlot(slot) == null) {
 				view.showMessage("There is no item in this inventory slot (slot#" + slot + ")");
 				return;
@@ -357,6 +365,13 @@ public class GameController {
 
 		@Override
 		public void actionPerformed(ActionEvent e, int slot) {
+			
+			// If it is not your turn
+			if ( currentState == GameState.WAITING ) {
+				view.showMessage("Please wait your turn.");
+				return;
+			}
+			
 			if (getTrainTrainSlot(slot) == null) {
 				view.showMessage("There is no train in this slot.");
 				return;
@@ -487,7 +502,7 @@ public class GameController {
 		public final double 	OFFSET_MINE			= -1;
 		public final double 	OFFSET_OPPONENT		= 1;
 		
-		public final double 	CLICK_PRECISION			= 1.2;
+		public final double 	CLICK_PRECISION			= 1.3;
 		public final double 	LABEL_RELATIVE_PADDING	= 1.4;
 		
 		public final double 	VERTEX_SIZE_STATION 	= 2;

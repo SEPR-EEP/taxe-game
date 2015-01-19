@@ -22,14 +22,14 @@ public class Generator {
 	public static Vector<Vertex> generateMap() {
 		Vector<Vertex> r = new Vector<Vertex>();
 		
-		Station Rome 		= new Station(35, 45, "Rome Fiumicino");
-		Station Paris 		= new Station(27, 30, "Paris Centràle");
-		Station Berlin 		= new Station(40, 20, "Berlin Hauptbahnhof");
-		Station Sofia		= new Station(80, 25, "Sofia Station");
-		Station Madrid		= new Station(05, 55, "Madrid Atocha Station");
+		Station Rome 		= new Station(37, 41, "Rome Fiumicino");
+		Station Paris 		= new Station(22, 23, "Paris Centràle");
+		Station Berlin 		= new Station(38, 19, "Berlin Hauptbahnhof");
+		Station Sofia		= new Station(55, 35, "Sofia Station");
+		Station Madrid		= new Station(15, 40, "Madrid Atocha Station");
 		
-		Junction JN1		= new Junction(40, 25);
-		Junction JN2		= new Junction(50, 20);
+		Junction JN1		= new Junction(20, 30);
+		Junction JN2		= new Junction(35, 30);
 		
 		new Edge(Paris,		JN2,	400);
 		new Edge(Paris, 	JN1, 	520);
