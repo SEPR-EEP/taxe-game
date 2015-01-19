@@ -110,10 +110,10 @@ public class Generator {
 	public static Vector<Usable> generateTrainSpeedModifier(Ages age) {
 		Vector<Usable> trainSpeedModifierList = new Vector<Usable>();
 		
-		TrainSpeedModifier smallSpeedBoost 	= new TrainSpeedModifier("Small Speed Boost", 	"/resources/SpeedBoost.png", 10, 10, Ages.FIRST, 10);
-		TrainSpeedModifier mediumSpeedBoost = new TrainSpeedModifier("Medium Speed Boost", 	"/resources/SpeedBoost.png", 30, 30, Ages.SECOND, 30);
-		TrainSpeedModifier largeSpeedBoost	= new TrainSpeedModifier("Large Speed Boost",	"/resources/SpeedBoost.png", 60, 60, Ages.THIRD, 60);
-		TrainSpeedModifier megaSpeedBoost 	= new TrainSpeedModifier("Mega Speed Boost", 	"/resources/SpeedBoost.png", 100, 100, Ages.FOURTH, 100);
+		TrainSpeedModifier smallSpeedBoost 	= new TrainSpeedModifier("Small Speed Boost", 	"/resources/SpeedBoost.png", 10, 10, Ages.FIRST, 	1.2f);
+		TrainSpeedModifier mediumSpeedBoost = new TrainSpeedModifier("Medium Speed Boost", 	"/resources/SpeedBoost.png", 30, 30, Ages.SECOND, 	1.5f);
+		TrainSpeedModifier largeSpeedBoost	= new TrainSpeedModifier("Large Speed Boost",	"/resources/SpeedBoost.png", 60, 60, Ages.THIRD, 	1.9f);
+		TrainSpeedModifier megaSpeedBoost 	= new TrainSpeedModifier("Mega Speed Boost", 	"/resources/SpeedBoost.png", 100, 100, Ages.FOURTH, 2.5f);
 		
 		trainSpeedModifierList.add(smallSpeedBoost);
 		

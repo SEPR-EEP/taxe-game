@@ -37,6 +37,7 @@ import com.eep.taxe.models.Path;
 import com.eep.taxe.models.Player;
 import com.eep.taxe.models.Station;
 import com.eep.taxe.models.Train;
+import com.eep.taxe.models.TrainSpeedModifier;
 import com.eep.taxe.models.Usable;
 import com.eep.taxe.models.Vertex;
 import com.eep.taxe.mvc.game.BottomPanel.InventorySlotsListener;
@@ -66,6 +67,7 @@ public class GameController {
 		WAITING, 			// Waiting for other player to move,
 		STANDBY, 			// My turn, still doing nothing,
 		BUILDING_PATH, 		// Selected a train, I am now building a path
+		USING_RESOURCE,		// Selected a train, I now need to select a train
 	}
 	
 	/**
@@ -190,10 +192,8 @@ public class GameController {
 	
 	private void updateInventory() {
 		this.emptyInventorySlots();
-		System.out.println("This player has " + this.getPlayer().getInventory().size() + " resources");
 		for ( Usable u: this.getPlayer().getInventory() ) {
 			int n = firstEmptyInventorySlot();
-			System.out.println("First empty slot is n. " + n + " to contain Resource " + u);
 			setItemInventorySlot	(n, u);
 			setSelectedInventorySlot(n, this.usableInUse == u);
 		}
@@ -221,11 +221,18 @@ public class GameController {
 		@Override
 		public void actionPerformed(ActionEvent e, int slot) {
 			if (getItemInventorySlot(slot) == null) {
-				view.showMessage("There is no item in this inventory slot.");
+				view.showMessage("There is no item in this inventory slot (slot#" + slot + ")");
 				return;
 			}
 			
-			view.showMessage("Item: " + getItemInventorySlot(slot));
+			currentState 	= GameState.USING_RESOURCE;
+			usableInUse		= getItemInventorySlot(slot);
+			buildingTrain 	= null;
+			buildingVertices= null;
+
+			view.showMessage("Click on the train you want to apply " + 
+					usableInUse.getName() + " onto.");
+			
 			
 		}
 		
@@ -369,13 +376,15 @@ public class GameController {
 				}
 				break;
 				
-			case STANDBY:
-				view.showMessage("You are just passing your turn");
-				break;
-				
 			case WAITING:
 				view.showErrorMessage("It's not your turn - please wait.");
 				return;
+				
+			case USING_RESOURCE:
+			case STANDBY:
+			default:
+				view.showMessage("You are just passing your turn");
+				break;				
 				
 			}
 			
@@ -847,12 +856,20 @@ public class GameController {
 	 * - The click on one of my trains on the map;
 	 * - The FIRST  (to select)   click on one of my trains in the inventory;
 	 * - The SECOND (to deselect) click on one of my trains in the inventory;
+	 * - The click on any train to apply the resource
 	 * @param t
 	 */
 	private void clickOnTrain(Train t) {
 		
 		
-		if ( this.buildingTrain == t ) {
+		if ( currentState == GameState.USING_RESOURCE ) {
+			this.applyUsableToTrain(t);
+			this.usableInUse 		= null;
+			this.currentState		= GameState.STANDBY;
+			
+			
+			
+		} else if ( this.buildingTrain == t ) {
 			// SECOND CLICK ON ONE OF MY TRAINS IN THE INVENTORY
 			// - I should de-select the train and return to STANDBY
 			this.buildingTrain 		= null;
@@ -883,6 +900,27 @@ public class GameController {
 		
 	}
 	
+	private void applyUsableToTrain(Train t) {
+		
+		if ( usableInUse instanceof TrainSpeedModifier ) {
+			TrainSpeedModifier r = (TrainSpeedModifier) usableInUse;
+			r.useOnTrain(t);
+			System.out.println("Modifier applied - Train speed is now " + t.getActualSpeed() + " mph");
+			
+		} else {
+			System.out.println("WARNING - I do not know what to do with this type of Usable.");
+			
+			
+		}
+		
+		getPlayer().getInventory().remove(usableInUse);
+		usableInUse = null;
+
+	}
+
+
+
+
 	/**
 	 * This method is called every time the player clicks somewhere 
 	 * on the map. This method should - depending on the current state -
@@ -899,9 +937,9 @@ public class GameController {
 			view.showMessage("Please wait, it's your opponent's turn.");
 			break;
 			
-		case STANDBY:	// MY TURN, DOING NOTHING
+		case USING_RESOURCE:	// MY TURN, USING RESOURCE
+		case STANDBY:			// MY TURN, DOING NOTHING
 			
-			// If a click on a train, start building path
 			Train t = graphics.findMyTrain(e);
 			if ( t == null ) {
 				break;
