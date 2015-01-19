@@ -30,10 +30,10 @@ public class MarketSlot extends JButton{
 	public MarketSlot (final int width, final int height){
 		this.WIDTH = width;
 		this.HEIGHT = height;
-
 		this.defaultIcon = new ImageIcon(getClass().getResource("/resources/gameview/EmptySlotX.png"));
 		this.item = null;
 		this.selected = false;
+		
 		this.setPreferredSize(new Dimension(WIDTH/24, WIDTH/24));
 		this.setIcon(defaultIcon);
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));

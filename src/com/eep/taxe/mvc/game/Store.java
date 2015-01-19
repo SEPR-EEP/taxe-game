@@ -24,8 +24,12 @@ import javax.swing.border.TitledBorder;
 import net.miginfocom.swing.MigLayout;
 
 
-public class Store extends JDialog {
+public final class Store extends JDialog {
 
+	/**
+	 * 
+	 */
+	
 	private final int WIDTH =650;
 	private final int HEIGHT =600;
 	
@@ -80,6 +84,7 @@ public class Store extends JDialog {
 		try {
 			Store dialog = new Store();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setLocation(1300/2 - 650/2, 720/2 - 600/2);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -88,6 +93,7 @@ public class Store extends JDialog {
 
 
 	public Store() {
+		
 		setMinimumSize(new Dimension(WIDTH, HEIGHT));
 		getContentPane().setBounds(new Rectangle(0, 0, WIDTH, HEIGHT));
 		setBounds(100, 100, WIDTH+20, HEIGHT+38);
@@ -211,20 +217,16 @@ public class Store extends JDialog {
 									Buy_JButton.setPreferredSize(new Dimension(145, 28));
 									Buy_JButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 									Buy_JButton.setBorderPainted(false);
-									Buy_JButton.setBackground(Color.BLACK);
 									Buy_JButton.setFont(new Font("Sans Serif", Font.BOLD, 11));
-									Buy_JButton.setForeground(Color.BLACK);
 							
 					//  RETURN TO GAME BUTTON ------------------------------
 							ReturnToGame_JButton = new JButton("Return to Game");
 							detailsPanel_JPanel.add(ReturnToGame_JButton, "cell 0 1");
 							
 							ReturnToGame_JButton.setPreferredSize(new Dimension(145, 28));
-							ReturnToGame_JButton.setForeground(Color.BLACK);
 							ReturnToGame_JButton.setFont(new Font("Sans Serif", Font.BOLD, 11));
 							ReturnToGame_JButton.setBounds(new Rectangle(15, 200, 110, 25));
 							ReturnToGame_JButton.setBorderPainted(false);
-							ReturnToGame_JButton.setBackground(Color.BLACK);
 							ReturnToGame_JButton.setAlignmentX(0.5f);
 							
 							
@@ -450,6 +452,7 @@ public class Store extends JDialog {
 			}
 		
 		}
+	
 		public void setItemDetailsText (String text){
 			this.itemDetailsText = text;
 	}

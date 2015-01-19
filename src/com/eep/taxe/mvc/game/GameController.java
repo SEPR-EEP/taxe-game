@@ -2,7 +2,9 @@ package com.eep.taxe.mvc.game;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -14,15 +16,13 @@ import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import com.eep.taxe.GameClient.EndEvent;
 import com.eep.taxe.GameClient.MoveEvent;
@@ -43,6 +43,7 @@ import com.eep.taxe.models.TrainSpeedModifier;
 import com.eep.taxe.models.Usable;
 import com.eep.taxe.models.Vertex;
 import com.eep.taxe.mvc.game.BottomPanel.InventorySlotsListener;
+import com.eep.taxe.mvc.game.BottomPanel.MarketButtonListener;
 import com.eep.taxe.mvc.game.BottomPanel.TrainSlotsListener;
 
 /**
@@ -61,6 +62,8 @@ public class GameController {
 	private Path 		currentPath = null;
 	
 	private Usable 		usableInUse = null;
+	
+	
 	
 	/**
 	 * These are the possible game states.
@@ -116,7 +119,7 @@ public class GameController {
 		this.view.addDetailsButtonActionListener(new DetailsButtonActionListener());
 		this.view.addMenuButtonActionListener(new MenuButtonActionListener());
 		this.view.addEndTurnButtonActionListener(new EndTurnButtonActionListener());
-		//this.view.addMarketButtonActionListener(new MarketButtonActionListener());
+		this.view.addMarketButtonActionListener(new MarketButtonActionListener());
 
 
 		final InventorySlotsActionListener a = new InventorySlotsActionListener();
@@ -233,6 +236,18 @@ public class GameController {
 			// TODO Auto-generated method stub
 		}
 	}
+	
+	private class MarketButtonActionListener implements MarketButtonListener{
+
+		public void actionPerformed (ActionEvent e) {
+						
+			Store.main(null);
+							
+			}
+			
+		}
+		
+
 	
 	private class MenuButtonActionListener implements ActionListener{
 

@@ -31,15 +31,15 @@ public class TradeInSlot extends JButton{
 		this.WIDTH = width;
 		this.HEIGHT = height;
 		this.defaultIcon = new ImageIcon(getClass().getResource("/resources/gameview/EmptySlotX.png"));
-
-    	this.item = null;
+		this.item = null;
 		this.selected = false;
+		
+		
 		this.setPreferredSize(new Dimension(WIDTH/24, WIDTH/24));
 		this.setIcon(defaultIcon);
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
 		this.setContentAreaFilled(false);
 	}
-
 
 	public boolean isEmpty() {
 		return item == null;

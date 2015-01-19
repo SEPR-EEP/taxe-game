@@ -21,6 +21,7 @@ import javax.swing.border.TitledBorder;
 public class BottomPanel extends JPanel{
 	private final int WIDTH;
 	private final int HEIGHT;
+	
 
 	private InventorySlot inventorySlot1;
 	private InventorySlot inventorySlot2;
@@ -84,7 +85,7 @@ public class BottomPanel extends JPanel{
 				trainPanel.add(trainSlot4);
 				
 			marketButton = new JButton();
-			marketButton.setIcon(new ImageIcon("DefaultMarketIcon"));
+			marketButton.setIcon(new ImageIcon(getClass().getResource("/resources/gameview/Market.png")));
 			marketButton.setPreferredSize(new Dimension(WIDTH/20, WIDTH/20));
 			marketButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
 			marketButton.setContentAreaFilled(false);
@@ -337,10 +338,23 @@ public class BottomPanel extends JPanel{
 	}
 	
 	
-	//Market button Action Listener
-	public void addMarketButtonActionListener(ActionListener buttonListener){
-		marketButton.addActionListener(buttonListener);
+	
+	
+	public interface MarketButtonListener  {
+		public void actionPerformed(ActionEvent e);
 	}
+	
+	//Market button Action Listener
+	
+	public void addMarketButtonActionListener(final MarketButtonListener marketListener){
+		marketButton.addActionListener( new ActionListener(){
+
+			public void actionPerformed (ActionEvent e) {
+				marketListener.actionPerformed(e);
+			}});
+	}	
+		
+
 	
 	
 	//Menu button Action Listener
