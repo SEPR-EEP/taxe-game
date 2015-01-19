@@ -2,8 +2,10 @@ package com.eep.taxe.mvc.game;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -26,7 +28,7 @@ public class GameView extends javax.swing.JFrame {
 	private RightPanel rightPanel;
 	private BottomPanel bottomPanel;
 	private JLabel mapLabel;
-	private JImagePanel gameMenuPanel;
+	private JPanel gameMenuPanel;
 	JPanel mainMapPanel;
 	
 	
@@ -38,11 +40,17 @@ public class GameView extends javax.swing.JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 
-		gameMenuPanel = new JImagePanel();
+		gameMenuPanel = new JPanel();
 		gameMenuPanel.setBackground(new Color(245, 245, 245));
 		gameMenuPanel.setPreferredSize(getContentPane().getSize());
 		gameMenuPanel.setLayout(new BorderLayout(0, 0));
+		
+		JLabel mapLabel = new JLabel();
+			mapLabel.setIcon(new ImageIcon(getClass().getResource("/resources/MainMap.jpg")));
+			mapLabel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
+			gameMenuPanel.add(mapLabel);
+			
 			topPanel = new TopPanel(WIDTH, HEIGHT);
 			gameMenuPanel.add(topPanel, BorderLayout.NORTH);
 

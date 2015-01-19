@@ -73,7 +73,6 @@ public class TopPanel extends JPanel{
 				endTurnButton.setPreferredSize(new Dimension(WIDTH/15, WIDTH/48));
 				endTurnButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 				endTurnButton.setBorderPainted(false);
-				endTurnButton.setBackground(Color.BLACK);
 				endTurnButton.setForeground(Color.BLACK);
 				
 			JPanel missionDetailsPanel = new JPanel();
@@ -99,7 +98,6 @@ public class TopPanel extends JPanel{
 				detailsButton.setPreferredSize(new Dimension(WIDTH/16, WIDTH/48));
 				detailsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 				detailsButton.setBorderPainted(false);
-				detailsButton.setBackground(Color.BLACK);
 				detailsButton.setForeground(Color.BLACK);
 
 				

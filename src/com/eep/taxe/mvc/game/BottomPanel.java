@@ -94,7 +94,6 @@ public class BottomPanel extends JPanel{
 			menuButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
 			menuButton.setPreferredSize(new Dimension(WIDTH/10, WIDTH/45));
 			menuButton.setBorderPainted(false);
-			menuButton.setBackground(Color.BLACK);
 			menuButton.setForeground(Color.BLACK);
 
 
