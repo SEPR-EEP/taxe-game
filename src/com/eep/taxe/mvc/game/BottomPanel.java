@@ -294,7 +294,7 @@ public class BottomPanel extends JPanel{
 		
 				
 			JPanel inventoryPanel = new JPanel();
-			inventoryPanel.setBackground(new Color(211, 211, 211));
+			inventoryPanel.setBackground(new Color(211, 211, 211, 150));
 			inventoryPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 			inventoryPanel.setPreferredSize(new Dimension(WIDTH/3+80 , WIDTH/16));
 			inventoryPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 35, 13));
@@ -315,7 +315,7 @@ public class BottomPanel extends JPanel{
 			trainPanel.setPreferredSize(new Dimension(WIDTH/3 , WIDTH/16));
 			trainPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 35, WIDTH/96));
 			trainPanel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-			trainPanel.setBackground(new Color(169, 169, 169));
+			trainPanel.setBackground(new Color(169, 169, 169, 150));
 			
 				trainSlot1 = new TrainSlot(WIDTH, HEIGHT);
 				trainSlot2 = new TrainSlot(WIDTH, HEIGHT);

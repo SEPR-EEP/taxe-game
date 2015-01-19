@@ -55,7 +55,6 @@ public class GameView extends javax.swing.JFrame {
 			gameMenuPanel.add(rightPanel, BorderLayout.EAST);
 
 			bottomPanel = new BottomPanel(WIDTH, HEIGHT);
-			bottomPanel.setBackground(new Color(245, 245, 220));
 			gameMenuPanel.add(bottomPanel, BorderLayout.SOUTH);
 
 		getContentPane().add(gameMenuPanel);

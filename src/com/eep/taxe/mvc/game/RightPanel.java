@@ -20,6 +20,7 @@ import javax.swing.border.LineBorder;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import net.miginfocom.swing.MigLayout;
+import javax.swing.border.MatteBorder;
 
 public class RightPanel extends JPanel {
 	private final int WIDTH;
@@ -62,7 +63,7 @@ public class RightPanel extends JPanel {
 				regionPanel.setBackground(new Color(255, 255, 255));
 				regionPanel.setPreferredSize(new Dimension(WIDTH/12, WIDTH/12));
 				regionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-				regionPanel.setBorder(new LineBorder(new Color(171, 173, 179), 2));
+				regionPanel.setBorder(new MatteBorder(0, 0, 2, 2, (Color) new Color(0, 0, 0)));
 					
 					
 						JLabel regionTitleLabel = new JLabel();
@@ -88,7 +89,7 @@ public class RightPanel extends JPanel {
 					objectivePanel.setBackground(new Color(255, 255, 255));
 					objectivePanel.setPreferredSize(new Dimension(WIDTH/12, WIDTH/12));
 					objectivePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-					objectivePanel.setBorder(new LineBorder(new Color(171, 173, 179), 2));
+					objectivePanel.setBorder(new MatteBorder(0, 2, 2, 0, (Color) new Color(0, 0, 0)));
 					
 						JLabel objectiveTitleLabel = new JLabel();
 						objectiveTitleLabel.setPreferredSize(new Dimension(97, 27));
@@ -110,7 +111,7 @@ public class RightPanel extends JPanel {
 			
 						infoPanePanel.setLayout(new MigLayout("", "[196px]", "[470px]"));
 						infoPanePanel.setPreferredSize(new Dimension(WIDTH/6-20, HEIGHT - (WIDTH*4/32 + WIDTH/12)-40));
-						infoPanePanel.setBorder(new LineBorder(new Color(171,173,179), 2));
+						infoPanePanel.setBorder(new LineBorder(Color.BLACK, 2));
 						infoPanePanel.setBackground(Color.WHITE);
 						
 						infoPane = new JTextPane();

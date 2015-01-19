@@ -82,7 +82,7 @@ public class TopPanel extends JPanel{
 			
 				timerTextField = new JTextField();
 				timerTextField.setBackground(Color.WHITE);
-				timerTextField.setBorder(new LineBorder(new Color(171, 173, 179), 2));
+				timerTextField.setBorder(new LineBorder(new Color(0,0,0), 2));
 				timerTextField.setText("00:00");
 				timerTextField.setPreferredSize(new Dimension(WIDTH/15, WIDTH/48));
 				timerTextField.setFont(font);
@@ -113,7 +113,7 @@ public class TopPanel extends JPanel{
 			missionDetailsPanel.setOpaque(false);
 			
 				missionTextField = new JTextField();
-				missionTextField.setBorder(new LineBorder(new Color(171, 173, 179), 2));
+				missionTextField.setBorder(new LineBorder(new Color(0,0,0), 2));
 				missionTextField.setText("Current Mission");
 				missionTextField.setFont(font);
 				missionTextField.setPreferredSize(new Dimension(WIDTH/6, WIDTH/48));
@@ -147,18 +147,24 @@ public class TopPanel extends JPanel{
 			goldImageLabel.setPreferredSize(new Dimension(WIDTH/48, WIDTH/48));
 			
 			goldLabel = new JLabel();
+			goldLabel.setOpaque(true);
+			goldLabel.setBackground(new Color(169,169,169,160));
+			goldLabel.setAlignmentY(CENTER_ALIGNMENT);
 			goldLabel.setFont(font);
 			goldLabel.setText("1350000000000000000000000000000000000000000000000");
-			goldLabel.setPreferredSize(new Dimension(WIDTH/24, WIDTH/48));
+			goldLabel.setPreferredSize(new Dimension(WIDTH/22, WIDTH/48));
 			
 			JLabel metalImageLabel = new JLabel();
 			metalImageLabel.setIcon(new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg")));
 			metalImageLabel.setPreferredSize(new Dimension(WIDTH/48, WIDTH/48));
 			
 			metalLabel = new JLabel();
+			metalLabel.setOpaque(true);
+			metalLabel.setAlignmentY(CENTER_ALIGNMENT);
+			metalLabel.setBackground(new Color(169,169,169,160));
 			metalLabel.setFont(font);
 			metalLabel.setText("170000000");
-			metalLabel.setPreferredSize(new Dimension(WIDTH/24, WIDTH/32));
+			metalLabel.setPreferredSize(new Dimension(WIDTH/22, WIDTH/48));
 			
 			
 			
