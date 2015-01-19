@@ -169,8 +169,12 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		}
 		
 		// Calculate scores
-		masterPlayer.cashInCompletedGoals(this);
-		slavePlayer.cashInCompletedGoals(this);
+		masterPlayer.incrementGoalsCompleted(
+			masterPlayer.cashInCompletedGoals(this)
+		);
+		slavePlayer.incrementGoalsCompleted(
+			slavePlayer.cashInCompletedGoals(this)
+		);
 		
 		
 		//Generate new goals

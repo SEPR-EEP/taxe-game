@@ -199,8 +199,14 @@ public class Player implements PlayerInterface {
 		return this.getCurrentGoals().size();
 	}
 
-	public void cashInCompletedGoals(Game game){
-	
+	/**
+	 * Cashes in the goals that have been accomplished
+	 * @param game
+	 * @return	The number of goals accomplished
+	 */
+	public int cashInCompletedGoals(Game game){
+		int r = 0;
+		
 		for (Train train : this.getTrains()){
 			
 			//For each of player's goals check if train's journey has completed it
@@ -221,11 +227,13 @@ public class Player implements PlayerInterface {
 					
 					//Generate a new goal to replace this one
 					this.generateGoal(train, game);
+					
+					r++;
 				}
 			}
 			
 		}
-		
+		return r;
 	}
 	
 	@Override
