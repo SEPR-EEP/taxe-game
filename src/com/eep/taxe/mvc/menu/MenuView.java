@@ -40,6 +40,8 @@ public class MenuView extends JFrame {
 			DIFFICULTY_EASY, DIFFICULTY_MEDIUM, DIFFICULTY_HARD
 	};
 	
+	private final Font textFont = new Font(Font.SANS_SERIF, Font.BOLD, 16);
+
 	private final int 		WIDTH  	= 780;
 	private final int 		HEIGHT 	= 560;
 	private final String	TITLE	= "Game Menu";
@@ -148,7 +150,6 @@ public class MenuView extends JFrame {
 		}
 	}
 	
-	private Font textFont = new Font(Font.SANS_SERIF, Font.BOLD, 16);
 	
 	/**
 	 * Hides everything and shows only the specified panel.
@@ -250,7 +251,7 @@ public class MenuView extends JFrame {
 		askusername.setAlignmentX(CENTER_ALIGNMENT);
 		askusername.setLocation(WIDTH/2-askusername.getBounds().width/2, 150);
 		EnterGame.add(askusername);
-		askusername.setFont(new Font("Sans Serif", Font.BOLD, 30));
+		askusername.setFont(new Font("Sans Serif", Font.PLAIN, 24));
 	}
 		
 	public String getUserName() {
@@ -564,9 +565,9 @@ public class MenuView extends JFrame {
 		contentPane.add(waiting);
 		waiting.setLayout(null);
 
-		lblNewLabel = new JLabel("Please wait for your opponent player to join.");
+		lblNewLabel = new JLabel("Please wait for your opponent to join the game");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Sans Serif", Font.BOLD, 22));
+		lblNewLabel.setFont(new Font("Sans Serif", Font.BOLD, 18));
 		lblNewLabel.setBounds(119, 133, 502, 38);
 		lblNewLabel.setLocation(WIDTH/2-lblNewLabel.getBounds().width/2, HEIGHT/2-lblQuit.getBounds().height/2-125);
 		lblNewLabel.setForeground(Color.WHITE);
@@ -578,7 +579,7 @@ public class MenuView extends JFrame {
 		lblNewLabel2.setFont(textFont);
 		lblNewLabel2.setForeground(Color.WHITE);
 		lblNewLabel2.setBounds(119, 160, 502, 38);
-		lblNewLabel2.setLocation(WIDTH/2-lblNewLabel2.getBounds().width/2, HEIGHT/2-lblQuit.getBounds().height/2-25);
+		lblNewLabel2.setLocation(WIDTH/2-lblNewLabel2.getBounds().width/2, HEIGHT/2-lblQuit.getBounds().height/2-60);
 		
 		waiting.add(lblNewLabel2);
 		
