@@ -117,7 +117,7 @@ public class TopPanel extends JPanel{
 			
 			goldLabel = new JLabel();
 			goldLabel.setOpaque(true);
-			goldLabel.setBackground(new Color(169,169,169,160));
+			goldLabel.setBackground(new Color(169,169,169));
 			goldLabel.setAlignmentY(CENTER_ALIGNMENT);
 			goldLabel.setFont(font);
 			goldLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -132,7 +132,7 @@ public class TopPanel extends JPanel{
 			metalLabel.setOpaque(true);
 			metalLabel.setAlignmentY(CENTER_ALIGNMENT);
 			metalLabel.setHorizontalAlignment(JLabel.CENTER);
-			metalLabel.setBackground(new Color(169,169,169,160));
+			metalLabel.setBackground(new Color(169,169,169));
 			metalLabel.setFont(font);
 			metalLabel.setText("170000000");
 			metalLabel.setPreferredSize(new Dimension(WIDTH/22, WIDTH/48));

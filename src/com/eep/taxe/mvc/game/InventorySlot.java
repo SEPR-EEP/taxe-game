@@ -37,7 +37,8 @@ public class InventorySlot extends JButton{
 		this.setIcon(defaultIcon);
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
 		this.setContentAreaFilled(false);
-		this.setToolTipText(EMPTY_TOOLTIP);
+		this.setBackground(Color.DARK_GRAY);
+//		this.setToolTipText(EMPTY_TOOLTIP);
 	}
 
 

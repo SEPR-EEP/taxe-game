@@ -108,17 +108,17 @@ public class Generator {
 	public static Vector<Usable> generateTrainSpeedModifier(Ages age) {
 		Vector<Usable> trainSpeedModifierList = new Vector<Usable>();
 		
-		TrainSpeedModifier smallSpeedBoost 		= new TrainSpeedModifier("Small Speed Boost", 	"/resources/SpeedBoost.png", 10, 10, Ages.FIRST, 	1.2f);
-		TrainSpeedModifier smallSpeedSlowdown 	= new TrainSpeedModifier("Small Speed Slowdown","/resources/SlowDown.png", 10, 10, Ages.FIRST, 		0.8f);
+		TrainSpeedModifier smallSpeedBoost 		= new TrainSpeedModifier("Small Speed Boost", 	"/resources/gameview/PowerUpIcon.png", 10, 10, Ages.FIRST, 	1.2f);
+		TrainSpeedModifier smallSpeedSlowdown 	= new TrainSpeedModifier("Small Speed Slowdown","/resources/gameview/TrapIcon.png", 10, 10, Ages.FIRST, 		0.8f);
 		
-		TrainSpeedModifier mediumSpeedBoost 	= new TrainSpeedModifier("Medium Speed Boost", 	"/resources/SpeedBoost.png", 30, 30, Ages.SECOND, 	1.5f);
-		TrainSpeedModifier mediumSpeedSlowdown 	= new TrainSpeedModifier("Medium Speed Slowdown","/resources/SlowDown.png", 30, 30, Ages.SECOND, 	0.6f);
+		TrainSpeedModifier mediumSpeedBoost 	= new TrainSpeedModifier("Medium Speed Boost", 	"/resources/gameview/PowerUpIcon.png", 30, 30, Ages.SECOND, 	1.5f);
+		TrainSpeedModifier mediumSpeedSlowdown 	= new TrainSpeedModifier("Medium Speed Slowdown","/resources/gameview/TrapIcon.png", 30, 30, Ages.SECOND, 	0.6f);
 		
-		TrainSpeedModifier largeSpeedBoost		= new TrainSpeedModifier("Large Speed Boost",	"/resources/SpeedBoost.png", 60, 60, Ages.THIRD, 	1.9f);
-		TrainSpeedModifier largeSpeedSlowdown	= new TrainSpeedModifier("Large Speed Slowdown",	"/resources/SlowDown.png", 60, 60, Ages.THIRD, 	.4f);
+		TrainSpeedModifier largeSpeedBoost		= new TrainSpeedModifier("Large Speed Boost",	"/resources/gameview/PowerUpIcon.png", 60, 60, Ages.THIRD, 	1.9f);
+		TrainSpeedModifier largeSpeedSlowdown	= new TrainSpeedModifier("Large Speed Slowdown",	"/resources/gameview/TrapIcon.png", 60, 60, Ages.THIRD, 	.4f);
 		
-		TrainSpeedModifier megaSpeedBoost	 	= new TrainSpeedModifier("Mega Speed Boost", 	"/resources/SpeedBoost.png", 100, 100, Ages.FOURTH, 2.5f);
-		TrainSpeedModifier megaSpeedSlowdown 	= new TrainSpeedModifier("Mega Speed Slowdown", "/resources/SlowDown.png", 100, 100, Ages.FOURTH, 	.2f);
+		TrainSpeedModifier megaSpeedBoost	 	= new TrainSpeedModifier("Mega Speed Boost", 	"/resources/gameview/PowerUpIcon.png", 100, 100, Ages.FOURTH, 2.5f);
+		TrainSpeedModifier megaSpeedSlowdown 	= new TrainSpeedModifier("Mega Speed Slowdown", "/resources/gameview/TrapIcon.png", 100, 100, Ages.FOURTH, 	.2f);
 		
 		trainSpeedModifierList.add(smallSpeedBoost);
 		trainSpeedModifierList.add(smallSpeedSlowdown);

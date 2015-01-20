@@ -24,8 +24,20 @@ public class JImagePanel extends JPanel {
     setMaximumSize(size);
     setSize(size);
     setLayout(null);
-  }
+    
 
+
+  }
+  
+  public void paintComponent(Graphics g){
+		try {
+			img = ImageIO.read(getClass().getResource("/resources/MainMap.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		g.drawImage(img, 0, 0, null);
+  }
+  
   public void paintMap(Graphics g) {
 		try {
 			img = ImageIO.read(getClass().getResource("/resources/MainMap.jpg"));

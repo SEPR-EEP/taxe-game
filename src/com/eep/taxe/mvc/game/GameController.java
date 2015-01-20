@@ -3,6 +3,7 @@ package com.eep.taxe.mvc.game;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -13,6 +14,10 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -103,7 +108,7 @@ public class GameController {
 		this.graphics = new MapGraphics(
 				view.getGameMenuPanel(),
 				new MapMouseListener()
-		);
+				);
 
 		// Sets my nickname - this is as I might be the Slave player and have to set my name!
 		this.getPlayer().setNickname(this.getModel().getMyNickname());
@@ -428,6 +433,7 @@ public class GameController {
 			}
 			
 			endTurn();
+			graphics.refreshMap();
 			updateView();
 			
 		} 
@@ -445,6 +451,7 @@ public class GameController {
 			
 			// It is my turn
 			currentState = GameState.STANDBY;
+			graphics.refreshMap();
 			updateView();
 			
 		}
@@ -547,13 +554,11 @@ public class GameController {
 		
 		MapGraphics (JImagePanel jImagePanel, MouseListener mouseListener) {
 			this.g = jImagePanel.getGraphics();
-			
-			jImagePanel.setSize(920, 560);
 
 			height = (int) jImagePanel.getSize().getHeight();
 			width  = (int) jImagePanel.getSize().getWidth();
-			jImagePanel.paintMap(g);
-			jImagePanel.paintComponents(this.g);
+			refreshMap();
+			drawMap();
 			
 			
 			// Enable text anti-aliasing
@@ -569,7 +574,7 @@ public class GameController {
 	        );
 
 	        jImagePanel.addMouseListener(mouseListener);
-	        jImagePanel.addComponentListener(new ComponentListener() {
+	        view.addComponentListener(new ComponentListener() {
 
 				@Override
 				public void componentResized(ComponentEvent e) {
@@ -583,18 +588,67 @@ public class GameController {
 
 				@Override
 				public void componentShown(ComponentEvent e) {
-					drawMap();
+					
 				}
 
 				@Override
 				public void componentHidden(ComponentEvent e) {
+
+				}
+	        });
+	        
+	        view.addWindowListener(new WindowListener() {
+				
+				@Override
+				public void windowOpened(WindowEvent e) {
+					// TODO Auto-generated method stub
 					
 				}
-
-	        	
-	        });
-
+				
+				@Override
+				public void windowIconified(WindowEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void windowDeiconified(WindowEvent e) {
+					System.out.println(drawing);
+					drawBackgroudImage();
+					drawMap();
+					view.showErrorMessage("Please click to see citys!");
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void windowDeactivated(WindowEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void windowClosing(WindowEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void windowClosed(WindowEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void windowActivated(WindowEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+	        
+	
 		}
+		
 		
 		private boolean drawing = false;
 		
@@ -603,13 +657,18 @@ public class GameController {
 				return;
 			}
 			drawing = true;			
-			this.drawBackgroudImage();
 			this.drawEdges();
 			this.drawVertices();
 			this.drawTrains();
 			drawing = false;
 		}
-
+		
+		public void refreshMap(){
+			drawBackgroudImage();
+			drawMap();
+		}
+		
+		
 		private void drawTrains() {
 			
 			Role myRole = model.getMyRole();
@@ -1139,6 +1198,7 @@ public class GameController {
 	}
 	
 	private class MapMouseListener implements MouseListener {
+
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
