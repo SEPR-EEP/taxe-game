@@ -6,14 +6,12 @@ It is a train simulator game that can be played by two players over the Internet
 
 ## Run the game
 
-You can run the Game on virtually any PC with the Java Runtime Environment version 8 or higher. You can download the JRE for free at [java.com](http://java.com). The game has been tested to work on the Windows and Linux PCs at the Department of Computer Science, University of York.
+You can run the Game on virtually any PC with the Java Runtime Environment version 7 or higher. You can download the JRE for free at [java.com](http://java.com). The game has been tested to work on the Windows and Linux PCs at the Department of Computer Science, University of York.
 
 1. Download [taxe-game.jar](https://raw.githubusercontent.com/SEPR-EEP/taxe-game/master/taxe-game.jar) and open it;
 2. If a security prompt is shown, click "Allow" - we're trustworthy;
 3. Click OK to choose default game server and run the game;
 4. Play!
-
-**Important**. If you are running the game on Linux, make sure you use Oracle's JRE and not the OpenJDK Runtime Environment, that sometimes comes with your distribution.
 
 ### Host your own server
 
