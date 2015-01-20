@@ -1,46 +1,33 @@
 package com.eep.taxe.mvc.menu;
 
-import java.awt.BorderLayout;
-import java.awt.Desktop;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-
-import java.awt.Font;
-
-import javax.swing.JTextField;
-
 import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowEvent;
-import java.awt.SystemColor;
-
-import javax.swing.UIManager;
-import javax.swing.SwingConstants;
-
+import java.awt.Desktop;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.net.URL;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.swing.JScrollBar;
-import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+
+
 
 public class MenuView extends JFrame {
 
@@ -53,8 +40,8 @@ public class MenuView extends JFrame {
 			DIFFICULTY_EASY, DIFFICULTY_MEDIUM, DIFFICULTY_HARD
 	};
 	
-	private final int 		WIDTH  	= 800;
-	private final int 		HEIGHT 	= 600;
+	private final int 		WIDTH  	= 780;
+	private final int 		HEIGHT 	= 560;
 	private final String	TITLE	= "Game Menu";
 	
 	private JPanel contentPane;
@@ -105,8 +92,8 @@ public class MenuView extends JFrame {
 	
 	private JTextField usernamebox;
 	
-	private JComboBox FilterGame;
-	private JComboBox Difficulty;
+//	private JComboBox FilterGame;
+	private JComboBox<String> Difficulty;
 	
 	/**
 	 * Create the frame.
@@ -123,6 +110,11 @@ public class MenuView extends JFrame {
 		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int screenHeight = screenSize.height;
+		int screenWidth = screenSize.width;
+		this.setLocation(screenWidth/2-WIDTH/2, screenHeight/2-HEIGHT/2);
+		  
 		contentPane.setLayout(null);
 		
 		/** INITIALISES ALL OF THE SCREENS */
@@ -155,6 +147,8 @@ public class MenuView extends JFrame {
 			this.remove(x);
 		}
 	}
+	
+	private Font textFont = new Font(Font.SANS_SERIF, Font.BOLD, 16);
 	
 	/**
 	 * Hides everything and shows only the specified panel.
@@ -200,9 +194,11 @@ public class MenuView extends JFrame {
 		
 	public void createEnterGame() {
 		EnterGame = new JPanel();
-		EnterGame.setBounds(0, 0, 784, 562);
 		contentPane.add(EnterGame);
+		
+		EnterGame.setSize(WIDTH, HEIGHT);
 		EnterGame.setLayout(null);
+		
 		createQuitButton();
 		createEnterButton();
 		askUserName();
@@ -210,42 +206,51 @@ public class MenuView extends JFrame {
 	}
 	
 	public void createQuitButton() {
-		lblQuit = new JLabel("QUIT", SwingConstants.CENTER);
+		lblQuit = new JLabel("Quit", SwingConstants.CENTER);
 		lblQuit.setBounds(419, 280, 140, 36);
+		lblQuit.setLocation(WIDTH/2-lblQuit.getBounds().width/2+125, 300);
 		EnterGame.add(lblQuit);
 		lblQuit.setForeground(Color.WHITE);
-		lblQuit.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 18));
+		lblQuit.setFont(textFont);
 		
 		quitButtonbg = new JLabel("");
 		quitButtonbg.setBounds(419, 280, 140, 36);
+		quitButtonbg.setLocation(WIDTH/2-quitButtonbg.getBounds().width/2+125, 300);
 		EnterGame.add(quitButtonbg);
 		quitButtonbg.setIcon(new ImageIcon(getClass().getResource("/resources/menuview img/btbg.jpg")));
 	}
 	
 	public void createEnterButton() {
-		lblEnter = new JLabel("ENTER", SwingConstants.CENTER);
+		lblEnter = new JLabel("Enter", SwingConstants.CENTER);
 		lblEnter.setBounds(224, 280, 140, 36);
 		EnterGame.add(lblEnter);
+		lblEnter.setLocation(WIDTH/2-lblEnter.getBounds().width/2-125, 300);
 		lblEnter.setForeground(Color.WHITE);
-		lblEnter.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 18));
+		lblEnter.setFont(textFont);
 		
 		enterButtonbg = new JLabel("");
 		enterButtonbg.setBounds(224, 280, 140, 36);
+		enterButtonbg.setLocation(WIDTH/2-enterButtonbg.getBounds().width/2-125, 300);
 		EnterGame.add(enterButtonbg);
 		enterButtonbg.setIcon(new ImageIcon(getClass().getResource("/resources/menuview img/btbg.jpg")));
 	}
 	
 	public void askUserName() {
 		usernamebox = new JTextField();
-		usernamebox.setBounds(224, 202, 335, 36);
+		usernamebox.setBounds(224, 202, 335, 35);
+		usernamebox.setLocation(WIDTH/2-usernamebox.getWidth()/2, HEIGHT/2-usernamebox.getHeight()/2-60);
+		usernamebox.setFont(textFont);
 		EnterGame.add(usernamebox);
 		usernamebox.setForeground(new Color(0, 0, 0));
+		usernamebox.setBorder(new CompoundBorder((new LineBorder(new Color (0,0,0), 2)),(new EmptyBorder(5,5,5,5))));
 		usernamebox.setColumns(10);
 				
 		askusername = new JLabel("What's your name?");
-		askusername.setBounds(220, 104, 343, 35);
+		askusername.setBounds(0, 0, 280, 35);
+		askusername.setAlignmentX(CENTER_ALIGNMENT);
+		askusername.setLocation(WIDTH/2-askusername.getBounds().width/2, 150);
 		EnterGame.add(askusername);
-		askusername.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 30));
+		askusername.setFont(new Font("Sans Serif", Font.BOLD, 30));
 	}
 		
 	public String getUserName() {
@@ -264,8 +269,9 @@ public class MenuView extends JFrame {
 		MainMenu = new JPanel();
 		MainMenu.setLayout(null);
 		MainMenu.setBorder(new EmptyBorder(5, 5, 5, 5));
-		MainMenu.setBounds(0, 0, 784, 562);
+		MainMenu.setBounds(0, 0, WIDTH, HEIGHT);
 		contentPane.add(MainMenu);
+		
 		createStartGameButton();
 		createQuitLabel();
 		createHowToPlayButton();
@@ -274,9 +280,9 @@ public class MenuView extends JFrame {
 	}
 	
 	public void createQuitLabel() {
-		quitLabel = new JLabel("QUIT", SwingConstants.CENTER);
+		quitLabel = new JLabel("Quit", SwingConstants.CENTER);
 		quitLabel.setForeground(Color.WHITE);
-		quitLabel.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 18));
+		quitLabel.setFont(textFont);
 		quitLabel.setBounds(298, 404, 181, 36);
 		MainMenu.add(quitLabel);
 
@@ -290,7 +296,7 @@ public class MenuView extends JFrame {
 	public void createStartGameButton() {
 		startGameText = new JLabel("Start Game", SwingConstants.CENTER);
 		startGameText.setForeground(Color.WHITE);
-		startGameText.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 18));
+		startGameText.setFont(textFont);
 		startGameText.setBounds(298, 104, 181, 36);
 		MainMenu.add(startGameText);
 		
@@ -304,7 +310,7 @@ public class MenuView extends JFrame {
 	public void createHowToPlayButton() {
 		howToPlayText = new JLabel("How to play", SwingConstants.CENTER);
 		howToPlayText.setForeground(Color.WHITE);
-		howToPlayText.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 18));
+		howToPlayText.setFont(textFont);
 		howToPlayText.setBounds(298, 202, 181, 36);
 		MainMenu.add(howToPlayText);
 		
@@ -319,7 +325,7 @@ public class MenuView extends JFrame {
 	public void createCreditsButton(){
 		creditsButtonText = new JLabel("Credits", SwingConstants.CENTER);
 		creditsButtonText.setForeground(Color.WHITE);
-		creditsButtonText.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 18));
+		creditsButtonText.setFont(textFont);
 		creditsButtonText.setBounds(298, 305, 181, 36);
 		MainMenu.add(creditsButtonText);
 		
@@ -334,7 +340,7 @@ public class MenuView extends JFrame {
 	public void setMainMenuBackground() {
 		Mainmenubg = new JLabel("");
 		Mainmenubg.setIcon(new ImageIcon(getClass().getResource("/resources/menuview img/Background.jpg")));
-		Mainmenubg.setBounds(0, 0, 784, 562);
+		Mainmenubg.setBounds(0, 0, WIDTH, 560);
 		MainMenu.add(Mainmenubg);
 	}
 		
@@ -348,7 +354,7 @@ public class MenuView extends JFrame {
 		
 		creditsTitle = new JLabel("Credits", SwingConstants.CENTER);
 		creditsTitle.setForeground(Color.BLACK);
-		creditsTitle.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 30));
+		creditsTitle.setFont(new Font("Sans Serif", Font.BOLD, 30));
 		creditsTitle.setBounds(319, 74, 181, 36);
 		Credits.add(creditsTitle);
 		
@@ -372,14 +378,14 @@ public class MenuView extends JFrame {
 				+ "</html>";
 		JLabel creditsText = new JLabel(creditsString, SwingConstants.CENTER);
 		creditsText.setForeground(Color.BLACK);
-		creditsText.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 12));
+		creditsText.setFont(textFont);
 		creditsText.setBounds(150, 0, 500, 500);
 		Credits.add(creditsTitle);
 		Credits.add(creditsText);
 		
 		Creditsbg = new JLabel("");
 		Creditsbg.setIcon(new ImageIcon(getClass().getResource("/resources/menuview img/C_D(g)-Railroad Tracks.jpg")));
-		Creditsbg.setBounds(0, 0, 784, 562);
+		Creditsbg.setBounds(0, 0, WIDTH, 562);
 		Credits.add(Creditsbg);
 	}
 		
@@ -393,7 +399,7 @@ public class MenuView extends JFrame {
 		
 		howToPlayTitle = new JLabel("How To Play", SwingConstants.CENTER);
 		howToPlayTitle.setForeground(Color.BLACK);
-		howToPlayTitle.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 26));
+		howToPlayTitle.setFont(new Font("Sans Serif", Font.BOLD, 26));
 		howToPlayTitle.setBounds(319, 74, 181, 36);
 		HTP.add(howToPlayTitle);
 		
@@ -427,7 +433,7 @@ public class MenuView extends JFrame {
 		gameTable = new JTable(model);
 		JScrollPane scrollPane = new JScrollPane(gameTable);
 		gameTable.setFillsViewportHeight(true);
-		scrollPane.setBounds(30, 50, 500, 480);
+		scrollPane.setBounds(20, 50, 500, 450);
 
 		/* (future idea)
 		FilterGame = new JComboBox();
@@ -451,33 +457,33 @@ public class MenuView extends JFrame {
 	public void createHostGameButton() {
 		hostGameButtonText = new JLabel("Create Game", SwingConstants.CENTER);
 		hostGameButtonText.setForeground(Color.WHITE);
-		hostGameButtonText.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 18));
-		hostGameButtonText.setBounds(593, 392, 140, 36);
+		hostGameButtonText.setFont(textFont);
+		hostGameButtonText.setBounds(580, 380, 140, 35);
 		Connect.add(hostGameButtonText);
 		
 		hostGameButtonBG = new JLabel("");
 		hostGameButtonBG.setIcon(new ImageIcon(getClass().getResource("/resources/menuview img/btbg.jpg")));
-		hostGameButtonBG.setBounds(593, 392, 140, 36);
+		hostGameButtonBG.setBounds(580, 380, 140, 35);
 		Connect.add(hostGameButtonBG);
 	}
 	
 	public void createBackButton() {
 		backButtonText = new JLabel("Back", SwingConstants.CENTER);
 		backButtonText.setForeground(Color.WHITE);
-		backButtonText.setFont(new Font("Franklin Gothic Demi", Font.PLAIN, 18));
-		backButtonText.setBounds(593, 462, 140, 36);
+		backButtonText.setFont(textFont);
+		backButtonText.setBounds(580, 450, 140, 35);
 		Connect.add(backButtonText);
 		
 		backButtonBG = new JLabel("");
 		backButtonBG.setIcon(new ImageIcon(getClass().getResource("/resources/menuview img/btbg.jpg")));
-		backButtonBG.setBounds(593, 462, 140, 36);
+		backButtonBG.setBounds(580, 450, 140, 35);
 		Connect.add(backButtonBG);
 	}
 	
 	public void setConnectBackground() {
 		Connectbg = new JLabel("");
 		Connectbg.setIcon(new ImageIcon(getClass().getResource("/resources/menuview img/connect - Tunnel.jpg")));
-		Connectbg.setBounds(0, 0, 784, 562);
+		Connectbg.setBounds(0, 0, WIDTH, HEIGHT);
 		Connect.add(Connectbg);
 	}
 		
@@ -493,16 +499,18 @@ public class MenuView extends JFrame {
 	}
 		
 	public void createDifficultySelectBox() {
-		Difficulty = new JComboBox();
+		Difficulty = new JComboBox<String>();
 		Difficulty.setToolTipText("");
-		Difficulty.setModel(new DefaultComboBoxModel(DIFFICULTY_CHOICHES));
+		Difficulty.setModel(new DefaultComboBoxModel<String>(DIFFICULTY_CHOICHES));
 		Difficulty.setSelectedIndex(0);
 		Difficulty.setMaximumRowCount(4);
 		Difficulty.setForeground(Color.WHITE);
-		Difficulty.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 16));
+		Difficulty.setFont(textFont);
 		Difficulty.setBackground(Color.BLACK);
-		Difficulty.setBounds(302, 218, 181, 35);
+		Difficulty.setBounds(0, 0, 150, 40);
+		Difficulty.setLocation(WIDTH/2-Difficulty.getWidth()/2, HEIGHT/2-Difficulty.getHeight()/2-50);
 		createGame.add(Difficulty);
+		
 		createCancelButton();
 		makeCreateGameButton();
 		createGameBackground();
@@ -511,38 +519,45 @@ public class MenuView extends JFrame {
 	public void createCancelButton() {
 		cancelButtonText = new JLabel("Cancel ", SwingConstants.CENTER);
 		cancelButtonText.setForeground(Color.WHITE);
-		cancelButtonText.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 18));
-		cancelButtonText.setBounds(179, 293, 140, 36);
+		cancelButtonText.setFont(textFont);
+		cancelButtonText.setBounds(0, 0, 140, 36);
+		cancelButtonText.setLocation(WIDTH/2-cancelButtonText.getBounds().width/2-125, 300);
+
 		createGame.add(cancelButtonText);
 		
 		cancelButtonBG = new JLabel("");
 		cancelButtonBG.setIcon(new ImageIcon(getClass().getResource("/resources/menuview img/btbg.jpg")));
-		cancelButtonBG.setLocation(new Point(593, 392));
-		cancelButtonBG.setBounds(176, 285, 140, 36);
+		cancelButtonBG.setBounds(0, 0, 140, 36);
+		cancelButtonBG.setLocation(WIDTH/2-cancelButtonBG.getBounds().width/2-125, 300);
+		
 		createGame.add(cancelButtonBG);
 	}
 	
 	public void makeCreateGameButton() {
 		createButtonText = new JLabel("Create", SwingConstants.CENTER);
 		createButtonText.setForeground(Color.WHITE);
-		createButtonText.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 18));
-		createButtonText.setBounds(467, 293, 140, 36);
+		createButtonText.setFont(textFont);
+		createButtonText.setBounds(0, 0, 140, 36);
+		createButtonText.setLocation(WIDTH/2-createButtonText.getBounds().width/2+125, 300);
+
 		createGame.add(createButtonText);
 		
 		createButtonBG = new JLabel("");
 		createButtonBG.setIcon(new ImageIcon(getClass().getResource("/resources/menuview img/btbg.jpg")));
-		createButtonBG.setLocation(new Point(593, 392));
-		createButtonBG.setBounds(480, 285, 140, 36);
+		createButtonBG.setBounds(0, 0, 140, 36);
+		createButtonBG.setLocation(WIDTH/2-createButtonBG.getBounds().width/2+125, 300);
+
 		createGame.add(createButtonBG);
 	}
 	
 	public void createGameBackground() {
 		CreatGamebg = new JLabel("");
 		CreatGamebg.setIcon(new ImageIcon(getClass().getResource("/resources/menuview img/connect - Tunnel.jpg")));
-		CreatGamebg.setBounds(0, 0, 784, 562);
+		CreatGamebg.setBounds(0, 0, WIDTH, HEIGHT);
 		createGame.add(CreatGamebg);
 	}
 
+	
 	public void createLoadingScreen() {
 		waiting = new JPanel();
 		waiting.setBounds(0, 0, 784, 562);
@@ -551,20 +566,26 @@ public class MenuView extends JFrame {
 
 		lblNewLabel = new JLabel("Please wait for your opponent player to join.");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Franklin Gothic Demi Cond", Font.PLAIN, 22));
+		lblNewLabel.setFont(new Font("Sans Serif", Font.BOLD, 22));
 		lblNewLabel.setBounds(119, 133, 502, 38);
+		lblNewLabel.setLocation(WIDTH/2-lblNewLabel.getBounds().width/2, HEIGHT/2-lblQuit.getBounds().height/2-125);
+		lblNewLabel.setForeground(Color.WHITE);
+		
 		waiting.add(lblNewLabel);
+		
 		JLabel lblNewLabel2 = new JLabel("Hopefully it won't take long. Relax.");
 		lblNewLabel2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel2.setFont(new Font("Franklin Gothic Demi Cond", Font.PLAIN, 18));
-		lblNewLabel2.setBounds(119, 160, 502, 38);
-		waiting.add(lblNewLabel2);
-		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel2.setFont(textFont);
 		lblNewLabel2.setForeground(Color.WHITE);
-
+		lblNewLabel2.setBounds(119, 160, 502, 38);
+		lblNewLabel2.setLocation(WIDTH/2-lblNewLabel2.getBounds().width/2, HEIGHT/2-lblQuit.getBounds().height/2-25);
+		
+		waiting.add(lblNewLabel2);
+		
+		
 		Waitingingbg = new JLabel("");
 		Waitingingbg.setIcon(new ImageIcon(getClass().getResource("/resources/menuview img/connect - Tunnel.jpg")));
-		Waitingingbg.setBounds(0, 0, 784, 562);
+		Waitingingbg.setBounds(0, 0, WIDTH, HEIGHT);
 		waiting.add(Waitingingbg);
 	}
 	
