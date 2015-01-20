@@ -30,7 +30,7 @@ public class InventorySlot extends JButton{
 	public InventorySlot (final int width, final int height){
 		this.WIDTH = width;
 		this.HEIGHT = height;
-		this.defaultIcon = new ImageIcon(getClass().getResource("/resources/gameview/EmptySlotIcon.png"));
+		this.defaultIcon = new ImageIcon(getClass().getResource("/resources/gameview/EmptySlotPowerUpandTraps.png"));
 		this.item = null;
 		this.selected = false;
 		this.setPreferredSize(new Dimension(WIDTH/24, WIDTH/24));
