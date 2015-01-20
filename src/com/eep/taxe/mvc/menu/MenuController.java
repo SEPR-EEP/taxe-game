@@ -60,12 +60,10 @@ public class MenuController {
 		this.view 	= menuView;
 		this.model 	= menuModel;
 		
-		// Add all of the Listeners for Events generated in the View
-		//this.view.addMainButtonListener(new MainButtonListener());
-		//this.view.addBackButtonListener(new BackButtonListener());
-		//this.view.addCreditsButtonListener(new CreditsButtonListener());
-		//this.view.addCreateButtonListener(new CreateButtonListener());
-		
+		/**
+		 * This adds all of the listeners for any significant action triggered
+		 * by the user in the Menu UI.
+		 */
 		this.view.addQuitButtonMouseListener(new QuitLabelMouseListener());
 		this.view.addEnterButtonMouseListener(new EnterButtonMouseListener());
 		
@@ -81,13 +79,28 @@ public class MenuController {
 		
 		this.view.addTableMouseListener(new TableMouseListener());
 
-		// Start the Refresher for the Game List
+		/**
+		 * This method is responsible of starting to periodically
+		 * refresh the games list. 
+		 */
 		this.startGameListRefresher();
 		
-		// Assign the StartGame class to catch any Move Event (see below)
-		this.model.getClient().setOnMove(new StartGame());
+		/**
+		 * As we still are in the Menu, when a move is detected, it means
+		 * it is the first move and that the game has started. So we listen for
+		 * the onMove event and assign the StartGame() class to handle the case.
+		 */
+		this.model.getClient().setOnMove(
+			new StartGame()
+		);
 		
 	}
+	
+	/**
+	 * ==========================================================
+	 *   <BORING> - HERE ALL OF THE CLICK LISTENERS ARE DEFINED
+	 * ==========================================================
+	 */
 	
 	/*
 	 * ==== EVENTS: ENTER GAME SCREEN ====
@@ -119,7 +132,7 @@ public class MenuController {
 			view.showErrorMessage("Please choose a longer name.");
 			return false;
 		}
-		// TODO More checks on valid user names
+		// TODO You may want to do more checks on valid user names
 		return true;
 	}
 	
@@ -135,7 +148,6 @@ public class MenuController {
 	
 	private class HowToPlayButtonMouseListener extends MouseAdapter {
 		public void mouseReleased(MouseEvent e) {
-			// view.showHTP();
 			view.openWebpage(HOWTOPLAY_URL);
 		}
 	}
@@ -182,19 +194,30 @@ public class MenuController {
 		}
 	}
 
-	
+	/**
+	 * ==========================================================
+	 *   </BORING> - SO HERE ALL OF THE INTERESTING CODE STARTS
+	 * ==========================================================
+	 */
 	
 	/**
-	 * This class catches any MoveEvent. The first move event is
-	 * always triggered at the Game start. If I am the Master player,
-	 * I created the Game data myself so I will not receive any "data"
+	 * This class catches any MoveEvent. As we still are in the menu, the first
+	 * move event can only be triggered when the Game starts, and the server sends the
+	 * players the initial game data, if I'm the joining player, or an empty move
+	 * notification just to inform me that someone joined my game if I'm the one 
+	 * who created the game and, therefore, also the initial game data.
+	 * If I created the Game data myself so I will not receive any "data"
 	 * parameter (data==null). If I am the Slave, instead, I will
 	 * receive from the Server the initial Game State as "data".
 	 */
 	private class StartGame implements MoveEvent {
 		@Override
 		public void receive(GameData data) {
+			
+			// Let's hide this window.
 			view.setVisible(false);
+			
+			// Stop wasting network I/O on refreshing the Game List.
 			refreshEnabled = false;
 			
 			Role myRole;
@@ -222,6 +245,13 @@ public class MenuController {
 	}
 
 	
+	/**
+	 * This Mouse Listener catches all of the clicks on any point
+	 * of the table. I then figure out which row was clicked from the
+	 * coordinates of the click, finally filter for double clicks.
+	 * If a Double click is finally detected, I get the code of the
+	 * game from the first row and call the joinGame method.
+	 */
 	private class TableMouseListener extends MouseAdapter {
 	    public void mousePressed(MouseEvent me) {
 	        JTable table = (JTable) me.getSource();
@@ -309,11 +339,26 @@ public class MenuController {
 			@Override
 			public void response(StatusItem item) {
 				
+				/**
+				 * Sometimes the server does not allow a player to join.
+				 * At the time of writing this, it can only happen when
+				 * a player wants to join a game created by someone with 
+				 * the same name. The server would otherwise get confused 
+				 * while serving cold beverages to the thirsty players. 
+				 * If this happens, item.error will explain the reason for
+				 * the refusal to the player.
+				 */
 				if ( !item.ok ) {
 					view.showErrorMessage("Can't join: " + item.error);
 					return;
 				}
 				
+				/**
+				 * If everything goes well, let's just take the user
+				 * to the waiting screen. This should last very little time,
+				 * I only need to wait for the initial game data to 
+				 * reach me.
+				 */
 				view.showWaitingScreen();
 				System.out.println("Game #" + gameID + " joined.");
 				System.out.println("Ok, waiting for other player.");

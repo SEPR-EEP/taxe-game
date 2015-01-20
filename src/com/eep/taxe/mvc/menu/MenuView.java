@@ -28,11 +28,20 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 
-
+/**
+ * This is the View for the Menu, a.k.a. the Menu GUI.
+ * Methods exposed by this class include those to add listeners to the buttons
+ * and those needed to update the table of available games.
+ */
 public class MenuView extends JFrame {
 
 	private static final long serialVersionUID = 6149911984550980990L;
 
+	/**
+	 * These are the strings used to display the difficulty levels both
+	 * in the games list and in the difficulty combobox. 
+	 * These can be changed to anything and are only used for UI purposes.
+	 */
 	private final String 	DIFFICULTY_EASY		= "Easy";
 	private final String 	DIFFICULTY_MEDIUM	= "Medium";
 	private final String 	DIFFICULTY_HARD		= "Hard";
@@ -40,14 +49,27 @@ public class MenuView extends JFrame {
 			DIFFICULTY_EASY, DIFFICULTY_MEDIUM, DIFFICULTY_HARD
 	};
 	
+	/**
+	 * The main text font used in the menu (for the normal size text, not headers).
+	 */
 	private final Font textFont = new Font(Font.SANS_SERIF, Font.BOLD, 16);
 
+	/**
+	 * I don't think I need to explain what these variables are.
+	 */
 	private final int 		WIDTH  	= 780;
 	private final int 		HEIGHT 	= 560;
 	private final String	TITLE	= "Game Menu";
 	
+	/**
+	 * This is the main container.
+	 */
 	private JPanel contentPane;
 
+	/**
+	 * These are all of the panels that, one at a time,
+	 * are added to the main container. 
+	 */
 	private JPanel EnterGame;
 	private JPanel MainMenu;
 	private JPanel Credits;
@@ -56,8 +78,15 @@ public class MenuView extends JFrame {
 	private JPanel createGame;
 	private JPanel waiting;
 	
+	/**
+	 * This is - in the constructor - initialised to contain
+	 * a list of all of the panels that can be shown.
+	 */
 	private JPanel[] screensList = null;
 	
+	/**
+	 * A bunch of private properties.
+	 */
 	private JLabel lblQuit;
 	private JLabel quitButtonbg;
 	private JLabel lblEnter;
@@ -90,6 +119,9 @@ public class MenuView extends JFrame {
 	private JLabel lblNewLabel;
 	private JLabel Waitingingbg;
 	
+	/**
+	 * This is the table used for the games list.
+	 */
 	private JTable gameTable;
 	
 	private JTextField usernamebox;

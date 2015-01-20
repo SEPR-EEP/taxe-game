@@ -3,6 +3,10 @@ package com.eep.taxe.mvc.menu;
 import com.eep.taxe.GameClient;
 import com.eep.taxe.models.Game;
 
+/**
+ * This is the Model class of the Menu of the Game.
+ * It wraps the Game data and the instance of the Game Client.
+ */
 public class MenuModel {
 
 	private GameClient client = null;
@@ -13,6 +17,9 @@ public class MenuModel {
 		this.client = client;
 	}
 
+	/**
+	 * Gets the instance of the Client.
+	 */
 	public GameClient getClient() {
 		return client;
 	}

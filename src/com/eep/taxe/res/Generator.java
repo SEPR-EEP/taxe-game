@@ -16,9 +16,17 @@ import com.eep.taxe.models.Vertex;
 import com.eep.taxe.models.Age.Ages;
 
 /**
- * Class used to generate the map
+ * This class is used to generate static content for the game
+ * (such as the initial map) and get all of the possible object
+ * resources - e.g. trains, goals, goats and trains.
  */
 public class Generator {
+	
+	/**
+	 * Generates a map as a list of vertices. The vertices are
+	 * already connected by a number of edges.
+	 * @return	The list of vertices generated - a.k.a. a map.
+	 */
 	public static Vector<Vertex> generateMap() {
 		Vector<Vertex> r = new Vector<Vertex>();
 		
@@ -53,6 +61,15 @@ public class Generator {
 		return r;
 	}
 
+	/**
+	 * This method is used to generate a Goal. 
+	 * @param train				The train for which you want to generate the goal.
+	 * @param map				The map, to give context, and allow the generator to pick random stations.
+	 * @param player			The player who you want to generate the goal for.
+	 * @param startingStation	The starting station for the Goal - so maybe the latest station the train visited.
+	 * @param game				The Game instance. 
+	 * @return					A brand new goal for your player's train.
+	 */
 	public static Goal generateGoal(Train train, Vector<Vertex> map, Player player, Station startingStation, Game game) {
 		if (startingStation == null) {
 			return null;
@@ -73,6 +90,12 @@ public class Generator {
 		return goal;
 	}
 
+	/**
+	 * This method returns the list of possible trains at a given age.
+	 * @param age		The Age. More recent ages unlock more recent trains.
+	 * @param game		The game.
+	 * @return			All of the trains you may want to acquire at this age.
+	 */
 	public static ArrayList<Train> generateTrains(Ages age, Game game) {
 		ArrayList<Train> trainList = new ArrayList<Train>();
 		
@@ -105,6 +128,11 @@ public class Generator {
 		return trainList;
 	}
 	
+	/**
+	 * Returns the list of train speed modifier unlocked at a given age.
+	 * @param age		The age.
+	 * @return			The list of train speed modifiers unlocked at the given age.
+	 */
 	public static Vector<Usable> generateTrainSpeedModifier(Ages age) {
 		Vector<Usable> trainSpeedModifierList = new Vector<Usable>();
 		
