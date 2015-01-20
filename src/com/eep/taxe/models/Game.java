@@ -11,7 +11,6 @@ import com.eep.taxe.utils.Dijkstra;
 /**
  * Represents a Game (match) between any two players.
  * If you are looking for the main Game entry point, please look at com.eep.taxe.Game.
- * 
  * To avoid confusion, you may want to specify the package when referring to this class.
  * 
  * This class extends the GameData class and is used as a container for the network
@@ -19,17 +18,19 @@ import com.eep.taxe.utils.Dijkstra;
  * 
  * Every time a player sends their move to the server, this object is serialised 
  * into wibbly wobbly timey wimey binary stuff and sent to the other side of the world,
- * where the other clients deserialeses it back into a com.eep.taxe.Game object.
+ * where the other client deserialeses it back into a com.eep.taxe.Game object.
  * 
  * IMPORTANT. All of the properties contained in this object will be transferred
  * 		over to the other player. You can use the Java 'transient' keyword to mark
  * 		something as 'mine and only mine' and it won't be sent to the server.
  * 		However, you are warned that this data will be immediately discarded once
  * 		the other player moves and sends back their version of the Game object.
- * 		Please note that received if you send any object to the server and it gets
+ * 
+ * 		Please note that if you send any object to the server and it gets
  * 		back to you untouched, it won't be '==' to the object prior to the end
  * 		of the turn. This is because every time an object is deserialised, 
- * 		actually a new object is created with the same properties.
+ * 		a new object is created with the same properties.
+ * 
  * 		TLDR; Store everything here.
  * 
  * Every object used as a property, sub-property, or sub-sub-property, etc., of this
