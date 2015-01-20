@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.eep.taxe.GameClient;
 import com.eep.taxe.models.Game;
 import com.eep.taxe.models.Goal;
 import com.eep.taxe.models.Player;
@@ -51,13 +52,9 @@ public class GameTurnLogic {
 	@Test
 	public void testDoesPlayerHaveGoalAtFirstTurn() {
 		
-		if (! (masterPlayer.getCurrentGoals().size() == 1) ){
-			fail("Master player should have only one starting goal");
-		}
+		assertEquals("Slave player should have only one starting goal", 1, slavePlayer.getCurrentGoals().size(), 0);
 		
-		if (! (slavePlayer.getCurrentGoals().size() == 1) ){
-			fail("Slave player should have only one starting goal");
-		}
+		assertEquals("Master player should have only one starting goal", 1, masterPlayer.getCurrentGoals().size(), 0);
 	}
 	
 	@Test
@@ -68,13 +65,9 @@ public class GameTurnLogic {
 		game.endTurn(); //Master turns ends
 		
 		//Start of turn #2
-		if (! (slavePlayer.getCurrentGoals().size() == 2) ){
-			fail("Slave player should have two starting goals");
-		}
+		assertEquals("Slave player should have two starting goal", 2, slavePlayer.getCurrentGoals().size(), 0);
 		
-		if (! (masterPlayer.getCurrentGoals().size() == 2) ){
-			fail("Master player should have two starting goals");
-		}
+		assertEquals("Master player should have two starting goal", 2, masterPlayer.getCurrentGoals().size(), 0);
 		
 		//End turn #2
 		game.endTurn();	//Slave turn ends
@@ -82,13 +75,9 @@ public class GameTurnLogic {
 		
 		//Start of turn #3
 		
-		if (! (slavePlayer.getCurrentGoals().size() == 3) ){
-			fail("Slave player should have two starting goals");
-		}
+		assertEquals("Slave player should have three starting goal", 3, slavePlayer.getCurrentGoals().size(), 0);
 		
-		if (! (masterPlayer.getCurrentGoals().size() == 3) ){
-			fail("Master player should have two starting goals");
-		}
+		assertEquals("Master player should have three starting goal", 3, masterPlayer.getCurrentGoals().size(), 0);
 	}
 	
 	@Test
@@ -100,13 +89,11 @@ public class GameTurnLogic {
 			game.endTurn(); //Master turns ends
 		}
 		
-		if (slavePlayer.getCurrentGoals().size() > 3){
-			fail("Slave player should not exceed 3 current goals");
-		}
 		
-		if (masterPlayer.getCurrentGoals().size() > 3){
-			fail("Master player should not exceed 3 current goals");
-		}
+		assertFalse("Slave player should not exceed 3 current goals", slavePlayer.getCurrentGoals().size() > 3);
+		
+		assertFalse("Master player should not exceed 3 starting goal", masterPlayer.getCurrentGoals().size() > 3);
+		
 	}
 	
 	@Test
@@ -117,26 +104,20 @@ public class GameTurnLogic {
 		game.endTurn(); //Master turns ends
 		
 		//Start of turn #2
-		if (! (slavePlayer.getInventory().size() == 2) ){
-			fail("Slave player should have two new resources in inventory");
-		}
 		
-		if (! (masterPlayer.getInventory().size() == 2) ){
-			fail("Master player should have two new resources in inventory");
-		}
+		assertEquals("Slave player should have two new resources in inventory", 2, slavePlayer.getInventory().size(), 0);
+		
+		assertEquals("Master player should have two new resources in inventory", 2, masterPlayer.getInventory().size(), 0);
 		
 		//End turn #2
 		game.endTurn();	//Slave turn ends
 		game.endTurn(); //Master turns ends
 		
 		//Start of turn #3
-		if (! (slavePlayer.getInventory().size() == 4) ){
-			fail("Slave player should have two new resources in inventory");
-		}
 		
-		if (! (masterPlayer.getInventory().size() == 4) ){
-			fail("Master player should have two new resources in inventory");
-		}
+		assertEquals("Slave player should have two new resources in inventory", 4, slavePlayer.getInventory().size(), 0);
+		
+		assertEquals("Master player should have two new resources in inventory", 4, masterPlayer.getInventory().size(), 0);
 	}
 	
 	@Test
@@ -150,13 +131,41 @@ public class GameTurnLogic {
 		
 		//The actual limit is 5, as gold and metal count as 2
 		
-		if (slavePlayer.getInventory().size() > 5){
-			fail("Slave player should not exceed 5 useable resources");
+		assertFalse("Slave player should not exceed 5 useable resources", slavePlayer.getInventory().size() > 5);
+		
+		assertFalse("Master player should not exceed 5 usable resources", masterPlayer.getInventory().size() > 5);
+	}
+	
+	@Test
+	public void testPlayerSetsNickname(){
+		String nicknameOne = "Test Player 1";
+		String nicknameTwo = "Test Player 2";
+		slavePlayer.setNickname(nicknameOne);
+		masterPlayer.setNickname(nicknameTwo);
+		
+		assertSame("Slave player could not set nickanme", nicknameOne, slavePlayer.getNickname());
+		
+		assertSame("Master player could not set nickanme", nicknameTwo, masterPlayer.getNickname());
+	}
+	
+	@Test
+	public void testRoundRobinTurns(){
+		
+		//Test for 5 turns
+		for (int turnNo = 1; turnNo < 5; turnNo++){
+			//At start of game current turn should be slave player
+			assertTrue("First player is not slave player", game.getCurrentRole() == GameClient.Role.SLAVE);
+			
+			//End slave player's turn
+			game.endTurn();
+			
+			assertTrue("Second player is not master player", game.getCurrentRole() == GameClient.Role.MASTER);
+			
+			//End master player's turn
+			game.endTurn();
 		}
 		
-		if (masterPlayer.getInventory().size() > 5){
-			fail("Master player should not exceed 5 usable resources");
-		}
+		
 	}
 
 }

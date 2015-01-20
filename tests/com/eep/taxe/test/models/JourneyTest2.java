@@ -65,57 +65,38 @@ public class JourneyTest2 {
 	public void testAddTwoStationsToJourney(){
 		
 		//Station is added to journey
-		Boolean firstAdded = trainJourney.add(Rome);
-		
 		//The journey should have successfully added Rome
-		if (firstAdded == false){
-			fail("Rome should be added");
-		}	
-		
+		assertTrue("Rome should be added", trainJourney.add(Rome) );
+
 		//Click on an adjacent vertex
 		Vertex nextVertex = Sofia;
 		
 		//Add vertex
-		Boolean secondAdded = trainJourney.add(nextVertex);
-		
 		//The journey should have successfully added Sofia
-		if (secondAdded == false){
-			fail("There should exist an edge between Rome and Sofia");
-		}	
-		
+		assertTrue("There should exist an edge between Rome and Sofia", trainJourney.add(nextVertex) );
 	}
 
 	@Test
 	public void testAddTwoStationsNotAdjacent(){
 		
 		//Station is added to journey
-		Boolean firstAdded = trainJourney.add(Rome);
-		
 		//The journey should have successfully added Rome
-		if (firstAdded == false){
-			fail("Rome should be added");
-		}	
+		assertTrue("Rome should be added", trainJourney.add(Rome));
 		
 		//Click on an vertex that is not adjacent
 		Vertex nextVertex = Berlin;
 				
-		//Add vertex
-		Boolean secondAdded = trainJourney.add(nextVertex);
-		
+		//Add vertex	
 		//The journey should not have successfully added Berlin
-		if (secondAdded == true){
-			fail("There should not exist an edge between Rome and Berlin");
-		}
+		assertFalse("There should not exist an edge between Rome and Berlin", trainJourney.add(nextVertex) );
+		
+		
 	}
 	
 	@Test
 	public void testAddJunctionAsStartingStation(){
 		
-		Boolean junctionAdded = trainJourney.add(JN1);
-		
-		if (junctionAdded == true){
-			fail("A junction should not be the starting vertex of of a journey");
-		}
+		assertFalse("A junction should not be the starting vertex of of a journey", trainJourney.add(JN1) );
 	}
 	
 	
@@ -134,25 +115,17 @@ public class JourneyTest2 {
 		//Player starts journey
 		trainJourney.start();
 		
-		if (! trainJourney.isJourneyStarted()){
-			fail("Train journey should have started");
-		}
+		assertTrue("Train journey should have started", trainJourney.isJourneyStarted() );
 		
 		//Get length of journey
-		int lengthOfJourney = trainJourney.getTotalLength(); //Should be 1120km
-		
-		if (lengthOfJourney != 1120){
-			fail("Length of journey has not been calculated correctly");
-		}
+		//Should be 1120km - with 100% accuracy
+		assertEquals("Length of journey has not been calculated correctly", 1120, trainJourney.getTotalLength() , 0 );
 		
 		//Player has first turn
 		trainJourney.incrementProgressByTurn();
 		
-		System.out.println(trainJourney.getDistanceTravelledOnJourney());
-		
-		if (trainJourney.getDistanceTravelledOnJourney() != 500){
-			fail("Train should have travelled 500km by end of first turn");
-		}
+		//Distance travelled should be 500km - with 100% accuracy
+		assertEquals("Train should have travelled 500km by end of first turn", 500, trainJourney.getDistanceTravelledOnJourney(), 0);
 		
 		//Player has second turn
 		trainJourney.incrementProgressByTurn();
@@ -161,9 +134,7 @@ public class JourneyTest2 {
 		trainJourney.incrementProgressByTurn();
 		
 		//Journey should have completed
-		if (! trainJourney.isJourneyComplete()){
-			fail("Journey should have completed");
-		}
+		assertTrue("Journey should have completed", trainJourney.isJourneyComplete() );
 		
 	}
 	
@@ -190,18 +161,14 @@ public class JourneyTest2 {
 		//Player has first turn
 		trainJourney.incrementProgressByTurn();
 		
-		//Distance should be 1000km (500 x 2)
-		if (trainJourney.getDistanceTravelledOnJourney() != 1000){
-			fail("Train should have travelled 1000km by end of first turn");
-		}
+		//Distance should be 1000km (500 x 2) - with 100% accuracy
+		assertEquals("Train should have travelled 1000km by end of first turn", 1000, trainJourney.getDistanceTravelledOnJourney(), 0);
 		
 		//Player has second turn
 		trainJourney.incrementProgressByTurn();
 		
 		//Journey should have completed
-		if (! trainJourney.isJourneyComplete()){
-			fail("Journey should have completed");
-		}
+		assertTrue("Journey should have completed", trainJourney.isJourneyComplete());
 		
 	}
 

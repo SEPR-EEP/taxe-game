@@ -73,18 +73,12 @@ public class PlayerAndResourcesTest {
 		//Buy train
 		playerOne.buyTrain(futureTrain);
 		
-		if (! playerOne.getTrains().contains(futureTrain)){
-			fail("Player should have train");
-		}
+		assertTrue("Player should have train", playerOne.getTrains().contains(futureTrain));
 		
 		//Test gold and metal levels
-		if (playerOne.getGoldQuantity() != 100){
-			fail("Player should only have 100 gold left");
-		}
+		assertEquals("Player should only have 100 gold left", 100, playerOne.getGoldQuantity(), 0);
 		
-		if (playerOne.getMetalQuantity() != 200){
-			fail("Player should only have 200 metal left");
-		}
+		assertEquals("Player should only have 200 metal left", 200, playerOne.getMetalQuantity(), 0);
 		
 	}
 	
@@ -95,25 +89,17 @@ public class PlayerAndResourcesTest {
 		playerTwo.addMetal(100);
 		
 		//Player Two should not be able to buy future train
-		if (playerTwo.canBuyTrain(futureTrain)){
-			fail("Player two has 200 gold and 100 metal - train costs 400 gold and 300 metal");
-		}
+		assertFalse("Player two has 200 gold and 100 metal - train costs 400 gold and 300 metal", playerTwo.canBuyTrain(futureTrain));
 		
-		//Buy train
 		playerTwo.buyTrain(futureTrain);
 		
-		if (playerTwo.getTrains().contains(futureTrain)){
-			fail("Player should not have train");
-		}
+		assertFalse("Player should not have train", playerTwo.getTrains().contains(futureTrain) );
 		
 		//Test gold and metal levels
-		if (playerTwo.getGoldQuantity() != 200){
-			fail("Player should still have 200 gold left");
-		}
 		
-		if (playerTwo.getMetalQuantity() != 100){
-			fail("Player should still have 100 metal left");
-		}
+		assertEquals("Player should still have 200 gold left", 200, playerTwo.getGoldQuantity() );
+		
+		assertEquals("Player should still have 100 metal left", 100, playerTwo.getMetalQuantity() );
 		
 	}
 	
@@ -124,25 +110,21 @@ public class PlayerAndResourcesTest {
 		playerOne.addMetal(300);
 		
 		//Player One should be able to buy future train
-		if (! playerOne.canBuyTrain(futureTrain)){
-			fail("Player one has 400 gold and 300 metal - train only costs 400 gold and 300 metal");
-		}
+		
+		assertTrue("Player one has 400 gold and 300 metal - train only costs 400 gold and 300 metal", playerOne.canBuyTrain(futureTrain) );
 		
 		//Buy train
 		playerOne.buyTrain(futureTrain);
 		
-		if (! playerOne.getTrains().contains(futureTrain)){
-			fail("Player should have train");
-		}
+		assertTrue("Player should have train", playerOne.getTrains().contains(futureTrain) );
+		
 		
 		//Test gold and metal levels
-		if (playerOne.getGoldQuantity() != 0){
-			fail("Player should only have 0 gold left");
-		}
 		
-		if (playerOne.getMetalQuantity() != 0){
-			fail("Player should only have 0 metal left");
-		}
+		assertEquals("Player should only have 0 gold left", 0, playerOne.getGoldQuantity(), 0);
+		
+		assertEquals("Player should only have 0 metal left", 0, playerOne.getMetalQuantity(), 0);
+		
 		
 	}
 	
@@ -152,18 +134,13 @@ public class PlayerAndResourcesTest {
 		playerOne.addGold(500);
 		
 		//Player One should be able to buy steam booster
-		if (! playerOne.canBuy(steamBoost) ){
-			fail("Player one has 500 gold, steam booster cost 100");
-		}
+		assertTrue("Player one has 500 gold, steam booster cost 100", playerOne.canBuy(steamBoost));
 		
 		//Buy booster
 		playerOne.buy(steamBoost);
 		
 		//Test if player One has resource
-		if (! playerOne.hasResource(steamBoost) ){
-			fail("Player should have resource");
-		}
-		
+		assertTrue("Player should have resource", playerOne.hasResource(steamBoost));
 	}
 	
 	@Test
@@ -172,17 +149,13 @@ public class PlayerAndResourcesTest {
 		playerOne.addGold(50);
 		
 		//Player One should not be able to buy steam booster
-		if (playerOne.canBuy(steamBoost) ){
-			fail("Player one has 50 gold, steam booster cost 100");
-		}
+		assertFalse("Player one has 50 gold, steam booster cost 100", playerOne.canBuy(steamBoost) );
 		
 		//Buy booster
 		playerOne.buy(steamBoost);
 		
 		//Test if player One does not have resource
-		if (playerOne.hasResource(steamBoost) ){
-			fail("Player should not have resource");
-		}
+		assertFalse("Player should not have resource", playerOne.hasResource(steamBoost) );
 		
 	}
 	
@@ -203,10 +176,8 @@ public class PlayerAndResourcesTest {
 		steamSlowdown.useOnTrain(steamTrainTwo);
 		
 		//Player one's steam slowdown should have halved the speed of player two's steam train
-		if (steamTrainTwo.getBaseSpeed() / 2 != steamTrainTwo.getSpeed() ){
-			fail("Steam slowdown has not been used on other player");
-		}
 		
+		assertEquals("Steam slowdown has not been used on other player", steamTrainTwo.getBaseSpeed() / 2, steamTrainTwo.getSpeed(), 0);
 	}
 	
 	@Test
@@ -225,10 +196,8 @@ public class PlayerAndResourcesTest {
 		steamSlowdown.useOnTrain(steamTrainOne);
 			
 		//Player one's steam slowdown should not have halved the speed of player one's steam train
-		if (steamTrainOne.getBaseSpeed() != steamTrainOne.getSpeed() ){
-			fail("Steam slowdown should not have been used on their own train");
-		}	
 		
+		assertEquals("Steam slowdown should not have been used on their own train", steamTrainOne.getBaseSpeed(), steamTrainOne.getSpeed(), 0);
 	}
 	
 	@Test
@@ -248,9 +217,8 @@ public class PlayerAndResourcesTest {
 		steamBoost.useOnTrain(steamTrainTwo);
 			
 		//Player one's steam boost should not have been used on Player Two's steam train
-		if (steamTrainTwo.getBaseSpeed() != steamTrainTwo.getSpeed() ){
-			fail("Steam boost should not have been used on opponent's train");
-		}	
+		assertEquals("Steam boost should not have been used on opponent's train", steamTrainTwo.getBaseSpeed(), steamTrainTwo.getSpeed(), 0);
+
 		
 	}
 	
