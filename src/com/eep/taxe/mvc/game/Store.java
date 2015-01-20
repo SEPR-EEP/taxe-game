@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.GridLayout;
 import java.awt.Label;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.border.MatteBorder;
@@ -80,12 +82,11 @@ public final class Store extends JDialog {
 	private Component rigidArea_2;
 	
 	
-	public static void main(String[] args) {
+	public void open() {
 		try {
-			Store dialog = new Store();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setLocation(1300/2 - 650/2, 720/2 - 600/2);
-			dialog.setVisible(true);
+			this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			this.setLocation(1300/2 - WIDTH/2, 720/2 - HEIGHT/2);
+			this.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -453,8 +454,25 @@ public final class Store extends JDialog {
 		
 		}
 	
+
+	
+		public void close (){
+			this.dispose();
+		}
+	
 		public void setItemDetailsText (String text){
 			this.itemDetailsText = text;
 	}
+		
+		
+		public void addBuyItemActionListener(ActionListener actionListener){
+			Buy_JButton.addActionListener(actionListener);
+		}		
+		
+		
+		public void addReturnToGameActionListener(ActionListener actionListener){
+			ReturnToGame_JButton.addActionListener(actionListener);
+		}
+		
 
 }

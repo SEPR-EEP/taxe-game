@@ -355,11 +355,18 @@ public class BottomPanel extends JPanel{
 	}	
 		
 
+	public interface MenuActionListener  {
+		public void actionPerformed(ActionEvent e);
+	}
 	
 	
 	//Menu button Action Listener
-	public void addMenuButtonActionListener(ActionListener buttonListener){
-		menuButton.addActionListener(buttonListener);
+	public void addMenuButtonActionListener(final MenuActionListener buttonListener){
+		menuButton.addActionListener(new ActionListener(){
+		
+		public void actionPerformed (ActionEvent e) {
+			buttonListener.actionPerformed(e);
+		}});
 	}
 	
 }

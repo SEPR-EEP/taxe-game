@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import com.eep.taxe.models.Train;
 import com.eep.taxe.models.Usable;
 import com.eep.taxe.mvc.game.BottomPanel.InventorySlotsListener;
+import com.eep.taxe.mvc.game.BottomPanel.MenuActionListener;
 import com.eep.taxe.mvc.game.BottomPanel.TrainSlotsListener;
 import com.eep.taxe.mvc.game.BottomPanel.MarketButtonListener;
 
@@ -357,7 +358,7 @@ public class GameView extends javax.swing.JFrame {
 		}
 		
 		//Menu button Action Listener
-		public void addMenuButtonActionListener(ActionListener buttonListener){
+		public void addMenuButtonActionListener(MenuActionListener buttonListener){
 			bottomPanel.addMenuButtonActionListener(buttonListener);
 		}
 	//----------------------------------------------------------------------------------------------------

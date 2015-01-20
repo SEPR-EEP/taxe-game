@@ -2,9 +2,7 @@ package com.eep.taxe.mvc.game;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -21,7 +19,6 @@ import java.util.HashSet;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 
 import com.eep.taxe.GameClient.EndEvent;
@@ -44,17 +41,24 @@ import com.eep.taxe.models.Usable;
 import com.eep.taxe.models.Vertex;
 import com.eep.taxe.mvc.game.BottomPanel.InventorySlotsListener;
 import com.eep.taxe.mvc.game.BottomPanel.MarketButtonListener;
+import com.eep.taxe.mvc.game.BottomPanel.MenuActionListener;
 import com.eep.taxe.mvc.game.BottomPanel.TrainSlotsListener;
 
-/**
+
+
+
+/*
+ * 
  * This is the Controller of the Game. All of the Game Logic related to the
  * user interaction goes here. This handles the events triggered by the interaction
  * of the user with the view and the events triggered by the client (moves received
  * from the opponent).
+ * 
  */
 public class GameController {
 
 	private GameView	view		= null;
+	
 	private GameModel	model 		= null;
 	
 	private MapGraphics graphics	= null;
@@ -63,7 +67,9 @@ public class GameController {
 	
 	private Usable 		usableInUse = null;
 	
-	
+	private Info_Dialog infoDialog = new Info_Dialog();
+	private InGameMenu inGameMenu = new InGameMenu();
+	private Store market = new Store();
 	
 	/**
 	 * These are the possible game states.
@@ -86,6 +92,7 @@ public class GameController {
 	private Train	 		buildingTrain; 		// The train being used to build a path
 	private	Vector<Vertex>	buildingVertices; 	// The list of vertices that have been selected
 	 
+
 	public GameController(GameView gameView, GameModel gameModel) {
 		this.setView(gameView);
 		this.setModel(gameModel);
@@ -120,7 +127,59 @@ public class GameController {
 		this.view.addMenuButtonActionListener(new MenuButtonActionListener());
 		this.view.addEndTurnButtonActionListener(new EndTurnButtonActionListener());
 		this.view.addMarketButtonActionListener(new MarketButtonActionListener());
+		
+		this.market.addReturnToGameActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				market.close();
+				
+			}
+		});
 
+		this.market.addBuyItemActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//TODO BUY ITEM
+				
+			}
+		});
+		
+		this.infoDialog.addGotITActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				infoDialog.close();
+				
+			}
+		});
+		
+		this.inGameMenu.addResumeActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				inGameMenu.close();
+				
+			}
+		});
+		this.inGameMenu.addSaveActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//TODO
+				
+			}
+		});
+		this.inGameMenu.addHowActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//TODO
+				
+			}
+		});
+		this.inGameMenu.addQuitActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//TODO
+				
+			}
+		});
 
 		final InventorySlotsActionListener a = new InventorySlotsActionListener();
 		this.view.addInventorySlotsActionListener(a);
@@ -237,23 +296,24 @@ public class GameController {
 		}
 	}
 	
+	/* Market
+	 *  dialog 
+	*/
 	private class MarketButtonActionListener implements MarketButtonListener{
 
 		public void actionPerformed (ActionEvent e) {
 						
-			Store.main(null);
+			market.open();
 							
 			}
 			
 		}
-		
-
 	
-	private class MenuButtonActionListener implements ActionListener{
-
+	
+	private class MenuButtonActionListener implements MenuActionListener{
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			view.mainMapPanel.setVisible(false);
+		public void actionPerformed (ActionEvent e) {
+			inGameMenu.open();
 			
 		}
 	}
@@ -445,9 +505,14 @@ public class GameController {
 			endTurn();
 			updateView();
 			
+			infoDialog.open();
+			
 		} 
 		
 	}
+
+	
+	
 
 	
 	private class MoveListener implements MoveEvent {
