@@ -6,6 +6,7 @@ import com.jayway.awaitility.Awaitility;
 import com.jayway.awaitility.Awaitility.*;
 import com.jayway.awaitility.Duration.*;
 
+import java.net.URISyntaxException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 import java.util.Date;
@@ -28,7 +29,7 @@ public class ConnectionTest {
 	}
 
 	@Test
-	public void test() {
+	public void test() throws URISyntaxException {
 		client.connect();
 		Awaitility.await().atMost(timeout, TimeUnit.SECONDS).until(new Callable<Boolean>() {@Override
 			public Boolean call() throws Exception {

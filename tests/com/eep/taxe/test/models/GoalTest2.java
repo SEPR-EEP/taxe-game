@@ -82,19 +82,13 @@ public class GoalTest2 {
 			goal = Generator.generateGoal(steamTrain, vertices, player, steamTrain.getStationToStartNextGoalAt(), game);
 			
 			//The generated goal's starting station should be Rome
-			if (goal.getStartingStation() != Rome){
-				fail("Starting station of goal is not Rome");
-			}
+			assertSame("Starting station of goal is not Rome", goal.getStartingStation(), Rome );
 			
 			//The generated goal's ending station should be on the map
-			if (! vertices.contains(goal.getEndingStation())){
-				fail("Ending station is not on the map");
-			}
+			assertTrue("Ending station is not on the map", vertices.contains(goal.getEndingStation() ) );
 			
 			//The generated goal's starting station must not be the same as ending station
-			if (goal.getStartingStation() == goal.getEndingStation()){
-				fail("Ending station is same as starting station");
-			}
+			assertNotSame("Ending station is same as starting station", goal.getStartingStation(), goal.getEndingStation() );
 		}
 	}
 	
@@ -106,19 +100,13 @@ public class GoalTest2 {
 			goal = Generator.generateGoal(steamTrain, vertices, player, game.getRandomStation(), game);
 			
 			//The generated goal's starting station should be on the map
-			if (! vertices.contains(goal.getStartingStation())){
-				fail("Starting station of goal is not on map");
-			}
+			assertTrue("Starting station of goal is not on map", vertices.contains(goal.getStartingStation() ) );
 			
 			//The generated goal's ending station should be on the map
-			if (! vertices.contains(goal.getEndingStation())){
-				fail("Ending station is not on the map");
-			}
+			assertTrue("Ending station is not on the map", vertices.contains(goal.getEndingStation() ) );
 			
 			//The generated goal's starting station must not be the same as ending station
-			if (goal.getStartingStation() == goal.getEndingStation()){
-				fail("Ending station is same as starting station");
-			}
+			assertNotSame("Ending station is same as starting station", goal.getStartingStation(), goal.getEndingStation() );
 		}
 	}
 	
@@ -129,9 +117,7 @@ public class GoalTest2 {
 		goal = Generator.generateGoal(steamTrain, vertices, player, steamTrain.getStationToStartNextGoalAt(), game);
 		
 		//Goal should be null as the train is not on the map
-		if (goal != null){
-			fail("A goal should not be generated if the train is not on the map");
-		}
+		assertNull("A goal should not be generated if the train is not on the map", goal);
 	}
 	
 	@Test
@@ -150,11 +136,7 @@ public class GoalTest2 {
 		trainJourney.add(Sofia);
 		
 		//Journey should be able to accomplish goal
-		Boolean canAccomplish = goal.willJourneyAccomplishGoal(trainJourney);
-		
-		if (! canAccomplish){
-			fail("Goal should recognise journey as accomplishable");
-		}
+		assertTrue("Goal should recognise journey as accomplishable", goal.willJourneyAccomplishGoal(trainJourney) );
 		
 		//Start Journey
 		trainJourney.start();
@@ -165,11 +147,7 @@ public class GoalTest2 {
 		}
 		
 		//Goal should be completed
-		Boolean hasAccomplished = goal.hasJourneyAccomplishedGoal(trainJourney);
-		
-		if (! hasAccomplished){
-			fail("Goal should have been accomplished by journey");
-		}
+		assertTrue("Goal should have been accomplished by journey", goal.hasJourneyAccomplishedGoal(trainJourney) );
 		
 	}
 	
@@ -197,11 +175,7 @@ public class GoalTest2 {
 		}
 		
 		//Goal should not be completed
-		Boolean hasAccomplished = goal.hasJourneyAccomplishedGoal(trainJourney);
-		
-		if (hasAccomplished){
-			fail("Goal should not have been accomplished by journey");
-		}
+		assertFalse("Goal should not have been accomplished by journey", goal.hasJourneyAccomplishedGoal(trainJourney));
 	}
 	
 	@Test
@@ -228,11 +202,7 @@ public class GoalTest2 {
 		}
 		
 		//Goal should not be completed
-		Boolean hasAccomplished = goal.hasJourneyAccomplishedGoal(trainJourney);
-		
-		if (hasAccomplished){
-			fail("Goal should not have been accomplished by journey");
-		}
+		assertFalse("Goal should not have been accomplished by journey", goal.hasJourneyAccomplishedGoal(trainJourney));
 	}
 
 	
@@ -261,10 +231,7 @@ public class GoalTest2 {
 		}
 		
 		//Goal should not be completed
-		Boolean hasAccomplished = goal.hasJourneyAccomplishedGoal(trainJourney);
+		assertFalse("Goal should not have been accomplished by journey", goal.hasJourneyAccomplishedGoal(trainJourney));
 		
-		if (hasAccomplished){
-			fail("Goal should not have been accomplished by journey");
-		}
 	}
 }

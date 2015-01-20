@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
@@ -40,7 +41,12 @@ public class GameView extends javax.swing.JFrame {
 		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
-
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int screenHeight = screenSize.height;
+		int screenWidth = screenSize.width;
+		this.setLocation(screenWidth/2-WIDTH/2, screenHeight/2-HEIGHT/2);
+		
+		
 		gameMenuPanel = new JPanel();
 		gameMenuPanel.setBackground(new Color(245, 245, 245));
 		gameMenuPanel.setPreferredSize(getContentPane().getSize());

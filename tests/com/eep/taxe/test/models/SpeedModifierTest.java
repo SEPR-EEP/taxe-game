@@ -41,9 +41,7 @@ public class SpeedModifierTest {
 	@Test
 	public void testSpeedWithoutModifier() {
 		
-		if (steamTrain.getSpeed() != baseSpeed){
-			fail("Speed of train without modifier is not base speed");
-		}
+		assertEquals("Speed of train without modifier is not base speed", baseSpeed, steamTrain.getSpeed(), 0);
 	}
 	
 	@Test
@@ -52,9 +50,7 @@ public class SpeedModifierTest {
 		float expectedSpeed = baseSpeed * boostSpeedFactor;
 		float actualSpeed = steamTrain.getSpeed();
 		
-		if (actualSpeed != expectedSpeed){
-			fail("Actual speed of train does not equal the value expected");
-		}
+		assertEquals("Actual speed of train does not equal the value expected", expectedSpeed, actualSpeed, 0);
 	}
 	
 	@Test
@@ -63,10 +59,7 @@ public class SpeedModifierTest {
 		float expectedSpeed = baseSpeed * slowSpeedFactor;
 		float actualSpeed = steamTrain.getSpeed();
 		
-		
-		if (actualSpeed != expectedSpeed){
-			fail("Actual speed of train does not equal the value expected");
-		}
+		assertEquals("Actual speed of train does not equal the value expected", expectedSpeed, actualSpeed, 0);
 	}
 	
 	@Test
@@ -77,9 +70,7 @@ public class SpeedModifierTest {
 		float expectedSpeed = baseSpeed;
 		float actualSpeed = steamTrain.getSpeed();
 		
-		if (actualSpeed != expectedSpeed){
-			fail("Actual speed of train does not equal the value expected");
-		}
+		assertEquals("Actual speed of train does not equal the value expected", expectedSpeed, actualSpeed, 0);
 	}
 	
 	@Test
@@ -90,9 +81,7 @@ public class SpeedModifierTest {
 		float expectedSpeed = baseSpeed;
 		float actualSpeed = steamTrain.getSpeed();
 		
-		if (actualSpeed != expectedSpeed){
-			fail("Actual speed of train does not equal the value expected");
-		}
+		assertEquals("Actual speed of train does not equal the value expected", expectedSpeed, actualSpeed, 0);
 	}
 	
 	@Test
@@ -103,9 +92,7 @@ public class SpeedModifierTest {
 		float expectedSpeed = baseSpeed;
 		float actualSpeed = futureTrain.getSpeed();
 		
-		if (actualSpeed != expectedSpeed){
-			fail("Actual speed of future train should not be changed as boost is already in use");
-		}
+		assertTrue("Actual speed of future train should not be changed as boost is already in use", actualSpeed == expectedSpeed);
 	}
 
 }

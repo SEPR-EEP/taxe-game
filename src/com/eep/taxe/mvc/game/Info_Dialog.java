@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Rectangle;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -16,13 +17,13 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
+
 import net.miginfocom.swing.MigLayout;
 
 
 public class Info_Dialog extends JDialog {
 
-//	private final JPanel contentPanel = new JPanel();
-	
+
 
 	private final int WIDTH =450;
 	private final int HEIGHT =450;
@@ -34,11 +35,11 @@ public class Info_Dialog extends JDialog {
 	private String infoText;
 	
 	
-	public static void main(String[] args) {
+	public void open() {
 		try {
-			Info_Dialog dialog = new Info_Dialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
+			this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			this.setLocation(1300/2-WIDTH/2, 720/2-HEIGHT/2);
+			this.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -118,11 +119,15 @@ public class Info_Dialog extends JDialog {
 						GotIT_JButton.setBorderPainted(false);
 						GotIT_JButton.setBackground(Color.BLACK);
 						GotIT_JButton.setFont(new Font("Sans Serif", Font.BOLD, 11));
-						GotIT_JButton.setForeground(Color.BLACK);
+						GotIT_JButton.setForeground(Color.WHITE);
 			}	
 		}
 			
 
+			public void close(){
+				this.dispose();
+			}
+		
 			public void setWidnowTitle (String title){
 				this.windowTitle = title;
 			}
@@ -130,5 +135,11 @@ public class Info_Dialog extends JDialog {
 			public void setText (String text){
 				this.infoText = text;
 			}
+			
+			
+			public void addGotITActionListener(ActionListener actionListener){
+				GotIT_JButton.addActionListener(actionListener);
+			}	
+		
 	}
 
