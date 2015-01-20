@@ -3,6 +3,16 @@ package com.eep.taxe.models;
 import java.io.Serializable;
 import java.util.Vector;
 
+/**
+ * This class represents the journey of a train on the map.
+ * 
+ * It extends the Path definition, adding all those properties that
+ * relate to a single train and its current position relative to the
+ * whole journey. 
+ * 
+ * It also has many methods to check the position of the train, increment
+ * it by a turn, check if the train is moving and so on.
+ */
 public class Journey extends Path implements JourneyInterface, Serializable {
 
 	private static final long serialVersionUID = 1L;

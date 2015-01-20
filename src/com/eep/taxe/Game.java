@@ -13,7 +13,12 @@ import com.eep.taxe.mvc.menu.MenuController.StartGameListener;
 import com.jayway.awaitility.Awaitility;
 import com.jayway.awaitility.core.ConditionTimeoutException;
 
-
+/**
+ * This is the Game entry point. This class is responsible to 
+ * create an instance of the client, test for the network connection,
+ * the generate an instance of the Menu (MVC) and listen for the start
+ * game event. When this occurs, it builds the Game (MVC).
+ */
 public class Game extends Awaitility {
 
 	private static GameClient client 	= null;

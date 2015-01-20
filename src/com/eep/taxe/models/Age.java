@@ -2,24 +2,44 @@ package com.eep.taxe.models;
 
 import java.util.Vector;
 
+/**
+ * Represents an Age in the Game, such as the Stone Age.
+ * It is used to easily categorise resources, trains, and whatever you
+ * may want to relate to a particular Age in the game.
+ */
 public class Age implements AgeInterface {
 
 	private static final long serialVersionUID = 2712498058645722176L;
 
+	/**
+	 * The internal representation of an Age is done using the Ages 
+	 * enumerator type. It is easier to carry around a enumerator type
+	 * instead of an instance of the Age class. Age objects are to
+	 * be constructed when necessary. If you need to store an Age as
+	 * a property, use the following Ages type and call the constructor
+	 * of this class that accepts it as an argument.
+	 */
 	public static enum Ages {
 		FIRST, SECOND, THIRD, FOURTH;
 	}
 	
 	public Ages age;
 	
+	/**
+	 * How long does an Age last? Every time the player accomplishes
+	 * N * AGE_DURATION goals, the current age is incremented.
+	 */
 	private static final int 	AGE_DURATION = 3;
 	
+	/**
+	 * Compares age of this object to age of parameter object.
+	 * @param	The other object.
+	 * @return 	0 if they are equal
+	 *         	1 if age of this object is greater than the age of the parameter object
+	 *         	-1 if age of this object is less than the age of the parameter object
+	 */
 	@Override
 	public int compareTo(Age o) {
-		/* Compares age of this object to age of parameter object.
-		 * Returns 0 if they are equal
-		 *         1 if age of this object is greater than the age of the parameter object
-		 *         -1 if age of this object is less than the age of the parameter object */
 		switch (age) {
 			case FIRST:
 				switch (o.age) {
@@ -78,6 +98,10 @@ public class Age implements AgeInterface {
 			}
 	}
 
+	/**
+	 * Creates an Age object given the number of goals completed.
+	 * @param goalsCompleted	The number of goals completed by the player.
+	 */
 	public Age(int goalsCompleted) {
 		
 		if (goalsCompleted < AGE_DURATION) {
@@ -94,6 +118,10 @@ public class Age implements AgeInterface {
 		}
 	}
 
+	/**
+	 * Creates an Age object given the corresponding Ages enum type.
+	 * @param age	The current Age as an Ages enum variable.
+	 */
 	public Age(Ages age) {
 		
 		switch (age) {
@@ -137,6 +165,9 @@ public class Age implements AgeInterface {
 		return name;
 	}
 
+	/**
+	 * Gets a friendly long description for the Age.
+	 */
 	@Override
 	public String getDescription() {
 		
@@ -162,13 +193,13 @@ public class Age implements AgeInterface {
 
 	@Override
 	public String getImageFile() {
-		// TODO Auto-generated method stub
+		// TODO If you want to add images, in the future.
 		return null;
 	}
 
 	@Override
 	public Vector<Train> getTrains() {
-		// TODO Auto-generated method stub
+		// TODO This should really call the corresponding static method in Generator.
 		return null;
 	}
 	

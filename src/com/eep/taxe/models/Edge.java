@@ -3,6 +3,14 @@ package com.eep.taxe.models;
 import java.awt.Point;
 import java.util.Vector;
 
+/**
+ * This represents an Edge between any two Vertices in the Map.
+ * 
+ * Please note that the edge itself has no directions - there is 
+ * no meaning in the order of the vertices of the edge.
+ * 
+ * Please see the Journey class if you need to specify direction.
+ */
 public class Edge implements EdgeInterface {
 
 	private static final long serialVersionUID = 4282570702049403650L;
@@ -25,7 +33,10 @@ public class Edge implements EdgeInterface {
 	}
 	
 	/**
-	 * Instantiate a new edge, with Vertices and Length
+	 * Instantiate a new edge, with Vertices and Length.
+	 * 
+	 * When instantiated, the Edge adds itself to both of the Vertices.
+	 * 
 	 * @param 	one 	First Vertex
 	 * @param	two		Second Vertex
 	 * @param 	length	Length of the Vertex
@@ -57,32 +68,6 @@ public class Edge implements EdgeInterface {
 	public Vector<Vertex> getVertices() {
 		return this.vertices;
 	}
-	
-	
-	/**
-	 * Gets the starting/source vertex of the edge
-	 * @return Starting vertex
-	 */
-	/*
-	public Vertex getStartingVertex(){
-		if (! this.vertices.isEmpty()){
-			return this.vertices.firstElement();
-		}
-		return null;
-	}*/
-	
-	/**
-	 * Gets the ending/destination vertex of the edge
-	 * @return Ending vertex
-	 */
-	/*
-	public Vertex getEndingVertex(){
-		if (! this.vertices.isEmpty()){
-			return this.vertices.lastElement();
-		}
-		return null;
-	}*/
-
 	
 	/**
 	 * Set the list of vertices of the edge
@@ -161,7 +146,7 @@ public class Edge implements EdgeInterface {
 	}
 
 	/**
-	 * Pritns the name of the stations aroud 
+	 * Prints the name of the stations. Useful for debugging. 
 	 */
 	public void printVerticesNames() {
 		System.out.print("Edge: ");

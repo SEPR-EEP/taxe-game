@@ -8,23 +8,71 @@ import com.eep.taxe.models.Age.Ages;
 import com.eep.taxe.res.Generator;
 import com.eep.taxe.utils.Dijkstra;
 
-
+/**
+ * Represents a Game (match) between any two players.
+ * If you are looking for the main Game entry point, please look at com.eep.taxe.Game.
+ * 
+ * To avoid confusion, you may want to specify the package when referring to this class.
+ * 
+ * This class extends the GameData class and is used as a container for the network
+ * data exchange. This class should instantiated only once in the life of the program.
+ * 
+ * Every time a player sends their move to the server, this object is serialised 
+ * into wibbly wobbly timey wimey binary stuff and sent to the other side of the world,
+ * where the other clients deserialeses it back into a com.eep.taxe.Game object.
+ * 
+ * IMPORTANT. All of the properties contained in this object will be transferred
+ * 		over to the other player. You can use the Java 'transient' keyword to mark
+ * 		something as 'mine and only mine' and it won't be sent to the server.
+ * 		However, you are warned that this data will be immediately discarded once
+ * 		the other player moves and sends back their version of the Game object.
+ * 		Please note that received if you send any object to the server and it gets
+ * 		back to you untouched, it won't be '==' to the object prior to the end
+ * 		of the turn. This is because every time an object is deserialised, 
+ * 		actually a new object is created with the same properties.
+ * 		TLDR; Store everything here.
+ * 
+ * Every object used as a property, sub-property, or sub-sub-property, etc., of this
+ *  object MUST implement the 'Serializable' interface. That means that it should have
+ *  that serialVersionUID that you can see to a random long number, for obscure reasons
+ *  you may want to understand or just ignore and live an happy life.
+ *  Failure to comply with this well hidden comment WILL bring pain and random bugs.
+ *  
+ *  As a secondary note. Everything 
+ */
 public class Game extends com.eep.taxe.GameData implements GameInterface {
 
 	private static final long serialVersionUID = -1630426694034385387L;
 
+	/**
+	 * This enumeration type is used to represent the levels of 
+	 * difficulty in the game. At the time of writing, this isn't really
+	 * used anywhere, but you may want to implemenet it in the future 
+	 * - e.g. make random junction failures more likely in an hard game.
+	 */
 	public static enum Difficulty {
 		EASY, MEDIUM, HARD;
 	}
 	
-	private Player master, slave;
-	private Difficulty difficulty;
+	/*
+	 * Here are all of the properties of the Game that will be serialised
+	 * and sent over to the other player. Remember they all NEED to
+	 * implement the 'Serializable' interface.
+	 */
+	
+	private Player master, slave;		// The two player
+	private Difficulty difficulty;		
 	private String name;
-	private Vector<Vertex> vertices;
+	private Vector<Vertex> vertices;	// The map
 	
 	private int		currentTurn	= 0;
 	private Role	currentRole = Role.SLAVE;
 	
+	/**
+	 * Creates a Game and fills it with some data.
+	 * @param name		The Name of the Game.
+	 * @param d			The Difficulty of the Game.
+	 */
 	public Game(String name, Difficulty d) {
 		this.setName(name);
 		this.setDifficulty(d);
@@ -44,6 +92,14 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 
 	}
 	
+	/**
+	 * This method generates a random train, assigns a random journey to it
+	 * and completes the journey. Doing this way the Player will find a nice and
+	 * non-moving train conveniently placed on the map, that in reality has 
+	 * just finished a long journey.
+	 * 
+	 * @param who		The player to add the train to.
+	 */
 	private void addFirstTrainToPlayer(Player who) {
 
 		//Create a clone of a generated train with a random starting station
@@ -51,9 +107,10 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		Station starting = this.getRandomStation();
 		train.setStationToStartNextGoalAt(starting);
 		
+		// Add the train to the player's trains
 		who.getTrains().add(train);
 		
-		//Get an ending station that is not starting
+		// Get an ending station that is not the starting
 		Station ending;
 		do {
 			ending = this.getRandomStation();
@@ -139,7 +196,11 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 	}
 
 	/**
+	 * This function ends a turn of the game.
 	 * 
+	 * It increments the internal turn counter of the game and, 
+	 * if it is the end of the MASTER player's turn, also call 
+	 * computeEndOfTurn() to calculate scores and do other stuff.
 	 */
 	@Override
 	public void endTurn() {
@@ -153,6 +214,15 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		
 	}
 	
+	/**
+	 * Here all of the End of turn computation is carried away.
+	 * Trains are moved, scores are calculated, random resources
+	 * are generated and what not. 
+	 * 
+	 * Please note that this method is only called every time 
+	 * the MASTER client ends his turns, before sending the data
+	 * back to the SLAVE client.
+	 */
 	private void computeEndOfTurn() {
 		
 
@@ -209,6 +279,15 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		);
 	}
 
+	/**
+	 * Checks if the game has finished yet.
+	 * 
+	 * This has not yet been implemented. A simple 
+	 * implementation would be to check if any of the 
+	 * two players have reached a the final number of 
+	 * accomplished objectives, or whatever other
+	 * condition you may like.
+	 */
 	@Override
 	public Boolean hasFinished() {
 		// TODO Check if the game has ended
@@ -232,6 +311,16 @@ public class Game extends com.eep.taxe.GameData implements GameInterface {
 		this.currentRole = currentRole;
 	}
 	
+	/**
+	 * This methods returns the shortest path between any two vertices on the map.
+	 * 
+	 * It internally uses an optimised version of the Dijkstra's algorithm
+	 * (with priority queues), so you can assume it to be pretty efficient.
+	 * 
+	 * @param from		The starting vertex.
+	 * @param to		The ending vertex.
+	 * @return			A directed path between the vertices (as a list of edges).
+	 */
 	public Path getShortestPath(Vertex from, Vertex to) {
 		Dijkstra d = new Dijkstra(this.getVertices(), from);
 		return d.getShortestPathTo(to);
