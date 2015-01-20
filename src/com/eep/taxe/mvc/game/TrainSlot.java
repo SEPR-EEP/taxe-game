@@ -20,7 +20,7 @@ public class TrainSlot extends JButton{
 	public TrainSlot (final int width, final int height){
 		this.WIDTH = width;
 		this.HEIGHT = height;
-		this.defaultIcon = new ImageIcon(getClass().getResource("/resources/RailroadTracks.jpg"));
+		this.defaultIcon = new ImageIcon(getClass().getResource("/resources/gameview/EmptySlotIconTrains.png"));
 		this.train = null;
 		this.selected = false;
 		this.setPreferredSize(new Dimension(WIDTH/24, WIDTH/24));
