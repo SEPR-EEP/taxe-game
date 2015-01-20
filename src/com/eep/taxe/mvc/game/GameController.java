@@ -43,6 +43,7 @@ import com.eep.taxe.mvc.game.BottomPanel.InventorySlotsListener;
 import com.eep.taxe.mvc.game.BottomPanel.MarketButtonListener;
 import com.eep.taxe.mvc.game.BottomPanel.MenuActionListener;
 import com.eep.taxe.mvc.game.BottomPanel.TrainSlotsListener;
+import com.eep.taxe.mvc.menu.MenuView;
 
 
 
@@ -128,7 +129,10 @@ public class GameController {
 		this.view.addEndTurnButtonActionListener(new EndTurnButtonActionListener());
 		this.view.addMarketButtonActionListener(new MarketButtonActionListener());
 		
-		this.market.addReturnToGameActionListener(new ActionListener(){
+/*		
+ * MARKET, Info dialog and InGameMenu inside buttons listenerss
+ * 
+ * 		this.market.addReturnToGameActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				market.close();
@@ -169,18 +173,20 @@ public class GameController {
 		this.inGameMenu.addHowActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO
+				//TODO open how to play from MenuView
+				
 				
 			}
 		});
 		this.inGameMenu.addQuitActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO
-				
+				//TODO Dispose() screen and open game main menu
+					// Opponent - show message - dispose screen and open main menu		
 			}
 		});
-
+*/
+		
 		final InventorySlotsActionListener a = new InventorySlotsActionListener();
 		this.view.addInventorySlotsActionListener(a);
 		
@@ -296,14 +302,14 @@ public class GameController {
 		}
 	}
 	
-	/* Market
-	 *  dialog 
+	/* 
+	 * Market/Menu buttons action listeners
+	 * Opens Market/In game menu
 	*/
 	private class MarketButtonActionListener implements MarketButtonListener{
 
 		public void actionPerformed (ActionEvent e) {
-						
-			market.open();
+			//	market.open();
 							
 			}
 			
@@ -313,11 +319,12 @@ public class GameController {
 	private class MenuButtonActionListener implements MenuActionListener{
 		@Override
 		public void actionPerformed (ActionEvent e) {
-			inGameMenu.open();
+		//	inGameMenu.open();
 			
 		}
 	}
 	
+
 	private class InventorySlotsActionListener implements InventorySlotsListener{
 
 		@Override
@@ -505,7 +512,7 @@ public class GameController {
 			endTurn();
 			updateView();
 			
-			infoDialog.open();
+			//infoDialog.open();
 			
 		} 
 		
