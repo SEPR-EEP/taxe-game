@@ -18,6 +18,12 @@ import com.eep.taxe.models.Usable;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 
+/**
+ * Custom JPanel which contains the inventory with all it's slots
+ * the train slots for the trains a player owns, the market button
+ * and the menu button. 
+ *
+ */
 public class BottomPanel extends JPanel{
 	private final int WIDTH;
 	private final int HEIGHT;
@@ -37,6 +43,11 @@ public class BottomPanel extends JPanel{
 	private JButton menuButton;
 	
 	
+	/**Constructs the custom JPanle - BottomPanel object providing the WIDTH and HEIGHT
+	 * of the container in which BottomPanel is added
+	 * @param width - the width of the container in which this object will be added
+	 * @param height - the height of the container in which this object will be added
+	 */
 	public BottomPanel(int width, int height){
 		setBorder(null);
 		this.WIDTH = width;
@@ -107,7 +118,9 @@ public class BottomPanel extends JPanel{
 	}
 	
 	// InventorySlot Listeners
-	
+	/**Add action listener to inventory slot
+	 * @param inventoryListener - InventorySlotsLister
+	 */
 	public void addInventorySlotsActionListener(final InventorySlotsListener listener) {
 		inventorySlot1.addActionListener(new ActionListener() {
 			@Override
@@ -141,13 +154,19 @@ public class BottomPanel extends JPanel{
 		});		
 	}
 	
+	/**
+	 * Interface for InventorySlotActionListener
+	 *
+	 */
 	public interface InventorySlotsListener  {
 		public void actionPerformed(ActionEvent e, int slot);
 	}
 	
 	
 	// Train Slots Listeners
-
+	/**Add action listener to train slot
+	 * @param inventoryListener - TrainSlotsLister
+	 */
 	public void addTrainSlotsActionListener(final TrainSlotsListener listener) {
 		trainSlot1.addActionListener(new ActionListener() {
 			@Override
@@ -176,6 +195,10 @@ public class BottomPanel extends JPanel{
 
 	}
 	
+	/**
+	 * Interface for TrainSlotActionListener
+	 *
+	 */
 	public interface TrainSlotsListener  {
 		public void actionPerformed(ActionEvent e, int slot);
 	}
@@ -183,167 +206,299 @@ public class BottomPanel extends JPanel{
 	
 	
 	//Getters and Setters for Inventory Slot 1
+	/**Get item from inventory slot 1
+	 * @return Usable Item
+	 */
 	public Usable getItemInventorySlot1(){
 		return inventorySlot1.getItem();
 	}
 	
+	/**Set item in inventory slot 1
+	 * @param item - Usable Item
+	 */
 	public void setItemInventorySlot1(Usable item){
 		inventorySlot1.setItem(item);
 	}
 	
+	/**Returns weather or not inventory slot 1 is selected
+	 * @return - true if slot is selected
+	 * 			 false if not selected
+	 */
 	public boolean getSelectedInventorySlot1(){
 		return inventorySlot1.getSelected();
 	}
 	
+	/**Set inventory slot 1 selected or not
+	 * @param selected boolean - selected if true
+	 *                           not selected if false
+	 */
 	public void setSelectedInventorySlot1(boolean selected){
 		inventorySlot1.setSelected(selected);
 	}
 	
 	//Getters and Setters for Inventory Slot 2
+	/**Get item from inventory slot 2
+	 * @return Usable Item
+	 */
 	public Usable getItemInventorySlot2(){
 		return inventorySlot2.getItem();
 	}
 	
+	/**Set item in inventory slot 2
+	 * @param item - Usable Item
+	 */
 	public void setItemInventorySlot2(Usable item){
 		inventorySlot2.setItem(item);
 	}
 	
+	/**Returns weather or not inventory slot 2 is selected
+	 * @return - true if slot is selected
+	 * 			 false if not selected
+	 */
 	public boolean getSelectedInventorySlot2(){
 		return inventorySlot2.getSelected();
 	}
 	
+	/**Set inventory slot 2 selected or not
+	 * @param selected boolean - selected if true
+	 *                           not selected if false
+	 */
 	public void setSelectedInventorySlot2(boolean selected){
 		inventorySlot2.setSelected(selected);
 	}
 	
 	//Getters and Setters for Inventory Slot 3
+	/**Get item from inventory slot 3
+	 * @return Usable Item
+	 */
 	public Usable getItemInventorySlot3(){
 		return inventorySlot3.getItem();
 	}
 	
+	/**Set item in inventory slot 3
+	 * @param item - Usable Item
+	 */
 	public void setItemInventorySlot3(Usable item){
 		inventorySlot3.setItem(item);
 	}
 	
+	/**Returns weather or not inventory slot 3 is selected
+	 * @return - true if slot is selected
+	 * 			 false if not selected
+	 */
 	public boolean getSelectedInventorySlot3(){
 		return inventorySlot3.getSelected();
 	}
 	
+	/**Set inventory slot 3 selected or not
+	 * @param selected boolean - selected if true
+	 *                           not selected if false
+	 */
 	public void setSelectedInventorySlot3(boolean selected){
 		inventorySlot3.setSelected(selected);
 	}
 	
 	//Getters and Setters for Inventory Slot 4 
+	/**Get item from inventory slot 4
+	 * @return Usable Item
+	 */
 	public Usable getItemInventorySlot4(){
 		return inventorySlot4.getItem();
 	}
 	
+	/**Set item in inventory slot 4
+	 * @param item - Usable Item
+	 */
 	public void setItemInventorySlot4(Usable item){
 		inventorySlot4.setItem(item);
 	}
 	
+	/**Returns weather or not inventory slot 4 is selected
+	 * @return - true if slot is selected
+	 * 			 false if not selected
+	 */
 	public boolean getSelectedInventorySlot4(){
 		return inventorySlot4.getSelected();
 	}
 	
+	/**Set inventory slot 4 selected or not
+	 * @param selected boolean - selected if true
+	 *                           not selected if false
+	 */
 	public void setSelectedInventorySlot4(boolean selected){
 		inventorySlot4.setSelected(selected);
 	}
 	
 	//Getters and Setters for Inventory Slot 5
+	/**Get item from inventory slot 5
+	 * @return Usable Item
+	 */
 	public Usable getItemInventorySlot5(){
 		return inventorySlot5.getItem();
 	}
 	
+	/**Set item in inventory slot 5
+	 * @param item - Usable Item
+	 */
 	public void setItemInventorySlot5(Usable item){
 		inventorySlot5.setItem(item);
 	}
 	
+	/**Returns weather or not inventory slot 5 is selected
+	 * @return - true if slot is selected
+	 * 			 false if not selected
+	 */
 	public boolean getSelectedInventorySlot5(){
 		return inventorySlot5.getSelected();
 	}
 	
+	/**Set inventory slot 5 selected or not
+	 * @param selected boolean - selected if true
+	 *                           not selected if false
+	 */
 	public void setSelectedInventorySlot5(boolean selected){
 		inventorySlot5.setSelected(selected);
 	}
 	
 	
 	//Getters and Setters for Train Slot 1
+	/**Get train from train slot 1
+	 * @return Train train
+	 */
 	public Train getTrainTrainSlot1(){
 		return trainSlot1.getTrain();
 	}
 	
+	/**Set train in train slot 1
+	 * @param item - Train train
+	 */
 	public void setTrainTrainSlot1(Train train){
 		trainSlot1.setTrain(train);
 	}
 	
+	/**Returns weather or not train slot 1 is selected
+	 * @return - true if slot is selected
+	 * 			 false if not selected
+	 */
 	public boolean getSelectedTrainSlot1(){
 		return trainSlot1.getSelected();
 	}
 	
+	/**Set train slot 1 selected or not
+	 * @param selected boolean - selected if true
+	 *                           not selected if false
+	 */
 	public void setSelectedTrainSlot1(boolean selected){
 		trainSlot1.setSelected(selected);
 	}
 	
 	//Getters and Setters for Train Slot 2
+	/**Get train from train slot 2
+	 * @return Train train
+	 */
 	public Train getTrainTrainSlot2(){
 		return trainSlot2.getTrain();
 	}
 	
+	/**Set train in train slot 2
+	 * @param item - Train train
+	 */
 	public void setTrainTrainSlot2(Train train){
 		trainSlot2.setTrain(train);
 	}
 	
+	/**Returns weather or not train slot 2 is selected
+	 * @return - true if slot is selected
+	 * 			 false if not selected
+	 */
 	public boolean getSelectedTrainSlot2(){
 		return trainSlot2.getSelected();
 	}
 	
+	/**Set train slot 2 selected or not
+	 * @param selected boolean - selected if true
+	 *                           not selected if false
+	 */
 	public void setSelectedTrainSlot2(boolean selected){
 		trainSlot2.setSelected(selected);
 	}
 	
 	//Getters and Setters for Train Slot 3
+	/**Get train from train slot 3
+	 * @return Train train
+	 */
 	public Train getTrainTrainSlot3(){
 		return trainSlot3.getTrain();
 	}
 	
+	/**Set train in train slot 3
+	 * @param item - Train train
+	 */
 	public void setTrainTrainSlot3(Train train){
 		trainSlot3.setTrain(train);
 	}
 	
+	/**Returns weather or not train slot 3 is selected
+	 * @return - true if slot is selected
+	 * 			 false if not selected
+	 */
 	public boolean getSelectedTrainSlot3(){
 		return trainSlot3.getSelected();
 	}
 	
+	/**Set train slot 3 selected or not
+	 * @param selected boolean - selected if true
+	 *                           not selected if false
+	 */
 	public void setSelectedTrainSlot3(boolean selected){
 		trainSlot3.setSelected(selected);
 	}
 	
 	//Getters and Setters for Train Slot 4
+	/**Get train from train slot 4
+	 * @return Train train
+	 */
 	public Train getTrainTrainSlot4(){
 		return trainSlot1.getTrain();
 	}
 	
+	/**Set train in train slot 4
+	 * @param item - Train train
+	 */
 	public void setTrainTrainSlot4(Train train){
 		trainSlot1.setTrain(train);
 	}
 	
+	/**Returns weather or not train slot 4 is selected
+	 * @return - true if slot is selected
+	 * 			 false if not selected
+	 */
 	public boolean getSelectedTrainSlot4(){
 		return trainSlot1.getSelected();
 	}
 	
+	/**Set train slot 4 selected or not
+	 * @param selected boolean - selected if true
+	 *                           not selected if false
+	 */
 	public void setSelectedTrainSlot4(boolean selected){
 		trainSlot1.setSelected(selected);
 	}
 	
 	
 	//Market button Action Listener
+	/**Add action listener to market button
+	 * @param buttonListener
+	 */
 	public void addMarketButtonActionListener(ActionListener buttonListener){
 		marketButton.addActionListener(buttonListener);
 	}
 	
 	
 	//Menu button Action Listener
+	/**Add action listener to market button
+	 * @param buttonListener
+	 */
 	public void addMenuButtonActionListener(ActionListener buttonListener){
 		menuButton.addActionListener(buttonListener);
 	}

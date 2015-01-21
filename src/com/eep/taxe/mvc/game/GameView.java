@@ -537,7 +537,7 @@ public class GameView extends javax.swing.JFrame {
 		
 		
 		//Market button Action Listener
-		/**Add button listener to market button
+		/**Add action listener to market button
 		 * @param buttonListener
 		 */
 		public void addMarketButtonActionListener(ActionListener buttonListener){
@@ -545,7 +545,7 @@ public class GameView extends javax.swing.JFrame {
 		}
 		
 		//Menu button Action Listener
-		/**Add button listener to market button
+		/**Add action listener to market button
 		 * @param buttonListener
 		 */
 		public void addMenuButtonActionListener(ActionListener buttonListener){
