@@ -7,7 +7,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Rectangle;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -19,19 +18,19 @@ import javax.swing.border.LineBorder;
 
 public class InGameMenu extends JDialog {
 
-	private final int WIDTH =450;
-	private final int HEIGHT =450;
+	public final int WIDTH =450;
+	public final int HEIGHT =450;
 	
 	private JButton resume_JButton;
 	private JButton save_JButton;
 	private JButton how_JButton;
 	private JButton quit_JButton;
 	
-	public void open() {
+	public static void main(String[] args) {
 		try {
-			this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			this.setLocation(1300/2-WIDTH/2, 720/2-HEIGHT/2);
-			this.setVisible(true);
+			InGameMenu dialog = new InGameMenu();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -86,7 +85,7 @@ public class InGameMenu extends JDialog {
 					resume_JButton.setBorderPainted(false);
 					resume_JButton.setBackground(Color.BLACK);
 					resume_JButton.setFont(new Font("Sans Serif", Font.BOLD, 11));
-					resume_JButton.setForeground(Color.WHITE);
+					resume_JButton.setForeground(Color.BLACK);
 					
 			// ----------------- SAVE GAME -------------
 					
@@ -99,7 +98,7 @@ public class InGameMenu extends JDialog {
 					save_JButton.setBorderPainted(false);
 					save_JButton.setBackground(Color.BLACK);
 					save_JButton.setFont(new Font("Sans Serif", Font.BOLD, 11));
-					save_JButton.setForeground(Color.WHITE);
+					save_JButton.setForeground(Color.BLACK);
 					
 			// ----------------- HOW TO PLAY -------------
 					
@@ -111,7 +110,7 @@ public class InGameMenu extends JDialog {
 					how_JButton.setBorderPainted(false);
 					how_JButton.setBackground(Color.BLACK);
 					how_JButton.setFont(new Font("Sans Serif", Font.BOLD, 11));
-					how_JButton.setForeground(Color.WHITE);
+					how_JButton.setForeground(Color.BLACK);
 					
 			// ----------------- QUIT -------------
 					
@@ -123,32 +122,9 @@ public class InGameMenu extends JDialog {
 					quit_JButton.setBorderPainted(false);
 					quit_JButton.setBackground(Color.BLACK);
 					quit_JButton.setFont(new Font("Sans Serif", Font.BOLD, 11));
-					quit_JButton.setForeground(Color.WHITE);
+					quit_JButton.setForeground(Color.BLACK);
 					
 		}
-	}
-	
-	public void close (){
-		this.dispose();
-	}
-	
-	
-	public void addResumeActionListener(ActionListener actionListener){
-		resume_JButton.addActionListener(actionListener);
-	}		
-	
-	
-	public void addSaveActionListener(ActionListener actionListener){
-		save_JButton.addActionListener(actionListener);
-	}
-	
-	public void addHowActionListener(ActionListener actionListener){
-		how_JButton.addActionListener(actionListener);
-	}		
-	
-	
-	public void addQuitActionListener(ActionListener actionListener){
-		quit_JButton.addActionListener(actionListener);
 	}
 
 }
