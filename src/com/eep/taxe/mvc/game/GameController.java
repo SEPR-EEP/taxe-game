@@ -113,7 +113,6 @@ public class GameController {
 
 		model.getClient().setOnEnd(new EndListener());
 		//Add all of the Listeners for Events generated in the view
-		this.view.addDetailsButtonActionListener(new DetailsButtonActionListener());
 		this.view.addMenuButtonActionListener(new MenuButtonActionListener());
 		this.view.addEndTurnButtonActionListener(new EndTurnButtonActionListener());
 		//this.view.addMarketButtonActionListener(new MarketButtonActionListener());
@@ -226,19 +225,11 @@ public class GameController {
 		}
 	}
 	
-	private class DetailsButtonActionListener implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-		}
-	}
-	
 	private class MenuButtonActionListener implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			view.mainMapPanel.setVisible(false);
+			view.getGameMenuPanel().setVisible(false);
 			
 		}
 	}
