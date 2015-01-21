@@ -4,6 +4,8 @@
 
 It is a train simulator game that can be played by two players over the Internet.
 
+## [Visit our website](http://sepr-eep.github.io/)
+
 ## Run the game
 
 You can run the Game on virtually any PC with the Java Runtime Environment version 7 or higher. You can download the JRE for free at [java.com](http://java.com). The game has been tested to work on the Windows and Linux PCs at the Department of Computer Science, University of York.
