@@ -2,6 +2,20 @@ package com.eep.taxe.models;
 
 import com.eep.taxe.models.Age.Ages;
 
+/**
+ * This class represents a Train. This could either be in the map
+ * or still in the player's trains collection.
+ * 
+ * A train has a model/name, a cost in gold and metal,
+ * an age and a base speed.
+ * 
+ * To place the train on the map, create a new Journey
+ * for this train. The Journey will automatically
+ * add itself to the train instance of creation.
+ * 
+ * 
+ *
+ */
 public class Train implements TrainInterface, Cloneable {
 
 	private static final long serialVersionUID = 1L;
@@ -16,8 +30,10 @@ public class Train implements TrainInterface, Cloneable {
 	private Journey journey;
 	
 	private Station stationToStartNextGoalAt; // The station the train will start its next goal from
+	
 	/**
-	 * Instantiates a Train
+	 * Creates a new train (not placed on the map).
+	 * 
 	 * @param	model		Model name of the train
 	 * @param	trainImage	Image icon for the train
 	 * @param	costInGold	Cost in gold to buy the train
@@ -151,6 +167,11 @@ public class Train implements TrainInterface, Cloneable {
 		return false;
 	}
 	
+	/**
+	 * If the train is placed on the map and is moving,
+	 * move it forward by one turn. This method is calling
+	 * by the computeEndOfTurn method in the Game class.
+	 */
 	@Override
 	public void moveForward() {
 		
@@ -166,6 +187,14 @@ public class Train implements TrainInterface, Cloneable {
 		return actualSpeed;
 	}
 
+	/**
+	 * Creates a clone of this train. This method is used when generating a new
+	 * train as it needs to be a different one from the one in the store
+	 * (otherwise you would place on the map the store's train and, in the worst
+	 * case scenario, if another player buys the same train, share the train with
+	 * your opponent).
+	 * @return		A clone of the current instance.
+	 */
 	public Train clone() {
 		try {
 			return (Train) super.clone();

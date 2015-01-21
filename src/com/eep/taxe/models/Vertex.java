@@ -4,7 +4,8 @@ import java.util.Vector;
 
 /**
  * Represents an abstract Vertex on the map graph.
- * Concrete implementations of a Vertex are Stations and Junctions.
+ * This class can't be instantiated.
+ * Sub classes are Stations and Junctions.
  */
 public abstract class Vertex implements VertexInterface {
 	

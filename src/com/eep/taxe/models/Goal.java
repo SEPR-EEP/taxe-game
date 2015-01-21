@@ -1,10 +1,21 @@
 package com.eep.taxe.models;
 
-import java.util.Vector;
 
 import com.eep.taxe.models.Age.Ages;
-import com.eep.taxe.utils.Dijkstra;
 
+/**
+ * This class represents one of the Goals a Player needs to accomplish
+ * to be rewarded points. A Goal has a starting and an ending station.
+ * 
+ * Some methods are defined, such as:
+ *  - Calculate what is the optimal number of turns the goal
+ *  	 	could be accomplished in (for scoring purposes);
+ *  - Check if the a Goal can be accomplished by a Player
+ *  		(to avoid generating impossible goals);
+ *  - Check if a Journey could accomplish or has already
+ *  		accomplished a given goal.
+ *  
+ */
 public class Goal implements GoalInterface {
 
 	private static final long serialVersionUID = 8933787860452341781L;
@@ -15,6 +26,14 @@ public class Goal implements GoalInterface {
 	private Station startingStation;
 	private Station endingStation;
 	
+	/**
+	 * Build a Goal
+	 * @param age				The Age when the Goal is generated.
+	 * @param shortDescription	A short description of the Goal (e.g. "Travel from X to Y");
+	 * @param longDescription	A longer description of the Goal (currently not used)
+	 * @param startingStation	The starting station to accomplish the goal
+	 * @param endingStation		The ending station to accomplish the goal
+	 */
 	public Goal(Ages age, String shortDescription, String longDescription, 
 			Station startingStation, Station endingStation){
 		this.age = age;
@@ -116,10 +135,13 @@ public class Goal implements GoalInterface {
 	}
 	
 	
-	/** Check if Player can accomplish the Goal */
+	/** 
+	 * Check if Player can accomplish the Goal
+	 * @param p 		The Player
+	 */
 	@Override
 	public Boolean canBeAccomplishedBy(Player p) {
-		// TODO Auto-generated method stub
+		// TODO ATM all goals can be accomplished and this method is not used.
 		return null;
 	}
 

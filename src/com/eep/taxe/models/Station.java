@@ -1,5 +1,13 @@
 package com.eep.taxe.models;
 
+/**
+ * This class represents a Station on the map.
+ * This is a subclass of Vertex and can be used in all
+ * those context where a Station is explicitly required.
+ * 
+ * It define a method to get and set the name of the station.
+ *
+ */
 public class Station extends Vertex implements StationInterface {
 
 	private static final long serialVersionUID = -8649295820110021862L;
@@ -39,6 +47,7 @@ public class Station extends Vertex implements StationInterface {
 	
 	/**
 	 * Prints adjacent stations (and routes)
+	 * Useful for debugging purposes.
 	 */
 	public void printAdjacentStations() {
 		

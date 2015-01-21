@@ -1,7 +1,6 @@
 package com.eep.taxe.models;
 
 import java.io.Serializable;
-import java.util.Vector;
 
 public interface GoalInterface extends AgeRelatedInterface, Serializable {
 

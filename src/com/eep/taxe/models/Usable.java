@@ -1,6 +1,17 @@
 package com.eep.taxe.models;
 import com.eep.taxe.models.Age.Ages;
 
+/**
+ * This represents a generic usable resource.
+ * This class can't be instantiated. 
+ * 
+ * It defines method to get and set the cost of the usable
+ * expressed in quantities of gold and metal.
+ * 
+ * Sub classes are:
+ * 	- TrainSpeedModifier
+ *
+ */
 @SuppressWarnings("serial")
 public abstract class Usable extends Resource implements UsableInterface{
 	

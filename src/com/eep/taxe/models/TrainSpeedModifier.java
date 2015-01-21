@@ -1,6 +1,14 @@
 package com.eep.taxe.models;
 import com.eep.taxe.models.Age.Ages;
 
+/**
+ * This class represents a Speed Modifier. It is an usable resource
+ * that can be used to make a train go either faster or slower.
+ * 
+ * The speed factor is multiplied by the speed of the train.
+ * 
+ *
+ */
 public class TrainSpeedModifier extends Usable implements TrainSpeedModifierInterface {
 
 	private static final long serialVersionUID = -2301374994280460917L;

@@ -3,6 +3,29 @@ package com.eep.taxe.models;
 import java.io.Serializable;
 import java.util.Vector;
 
+/**
+ * This class represents a Path between any two vertices.
+ * It is internally represented as a list of edges.
+ * 
+ * You can build a path in two ways:
+ *  - Adding edge-by-edge (Path.add(Edge)), or
+ *  - Adding vertex-by-vertex (Path.add(Vertex)).
+ *  
+ * Both ways will internally store the Path as a list of
+ * edges. When possible, always use the Vertex-by-Vertex method.
+ * This is because when a path is built edge-by-edge, confusion
+ * may arise: as the Edges have no intrinsic direction, if the
+ * path is composed of a single edge, it is impossible to determine
+ * the starting and the ending vertex of that edge, therefore
+ * of the whole path.
+ * 
+ * Methods are defined to:
+ *  - Get the ordered list of vertices in a path;
+ *  - Check if a given edge is contained;
+ *  - Check the total length;
+ *  - Get the starting and ending vertices (if possible);
+ *  
+ */
 public class Path extends Vector<Edge> implements Serializable {
 	
 	private static final long serialVersionUID = 7893406019421382154L;
@@ -11,7 +34,9 @@ public class Path extends Vector<Edge> implements Serializable {
 	private Station endingStation;
 	private Vertex currentLastVertex = null;
 	
-	
+	/**
+	 * Instantiates an empty path.
+	 */
 	public Path() {
 		// Main constructor
 		// ... does nothing.
@@ -19,7 +44,13 @@ public class Path extends Vector<Edge> implements Serializable {
 
 	/**
 	 * ALTERNATIVE CONSTRUCTOR
-	 * Create given a shortest path and a starting point
+	 * This constructor can be used if you have a path that has been built
+	 * edge-by-edge (therefore without any direction information) and, given
+	 * a starting vertex, you want to rebuild it. 
+	 * 
+	 * @param otherPath			A Path object built edge-by-edge
+	 * @param startingPoint		The starting vertex of the Path. This MUST be a vertex
+	 * 							contained in the first Edge of 'otherPath'.
 	 */
 	public Path(Path otherPath, Vertex startingPoint) {
 		for ( Vertex v: otherPath.getVerticesInOrder(startingPoint) ) {

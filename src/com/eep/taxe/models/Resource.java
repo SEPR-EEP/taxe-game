@@ -1,5 +1,15 @@
 package com.eep.taxe.models;
 
+/**
+ * Represents a generic resource of the game.
+ * 
+ * This is an abstract class and can't be instantiated.
+ * Sub classes are Usable resources and Spendable resources.
+ * 
+ * It contains generic methods to get the name and the image
+ * of a resource.
+ */
+@SuppressWarnings("serial")
 public abstract class Resource implements ResourceInterface {
 	
 	private String name;

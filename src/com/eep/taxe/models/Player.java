@@ -5,6 +5,23 @@ import java.util.Vector;
 
 import com.eep.taxe.res.Generator;
 
+/**
+ * This class represents a single player in the Game.
+ * It is used as a container for data exchange with the server
+ * for all of the information related to a single player.
+ * 
+ * This is the place where you should store everything that
+ * has to do with a player.
+ * 
+ * It contains everything in possession of a player:
+ * 	- The goals to complete
+ *  - The usable resources
+ *  - The spendable resources (gold and metal)
+ *  - The current score
+ *  
+ *  
+ *
+ */
 public class Player implements PlayerInterface {
 
 	private static final long serialVersionUID = 3534438349877377215L;
@@ -23,6 +40,9 @@ public class Player implements PlayerInterface {
 	
 	private final int 			MAX_USABLES = 5;
 	
+	/**
+	 * Instantiates a new empty player object.
+	 */
 	public Player() {
 		this.gold  = new Gold();
 		this.metal = new Metal();
@@ -96,11 +116,23 @@ public class Player implements PlayerInterface {
 		return this.inventory;
 	}
 
+	/**
+	 * Checks if the player already has a given Usable in their inventory.
+	 * @param resource		The resource to check
+	 * @return				True if it is in the player inventory, false otherwise.
+	 */
 	@Override
 	public boolean hasResource(Usable resource) {
 		return this.inventory.contains(resource);
 	}
 
+	/**
+	 * Checks if the player has enough spendable resources to buy a given usable resource. 
+	 * NOTE: This does not check if there are too many elements in the inventory.
+	 * @param 	resource		The Resource to check.
+	 * @resource				True if the player has enough gold and metal to buy the resource,
+	 * 							false otherwise.
+	 */
 	@Override
 	public boolean canBuy(Usable resource) {
 		return (
@@ -109,6 +141,12 @@ public class Player implements PlayerInterface {
 		);
 	}
 
+	/**
+	 * Checks if the user can buy a resource. If yes, decrements the player's
+	 * gold and metal by the cost of the resource, and finally adds the resource
+	 * to the player's inventory.
+	 * @param	Usable 		The resource to buy.
+	 */
 	@Override
 	public void buy(Usable resource) {
 		if ( !this.canBuy(resource) )
@@ -200,9 +238,12 @@ public class Player implements PlayerInterface {
 	}
 
 	/**
-	 * Cashes in the goals that have been accomplished
-	 * @param game
-	 * @return	The number of goals accomplished
+	 * Cashes in the goals that have been accomplished.
+	 * Checks if any goal has been accomplished. If yes,
+	 * calculate the score (not yet implemented). Finally,
+	 * returns the number of goals that have been accomplished.
+	 * @param game		The game instance
+	 * @return			The number of goals accomplished
 	 */
 	public int cashInCompletedGoals(Game game){
 		int r = 0;
@@ -244,6 +285,12 @@ public class Player implements PlayerInterface {
 		return this.currentGoals;
 	}
 	
+	/**
+	 * If there is space for a new goal, generate a new one for a train
+	 * in a given game.
+	 * @param train		The train
+	 * @param game		The game instance
+	 */
 	@Override
 	public void generateGoal(Train train, Game game) {
 		
@@ -254,6 +301,13 @@ public class Player implements PlayerInterface {
 		
 	}
 	
+	/**
+	 * If there is space for a new goal, generate a new one for a train
+	 * in a given game. The generated goal will start at the station where
+	 * the train is currently placed.
+	 * @param train		The train
+	 * @param game		The game instance
+	 */
 	public void generateGoalToStartAtCurrentStation(Train train, Game game){
 		//If trains journey is completed or max goal not yet reached add a new goal
 		if (train.getJourney().isJourneyComplete() && this.currentGoalsNo() < 3){
@@ -263,6 +317,10 @@ public class Player implements PlayerInterface {
 		}
 	}
 
+	/**
+	 * Checks if a player can accomplish a goal or not.
+	 * @return	True if the goal can be accomplished. False otherwise.
+	 */
 	@Override
 	public boolean canAccomplish(Goal goal) {
 		return goal.canBeAccomplishedBy(this);
