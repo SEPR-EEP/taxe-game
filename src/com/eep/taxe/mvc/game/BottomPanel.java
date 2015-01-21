@@ -19,7 +19,6 @@ import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 
 public class BottomPanel extends JPanel{
-	
 	private final int WIDTH;
 	private final int HEIGHT;
 
@@ -37,12 +36,6 @@ public class BottomPanel extends JPanel{
 	private JButton marketButton;
 	private JButton menuButton;
 	
-	// ---------------------- BOTTOM PANEL CONSTRUCTOR -------------------------------
-	
-	/** Bottom panel constructor 
-	 * @param width - from GameView 
-	 * @param height - from GameView
-	 */
 	
 	public BottomPanel(int width, int height){
 		setBorder(null);
@@ -55,8 +48,7 @@ public class BottomPanel extends JPanel{
 		this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		this.setPreferredSize(new Dimension(WIDTH, WIDTH/16));
 		
-			// --------------- Inventory Panel --------------------
-		
+				
 			JPanel inventoryPanel = new JPanel();
 			inventoryPanel.setBackground(new Color(211, 211, 211, 150));
 			inventoryPanel.setBorder(new TitledBorder(new MatteBorder(2, 2, 0, 2, (Color) new Color(0, 0, 0)), "Inventory", TitledBorder.CENTER, TitledBorder.TOP, new Font(Font.SANS_SERIF,Font.BOLD,12), Color.BLACK));
@@ -75,9 +67,6 @@ public class BottomPanel extends JPanel{
 				inventoryPanel.add(inventorySlot4);
 				inventoryPanel.add(inventorySlot5);
 				
-				
-			// --------------- Train Panel -------------------	
-				
 			JPanel trainPanel = new JPanel();
 			trainPanel.setPreferredSize(new Dimension(WIDTH/3 , WIDTH/16));
 			trainPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 35, 0));
@@ -94,15 +83,11 @@ public class BottomPanel extends JPanel{
 				trainPanel.add(trainSlot3);
 				trainPanel.add(trainSlot4);
 				
-			// --------------- Market button -------------------	
-				
 			marketButton = new JButton();
-			marketButton.setIcon(new ImageIcon(getClass().getResource("/resources/gameview/Market.png")));
+			marketButton.setIcon(new ImageIcon("DefaultMarketIcon"));
 			marketButton.setPreferredSize(new Dimension(WIDTH/20, WIDTH/20));
 			marketButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
 			marketButton.setContentAreaFilled(false);
-			
-			// --------------- Menu button -------------------
 			
 			menuButton = new JButton();
 			menuButton.setText("Menu");
@@ -119,13 +104,9 @@ public class BottomPanel extends JPanel{
 		this.add(Box.createRigidArea(new Dimension(WIDTH/20, WIDTH/16)));
 		this.add(menuButton);
 		this.add(Box.createRigidArea(new Dimension(WIDTH/32, WIDTH/16)));
-		
 	}
 	
-	
-	
-	
-	// ------------------------ INVENTORY SLOTS LISTENERS ----------------------------
+	// InventorySlot Listeners
 	
 	public void addInventorySlotsActionListener(final InventorySlotsListener listener) {
 		inventorySlot1.addActionListener(new ActionListener() {
@@ -165,8 +146,7 @@ public class BottomPanel extends JPanel{
 	}
 	
 	
-	
-	//--------------------------- TRAIN SLOTS LISTENERS ------------------------------
+	// Train Slots Listeners
 
 	public void addTrainSlotsActionListener(final TrainSlotsListener listener) {
 		trainSlot1.addActionListener(new ActionListener() {
@@ -200,11 +180,9 @@ public class BottomPanel extends JPanel{
 		public void actionPerformed(ActionEvent e, int slot);
 	}
 	
-	//-------------------------------------------------------------------------------
 	
 	
-	// ------------------ SETTERS AND GETTERS FOR INVENTORY SLOT 1 -------------------
-
+	//Getters and Setters for Inventory Slot 1
 	public Usable getItemInventorySlot1(){
 		return inventorySlot1.getItem();
 	}
@@ -221,9 +199,7 @@ public class BottomPanel extends JPanel{
 		inventorySlot1.setSelected(selected);
 	}
 	
-	
-	// ------------------ SETTERS AND GETTERS FOR INVENTORY SLOT 2 -------------------
-
+	//Getters and Setters for Inventory Slot 2
 	public Usable getItemInventorySlot2(){
 		return inventorySlot2.getItem();
 	}
@@ -240,10 +216,7 @@ public class BottomPanel extends JPanel{
 		inventorySlot2.setSelected(selected);
 	}
 	
-	
-	
-	// ------------------ SETTERS AND GETTERS FOR INVENTORY SLOT 3 -------------------
-
+	//Getters and Setters for Inventory Slot 3
 	public Usable getItemInventorySlot3(){
 		return inventorySlot3.getItem();
 	}
@@ -260,10 +233,7 @@ public class BottomPanel extends JPanel{
 		inventorySlot3.setSelected(selected);
 	}
 	
-	
-	
-	// ------------------ SETTERS AND GETTERS FOR INVENTORY SLOT 4 -------------------
-
+	//Getters and Setters for Inventory Slot 4 
 	public Usable getItemInventorySlot4(){
 		return inventorySlot4.getItem();
 	}
@@ -280,10 +250,7 @@ public class BottomPanel extends JPanel{
 		inventorySlot4.setSelected(selected);
 	}
 	
-	
-	
-	// ------------------ SETTERS AND GETTERS FOR INVENTORY SLOT 5 -------------------
-
+	//Getters and Setters for Inventory Slot 5
 	public Usable getItemInventorySlot5(){
 		return inventorySlot5.getItem();
 	}
@@ -301,11 +268,7 @@ public class BottomPanel extends JPanel{
 	}
 	
 	
-	//-------------------------------------------------------------------------------
-	
-	
-	// ------------------ SETTERS AND GETTERS FOR TRAIN SLOT 1 ----------------------
-
+	//Getters and Setters for Train Slot 1
 	public Train getTrainTrainSlot1(){
 		return trainSlot1.getTrain();
 	}
@@ -322,10 +285,7 @@ public class BottomPanel extends JPanel{
 		trainSlot1.setSelected(selected);
 	}
 	
-	
-	
-	// ------------------ SETTERS AND GETTERS FOR TRAIN SLOT 2 -------------------
-
+	//Getters and Setters for Train Slot 2
 	public Train getTrainTrainSlot2(){
 		return trainSlot2.getTrain();
 	}
@@ -342,10 +302,7 @@ public class BottomPanel extends JPanel{
 		trainSlot2.setSelected(selected);
 	}
 	
-	
-	
-	// ------------------ SETTERS AND GETTERS FOR TRAIN SLOT 3 -------------------
-
+	//Getters and Setters for Train Slot 3
 	public Train getTrainTrainSlot3(){
 		return trainSlot3.getTrain();
 	}
@@ -362,10 +319,7 @@ public class BottomPanel extends JPanel{
 		trainSlot3.setSelected(selected);
 	}
 	
-	
-	
-	// ------------------ SETTERS AND GETTERS FOR TRAIN SLOT 4 -------------------
-
+	//Getters and Setters for Train Slot 4
 	public Train getTrainTrainSlot4(){
 		return trainSlot1.getTrain();
 	}
@@ -383,17 +337,13 @@ public class BottomPanel extends JPanel{
 	}
 	
 	
-	//----------------------------------------------------------------------------
-	
-	
-	// ------------------ MARKET BUTTON LISTENER ---------------------------------
-
+	//Market button Action Listener
 	public void addMarketButtonActionListener(ActionListener buttonListener){
 		marketButton.addActionListener(buttonListener);
 	}
 	
-	// --------------------- MENU BUTTON LISTENER ------------------------------
-
+	
+	//Menu button Action Listener
 	public void addMenuButtonActionListener(ActionListener buttonListener){
 		menuButton.addActionListener(buttonListener);
 	}
